@@ -1,0 +1,8 @@
+[submodule "client"]
+	path = client
+	url = https://github.com/colombbus/declick-client-v2.git
+	branch = offline
+[submodule "ui"]
+	path = ui
+	url = https://github.com/colombbus/declick-ui.git
+	branch = offline
