@@ -1,0 +1,80 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <title>TODO supply a title</title>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <style>
+            body {
+                background-color:#000000;
+            }
+            #map {
+                width:100%;
+                height:100%;
+                background-color:#46102A;
+                margin-right:auto;
+                margin-left:auto;
+                display:none;
+            }
+            #text {
+                color:#FFFFFF;
+            }
+        </style>
+        <script type="text/javascript" src="../lib/jquery-2.2.0.min.js"></script>
+        <script type="text/javascript" src="../lib/jquery.mousewheel.min.js"></script>
+        <script type="text/javascript" src="../lib/paper-full.js"></script>
+        <script type="text/javascript" src="../src/map.js"></script>
+        <script>
+            var map;
+            $(function(){
+                map = new DeclickMap();
+                map.init("map", "robot.svg", function(index) {
+                    $("#text").text("Ouverture de l'item n°" + index);
+                }, function () {
+                    // Load path
+                    map.loadPathFromJSON("path.json", function() {
+                        // Load steps
+                        // Option 1 from JSON file
+                        map.loadStepsFromJSON("steps.json", function() {
+                            // Set current step
+                            map.setCurrentStep(6);
+                        });
+                        // Option 2 from JS Object
+                        /*
+                         * $.getJSON("steps.json", function(pathData) {
+                         *      map.loadSteps(pathData);
+                         *      map.setCurrentStep(6);
+                         * });
+                         */
+                    });
+                });
+            });
+            
+            var passed = false;
+            function updateState() {
+                map.updateState([{id:1, passed:passed}]);
+                passed = !passed;
+            }
+            
+            var current = 7;
+            function updateCurrent() {
+                map.setCurrentStep(current, true);
+                current++;
+            }
+            
+            function show() {
+                $("#map").show();
+                map.update();
+            }
+            
+        </script>
+        
+    </head>
+    <body>
+        <canvas id="map"></canvas>
+        <button onclick="updateState()">Mise à jour étape 1</button>
+        <button onclick="updateCurrent()">Mise à jour étape courante</button>
+        <div id="text"></div>
+        <button onclick="show()">Apparaître</button>
+    </body>
+</html>
