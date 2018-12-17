@@ -47,6 +47,8 @@
   },
   "dependencies": {
     "acorn": "^5.7.1",
-    "js-interpreter": "^1.4.6"
+    "js-interpreter": "^1.4.6",
+    "matter-js": "^0.14.2",
+    "pixi.js": "^4.8.3"
   }
 }
