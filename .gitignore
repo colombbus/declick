@@ -1,2 +1,9 @@
 .vscode/
 client/ui/src/assets/config/declick.js
+client/object/node_modules
+client/offline/node_modules
+client/runtime/node_modules
+client/ui/node_modules
+client/ui/yarn-error.log
+server/vendor
+server/.env
