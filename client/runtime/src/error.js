@@ -2,6 +2,6 @@
 
 export default class {
   constructor(e) {
-    this._message = e.toString();
+    this._message = e.toString()
   }
-};
+}

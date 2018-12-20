@@ -8,9 +8,10 @@ Vue.use(VueI18n)
 
 const locales = detectUserLocales()
 const defaultLocale = 'en'
-const selectedLocale = locales.find(locale => locale in messages) || defaultLocale
+const selectedLocale =
+  locales.find(locale => locale in messages) || defaultLocale
 
 export default new VueI18n({
-	locale: selectedLocale,
-	messages,
+  locale: selectedLocale,
+  messages,
 })

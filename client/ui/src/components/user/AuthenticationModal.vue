@@ -50,7 +50,7 @@ transition(name='modal')
 </template>
 
 <script>
-import 'font-awesome/css/font-awesome.css'
+import '@fortawesome/fontawesome-free/css/fontawesome.css'
 
 import RegistrationForm from './RegistrationForm'
 

@@ -13,12 +13,11 @@ export default new Vuex.Store({
     currentCourse: null,
     currentCourseResults: null,
     currentAssessment: null,
-    executeProject: null
+    executeProject: null,
   },
   mutations,
-  actions
+  actions,
 })
-
 
 /*
 - token
