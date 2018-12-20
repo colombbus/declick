@@ -2,56 +2,69 @@ import Vue from 'vue'
 // import VueResource from 'vue-resource'
 import axios from 'axios'
 // TODO: Update this file to use axios.
-import config from '@/config'
+import config from '@/assets/config/declick'
 
 // Vue.use(VueResource)
 
 export default {
   // tokens methods
   async createToken (username, password) {
-    let endpoint = `${config.apiUrl}v1/login`
-    let {body: {token}} = await Vue.http.post(endpoint, {username, password})
-    return token
+    
+    let url = `${config.apiUrl}login`;
+
+    let {data:{token}} = await axios({
+      method: 'post',
+      url,
+      data: {
+        username,
+        password
+      }
+    });
+
+    return token;
   },
   async destroyToken (token) {
-    let endpoint = `${config.apiUrl}v1/logout`
-    await Vue.http.post(endpoint, {}, {headers: {Authorization: 'Token ' + token}})
+    let url = `${config.apiUrl}logout`
+
+    await axios({url,headers:{Authorization:'Token ' + token}})
   },
 
   // users methods
   async createUser ({username, email, password}) {
-    let endpoint = `${config.apiUrl}v1/users`
-    await Vue.http.post(endpoint, {username, email, password})
+    let url = `${config.apiUrl}users`
+    
+    await axios({url,data:{username, email, password}})
   },
-  async updateUser (id, data, token) {
-    let endpoint = `${config.apiUrl}v1/users/${id}`
+  async updateUser (id, user, token) {
+    let url = `${config.apiUrl}users/${id}`;
     let body = {
-      email: data.email,
-      id_admin: data.isAdmin,
-      default_project_id: data.defaultProjectId,
-      current_project_id: data.currentProjectId
-    }
-    let {body: user} = await Vue.http.patch(
-      endpoint,
-      body,
-      {headers: {Authorization: 'Token ' + token}}
-    )
-    return {
-      id: user.id,
-      username: user.username,
       email: user.email,
-      isAdmin: user.is_admin,
-      defaultProjectId: user.default_project_id,
-      currentProjectId: user.current_project_id
+      id_admin: user.isAdmin,
+      default_project_id: user.defaultProjectId,
+      current_project_id: user.currentProjectId
+    }
+
+    let {data} = await axios({method: 'patch',url, data:body, headers: {Authorization: 'Token ' + token}})
+
+    return {
+      id: data.id,
+      username: data.username,
+      email: data.email,
+      isAdmin: data.is_admin,
+      defaultProjectId: data.default_project_id,
+      currentProjectId: data.current_project_id
     }
   },
   async getUsersByPage (page, filter) {
-    let endpoint = `${config.apiUrl}v1/users?page=${page}`
+    let url = `${config.apiUrl}users?page=${page}`;
+
     if (filter && filter !== '') {
-      endpoint += `&search=${filter}`
+      url += `&search=${filter}`
     }
-    let {body: result} = await Vue.http.get(endpoint)
-    let users = result.data.map(user => {
+      
+    let {data} = await axios({method: 'get',url})
+    
+    let users = data.data.map(user => {
       return {
         id: user.id,
         username: user.username,
@@ -61,127 +74,142 @@ export default {
         currentProjectId: user.current_project_id
       }
     })
+
     return {
       items: users,
-      currentPage: result.current_page,
-      lastPage: result.last_page
+      currentPage: data.current_page,
+      lastPage: data.last_page
     }
   },
   async getUser (id) {
-    let endpoint = `${config.apiUrl}v1/users/${id}`
-    let {body: user} = await Vue.http.get(endpoint)
+    let url = `${config.apiUrl}users/${id}`
+    let {data} = await axios({url})
     return {
-      id: user.id,
-      username: user.username,
-      email: user.email,
-      defaultProjectId: user.default_project_id,
-      currentProjectId: user.current_project_id,
-      isAdmin: user.is_admin
+      id: data.id,
+      username: data.username,
+      email: data.email,
+      defaultProjectId: data.default_project_id,
+      currentProjectId: data.current_project_id,
+      isAdmin: data.is_admin
     }
   },
   async getUserByToken (token) {
-    let endpoint = `${config.apiUrl}v1/users/me`
-    let {body: user} = await Vue.http.get(
-      endpoint,
-      {headers: {Authorization: 'Token ' + token}}
-    )
+    let url = `${config.apiUrl}users/me`
+    // headersToken = 'Authorization: Token ' + token;
+    
+    let {data} = await axios({ 
+      method: 'get',
+      url,
+      headers:{
+        Authorization:'Token ' + token
+      }
+    })
+    
     return {
-      id: user.id,
-      username: user.username,
-      email: user.email,
-      defaultProjectId: user.default_project_id,
-      currentProjectId: user.current_project_id,
-      isAdmin: user.is_admin
+      id: data.id,
+      username: data.username,
+      email: data.email,
+      defaultProjectId: data.default_project_id,
+      currentProjectId: data.current_project_id,
+      isAdmin: data.is_admin
     }
   },
 
   // projects methods
-  async createProject (data, token) {
-    let endpoint = `${config.apiUrl}v1/projects`
+  async createProject (user, token) {
+    let url = `${config.apiUrl}projects`
     let body = {
-      name: data.name,
-      is_public: data.isPublic,
-      scene_width: data.sceneWidth,
-      scene_height: data.sceneHeight,
-      description: data.description,
-      instructions: data.instructions
+      name: user.name,
+      is_public: user.isPublic,
+      scene_width: user.sceneWidth,
+      scene_height: user.sceneHeight,
+      description: user.description,
+      instructions: user.instructions
     }
-    let {body: project} = await Vue.http.post(
-      endpoint,
-      body,
-      {headers: {Authorization: 'Token ' + token}}
-    )
+    let {data} = await axios({
+      method:"post",
+      url,
+      data:body,
+      headers: {Authorization: 'Token ' + token}
+    });
+
     return {
-      id: project.id,
-      name: (project.name === '' && project.is_default)
+      id: data.id,
+      name: (data.name === '' && data.is_default)
         ? 'Mon projet'
-        : project.name,
-      isPublic: project.is_public,
-      isDefault: project.is_default,
-      sceneWidth: project.scene_width,
-      sceneHeight: project.scene_height,
-      description: project.description,
-      instructions: project.instructions,
-      mainProgramId: project.main_program_id
-    }
-  },
-  async updateProject (id, data, token) {
-    let endpoint = `${config.apiUrl}v1/projects/${id}`
-    let body = {
-      name: data.name,
-      is_public: data.isPublic,
-      scene_width: data.sceneWidth,
-      scene_height: data.sceneHeight,
+        : data.name,
+      isPublic: data.is_public,
+      isDefault: data.is_default,
+      sceneWidth: data.scene_width,
+      sceneHeight: data.scene_height,
       description: data.description,
       instructions: data.instructions,
-      main_program_id: data.mainProgramId
+      mainProgramId: data.main_program_id
     }
-    let {body: project} = await Vue.http.patch(
-      endpoint,
-      body,
-      {headers: {Authorization: 'Token ' + token}}
-    )
-    return {
-      id: project.id,
-      name: (project.name === '' && project.is_default)
-        ? 'Mon projet'
-        : project.name,
-      isPublic: project.is_public,
-      isDefault: project.is_default,
-      sceneWidth: project.scene_width,
-      sceneHeight: project.scene_height,
+  },
+  async updateProject (id, project, token) {
+    let url = `${config.apiUrl}projects/${id}`;
+    let body = {
+      name: project.name,
+      is_public: project.isPublic,
+      scene_width: project.sceneWidth,
+      scene_height: project.sceneHeight,
       description: project.description,
       instructions: project.instructions,
-      mainProgramId: project.main_program_id
+      main_program_id: project.mainProgramId
+    }
+    let {data} = await axios({
+      method:"patch",
+      url,
+      data:body,
+      headers: {Authorization: 'Token ' + token}
+    })
+    return {
+      id: data.id,
+      name: (data.name === '' && data.is_default)
+        ? 'Mon projet'
+        : data.name,
+      isPublic: data.is_public,
+      isDefault: data.is_default,
+      sceneWidth: data.scene_width,
+      sceneHeight: data.scene_height,
+      description: data.description,
+      instructions: data.instructions,
+      mainProgramId: data.main_program_id
     }
   },
   async getProject (id, token) {
-    let endpoint = `${config.apiUrl}v1/projects/${id}`
-    let {body: project} = await Vue.http.get(
-      endpoint,
-      {headers: {Authorization: 'Token ' + token}}
-    )
+    let url = `${config.apiUrl}projects/${id}`
+    
+    let {data} = await axios({
+      method:"get",
+      url,
+      headers: {Authorization: 'Token ' + token}
+    })
+
     return {
-      id: project.id,
-      name: (project.name === '' && project.is_default)
+      id: data.id,
+      name: (data.name === '' && data.is_default)
         ? 'Mon projet'
-        : project.name,
-      isPublic: project.is_public,
-      isDefault: project.is_default,
-      sceneWidth: project.scene_width,
-      sceneHeight: project.scene_height,
-      description: project.description,
-      instructions: project.instructions,
-      mainProgramId: project.main_program_id
+        : data.name,
+      isPublic: data.is_public,
+      isDefault: data.is_default,
+      sceneWidth: data.scene_width,
+      sceneHeight: data.scene_height,
+      description: data.description,
+      instructions: data.instructions,
+      mainProgramId: data.main_program_id
     }
   },
   async getAllUserProjects (id, token) {
-    let endpoint = `${config.apiUrl}v1/users/${id}/projects`
-    let {body: projects} = await Vue.http.get(
-      endpoint,
-      {headers: {Authorization: 'Token ' + token}}
-    )
-    return projects.map(project => {
+    let url = `${config.apiUrl}users/${id}/projects`;
+
+    let {data} = await axios({
+      method:"get",
+      url,
+      headers: {Authorization: 'Token ' + token}
+    })
+    return data.map(project => {
       return {
         id: project.id,
         name: (project.name === '' && project.is_default)
@@ -197,27 +225,30 @@ export default {
     })
   },
   async deleteProject (id, token) {
-    let endpoint = `${config.apiUrl}v1/projects/${id}`
-    await Vue.http.delete(
-      endpoint,
-      {headers: {Authorization: 'Token ' + token}}
-    )
+    let url = `${config.apiUrl}projects/${id}`
+    await axios({
+      method:"delete",
+      url,
+      headers: {Authorization: 'Token ' + token}
+    })
   },
 
   // project resources methods
   async getAllProjectResources (id, token) {
-    const endpoint = `${config.apiUrl}v1/projects/${id}/resources`
-    const {body: resources} = await Vue.http.get(
+    const endpoint = `${config.apiUrl}projects/${id}/resources`
+    const {data} = await axios({
+      method:"get",
       endpoint,
-      {headers: {Authorization: 'Token ' + token}}
+      headers: {Authorization: 'Token ' + token}}
     )
-    return resources
+    return data
   },
 
   // courses methods
   async getAllCourses () {
-    let {body: courses} = await Vue.http.get(`${config.apiUrl}v1/circuits`)
-    return courses.map(course => {
+    let url = `${config.apiUrl}circuits`
+    let {data} = await axios({method:"get",url})
+    return data.map(course => {
       return {
         id: course.id,
         name: course.name,
@@ -230,9 +261,9 @@ export default {
 
   // assessments methods
   async getAllCourseAssessments (id) {
-    let endpoint = `${config.apiUrl}v1/circuits/${id}/nodes`
-    let {body} = await Vue.http.get(endpoint)
-    let assessments = body.map(assessment => {
+    let url = `${config.apiUrl}circuits/${id}/nodes`
+    let {data} = await axios({method:"get",url})
+    let assessments = data.map(assessment => {
       return {
         id: assessment.id,
         name: assessment.name,
@@ -256,25 +287,27 @@ export default {
     data,
     token
   ) {
-    let endpoint = `${config.apiUrl}v1/users/${userId}/results`
+    let url = `${config.apiUrl}users/${userId}/results`
     let body = {
       step_id: assessmentId,
       passed: data.passed,
       solution: data.solution
     }
-    await Vue.http.post(
-      endpoint,
-      body,
-      {headers: {Authorization: 'Token ' + token}}
-    )
+    await Vue.http.post({
+      method:"post",
+      url,
+      data:body,
+      headers: {Authorization: 'Token ' + token}
+    })
   },
   async getAllUserResults (id, token) {
-    let endpoint = `${config.apiUrl}v1/users/${id}/results`
-    let {body} = await Vue.http.get(
-      endpoint,
-      {headers: {Authorization: 'Token ' + token}}
-    )
-    let results = body.map(result => {
+    let url = `${config.apiUrl}users/${id}/results`
+    let {data} = await axios({
+      method:"get",
+      url,
+      headers: {Authorization: 'Token ' + token}
+    })
+    let results = data.map(result => {
       return {
         id: result.id,
         userId: result.user_id,
@@ -287,8 +320,8 @@ export default {
   },
 
   async importProject (id, token) {
-    let endpoint = `${config.apiUrl}v1/projects/import/${id}`
-    await Vue.http.post(endpoint, {}, {headers: {Authorization: 'Token ' + token}})
+    let url = `${config.apiUrl}projects/import/${id}`;
+    await axios({method:"post", url, data:{}, headers: {Authorization: 'Token ' + token}})
   }
 }
 
