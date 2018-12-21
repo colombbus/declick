@@ -20,32 +20,81 @@
 <script>
 /* global $ */
 
-import config from '@/config'
+import config from '@/assets/config/declick'
+import axios from 'axios'
 
 export default {
-  props: [
-    'id'
-  ],
-  created () {
+  data(){
+    return {
+      interval:null
+    } 
+  },
+  async created () {
+
+    let id =  2 ;
+
     let router = this.$router
     window.goTo = function (event, location) {
       router.push(location)
       event.preventDefault()
     }
+
     let url = config.cmsUrl +
       'api/1/tables/pages/rows/' +
-      this.id +
-      '?access_token=jWNoVhWCng6odNLK'
-    this.$http.get(url).then(response => {
-      /* Uncomment when ready to clean-up.
-      $(this.$el).find('.cms-document-loading-message').fadeOut()
-      $(this.$el).find('.cms-document-content').append(
-        $.parseHTML(response.body.content)
-      ).fadeIn()
-      */
-      $('#onLoadGif').fadeOut()
-      $('#content').append($.parseHTML(response.body.content, document, true)).fadeIn()
+      id +
+      '?access_token=jWNoVhWCng6odNLK';
+
+    let {data:{content}} = await axios({
+      method:"get",
+      url
     })
+
+    document.querySelector('#content').setAttribute('style','display:none');
+    document.querySelector('#content').innerHTML += content;
+    this.fadeOut()
+  },
+  methods:{
+    fadeOut(){
+      let target = document.querySelector('#onLoadGif')
+      
+      target.style.opacity = 1
+
+      this.interval = setInterval(()=>{
+        if (target.style.opacity > 0) {
+          target.style.opacity -= 0.1;
+        } else if (target.style.opacity == 0) {
+          
+          console.log("END fadeOut");
+          target.setAttribute('style','display:none')
+
+          clearInterval(this.interval);
+
+          this.fadeIn(document.querySelector('#content'))
+        }
+
+      },40)
+    },
+    fadeIn(target){
+
+      target.setAttribute('style','display:block')
+      target.style.opacity = 0;
+      let counter = 0;
+      this.interval = setInterval(() =>{
+
+          if (counter < 1) {
+            counter += 0.1;
+
+            target.style.opacity = counter
+            
+          } if (counter == 1 ) {
+
+            console.log("END fadeIn");
+
+            clearInterval(this.interval)
+          }
+        },40)
+      
+    }
   }
 }
 
