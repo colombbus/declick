@@ -81,7 +81,6 @@ import config from "../../config"
 export default {
   data () {
     return {
-      userID: this.$store.state.user ? this.$store.state.user.id : false,
       // user: this.$store.state.user,
       // logOut: false,
       isAuthenticationModalVisible: false,
@@ -104,7 +103,8 @@ export default {
   },
   computed: {
     getUserIDLink () {
-      return '/users/' + this.userID
+      
+      return '/users/' + this.$store.state.user.id
     },
     user_id () {
       return this.userID
