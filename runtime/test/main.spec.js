@@ -29,7 +29,7 @@ describe('When runtime is initialized', () => {
       setResult() {
         classResult = this.value
       }
-      addListener(){}
+      addListener() {}
     }
 
     MyClass2.prototype.exposedMethods = {

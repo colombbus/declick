@@ -1,329 +1,324 @@
 /*eslint-env mocha */
-import {assert} from 'chai';
-import data from '../src/data';
-import {parse} from 'acorn';
+import { assert } from 'chai'
+import data from '../src/data'
+import { parse } from 'acorn'
 
 describe('When data has created interpreter', () => {
-
-  beforeEach(()=> {
-    data.reset();
-  });
+  beforeEach(() => {
+    data.reset()
+  })
 
   it('should be able to add an instance to interpreter', () => {
-    let result = false;
+    let result = false
     let MyClass = class {
       constructor() {
         this.exposedMethods = {
-          setResult:'exposedSetResult'
-        };
+          setResult: 'exposedSetResult',
+        }
       }
       setResult() {
-        result = true;
+        result = true
       }
-    };
-    let myInstance = new MyClass();
+    }
+    let myInstance = new MyClass()
 
-    data.addInstance(myInstance, 'test');
-    let interpreter = data.createInterpreter();
-    let code = 'test.exposedSetResult()';
-    let ast = parse(code);
-    interpreter.appendCode(ast);
-    interpreter.run();
+    data.addInstance(myInstance, 'test')
+    let interpreter = data.createInterpreter()
+    let code = 'test.exposedSetResult()'
+    let ast = parse(code)
+    interpreter.appendCode(ast)
+    interpreter.run()
 
-    assert.ok(result);
-  });
+    assert.ok(result)
+  })
 
   it('should be able to add a class to interpreter', () => {
-    let result = false;
+    let result = false
 
     let MyClass = class {
       setResult() {
-        result = true;
+        result = true
       }
-      addListener() {
-      }
-    };
+      addListener() {}
+    }
 
     MyClass.prototype.exposedMethods = {
-      setResult:'exposedSetResult'
-    };
+      setResult: 'exposedSetResult',
+    }
 
-    data.addClass(MyClass, 'Test');
-    let interpreter = data.createInterpreter();
+    data.addClass(MyClass, 'Test')
+    let interpreter = data.createInterpreter()
     let code = `toto = new Test()
-    toto.exposedSetResult()`;
-    let ast = parse(code);
-    interpreter.appendCode(ast);
-    interpreter.run();
+    toto.exposedSetResult()`
+    let ast = parse(code)
+    interpreter.appendCode(ast)
+    interpreter.run()
 
-    assert.ok(result);
-  });
+    assert.ok(result)
+  })
 
   it('should be able to add a class with its constructor to interpreter', () => {
-    let result = false;
+    let result = false
 
     let MyClass = class {
       constructor(value) {
-        this.registeredValue = value;
+        this.registeredValue = value
       }
       setResult() {
-        result = this.registeredValue;
+        result = this.registeredValue
       }
       addListener() {}
-    };
+    }
 
     MyClass.prototype.exposedMethods = {
-      setResult:'exposedSetResult'
-    };
+      setResult: 'exposedSetResult',
+    }
 
-    data.addClass(MyClass, 'Test');
-    let interpreter = data.createInterpreter();
+    data.addClass(MyClass, 'Test')
+    let interpreter = data.createInterpreter()
     let code = `toto = new Test('coucou')
-    toto.exposedSetResult()`;
-    let ast = parse(code);
-    interpreter.appendCode(ast);
-    interpreter.run();
+    toto.exposedSetResult()`
+    let ast = parse(code)
+    interpreter.appendCode(ast)
+    interpreter.run()
 
-    assert.equal(result, 'coucou');
-  });
+    assert.equal(result, 'coucou')
+  })
 
   it('should be able to retrieve a declared instance from interpreter', () => {
-    let result = false;
+    let result = false
     let MyClass = class {
       setResult() {
-        result = this;
+        result = this
       }
-    };
+    }
 
     MyClass.prototype.exposedMethods = {
-      setResult:'exposedSetResult'
-    };
+      setResult: 'exposedSetResult',
+    }
 
-    let myInstance = new MyClass();
+    let myInstance = new MyClass()
 
-    data.addInstance(myInstance, 'testInstance');
-    let interpreter = data.createInterpreter();
-    let code = 'testInstance.exposedSetResult()';
-    let ast = parse(code);
-    interpreter.appendCode(ast);
-    interpreter.run();
+    data.addInstance(myInstance, 'testInstance')
+    let interpreter = data.createInterpreter()
+    let code = 'testInstance.exposedSetResult()'
+    let ast = parse(code)
+    interpreter.appendCode(ast)
+    interpreter.run()
 
-    assert.equal(data.toNativeData(result), myInstance);
-  });
+    assert.equal(data.toNativeData(result), myInstance)
+  })
 
   it('should be able to retrieve an instance of a declared class from interpreter', () => {
-    let result = false;
+    let result = false
     let MyClass = class {
       constructor(value) {
-        this.secretText = value;
+        this.secretText = value
       }
       setResult() {
-        result = this;
+        result = this
       }
       getActualResult() {
-        return this.secretText;
+        return this.secretText
       }
       addListener() {}
-    };
+    }
 
     MyClass.prototype.exposedMethods = {
-      setResult:'exposedSetResult'
-    };
+      setResult: 'exposedSetResult',
+    }
 
-    data.addClass(MyClass, 'ATestClass');
-    let interpreter = data.createInterpreter();
+    data.addClass(MyClass, 'ATestClass')
+    let interpreter = data.createInterpreter()
     let code = `toto = new ATestClass('yes')
-    toto.exposedSetResult()`;
-    let ast = parse(code);
-    interpreter.appendCode(ast);
-    interpreter.run();
-    let retrievedInstance = data.toNativeData(result);
-    assert.equal(retrievedInstance.getActualResult(), 'yes');
-  });
+    toto.exposedSetResult()`
+    let ast = parse(code)
+    interpreter.appendCode(ast)
+    interpreter.run()
+    let retrievedInstance = data.toNativeData(result)
+    assert.equal(retrievedInstance.getActualResult(), 'yes')
+  })
 
   it('should be able to inject an instance of a declared class into the interpreter', () => {
-    let result = false;
+    let result = false
     let MyClass = class {
       constructor(value) {
-        this.secretValue = value;
+        this.secretValue = value
       }
       setResult(value) {
-        result = value;
+        result = value
       }
       getSecretValue() {
-        return this.secretValue;
+        return this.secretValue
       }
       addListener() {}
-    };
+    }
 
     MyClass.prototype.exposedMethods = {
-      getSecretValue:'exposedGetSecretValue',
-      setResult:'exposedSetResult'
-    };
+      getSecretValue: 'exposedGetSecretValue',
+      setResult: 'exposedSetResult',
+    }
 
-    MyClass.prototype.className = 'aStringUsedToRetrieveTheClass';
+    MyClass.prototype.className = 'aStringUsedToRetrieveTheClass'
 
-    data.addClass(MyClass, 'ATestClass');
-    let interpreter = data.createInterpreter();
-    let instance = new MyClass(53);
-    let interpreterInstance = data.toInterpreterData(instance);
-    interpreter.setProperty(interpreter.getGlobalScope(), 'injectedInstance', interpreterInstance);
+    data.addClass(MyClass, 'ATestClass')
+    let interpreter = data.createInterpreter()
+    let instance = new MyClass(53)
+    let interpreterInstance = data.toInterpreterData(instance)
+    interpreter.setProperty(
+      interpreter.getGlobalScope(),
+      'injectedInstance',
+      interpreterInstance,
+    )
     let code = `a = injectedInstance.exposedGetSecretValue()
-    injectedInstance.exposedSetResult(a*3)`;
-    let ast = parse(code);
-    interpreter.appendCode(ast);
-    interpreter.run();
-    assert.equal(result, 53 * 3);
-
-  });
+    injectedInstance.exposedSetResult(a*3)`
+    let ast = parse(code)
+    interpreter.appendCode(ast)
+    interpreter.run()
+    assert.equal(result, 53 * 3)
+  })
 
   it('should prevent from redeclaring a declared instance', () => {
     let MyClass = class {
       constructor() {
         this.exposedMethods = {
-          setResult:'exposedSetResult'
-        };
+          setResult: 'exposedSetResult',
+        }
       }
-      setResult() {
-      }
-    };
-    let myInstance = new MyClass();
+      setResult() {}
+    }
+    let myInstance = new MyClass()
 
-    data.addInstance(myInstance, 'test');
-    let interpreter = data.createInterpreter();
-    let code = 'test = 5';
-    let ast = parse(code);
-    interpreter.appendCode(ast);
-    assert.throw(interpreter.run.bind(interpreter), TypeError);
-  });
+    data.addInstance(myInstance, 'test')
+    let interpreter = data.createInterpreter()
+    let code = 'test = 5'
+    let ast = parse(code)
+    interpreter.appendCode(ast)
+    assert.throw(interpreter.run.bind(interpreter), TypeError)
+  })
 
   it('should add a listener to every instance of a declared class', () => {
-    let test = '';
+    let test = ''
     let MyClass = class {
       addListener(name) {
-        test = name;
+        test = name
       }
-    };
+    }
 
-    data.addClass(MyClass, 'ATestClass');
-    let interpreter = data.createInterpreter();
-    let code = 'toto = new ATestClass()';
-    let ast = parse(code);
-    interpreter.appendCode(ast);
-    interpreter.run();
-    assert.equal(test, 'delete');
-  });
+    data.addClass(MyClass, 'ATestClass')
+    let interpreter = data.createInterpreter()
+    let code = 'toto = new ATestClass()'
+    let ast = parse(code)
+    interpreter.appendCode(ast)
+    interpreter.run()
+    assert.equal(test, 'delete')
+  })
 
   it('should remove reference to an instance of a declared class when delete listener is invoked', () => {
-    let callback = '';
+    let callback = ''
     let MyClass = class {
-      tickle() {
-
-      }
+      tickle() {}
       addListener(name, aCallback) {
-        callback = aCallback;
+        callback = aCallback
       }
-    };
+    }
 
     MyClass.prototype.exposedMethods = {
-      tickle:'exposedTickle'
-    };
+      tickle: 'exposedTickle',
+    }
 
-    data.addClass(MyClass, 'ATestClass');
-    let interpreter = data.createInterpreter();
-    let code = 'toto = new ATestClass()';
-    let ast = parse(code);
-    interpreter.appendCode(ast);
-    interpreter.run();
-    callback();
-    code = 'toto.exposedTickle()';
-    ast = parse(code);
-    interpreter.appendCode(ast);
-    assert.throws(interpreter.run.bind(interpreter), ReferenceError);
-  });
+    data.addClass(MyClass, 'ATestClass')
+    let interpreter = data.createInterpreter()
+    let code = 'toto = new ATestClass()'
+    let ast = parse(code)
+    interpreter.appendCode(ast)
+    interpreter.run()
+    callback()
+    code = 'toto.exposedTickle()'
+    ast = parse(code)
+    interpreter.appendCode(ast)
+    assert.throws(interpreter.run.bind(interpreter), ReferenceError)
+  })
 
   describe('When interpreter is reset', () => {
-
-    beforeEach(()=> {
-      data.reset();
-    });
+    beforeEach(() => {
+      data.reset()
+    })
 
     it('should clear reference to a previously created object', () => {
-
       let MyClass = class {
-        setResult() {
-        }
+        setResult() {}
         addListener() {}
-      };
+      }
 
       MyClass.prototype.exposedMethods = {
-        setResult:'exposedSetResult'
-      };
+        setResult: 'exposedSetResult',
+      }
 
-      data.addClass(MyClass, 'Test');
-      let interpreter = data.createInterpreter();
-      let code = 'toto = new Test()';
-      let ast = parse(code);
-      interpreter.appendCode(ast);
-      interpreter.run();
-      interpreter.reset();
-      code = 'toto.exposedSetResult()';
-      ast = parse(code);
-      interpreter.appendCode(ast);
-      assert.throws(interpreter.run.bind(interpreter), ReferenceError);
-    });
+      data.addClass(MyClass, 'Test')
+      let interpreter = data.createInterpreter()
+      let code = 'toto = new Test()'
+      let ast = parse(code)
+      interpreter.appendCode(ast)
+      interpreter.run()
+      interpreter.reset()
+      code = 'toto.exposedSetResult()'
+      ast = parse(code)
+      interpreter.appendCode(ast)
+      assert.throws(interpreter.run.bind(interpreter), ReferenceError)
+    })
 
     it('should be able to create an instance of a class declared previously', () => {
-      let result = false;
+      let result = false
 
       let MyClass = class {
         setResult() {
-          result = true;
+          result = true
         }
         addListener() {}
-      };
+      }
 
       MyClass.prototype.exposedMethods = {
-        setResult:'exposedSetResult'
-      };
+        setResult: 'exposedSetResult',
+      }
 
-      data.addClass(MyClass, 'Test');
-      let interpreter = data.createInterpreter();
-      interpreter.reset();
+      data.addClass(MyClass, 'Test')
+      let interpreter = data.createInterpreter()
+      interpreter.reset()
       let code = `toto = new Test()
-      toto.exposedSetResult()`;
-      let ast = parse(code);
-      interpreter.appendCode(ast);
-      interpreter.run();
-      assert.ok(result);
-    });
+      toto.exposedSetResult()`
+      let ast = parse(code)
+      interpreter.appendCode(ast)
+      interpreter.run()
+      assert.ok(result)
+    })
 
     it('should be able to call an instance declared previously', () => {
-      let result = false;
+      let result = false
       let MyClass = class {
         constructor() {
           this.exposedMethods = {
-            setResult:'exposedSetResult'
-          };
+            setResult: 'exposedSetResult',
+          }
         }
         setResult() {
-          result = true;
+          result = true
         }
         addListener() {}
-      };
-      let myInstance = new MyClass();
-      data.addInstance(myInstance, 'test');
-      let interpreter = data.createInterpreter();
-      interpreter.reset();
-      let code = 'test.exposedSetResult()';
-      let ast = parse(code);
-      interpreter.appendCode(ast);
-      interpreter.run();
-      assert.ok(result);
-    });
-  });
+      }
+      let myInstance = new MyClass()
+      data.addInstance(myInstance, 'test')
+      let interpreter = data.createInterpreter()
+      interpreter.reset()
+      let code = 'test.exposedSetResult()'
+      let ast = parse(code)
+      interpreter.appendCode(ast)
+      interpreter.run()
+      assert.ok(result)
+    })
+  })
 
   after(() => {
-    data.reset();
-  });
-});
+    data.reset()
+  })
+})
