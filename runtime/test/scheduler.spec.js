@@ -4,7 +4,7 @@ import { parse } from 'acorn'
 import Interpreter from '../src/interpreter'
 import scheduler from '../src/scheduler'
 
-describe('When scheduer is initialized', () => {
+describe('When scheduler is initialized', () => {
   let interpreter = new Interpreter('')
   scheduler.initialize(interpreter)
 

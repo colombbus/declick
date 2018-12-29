@@ -47,8 +47,11 @@
   },
   "dependencies": {
     "acorn": "^5.7.1",
+    "eslint-config-prettier": "^3.3.0",
+    "eslint-plugin-prettier": "^3.0.1",
     "js-interpreter": "^1.4.6",
     "matter-js": "^0.14.2",
-    "pixi.js": "^4.8.3"
+    "pixi.js": "^4.8.3",
+    "prettier": "^1.15.3"
   }
 }
