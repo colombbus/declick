@@ -16,6 +16,7 @@ describe('When runtime is initialized', () => {
       setResult() {
         instanceResult = true
       }
+      addListener() {}
     }
 
     let myInstance = new MyClass()
@@ -28,6 +29,7 @@ describe('When runtime is initialized', () => {
       setResult() {
         classResult = this.value
       }
+      addListener(){}
     }
 
     MyClass2.prototype.exposedMethods = {

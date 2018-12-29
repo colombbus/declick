@@ -40,6 +40,8 @@ describe('When data has created interpreter', () => {
       setResult() {
         result = true;
       }
+      addListener() {
+      }
     };
 
     MyClass.prototype.exposedMethods = {
@@ -67,6 +69,7 @@ describe('When data has created interpreter', () => {
       setResult() {
         result = this.registeredValue;
       }
+      addListener() {}
     };
 
     MyClass.prototype.exposedMethods = {
@@ -90,6 +93,7 @@ describe('When data has created interpreter', () => {
       setResult() {
         result = this;
       }
+      addListener() {}
     };
 
     MyClass.prototype.exposedMethods = {
@@ -120,6 +124,7 @@ describe('When data has created interpreter', () => {
       getActualResult() {
         return this.secretText;
       }
+      addListener() {}
     };
 
     MyClass.prototype.exposedMethods = {
@@ -149,6 +154,7 @@ describe('When data has created interpreter', () => {
       getSecretValue() {
         return this.secretValue;
       }
+      addListener() {}
     };
 
     MyClass.prototype.exposedMethods = {
@@ -181,6 +187,7 @@ describe('When data has created interpreter', () => {
       }
       setResult() {
       }
+      addListener() {}
     };
     let myInstance = new MyClass();
 
@@ -203,6 +210,7 @@ describe('When data has created interpreter', () => {
       let MyClass = class {
         setResult() {
         }
+        addListener() {}
       };
 
       MyClass.prototype.exposedMethods = {
@@ -229,6 +237,7 @@ describe('When data has created interpreter', () => {
         setResult() {
           result = true;
         }
+        addListener() {}
       };
 
       MyClass.prototype.exposedMethods = {
@@ -257,6 +266,7 @@ describe('When data has created interpreter', () => {
         setResult() {
           result = true;
         }
+        addListener() {}
       };
       let myInstance = new MyClass();
       data.addInstance(myInstance, 'test');

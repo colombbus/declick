@@ -104,6 +104,9 @@ let _toInterpreterClass = function(interpreter, AClass) {
     //let declickObject = Object.create(AClass);
     //AClass.apply(declickObject, args);
     let declickObject = new AClass(...args)
+    declickObject.addListener('delete', () => {
+      _createdObjects.splice(_createdObjects.indexOf(declickObject), 1 );
+    });
     instance.data = declickObject
     _createdObjects.push(declickObject)
     return instance
