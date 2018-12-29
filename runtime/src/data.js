@@ -105,9 +105,9 @@ let _toInterpreterClass = function(interpreter, AClass) {
     //AClass.apply(declickObject, args);
     let declickObject = new AClass(...args)
     declickObject.addListener('delete', () => {
-      _deleteInterpreterObject(interpreter, declickObject);
-      _createdObjects.splice(_createdObjects.indexOf(declickObject), 1 );
-    });
+      _deleteInterpreterObject(interpreter, declickObject)
+      _createdObjects.splice(_createdObjects.indexOf(declickObject), 1)
+    })
     instance.data = declickObject
     _createdObjects.push(declickObject)
     return instance
@@ -240,7 +240,7 @@ let data = {
   },
 
   deleteInterpreterObject(reference) {
-    return _deleteInterpreterObject(_interpreter, reference);
+    return _deleteInterpreterObject(_interpreter, reference)
   },
 
   exposeProperty(reference, property, propertyName) {
