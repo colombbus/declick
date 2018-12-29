@@ -93,7 +93,6 @@ describe('When data has created interpreter', () => {
       setResult() {
         result = this;
       }
-      addListener() {}
     };
 
     MyClass.prototype.exposedMethods = {
@@ -124,7 +123,7 @@ describe('When data has created interpreter', () => {
       getActualResult() {
         return this.secretText;
       }
-      addListener() {}
+      addListener() {}
     };
 
     MyClass.prototype.exposedMethods = {
@@ -178,7 +177,7 @@ describe('When data has created interpreter', () => {
 
   });
 
-  it('it should prevent from redeclaring an declared instance', () => {
+  it('should prevent from redeclaring a declared instance', () => {
     let MyClass = class {
       constructor() {
         this.exposedMethods = {
@@ -187,7 +186,6 @@ describe('When data has created interpreter', () => {
       }
       setResult() {
       }
-      addListener() {}
     };
     let myInstance = new MyClass();
 
@@ -197,6 +195,51 @@ describe('When data has created interpreter', () => {
     let ast = parse(code);
     interpreter.appendCode(ast);
     assert.throw(interpreter.run.bind(interpreter), TypeError);
+  });
+
+  it('should add a listener to every instance of a declared class', () => {
+    let test = '';
+    let MyClass = class {
+      addListener(name) {
+        test = name;
+      }
+    };
+
+    data.addClass(MyClass, 'ATestClass');
+    let interpreter = data.createInterpreter();
+    let code = 'toto = new ATestClass()';
+    let ast = parse(code);
+    interpreter.appendCode(ast);
+    interpreter.run();
+    assert.equal(test, 'delete');
+  });
+
+  it('should remove reference to an instance of a declared class when delete listener is invoked', () => {
+    let callback = '';
+    let MyClass = class {
+      tickle() {
+
+      }
+      addListener(name, aCallback) {
+        callback = aCallback;
+      }
+    };
+
+    MyClass.prototype.exposedMethods = {
+      tickle:'exposedTickle'
+    };
+
+    data.addClass(MyClass, 'ATestClass');
+    let interpreter = data.createInterpreter();
+    let code = 'toto = new ATestClass()';
+    let ast = parse(code);
+    interpreter.appendCode(ast);
+    interpreter.run();
+    callback();
+    code = 'toto.exposedTickle()';
+    ast = parse(code);
+    interpreter.appendCode(ast);
+    assert.throws(interpreter.run.bind(interpreter), ReferenceError);
   });
 
   describe('When interpreter is reset', () => {

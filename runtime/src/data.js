@@ -105,6 +105,7 @@ let _toInterpreterClass = function(interpreter, AClass) {
     //AClass.apply(declickObject, args);
     let declickObject = new AClass(...args)
     declickObject.addListener('delete', () => {
+      _deleteInterpreterObject(interpreter, declickObject);
       _createdObjects.splice(_createdObjects.indexOf(declickObject), 1 );
     });
     instance.data = declickObject
@@ -130,7 +131,22 @@ let _toInterpreterInstance = function(interpreter, instance) {
   }
   return interpreterInstance
 }
-
+let _deleteInterpreterObject = function(interpreter, reference) {
+  let scope = interpreter.getScope()
+  while (scope) {
+    for (let name in scope.properties) {
+      let obj = scope.properties[name]
+      if (!scope.notWritable[name] && obj.data) {
+        if (obj.data === reference) {
+          interpreter.deleteProperty(scope, name)
+          return true
+        }
+      }
+    }
+    scope = scope.parentScope
+  }
+  return false
+}
 /*let _logCommand = function(command) {
   if (typeof _log !== 'undefined') {
     _log.addCommand(command);
@@ -224,20 +240,7 @@ let data = {
   },
 
   deleteInterpreterObject(reference) {
-    let scope = _interpreter.getScope()
-    while (scope) {
-      for (let name in scope.properties) {
-        let obj = scope.properties[name]
-        if (!scope.notWritable[name] && obj.data) {
-          if (obj.data === reference) {
-            _interpreter.deleteProperty(scope, name)
-            return true
-          }
-        }
-      }
-      scope = scope.parentScope
-    }
-    return false
+    return _deleteInterpreterObject(_interpreter, reference);
   },
 
   exposeProperty(reference, property, propertyName) {
