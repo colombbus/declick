@@ -35,7 +35,7 @@ export default {
     }
   },
   async created () {
-    let endpoint = `${config.apiUrl}v1/circuits`
+    let endpoint = `${config.apiUrl}ircuits`
     let {body} = await this.$http.get(endpoint)
     this.courses = body
   },

@@ -22,13 +22,14 @@ div
       li(:class='{disabled: currentPage === 1}')
         a(@click='loadPage(currentPage - 1)') &laquo; Précédent
       li(v-for='page in pages', :class='{active: page === currentPage}')
-        a(@click='loadPage(page)') {{page}}
+        a(@click='loadPage(page)', v-if="page") {{page}}
       li(:class='{disabled: currentPage === lastPage}')
         a(@click='loadPage(currentPage + 1)') Suivant &raquo;
 </template>
 
 <script>
-import debounce from 'lodash.debounce'
+import _ from 'lodash'
+
 import Api from '@/api'
 
 export default {
@@ -46,11 +47,11 @@ export default {
     pages () {
       let minimum = Math.max(1, this.currentPage - 5)
       let maximum = Math.min(this.lastPage + 1, this.currentPage + 5)
-      return R.range(minimum, maximum)
+      return _.range(minimum, maximum)
     }
   },
   async created () {
-    this.filterByName = debounce(() => this.loadPage(), 500)
+    this.filterByName = _.debounce(() => this.loadPage(), 500)
     this.loadPage(1)
   },
   watch: {

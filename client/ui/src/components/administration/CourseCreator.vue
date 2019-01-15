@@ -33,7 +33,7 @@ export default {
         short_description: this.shortDescription,
         description: this.description
       }
-      Vue.http.post(`${config.apiUrl}v1/circuits`, course).then(() =>
+      Vue.http.post(`${config.apiUrl}circuits`, course).then(() =>
         this.$emit('course-created')
       )
     }
