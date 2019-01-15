@@ -1,7 +1,10 @@
 import paper from 'paper'
 
-function DeclickMap() {
+const fs = require('fs');
 
+
+function DeclickMap() {
+    
     /*
      * VARIABLES
      */
@@ -79,9 +82,17 @@ function DeclickMap() {
     var initView = function(canvasId) {
         // Get a reference to the canvas object
         var canvas = document.getElementById(canvasId);
-        $canvas = $(canvas);
-        $canvas.attr("resize", "1");
-        $canvas.css("cursor", "pointer");
+        
+
+        //TODO: remove all jquery
+
+
+        // $canvas = $(canvas);
+
+        canvas.setAttribute("resize","1");
+        canvas.setAttribute("cursor","pointer");
+        // $canvas.attr("resize", "1");
+        // $canvas.css("cursor", "pointer");
 
         // setup paperjs
         paper.setup(canvas);
@@ -114,8 +125,9 @@ function DeclickMap() {
             scrollAmount = 0;
         }
 
-        $canvas.mousewheel(function(event) {
-            event.preventDefault();
+        canvas.addEventListener("wheel",function(event) {
+            // event.preventDefault();
+            
             if (scrollPoint === false) {
                 // first call: register scroll point
                 scrollPoint = paper.view.getEventPoint(event);
@@ -123,7 +135,7 @@ function DeclickMap() {
             if (endScrollTimeout !== -1) {
                 clearTimeout(endScrollTimeout);
             }
-            scrollAmount = event.deltaY*event.deltaFactor;
+            scrollAmount = event.deltaY* 50 /*event.deltaFactor;*/
             if (scrollTimeout === -1 && !(targetZoom < 1 && scrollAmount <0) && !(targetZoom == maxZoom && scrollAmount>0)) {
                 handleScroll();
                 scrollTimeout = setTimeout(function() {
@@ -139,7 +151,7 @@ function DeclickMap() {
                 scrollPoint = false;
             }, 250);
         });
-
+        
         // handling of space key
         var tool = new paper.Tool();
         tool.onKeyDown = function(event) {
@@ -284,6 +296,7 @@ function DeclickMap() {
         everything.position = new paper.Point(paper.view.center);
     };
 
+
     var initSteps = function(data) {
         steps = [];
         let currentPosition = 0
@@ -308,9 +321,18 @@ function DeclickMap() {
             }
             return object;
         }
-        $.each(data, function(key, value) {
-            steps.push(getObject(value));
-        });
+
+    
+        function* entries(obj) {
+            for (let key of Object.keys(obj)) {
+              yield [key, obj[key]];
+            }
+         }
+         
+        for(let [key,val] of entries(data)){
+            steps.push(getObject(val));
+        }
+
     };
 
     var openChapter = function(index, animate) {
@@ -787,6 +809,7 @@ function DeclickMap() {
     // load Path from json file
     this.loadPathFromJSON = function(file, callback) {
         var self = this;
+        
         $.getJSON(file, function(pathData) {
             self.loadPath(pathData);
             if (callback) {
@@ -827,7 +850,7 @@ function DeclickMap() {
 
     // load steps from JSON file
     this.loadStepsFromJSON = function(file, callback) {
-        var self = this;
+        var self = this;        
         $.getJSON(file, function(stepsData) {
             self.loadSteps(stepsData);
             if (callback) {
@@ -840,7 +863,8 @@ function DeclickMap() {
 
     this.setResults = function (results) {
         console.log("results received:");
-        console.log(results);
+        console.log(results);        
+
         results.forEach(result => {
             for (var i=0;i<steps.length;i++) {
                 if (steps[i].id &&
@@ -863,7 +887,7 @@ function DeclickMap() {
                     old.remove();
                     displayedSteps[i] = placed;
                     placed.onMouseDown = getStepMouseHandler(i);
-                    break
+                    break;
                 }
             }
         })
@@ -888,7 +912,7 @@ function DeclickMap() {
     // Update size
     this.update = function() {
         // check size
-        var cSize = new paper.Size($canvas.width(), $canvas.height());
+        var cSize = new paper.Size(canvas.width, canvas.height);
         if (!cSize.equals(paper.view.size)) {
             try {
                 window.dispatchEvent(new Event('resize'));
@@ -900,7 +924,7 @@ function DeclickMap() {
             }
         }
         // remove any precedently bound mousemove handlers
-        $canvas.off("mousemove");
+        canvas.removeEventListener("mousemove");
     };
 
 }

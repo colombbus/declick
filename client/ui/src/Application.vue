@@ -42,6 +42,9 @@ export default {
     },
     fullscreenMode () {
       return this.$route.matched.some(match => match.meta.useFullscreen)
+    },
+    viewUseFullscreen () {
+      return this.$route.matched.some(match => match.meta.useFullscreen)
     }
   },
   components: {

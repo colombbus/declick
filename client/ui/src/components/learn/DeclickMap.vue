@@ -28,6 +28,7 @@ export default {
     'user'
   ]),
   mounted () {
+    
     // TODO: Find a better solution.
     let robotPath = require('@/assets/images/robot-pawn.svg')
     map.init('map', robotPath, (step) => {
