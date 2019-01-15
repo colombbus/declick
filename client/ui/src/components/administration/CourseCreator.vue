@@ -16,7 +16,8 @@
 
 <script>
 import Vue from 'vue'
-import config from '@/config'
+import config from '@/assets/config/declick'
+import axios from 'axios';
 
 export default {
   data () {
@@ -33,7 +34,7 @@ export default {
         short_description: this.shortDescription,
         description: this.description
       }
-      Vue.http.post(`${config.apiUrl}circuits`, course).then(() =>
+      axios({method:"POST",url:`${config.apiUrl}circuits`,data:course}).then(() =>
         this.$emit('course-created')
       )
     }

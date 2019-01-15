@@ -15,7 +15,9 @@ div(v-if='rootNode')
 
 import StepEditor from './StepEditor'
 import TreeView from './TreeView'
-import config from '@/config'
+import config from '@/assets/config/declick'
+
+import axios from 'axios'
 
 export default {
   data: function () {
@@ -31,51 +33,51 @@ export default {
     this.retrieveCourse()
   },
   methods: {
-    retrieveCourse () {
-      $.ajax({
-        method: 'GET',
-        url: `${config.apiUrl}v1/circuits/${this.courseId}`,
-        success: course => {
-          this.course = course
+    async retrieveCourse () {      
+      await axios({
+        method:'get',
+        url:`${config.apiUrl}circuits/${this.courseId}`
+      }).then(e =>{
+          this.course = e.data
           this.retrieveRootStep(this.course.root_node_id)
-        }
-      })
+      });
     },
-    retrieveRootStep (stepId) {
-      $.ajax({
+    async retrieveRootStep (stepId) {
+      await axios({
         method: 'GET',
-        url: `${config.apiUrl}v1/circuits/${this.courseId}/nodes/${stepId}`,
-        success: rootStep => {
-          this.rootNode = this.makeNode(rootStep)
+        url: `${config.apiUrl}circuits/${this.courseId}/nodes/${stepId}`,
+      }).then(e =>{        
+          this.rootNode = this.makeNode(e.data)
           this.rootNode.name = 'nœud racine'
           this.rootNode.editable = false
           this.retrieveStepChildren(this.rootNode)
-        }
-      })
+      });
     },
-    retrieveStepChildren (parentNode) {
-      $.ajax({
+    async retrieveStepChildren (parentNode) {
+      
+      await axios({
         method: 'GET',
-        url: `${config.apiUrl}v1` +
-          `/circuits/${this.courseId}` +
-          `/nodes/${parentNode.data.id}` +
-          `/children`,
-        success: childSteps => {
-          for (let childStep of childSteps) {
+        url: `${config.apiUrl}` +
+        `circuits/${this.courseId}` +
+        `/nodes/${parentNode.data.id}` +
+        `/children`,
+
+      }).then(e => {
+          for (let childStep of e.data) {
             let childNode = this.makeNode(childStep)
             parentNode.children.push(childNode)
             this.retrieveStepChildren(childNode)
           }
-        }
       })
+
     },
     createChildStep (parentNode) {
       let newStep = this.makeStep()
       newStep.parent_id = parentNode.data.id
       newStep.position = parentNode.children.length
-      $.ajax({
+      axios({
         method: 'POST',
-        url: `${config.apiUrl}v1/circuits/${this.courseId}/nodes`,
+        url: `${config.apiUrl}circuits/${this.courseId}/nodes`,
         data: newStep,
         success: createdStep => {
           let createdNode = this.makeNode(createdStep)
@@ -84,9 +86,9 @@ export default {
       })
     },
     saveStep (node) {
-      $.ajax({
+      axios({
         method: 'PATCH',
-        url: `${config.apiUrl}v1/circuits/${this.courseId}/nodes/${node.data.id}`,
+        url: `${config.apiUrl}circuits/${this.courseId}/nodes/${node.data.id}`,
         data: node.data,
         success: step => {
           node.data = step
@@ -94,9 +96,9 @@ export default {
       })
     },
     removeStep (node) {
-      $.ajax({
+      axios({
         method: 'DELETE',
-        url: `${config.apiUrl}v1/circuits/${this.courseId}/nodes/${node.data.id}`,
+        url: `${config.apiUrl}circuits/${this.courseId}/nodes/${node.data.id}`,
         success: () => {
           this.retrieveCourse()
         }

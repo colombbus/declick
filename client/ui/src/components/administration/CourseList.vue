@@ -26,7 +26,7 @@ div
 // TODO: use store
 
 import CourseCreator from './CourseCreator'
-import config from '@/config'
+import Api from '@/api'
 
 export default {
   data () {
@@ -34,10 +34,14 @@ export default {
       courses: []
     }
   },
-  async created () {
-    let endpoint = `${config.apiUrl}ircuits`
-    let {body} = await this.$http.get(endpoint)
-    this.courses = body
+  methods: {
+    async loadcourseList(){
+      let body = await Api.getAllCourses()
+      this.courses = body
+    }
+  },
+  created () {    
+    this.loadcourseList()
   },
   components: {
     CourseCreator
