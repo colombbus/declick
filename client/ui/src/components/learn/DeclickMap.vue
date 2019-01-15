@@ -1,8 +1,6 @@
 <template lang="html">
-  <div>
-    <div id="declickMap">
+  <div id="declickMap">
       <canvas id="map" ></canvas>
-    </div>
   </div>
 </template>
 
@@ -32,6 +30,8 @@ export default {
     // TODO: Find a better solution.
     let robotPath = require('@/assets/images/robot-pawn.svg')
     map.init('map', robotPath, (step) => {
+      console.log(step);
+      
       this.selectAssessment({id: step.id})
       this.$router.push({
         name: 'step',
@@ -83,19 +83,24 @@ export default {
 }
 </script>
 
-<style lang="css">
+<style scope>
+.application{
+  background-color:#46102A;
+
+}
 #declickMap {
-    background-color:#000000;
-    height: calc(100vh - 195px)
+  background-color:#46102A;
+  height: calc(100vh - 155px)
 }
 #map {
-    width:100%;
-    height:100%;
-    background-color:#46102A;
-    margin-right:auto;
-    margin-left:auto;
+  overflow: hidden;
+  width:100%;
+  height:100%;
+  background-color:#46102A;
+  margin-right:auto;
+  margin-left:auto;
 }
 #text {
-    color:#FFFFFF;
+  color:#FFFFFF;
 }
 </style>
