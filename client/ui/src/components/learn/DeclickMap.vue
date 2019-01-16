@@ -83,14 +83,14 @@ export default {
 }
 </script>
 
-<style scope>
+<style scoped>
 .application{
   background-color:#46102A;
 
 }
 #declickMap {
   background-color:#46102A;
-  height: calc(100vh - 155px)
+  height: calc(100vh - 170px)
 }
 #map {
   overflow: hidden;
