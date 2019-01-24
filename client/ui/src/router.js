@@ -18,15 +18,16 @@ import UserList from '@/components/user/UserList'
 import UserProfile from '@/components/user/UserProfile'
 import UserEditor from '@/components/user/UserEditor'
 
+import courseRunfrom from '@/components/learn/CourseRun'
+
 import HomePage from '@/components/HomePage.vue'
 import ResourcesPage from '@/components/ResourcesPage.vue'
 import Ide from '@/components/ide/Ide.vue'
 
-var routes = [
-  {
-   path: '/ide',
-   name: 'ide',
-   component: Ide,
+var routes = [{
+    path: '/ide',
+    name: 'ide',
+    component: Ide,
   },
   {
     path: '/',
@@ -73,34 +74,36 @@ var routes = [
   {
     path: '/progress',
     component: Progress,
-    meta: { title: 'Progresser' },
-    children: [
-      {
+    meta: {
+      title: 'Progresser'
+    },
+    children: [{
         path: '',
         component: CourseList,
-        meta: { title: 'Liste des parcours' }
+        meta: {
+          title: 'Liste des parcours'
+        }
       },
       {
         path: 'course/:id',
         component: Course,
-        children: [
-          {
-            path: '',
-            name: 'map',
-            component: DeclickMap,
-            meta: { title: 'Parcours' },
-            children: [
-              {
-                name: 'step',
-                path: 'run/:assessmentId',
-                meta: {
-                  title: 'Étape',
-                  useFullscreen: true
-                }
-              }
-            ]
-          }
-        ]
+        children: [{
+          path: '',
+          name: 'map',
+          component: DeclickMap,
+          meta: {
+            title: 'Parcours'
+          },
+          children: [{
+            component: courseRunfrom,
+            name: 'step',
+            path: 'run/:assessmentId',
+            meta: {
+              title: 'Étape',
+              useFullscreen: true
+            }
+          }]
+        }]
       }
     ]
   },
@@ -122,22 +125,29 @@ var routes = [
   {
     path: '/administration',
     component: Administration,
-    meta: { title: 'Administration' },
-    children: [
-      {
+    meta: {
+      title: 'Administration'
+    },
+    children: [{
         path: 'users',
         component: UserList,
-        meta: { title: 'Liste des utilisateurs' }
+        meta: {
+          title: 'Liste des utilisateurs'
+        }
       },
       {
         path: 'courses',
         component: AdministrationCourseList,
-        meta: { title: 'Liste des parcours' }
+        meta: {
+          title: 'Liste des parcours'
+        }
       },
       {
         path: 'courses/:id',
         component: CourseEditor,
-        meta: { title: 'Modification de parcours' }
+        meta: {
+          title: 'Modification de parcours'
+        }
       }
     ]
   }
