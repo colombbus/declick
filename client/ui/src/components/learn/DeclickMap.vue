@@ -77,6 +77,7 @@ export default {
       this.loadSteps()
     },
     '$route.params.id'() {
+      console.log('currentCours :')
       this.loadSteps()
     },
   },

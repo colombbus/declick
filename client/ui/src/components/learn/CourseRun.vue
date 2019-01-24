@@ -40,11 +40,7 @@ export default {
       window.addEventListener(
         'message',
         event => {
-          console.log('message')
-          if (event.data == 'validateExercise') {
-            this.selectNextAssessment()
-          }
-          console.log(event)
+          if (event.data == 'validateExercise') this.selectNextAssessment()
         },
         false,
       )
@@ -146,7 +142,6 @@ export default {
   watch: {
     currentCourseResults: {
       handler: function(value) {
-        console.log('courseRun')
         if (value) {
           this.storeReady = true
           this.init()

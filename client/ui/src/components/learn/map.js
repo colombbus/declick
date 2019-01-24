@@ -799,7 +799,6 @@ function DeclickMap() {
     if (newStepCallback) {
       stepCallback = newStepCallback
     }
-
     initSymbols(currentImage, callback)
   }
 
