@@ -116,7 +116,6 @@ class ProjectResourceController extends Controller
         $project = Project::findOrFail($projectId);
 
         $resource = $project->resources()->findOrFail($resourceId);
-
         $directoryPath =
             storage_path('app/projects/' . $projectId . '/resources');
         $filePath = $directoryPath . '/' . $resourceId;
@@ -130,6 +129,32 @@ class ProjectResourceController extends Controller
         return response($fileContent, 200, [
             'Content-Type' => $resource->media_type,
         ]);
+    }
+
+    public function showExercicesContent($projectId){
+        $project = Project::findOrFail($projectId);
+        
+        $resources = $project->resources()->get();
+
+
+        $resourcesContent = [];
+        foreach ($resources as $key => $resource) {
+            
+            // $resource = $project->resources()->findOrFail($resourceId);
+            $directoryPath = storage_path('app/projects/' . $resource->project_id . '/resources');
+            $filePath = $directoryPath . '/' . $resource->id;
+    
+            $fileContent = '';
+    
+            if (file_exists($filePath)) {
+                if($resource->media_type !== "image/png" || $resource->media_type !== "image/jpg" || $resource->media_type !== "image/jpeg"){
+                    $resourcesContent[$resource->file_name] =  file_get_contents($filePath);
+                }
+            }
+        }
+
+        return response($resourcesContent);
+
     }
 
     public function delete($projectId, $resourceId)

@@ -81,11 +81,16 @@ $app->group(['prefix' => 'api/v1'], function () use ($app) {
     $app->get('projects/{projectId}/resources', 'ProjectResourceController@index');
 
     $app->get(
-        'projects/{projectId}/resources/{resourceId}/' .
+        'projects/{projectId}/resources' .
         'content{extension:(?:\\..+)?}',
         'ProjectResourceController@showContent'
     );
 
+    $app->get(
+        'projects/{projectId}/exercicesContent',
+        'ProjectResourceController@showExercicesContent'
+    );
+    
     $app->group([
         'prefix' => 'projects/{projectId}',
         'middleware' => 'members-only',
