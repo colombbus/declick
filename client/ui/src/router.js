@@ -18,13 +18,14 @@ import UserList from '@/components/user/UserList'
 import UserProfile from '@/components/user/UserProfile'
 import UserEditor from '@/components/user/UserEditor'
 
-import courseRunfrom from '@/components/learn/CourseRun'
+import courseRunfrom from '@/components/learn/CourseRun_new'
 
 import HomePage from '@/components/HomePage.vue'
 import ResourcesPage from '@/components/ResourcesPage.vue'
 import Ide from '@/components/ide/Ide.vue'
 
-var routes = [{
+var routes = [
+  {
     path: '/ide',
     name: 'ide',
     component: Ide,
@@ -35,126 +36,132 @@ var routes = [{
     component: HomePage,
     meta: {
       id: 4,
-      title: 'Accueil'
-    }
+      title: 'Accueil',
+    },
   },
   {
     path: '/users/:id',
     component: UserProfile,
     meta: {
       title: 'Utilisateurs',
-      keepAlive: false
+      keepAlive: false,
     },
-    props: true
+    props: true,
   },
   {
     path: '/users/:id/edit',
     component: UserEditor,
     meta: {
       title: 'Modification de profil utilisateur',
-      keepAlive: false
+      keepAlive: false,
     },
-    props: true
+    props: true,
   },
   {
     name: 'execute',
     path: '/execute/:projectId',
     meta: {
-      useFullscreen: true
-    }
+      useFullscreen: true,
+    },
   },
   {
     path: '/explore',
     component: CmsDocument,
     meta: {
       id: 5,
-      title: 'Découvrir'
-    }
+      title: 'Découvrir',
+    },
   },
   {
     path: '/progress',
     component: Progress,
     meta: {
-      title: 'Progresser'
+      title: 'Progresser',
     },
-    children: [{
+    children: [
+      {
         path: '',
         component: CourseList,
         meta: {
-          title: 'Liste des parcours'
-        }
+          title: 'Liste des parcours',
+        },
       },
       {
         path: 'course/:id',
         component: Course,
-        children: [{
-          path: '',
-          name: 'map',
-          component: DeclickMap,
-          meta: {
-            title: 'Parcours'
-          },
-          children: [{
-            component: courseRunfrom,
-            name: 'step',
-            path: 'run/:assessmentId',
+        children: [
+          {
+            path: '',
+            name: 'map',
+            component: DeclickMap,
             meta: {
-              title: 'Étape',
-              useFullscreen: true
-            }
-          }]
-        }]
-      }
-    ]
+              title: 'Parcours',
+            },
+            children: [
+              {
+                component: courseRunfrom,
+                name: 'step',
+                path: 'run/:assessmentId',
+                meta: {
+                  title: 'Étape',
+                  useFullscreen: true,
+                },
+              },
+            ],
+          },
+        ],
+      },
+    ],
   },
   {
     path: '/create',
     name: 'create',
     meta: {
       title: 'Créer',
-      useFullscreen: true
-    }
+      useFullscreen: true,
+    },
   },
   {
     path: '/resources',
     component: ResourcesPage,
     meta: {
-      title: 'Ressources'
-    }
+      title: 'Ressources',
+    },
   },
   {
     path: '/administration',
     component: Administration,
     meta: {
-      title: 'Administration'
+      title: 'Administration',
     },
-    children: [{
+    children: [
+      {
         path: 'users',
         component: UserList,
         meta: {
-          title: 'Liste des utilisateurs'
-        }
+          title: 'Liste des utilisateurs',
+        },
       },
       {
         path: 'courses',
         component: AdministrationCourseList,
         meta: {
-          title: 'Liste des parcours'
-        }
+          title: 'Liste des parcours',
+        },
       },
       {
         path: 'courses/:id',
         component: CourseEditor,
         meta: {
-          title: 'Modification de parcours'
-        }
-      }
-    ]
-  }
+          title: 'Modification de parcours',
+        },
+      },
+    ],
+  },
 ]
 
 export default new VueRouter({
   mode: 'history',
   routes,
-  base: config.basePath
+  base: config.basePath,
 })
