@@ -65,6 +65,41 @@ class ProjectResourceController extends Controller
         return $resource;
     }
 
+    public function exerciseUpdate(Request $request,$projectId,$resourceId){
+        
+        $project = Project::findOrFail($projectId);
+
+        $resource = $project->resources()->findOrFail($resourceId);
+
+        // $this->authorize('updateContent', $resource);
+
+        $directoryPath =
+            storage_path('app/projects/' . $projectId . '/resources');
+        $filePath = $directoryPath . '/' . $resourceId;
+
+        if (!file_exists($directoryPath)) {
+            mkdir($directoryPath, 0755, true);
+        }
+
+        if ($request->hasFile('data')) {
+            \Illuminate\Support\Facades\File::move(
+                $request->file('data')->getPath() .
+                DIRECTORY_SEPARATOR .
+                $request->file('data')->getFileName(),
+                $filePath
+            );
+        } else {
+            $fileContents = $request->getContent();
+            $index = strpos($fileContents, 'data:image/png;base64,');
+            if ($index === 0) {
+                $fileContents = substr($fileContents, 22);
+                $fileContents = base64_decode($fileContents);
+            }
+            file_put_contents($filePath, $fileContents);
+        }
+
+        return response('', 204);
+    }
     public function updateContent(
         Request $request,
         $projectId,
@@ -132,28 +167,32 @@ class ProjectResourceController extends Controller
     }
 
     public function showExercicesContent($projectId){
-        $project = Project::findOrFail($projectId);
         
-        $resources = $project->resources()->get();
+        $project = Project::findOrFail($projectId);
 
+        if($project->is_exercise){
 
-        $resourcesContent = [];
-        foreach ($resources as $key => $resource) {
-            
-            // $resource = $project->resources()->findOrFail($resourceId);
-            $directoryPath = storage_path('app/projects/' . $resource->project_id . '/resources');
-            $filePath = $directoryPath . '/' . $resource->id;
-    
-            $fileContent = '';
-    
-            if (file_exists($filePath)) {
-                if($resource->media_type !== "image/png" || $resource->media_type !== "image/jpg" || $resource->media_type !== "image/jpeg"){
-                    $resourcesContent[$resource->file_name] =  file_get_contents($filePath);
+            $resources = $project->resources()->get();
+            $resourcesContent = [];
+            foreach ($resources as $key => $resource) {
+                
+                // $resource = $project->resources()->findOrFail($resourceId);
+                $directoryPath = storage_path('app/projects/' . $resource->project_id . '/resources');
+                $filePath = $directoryPath . '/' . $resource->id;
+        
+                $fileContent = '';
+        
+                if (file_exists($filePath)) {
+                    if($resource->media_type !== "image/png" || $resource->media_type !== "image/jpg" || $resource->media_type !== "image/jpeg" || $resource->media_type !== "image/gif"){
+                        $resourcesContent[$resource->id] =  ["$resource->file_name" ,file_get_contents($filePath),$project->id];
+                    }
                 }
             }
+            return response($resourcesContent);
+        } else {
+            return response('not authorized', 401);
         }
-
-        return response($resourcesContent);
+        
 
     }
 

@@ -17,8 +17,8 @@ div
         td
           router-link(:to="'/users/' + user.id")
             | {{user.username}}
-  .text-center
-    ul.pagination
+  .text-center-flex-center
+    ul#usersListPagination.pagination
       li(:class='{disabled: currentPage === 1}')
         a(@click='loadPage(currentPage - 1)') &laquo; Précédent
       li(v-for='page in pages', :class='{active: page === currentPage}')
@@ -33,34 +33,34 @@ import _ from 'lodash'
 import Api from '@/api'
 
 export default {
-  data () {
+  data() {
     return {
       users: [],
       search: '',
       currentPage: null,
       lastPage: null,
       previousPageUrl: null,
-      nextPageUrl: null
+      nextPageUrl: null,
     }
   },
   computed: {
-    pages () {
+    pages() {
       let minimum = Math.max(1, this.currentPage - 5)
       let maximum = Math.min(this.lastPage + 1, this.currentPage + 5)
       return _.range(minimum, maximum)
-    }
+    },
   },
-  async created () {
+  async created() {
     this.filterByName = _.debounce(() => this.loadPage(), 500)
     this.loadPage(1)
   },
   watch: {
-    search () {
+    search() {
       this.filterByName()
-    }
+    },
   },
   methods: {
-    async loadPage (page) {
+    async loadPage(page) {
       if (page < 1 || (this.lastPage && page > this.lastPage)) {
         return
       }
@@ -68,8 +68,8 @@ export default {
       this.users = result.items
       this.currentPage = result.currentPage
       this.lastPage = result.lastPage
-    }
-  }
+    },
+  },
 }
 </script>
 

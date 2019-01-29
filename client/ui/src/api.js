@@ -265,10 +265,22 @@ export default {
 
   // project resources methods
   async getAllProjectResources(id, token) {
-    const endpoint = `${config.apiUrl}projects/${id}/resources`
+    const url = `${config.apiUrl}projects/${id}/resources`
     const { data } = await axios({
       method: 'get',
-      endpoint,
+      url,
+      headers: {
+        Authorization: 'Token ' + token,
+      },
+    })
+    return data
+  },
+
+  async getExerciceResourceContent(id, token) {
+    const url = `${config.apiUrl}projects/${id}/exercicesContent`
+    const { data } = await axios({
+      method: 'get',
+      url,
       headers: {
         Authorization: 'Token ' + token,
       },
