@@ -140,7 +140,7 @@ export default {
   height: 26px
   margin-top: 20px
   background-color: transparent
-  background-image: url(~@/assets/image/close-small.png)
+  background-image: url(~@/assets/images/close-small.png)
   border: none
 
 .frame

@@ -86,7 +86,7 @@ ul.pagination#usersListPagination {
   width: 26px;
   height: 26px;
   float: right;
-  background-image: url(../assets/img/close.png);
+  background-image: url(../assets/images/close.png);
   /* position: absolute; */
   top: 10px;
   right: 15px;

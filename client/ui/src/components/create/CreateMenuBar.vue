@@ -51,7 +51,7 @@ a
   display: inline-block
   width: 21px
   height: 50px
-  background-image: url(~@/assets/image/dropdown-trigger.png)
+  background-image: url(~@/assets/images/dropdown-trigger.png)
   background-repeat: no-repeat
   background-position: center
   vertical-align: bottom
@@ -76,14 +76,14 @@ a
   cursor: pointer
 
 .show-editor-link
-  background-image: url(~@/assets/image/switch-editor.png)
+  background-image: url(~@/assets/images/switch-editor.png)
 
 .show-editor-link:hover
-  background-image: url(~@/assets/image/switch-editor-hover.png)
+  background-image: url(~@/assets/images/switch-editor-hover.png)
 
 .show-view-link
-  background-image: url(~@/assets/image/switch-view.png)
+  background-image: url(~@/assets/images/switch-view.png)
 
 .show-view-link:hover
-  background-image: url(~@/assets/image/switch-view-hover.png)
+  background-image: url(~@/assets/images/switch-view-hover.png)
 </style>
