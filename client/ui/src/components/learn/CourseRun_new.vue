@@ -157,6 +157,8 @@ export default {
   src: url('../../assets/fonts/DejaVuSans-Bold.ttf');
 }
 
+
+/* CSS from learn.css */
 body,
 html {
   height: 100%;
@@ -167,7 +169,7 @@ html {
 
 body {
   background-color: #ffffff;
-  overflow: hidden;
+  /* overflow: hidden; */
 }
 
 #tlearnframe {
