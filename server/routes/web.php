@@ -81,7 +81,7 @@ $app->group(['prefix' => 'api/v1'], function () use ($app) {
     $app->get('projects/{projectId}/resources', 'ProjectResourceController@index');
 
     $app->get(
-        'projects/{projectId}/resources{resourceId}/' .
+        'projects/{projectId}/resources/{resourceId}/' .
         'content{extension:(?:\\..+)?}',
         'ProjectResourceController@showContent'
     );
