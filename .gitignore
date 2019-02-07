@@ -6,3 +6,4 @@ server/vendor
 server/.env
 server/storage/app/projects
 **.htaccess
+client/ui/dist/*
