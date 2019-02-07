@@ -1,11 +1,12 @@
 <template lang="pug">
 div
-  h3 Liste des utilisateurs
-  input.form-control(
-    v-model='search'
-    type='text'
-    placeholder='Rechercher'
-  )
+  div
+    h3 Liste des utilisateurs
+    input.form-control(
+      v-model='search'
+      type='text'
+      placeholder='Rechercher'
+    )
   table.table.table-condensed.table-hover
     thead
       tr
@@ -17,7 +18,7 @@ div
         td
           router-link(:to="'/users/' + user.id")
             | {{user.username}}
-  .text-center-flex-center
+  #flexNeedGrow.text-center-flex-center
     ul#usersListPagination.pagination
       li(:class='{disabled: currentPage === 1}')
         a(@click='loadPage(currentPage - 1)') &laquo; Précédent
@@ -74,6 +75,8 @@ export default {
 </script>
 
 <style lang="sass" scoped>
+#flexNeedGrow
+  flex-grow: 2
 a
   cursor: pointer
 li
