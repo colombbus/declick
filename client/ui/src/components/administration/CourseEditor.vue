@@ -14,18 +14,20 @@ div(v-if='rootNode')
       option dracula
       option chrome
       option github
-  div#courseModificationContainer
-    div(v-for="content,index in currentContent" :key="index")
-      span( v-html="content[0]")
+  div#courseModificationContainer(v-if="currentContent")
+    div(v-for="content,index in currentContent" :key="index" v-if="index !== 'img'")
+      span( v-html="index")
       br
-      editor( v-model="content[1]" @init="editorInit" :lang="selectLangage(content[0])" :theme="themeStyle")
+      editor( v-model="content[1]" @init="editorInit" :lang="selectLangage(index)" :theme="themeStyle")
       div
         button(v-if="selectedNode" @click="saveResourceChange(content,index,content[2])") update resources
+
+    div(v-for="img,index in currentContent.img" :key="index")
+      img(:src="img[1],img[0] | ressourcePathToUrl")
+    //-   //- img(:src="img[1]")
 </template>
 
 <script>
-/* global $ */
-
 import StepEditor from './StepEditor'
 import TreeView from './TreeView'
 import config from '@/assets/config/declick'
@@ -34,9 +36,17 @@ import axios from 'axios'
 
 import Api from '@/api'
 
-import { mapState, mapActions } from 'vuex'
+import { mapState } from 'vuex'
 
 export default {
+  filters: {
+    ressourcePathToUrl(path, imgName) {
+      console.log()
+      var url = path.match(/([a-z]*\/\d*\/?){2}$/g)
+
+      return `${config.apiUrl}${url[0]}/content.${imgName.split('.')[1]}`
+    },
+  },
   data: function() {
     return {
       courseId: null,
@@ -53,6 +63,7 @@ export default {
         this.selectedNode.data.id,
         this.token,
       )
+      // console.log(this.currentContent.img['795'])
     },
   },
   created() {
@@ -63,11 +74,9 @@ export default {
   methods: {
     selectLangage(id) {
       switch (id) {
-        case 'solution':
-          return 'javascript'
         case 'instructions.html' || 'lesson.html':
           return 'html'
-        case 'exercise':
+        case 'exercise' || 'solution':
           return 'javascript'
         default:
           return 'html'
@@ -77,15 +86,14 @@ export default {
       require('brace/ext/language_tools') //language extension prerequsite...
       require('brace/mode/html')
       require('brace/mode/javascript') //language
-      require('brace/mode/less')
-      require('brace/theme/dracula')
+      require('brace/theme/dracula') //theme
       require('brace/theme/chrome')
       require('brace/theme/monokai')
       require('brace/theme/github')
       require('brace/snippets/javascript') //snippet
     },
     async saveResourceChange(currentContent, resource_id, projectID) {
-      console.log(currentContent)
+      console.log(content)
       await axios({
         url: `${
           config.apiUrl
@@ -96,7 +104,8 @@ export default {
           Authorization: 'Token ' + this.token,
         },
       }).then(r => {
-        console.log(r)
+        // console.log(r);
+        // TODO: signal this is ok
       })
     },
     async retrieveCourse() {
@@ -188,6 +197,7 @@ export default {
       }
     },
     selectNode(node) {
+      console.log(node)
       this.selectedNode = node
     },
   },
@@ -201,8 +211,6 @@ export default {
 </script>
 
 <style lang="sass">
-.contentContainer > div
-  display : flex
 
 #courseModificationContainer 
   display: flex;
@@ -213,7 +221,7 @@ export default {
 #courseModificationContainer > div
   margin: 0px 10px;
   width:calc(100% / 3 - 20px)
-  width: 90%;
+  // width: 90%;
 
 #courseModificationContainer > div > textarea
   width: 100%;

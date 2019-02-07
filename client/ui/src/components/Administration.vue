@@ -33,6 +33,12 @@ export default {}
 </script>
 
 <style lang="css">
+.contentContainer > div {
+  display: flex;
+  justify-content: space-evenly;
+  padding: 0 10px;
+}
+
 .text-center-flex-center {
   text-align: center;
   display: flex;

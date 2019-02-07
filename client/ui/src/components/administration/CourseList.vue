@@ -1,9 +1,9 @@
 <template lang="pug">
 div
-  input.form-control(type='text'
-   placeholder='recherche par nom'
-   disabled='disabled'
-  )
+  //- input.form-control(type='text'
+  //-  placeholder='recherche par nom'
+  //-  disabled='disabled'
+  //- )
   table.table.table-hover
     thead
       tr
@@ -29,22 +29,22 @@ import CourseCreator from './CourseCreator'
 import Api from '@/api'
 
 export default {
-  data () {
+  data() {
     return {
-      courses: []
+      courses: [],
     }
   },
   methods: {
-    async loadcourseList(){
+    async loadcourseList() {
       let body = await Api.getAllCourses()
       this.courses = body
-    }
+    },
   },
-  created () {    
+  created() {
     this.loadcourseList()
   },
   components: {
-    CourseCreator
-  }
+    CourseCreator,
+  },
 }
 </script>

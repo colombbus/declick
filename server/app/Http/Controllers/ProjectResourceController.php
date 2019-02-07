@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
+use Illuminate\filesystem\Filesystem;
 
 use App\Project;
 use App\ProjectResource;
@@ -151,6 +152,7 @@ class ProjectResourceController extends Controller
         $project = Project::findOrFail($projectId);
 
         $resource = $project->resources()->findOrFail($resourceId);
+        
         $directoryPath =
             storage_path('app/projects/' . $projectId . '/resources');
         $filePath = $directoryPath . '/' . $resourceId;
@@ -183,12 +185,18 @@ class ProjectResourceController extends Controller
                 $fileContent = '';
         
                 if (file_exists($filePath)) {
-                    if($resource->media_type !== "image/png" || $resource->media_type !== "image/jpg" || $resource->media_type !== "image/jpeg" || $resource->media_type !== "image/gif"){
-                        $resourcesContent[$resource->id] =  ["$resource->file_name" ,file_get_contents($filePath),$project->id];
+                    if( $resource->media_type === "text/vnd.colombbus.declick.script" 
+                        || $resource->media_type === "text/html" ) {
+                        $resourcesContent[$resource->file_name] =  [$resource->id,file_get_contents($filePath),$project->id];
+                    }
+                    else{
+                        // $fileSys = new FileSystem();
+                        // TODO: return URL not path of img
+                        $resourcesContent["img"][$resource->id] =  [$resource->file_name,$filePath,$project->id];
                     }
                 }
             }
-            return response($resourcesContent);
+            return response($resourcesContent,200);
         } else {
             return response('not authorized', 401);
         }
