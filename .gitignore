@@ -5,3 +5,4 @@ client/ui/src/assets/config/declick.js
 server/vendor
 server/.env
 server/storage/app/projects
+**.htaccess
