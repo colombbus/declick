@@ -4,3 +4,6 @@ client/ui/src/assets/config/declick.js
 **/yarn-error.log
 server/vendor
 server/.env
+server/storage/app/projects
+**.htaccess
+client/ui/dist/*

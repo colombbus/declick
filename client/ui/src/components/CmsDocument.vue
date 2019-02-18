@@ -2,7 +2,7 @@
 <!-- Uncomment when ready to clean-up.
   <div>
     <div class="cms-document-loading-message">
-      <img src="assets/img/spinner.gif">
+      <img src="assets/images/spinner.gif">
       <p>Chargement...</p>
     </div>
     <div class="cms-document-content"></div>
@@ -10,7 +10,7 @@
 -->
   <div id="contentContainerHome">
     <div id="onLoadGif">
-      <img src="../assets/img/spinner.gif">
+      <img src="../assets/images/spinner.gif">
       <p>Chargement...</p>
     </div>
     <div id="content"></div>
@@ -261,7 +261,7 @@ export default {
   }
 
   #quoi td ul li {
-  	list-style-image: url('../assets/img/yellow.png');
+  	list-style-image: url('../assets/images/yellow.png');
   }
 
   #qui, #ensemble, #logos {
@@ -340,7 +340,7 @@ export default {
   	position:absolute;
   	width:144px;
   	height:144px;
-  	background-image:url("../assets/img/animateurs.png");
+  	background-image:url("../assets/images/animateurs.png");
   	left:0;
   	right:0;
   	margin-left:auto;
@@ -349,7 +349,7 @@ export default {
   }
 
   #animateurs:hover {
-  	background-image:url("../assets/img//animateurs_on.png");
+  	background-image:url("../assets/images//animateurs_on.png");
   }
 
   #content .page-text img#image_contact {

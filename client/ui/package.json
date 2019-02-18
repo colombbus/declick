@@ -14,6 +14,7 @@
     "@babel/polyfill": "^7.0.0",
     "@fortawesome/fontawesome-free": "^5.6.1",
     "axios": "^0.18.0",
+    "konva": "^2.6.0",
     "lodash.debounce": "^4.0.8",
     "lodash.range": "^3.2.0",
     "paper": "^0.12.0",
@@ -21,7 +22,9 @@
     "vue-analytics": "^5.16.1",
     "vue-click-outside": "^1.0.7",
     "vue-i18n": "^8.5.0",
+    "vue-konva": "2.0.0-4",
     "vue-router": "^3.0.2",
+    "vue2-ace-editor": "^0.0.13",
     "vuex": "^3.0.1"
   },
   "devDependencies": {

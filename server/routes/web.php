@@ -86,8 +86,13 @@ $app->group(['prefix' => 'api/v1'], function () use ($app) {
         'ProjectResourceController@showContent'
     );
 
+    $app->get(
+        'projects/{projectId}/exercicesContent',
+        'ProjectResourceController@showExercicesContent'
+    );
+    
     $app->group([
-        'prefix' => 'projects/{projectId}',
+        'prefix' => 'projects/{patch}',
         'middleware' => 'members-only',
     ], function () use ($app) {
         $app->post('resources', 'ProjectResourceController@create');
@@ -109,6 +114,12 @@ $app->group(['prefix' => 'api/v1'], function () use ($app) {
         );
      
     });
+
+    $app->patch(
+        'projects/{projectId}/resources/{resourceId}/contentExercise',
+        'ProjectResourceController@exerciseUpdate'
+    );
+ 
 
     // circuits routes
     $app->get('circuits', 'CircuitController@index');

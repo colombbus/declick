@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
+use Illuminate\filesystem\Filesystem;
 
 use App\Project;
 use App\ProjectResource;
@@ -65,6 +66,41 @@ class ProjectResourceController extends Controller
         return $resource;
     }
 
+    public function exerciseUpdate(Request $request,$projectId,$resourceId){
+        
+        $project = Project::findOrFail($projectId);
+
+        $resource = $project->resources()->findOrFail($resourceId);
+
+        // $this->authorize('updateContent', $resource);
+
+        $directoryPath =
+            storage_path('app/projects/' . $projectId . '/resources');
+        $filePath = $directoryPath . '/' . $resourceId;
+
+        if (!file_exists($directoryPath)) {
+            mkdir($directoryPath, 0755, true);
+        }
+
+        if ($request->hasFile('data')) {
+            \Illuminate\Support\Facades\File::move(
+                $request->file('data')->getPath() .
+                DIRECTORY_SEPARATOR .
+                $request->file('data')->getFileName(),
+                $filePath
+            );
+        } else {
+            $fileContents = $request->getContent();
+            $index = strpos($fileContents, 'data:image/png;base64,');
+            if ($index === 0) {
+                $fileContents = substr($fileContents, 22);
+                $fileContents = base64_decode($fileContents);
+            }
+            file_put_contents($filePath, $fileContents);
+        }
+
+        return response('', 204);
+    }
     public function updateContent(
         Request $request,
         $projectId,
@@ -116,7 +152,7 @@ class ProjectResourceController extends Controller
         $project = Project::findOrFail($projectId);
 
         $resource = $project->resources()->findOrFail($resourceId);
-
+        
         $directoryPath =
             storage_path('app/projects/' . $projectId . '/resources');
         $filePath = $directoryPath . '/' . $resourceId;
@@ -130,6 +166,42 @@ class ProjectResourceController extends Controller
         return response($fileContent, 200, [
             'Content-Type' => $resource->media_type,
         ]);
+    }
+
+    public function showExercicesContent($projectId){
+        
+        $project = Project::findOrFail($projectId);
+
+        if($project->is_exercise){
+
+            $resources = $project->resources()->get();
+            $resourcesContent = [];
+            foreach ($resources as $key => $resource) {
+                
+                // $resource = $project->resources()->findOrFail($resourceId);
+                $directoryPath = storage_path('app/projects/' . $resource->project_id . '/resources');
+                $filePath = $directoryPath . '/' . $resource->id;
+        
+                $fileContent = '';
+        
+                if (file_exists($filePath)) {
+                    if( $resource->media_type === "text/vnd.colombbus.declick.script" 
+                        || $resource->media_type === "text/html" ) {
+                        $resourcesContent[$resource->file_name] =  [$resource->id,file_get_contents($filePath),$project->id];
+                    }
+                    else{
+                        // $fileSys = new FileSystem();
+                        // TODO: return URL not path of img
+                        $resourcesContent["img"][$resource->id] =  [$resource->file_name,$filePath,$project->id];
+                    }
+                }
+            }
+            return response($resourcesContent,200);
+        } else {
+            return response('not authorized', 401);
+        }
+        
+
     }
 
     public function delete($projectId, $resourceId)

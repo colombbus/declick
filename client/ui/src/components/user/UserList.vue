@@ -1,11 +1,12 @@
 <template lang="pug">
 div
-  h3 Liste des utilisateurs
-  input.form-control(
-    v-model='search'
-    type='text'
-    placeholder='Rechercher'
-  )
+  div
+    h3 Liste des utilisateurs
+    input.form-control(
+      v-model='search'
+      type='text'
+      placeholder='Rechercher'
+    )
   table.table.table-condensed.table-hover
     thead
       tr
@@ -17,49 +18,50 @@ div
         td
           router-link(:to="'/users/' + user.id")
             | {{user.username}}
-  .text-center
-    ul.pagination
+  #flexNeedGrow.text-center-flex-center
+    ul#usersListPagination.pagination
       li(:class='{disabled: currentPage === 1}')
         a(@click='loadPage(currentPage - 1)') &laquo; Précédent
       li(v-for='page in pages', :class='{active: page === currentPage}')
-        a(@click='loadPage(page)') {{page}}
+        a(@click='loadPage(page)', v-if="page") {{page}}
       li(:class='{disabled: currentPage === lastPage}')
         a(@click='loadPage(currentPage + 1)') Suivant &raquo;
 </template>
 
 <script>
-import debounce from 'lodash.debounce'
+import _ from 'lodash'
+
 import Api from '@/api'
 
 export default {
-  data () {
+  data() {
     return {
       users: [],
       search: '',
       currentPage: null,
       lastPage: null,
       previousPageUrl: null,
-      nextPageUrl: null
+      nextPageUrl: null,
     }
   },
   computed: {
-    pages () {
+    pages() {
       let minimum = Math.max(1, this.currentPage - 5)
       let maximum = Math.min(this.lastPage + 1, this.currentPage + 5)
-      return R.range(minimum, maximum)
-    }
+      return _.range(minimum, maximum)
+    },
   },
-  async created () {
-    this.filterByName = debounce(() => this.loadPage(), 500)
+  async created() {
+    this.filterByName = _.debounce(() => this.loadPage(), 500)
     this.loadPage(1)
   },
   watch: {
-    search () {
+    search() {
       this.filterByName()
-    }
+    },
   },
   methods: {
-    async loadPage (page) {
+    async loadPage(page) {
       if (page < 1 || (this.lastPage && page > this.lastPage)) {
         return
       }
@@ -67,12 +69,14 @@ export default {
       this.users = result.items
       this.currentPage = result.currentPage
       this.lastPage = result.lastPage
-    }
-  }
+    },
+  },
 }
 </script>
 
 <style lang="sass" scoped>
+#flexNeedGrow
+  flex-grow: 2
 a
   cursor: pointer
 li

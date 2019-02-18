@@ -15,7 +15,7 @@ class ProjectResource extends Model
      */
     protected $fillable = [
         'file_name',
-        'media_type'
+        'media_type',
     ];
 
     /**

@@ -1,9 +1,9 @@
 <template lang="pug">
 div
-  input.form-control(type='text'
-   placeholder='recherche par nom'
-   disabled='disabled'
-  )
+  //- input.form-control(type='text'
+  //-  placeholder='recherche par nom'
+  //-  disabled='disabled'
+  //- )
   table.table.table-hover
     thead
       tr
@@ -26,21 +26,25 @@ div
 // TODO: use store
 
 import CourseCreator from './CourseCreator'
-import config from '@/config'
+import Api from '@/api'
 
 export default {
-  data () {
+  data() {
     return {
-      courses: []
+      courses: [],
     }
   },
-  async created () {
-    let endpoint = `${config.apiUrl}v1/circuits`
-    let {body} = await this.$http.get(endpoint)
-    this.courses = body
+  methods: {
+    async loadcourseList() {
+      let body = await Api.getAllCourses()
+      this.courses = body
+    },
+  },
+  created() {
+    this.loadcourseList()
   },
   components: {
-    CourseCreator
-  }
+    CourseCreator,
+  },
 }
 </script>

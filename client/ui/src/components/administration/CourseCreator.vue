@@ -1,7 +1,7 @@
 <template lang="pug">
 #course-creator.panel.panel-default
-  .panel-heading nouveau parcours
-  .panel-body
+  .panel-heading(@click="newParcour = !newParcour" class="cursor") nouveau parcours
+  .panel-body(v-if="newParcour")
     .form-group
       label(for='name') nom :
       input#name.form-control(type='text' name='name' v-model='name')
@@ -16,32 +16,39 @@
 
 <script>
 import Vue from 'vue'
-import config from '@/config'
+import config from '@/assets/config/declick'
+import axios from 'axios'
 
 export default {
-  data () {
+  data() {
     return {
       name: '',
       shortDescription: '',
-      description: ''
+      description: '',
+      newParcour: false,
     }
   },
   methods: {
-    create () {
+    create() {
       let course = {
         name: this.name,
         short_description: this.shortDescription,
-        description: this.description
+        description: this.description,
       }
-      Vue.http.post(`${config.apiUrl}v1/circuits`, course).then(() =>
-        this.$emit('course-created')
-      )
-    }
-  }
+      axios({
+        method: 'POST',
+        url: `${config.apiUrl}circuits`,
+        data: course,
+      }).then(() => this.$emit('course-created'))
+    },
+  },
 }
 </script>
 
 <style lang="sass">
 #course-creator
   width: 100%
+
+.cursor
+  cursor:pointer
 </style>
