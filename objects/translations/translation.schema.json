@@ -1,0 +1,46 @@
+{
+	"type": "object",
+	"properties": {
+		"$schema": {
+			"type": "string"
+		},
+		"Text": {
+			"type": "string",
+			"minLength": 1
+		},
+		"delete": {
+			"type": "string",
+			"minLength": 1
+		},
+		"delete_help": {
+			"type": "string",
+			"minLength": 1
+		},
+		"getText": {
+			"type": "string",
+			"minLength": 1
+		},
+		"getText_help": {
+			"type": "string",
+			"minLength": 1
+		},
+		"setText": {
+			"type": "string",
+			"minLength": 1
+		},
+		"setText_help": {
+			"type": "string",
+			"minLength": 1
+		}
+	},
+	"required": [
+		"Text",
+		"delete",
+		"delete_help",
+		"getText",
+		"getText_help",
+		"setText",
+		"setText_help"
+	],
+	"additionalProperties": false
+}
