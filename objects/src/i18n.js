@@ -10,7 +10,7 @@ export default {
   },
   translate: function(name) {
     return function decorator(target) {
-      target.name = name
+      target.exposed = name
     }
   },
 }
