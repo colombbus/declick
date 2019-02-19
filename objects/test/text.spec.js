@@ -11,7 +11,7 @@ describe('When Text is instantiated', () => {
     })
     return import('../src/text').then(module => {
       const Text = module.default
-      assert.equal(Text.exposed, 'Texte')
+      assert.equal(Object.getPrototypeOf(Text).className, 'Texte')
     })
   })
 
