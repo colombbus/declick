@@ -19,16 +19,16 @@ describe('When BaseClass is instantiated', () => {
     })
   })
 
-  it('should trigger a custom listener when set', () => {
+  it('should trigger a custom listener when set with reference to instance', () => {
     return import('../src/base-class').then(module => {
       const BaseClass = module.default
       const anObject = new BaseClass()
-      let called = false
-      anObject.addListener('customEvent', () => {
-        called = true
+      let called = null
+      BaseClass.addListener('customEvent', function() {
+        called = this
       })
-      anObject.dispatch('customEvent')
-      assert.equal(called, true)
+      BaseClass.dispatch('customEvent', anObject)
+      assert.deepEqual(called, anObject)
     })
   })
 
@@ -38,26 +38,38 @@ describe('When BaseClass is instantiated', () => {
       const anObject = new BaseClass()
       let receivedParameter1 = null
       let receivedParameter2 = null
-      anObject.addListener('customEvent', (param1, param2) => {
+      BaseClass.addListener('customEvent', (param1, param2) => {
         receivedParameter1 = param1
         receivedParameter2 = param2
       })
-      anObject.dispatch('customEvent', 1234, 5678)
+      BaseClass.dispatch('customEvent', anObject, 1234, 5678)
       assert.equal(receivedParameter1, 1234)
       assert.equal(receivedParameter2, 5678)
     })
   })
 
-  it('should trigger a delete listener when deleted', () => {
+  it('should trigger a create listener when instance is created', () => {
+    return import('../src/base-class').then(module => {
+      const BaseClass = module.default
+      let called = null
+      BaseClass.addListener('create', function() {
+        called = this
+      })
+      const anObject = new BaseClass()
+      assert.deepEqual(called, anObject)
+    })
+  })
+
+  it('should trigger a delete listener when instance is deleted', () => {
     return import('../src/base-class').then(module => {
       const BaseClass = module.default
       const anObject = new BaseClass()
-      let called = false
-      anObject.addListener('delete', () => {
-        called = true
+      let called = null
+      BaseClass.addListener('delete', function() {
+        called = this
       })
       anObject.delete()
-      assert.equal(called, true)
+      assert.deepEqual(called, anObject)
     })
   })
 
@@ -66,11 +78,11 @@ describe('When BaseClass is instantiated', () => {
       const BaseClass = module.default
       const anObject = new BaseClass()
       let called = false
-      anObject.addListener('customEvent', () => {
+      BaseClass.addListener('customEvent', () => {
         called = true
       })
-      anObject.removeListener('customEvent')
-      anObject.dispatch('customEvent')
+      BaseClass.removeListener('customEvent')
+      BaseClass.dispatch('customEvent', anObject)
       assert.equal(called, false)
     })
   })

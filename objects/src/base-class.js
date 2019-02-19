@@ -10,18 +10,18 @@ class BaseClass {
     hidden: [],
   }
 
-  _listeners = new Map()
+  static _listeners = new Map()
 
   constructor() {
-    this.dispatch('create')
+    this.constructor.dispatch('create', this)
   }
 
-  addListener(name, callback) {
+  static addListener(name, callback) {
     this._listeners.has(name) || this._listeners.set(name, [])
     this._listeners.get(name).unshift(callback)
   }
 
-  removeListener(name, callback) {
+  static removeListener(name, callback) {
     if (this._listeners.has(name)) {
       let listeners = this._listeners.get(name)
       listeners = listeners.filter(listener => {
@@ -31,18 +31,18 @@ class BaseClass {
     }
   }
 
-  dispatch(name, ...args) {
+  static dispatch(name, instance, ...args) {
     if (this._listeners.has(name)) {
       const listeners = this._listeners.get(name)
       listeners.forEach(listener => {
-        listener.apply(this, args)
+        listener.apply(instance, args)
       })
     }
   }
 
   @expose(i18n`delete`, i18n`delete_help`)
   delete() {
-    this.dispatch('delete')
+    this.constructor.dispatch('delete', this)
   }
 }
 
