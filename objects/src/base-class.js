@@ -10,7 +10,16 @@ class BaseClass {
     hidden: [],
   }
 
-  static _listeners = new Map()
+  static get _listeners() {
+    if (!this.hasOwnProperty('_ownListeners')) {
+      this._ownListeners = new Map()
+    }
+    return this._ownListeners
+  }
+
+  static set _listeners(value) {
+    this._ownListeners = value
+  }
 
   constructor() {
     this.constructor.dispatch('create', this)
@@ -32,11 +41,15 @@ class BaseClass {
   }
 
   static dispatch(name, instance, ...args) {
-    if (this._listeners.has(name)) {
-      const listeners = this._listeners.get(name)
-      listeners.forEach(listener => {
-        listener.apply(instance, args)
-      })
+    let currentClass = this
+    while (currentClass._listeners != null) {
+      if (currentClass._listeners.has(name)) {
+        const listeners = currentClass._listeners.get(name)
+        listeners.forEach(listener => {
+          listener.apply(instance, args)
+        })
+      }
+      currentClass = Object.getPrototypeOf(currentClass)
     }
   }
 
