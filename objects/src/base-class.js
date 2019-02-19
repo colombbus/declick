@@ -2,14 +2,6 @@ import i18n from 'es2015-i18n-tag'
 import { expose } from './i18n'
 
 class BaseClass {
-  static _configuration = {
-    instance: false,
-    exposed: {
-      delete: 'delete',
-    },
-    hidden: [],
-  }
-
   static get _listeners() {
     if (!this.hasOwnProperty('_ownListeners')) {
       this._ownListeners = new Map()
