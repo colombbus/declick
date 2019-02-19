@@ -79,13 +79,14 @@ let _getMethodWrapper = function(interpreter, method) {
 let _toInterpreterClass = function(interpreter, AClass) {
   // 1st prototype
   let interpreterClass = interpreter.createObject(interpreter.FUNCTION)
-  if (AClass.prototype != null && AClass.prototype.exposedMethods != null) {
-    for (let name in AClass.prototype.exposedMethods) {
+  if (AClass.prototype != null && AClass.prototype.exposed != null) {
+    for (let name in AClass.prototype.exposed) {
+      let methodName = AClass.prototype.exposed[name].method
       interpreter.setProperty(
         interpreterClass.properties.prototype,
-        AClass.prototype.exposedMethods[name],
+        name,
         interpreter.createNativeFunction(
-          _getMethodWrapper(interpreter, AClass.prototype[name]),
+          _getMethodWrapper(interpreter, AClass.prototype[methodName]),
         ),
       )
     }
@@ -94,27 +95,30 @@ let _toInterpreterClass = function(interpreter, AClass) {
   if (AClass.prototype.className != null) {
     _classStructures[AClass.prototype.className] = interpreterClass
   }
-  // 2nd constructor
+
+  // 2nd listeners
+  // TODO: attention à l'héritage, peut-être qu'il ne faut déclarer ça que sur BaseClass ?
+  AClass.addListener('create', function() {
+    _createdObjects.push(declickObject)
+  })
+  AClass.addListener('delete', function() {
+    _deleteInterpreterObject(interpreter, this)
+    _createdObjects.splice(_createdObjects.indexOf(this), 1)
+  })
+
+  // 3rd constructor
   let constructor = function() {
     let instance = interpreter.createObject(interpreterClass)
     let args = [...arguments].map(argument => {
       return _toNativeData(argument)
     })
-    //TODO: voir si on peut définitivement oublier la version function:
-    //let declickObject = Object.create(AClass);
-    //AClass.apply(declickObject, args);
-    let declickObject = new AClass(...args)
-    declickObject.addListener('delete', () => {
-      _deleteInterpreterObject(interpreter, declickObject)
-      _createdObjects.splice(_createdObjects.indexOf(declickObject), 1)
-    })
-    instance.data = declickObject
-    _createdObjects.push(declickObject)
+    instance.data = new AClass(...args)
     return instance
   }
   return interpreter.createNativeFunction(constructor)
 }
 
+//TODO: modifier ça en fonction des choix pris pour les instances
 let _toInterpreterInstance = function(interpreter, instance) {
   let interpreterInstance = interpreter.createObject(interpreter.FUNCTION)
   interpreterInstance.data = instance

@@ -29,11 +29,11 @@ describe('When runtime is initialized', () => {
       setResult() {
         classResult = this.value
       }
-      addListener() {}
+      static addListener() {}
     }
 
-    MyClass2.prototype.exposedMethods = {
-      setResult: 'exposedSetResult',
+    MyClass2.prototype.exposed = {
+      exposedSetResult: { method: 'setResult' },
     }
 
     runtime.initialize({ aClass: MyClass2 }, { anInstance: myInstance })

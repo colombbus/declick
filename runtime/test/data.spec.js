@@ -39,11 +39,11 @@ describe('When data has created interpreter', () => {
       setResult() {
         result = true
       }
-      addListener() {}
+      static addListener() {}
     }
 
-    MyClass.prototype.exposedMethods = {
-      setResult: 'exposedSetResult',
+    MyClass.prototype.exposed = {
+      exposedSetResult: { method: 'setResult' },
     }
 
     data.addClass(MyClass, 'Test')
@@ -67,11 +67,11 @@ describe('When data has created interpreter', () => {
       setResult() {
         result = this.registeredValue
       }
-      addListener() {}
+      static addListener() {}
     }
 
-    MyClass.prototype.exposedMethods = {
-      setResult: 'exposedSetResult',
+    MyClass.prototype.exposed = {
+      exposedSetResult: { method: 'setResult' },
     }
 
     data.addClass(MyClass, 'Test')
@@ -121,11 +121,11 @@ describe('When data has created interpreter', () => {
       getActualResult() {
         return this.secretText
       }
-      addListener() {}
+      static addListener() {}
     }
 
-    MyClass.prototype.exposedMethods = {
-      setResult: 'exposedSetResult',
+    MyClass.prototype.exposed = {
+      exposedSetResult: { method: 'setResult' },
     }
 
     data.addClass(MyClass, 'ATestClass')
@@ -151,12 +151,12 @@ describe('When data has created interpreter', () => {
       getSecretValue() {
         return this.secretValue
       }
-      addListener() {}
+      static addListener() {}
     }
 
-    MyClass.prototype.exposedMethods = {
-      getSecretValue: 'exposedGetSecretValue',
-      setResult: 'exposedSetResult',
+    MyClass.prototype.exposed = {
+      exposedGetSecretValue: { method: 'getSecretValue' },
+      exposedSetResult: { method: 'setResult' },
     }
 
     MyClass.prototype.className = 'aStringUsedToRetrieveTheClass'
@@ -197,11 +197,11 @@ describe('When data has created interpreter', () => {
     assert.throw(interpreter.run.bind(interpreter), TypeError)
   })
 
-  it('should add a listener to every instance of a declared class', () => {
-    let test = ''
+  it('should add listeners to every instance of a declared class', () => {
+    let test = []
     let MyClass = class {
-      addListener(name) {
-        test = name
+      static addListener(name) {
+        test.push(name)
       }
     }
 
@@ -211,20 +211,23 @@ describe('When data has created interpreter', () => {
     let ast = parse(code)
     interpreter.appendCode(ast)
     interpreter.run()
-    assert.equal(test, 'delete')
+    assert.include(test, 'delete')
+    assert.include(test, 'create')
   })
 
   it('should remove reference to an instance of a declared class when delete listener is invoked', () => {
-    let callback = ''
+    let callback = function() {}
     let MyClass = class {
       tickle() {}
-      addListener(name, aCallback) {
-        callback = aCallback
+      static addListener(name, aCallback) {
+        if (name === 'delete') {
+          callback = aCallback
+        }
       }
     }
 
-    MyClass.prototype.exposedMethods = {
-      tickle: 'exposedTickle',
+    MyClass.prototype.exposed = {
+      exposedTickle: { method: 'tickle' },
     }
 
     data.addClass(MyClass, 'ATestClass')
@@ -233,7 +236,7 @@ describe('When data has created interpreter', () => {
     let ast = parse(code)
     interpreter.appendCode(ast)
     interpreter.run()
-    callback()
+    callback.apply(data.toNativeData(data.findInterpreterObject('toto')))
     code = 'toto.exposedTickle()'
     ast = parse(code)
     interpreter.appendCode(ast)
@@ -248,11 +251,11 @@ describe('When data has created interpreter', () => {
     it('should clear reference to a previously created object', () => {
       let MyClass = class {
         setResult() {}
-        addListener() {}
+        static addListener() {}
       }
 
-      MyClass.prototype.exposedMethods = {
-        setResult: 'exposedSetResult',
+      MyClass.prototype.exposed = {
+        exposedSetResult: { method: 'setResult' },
       }
 
       data.addClass(MyClass, 'Test')
@@ -275,11 +278,11 @@ describe('When data has created interpreter', () => {
         setResult() {
           result = true
         }
-        addListener() {}
+        static addListener() {}
       }
 
-      MyClass.prototype.exposedMethods = {
-        setResult: 'exposedSetResult',
+      MyClass.prototype.exposed = {
+        exposedSetResult: { method: 'setResult' },
       }
 
       data.addClass(MyClass, 'Test')
