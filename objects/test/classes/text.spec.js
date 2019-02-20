@@ -1,7 +1,7 @@
 /*eslint-env mocha */
 import { assert } from 'chai'
 import { i18nConfig } from 'es2015-i18n-tag'
-import frenchTranslations from '../translations/translation.fr.json'
+import frenchTranslations from '../../translations/translation.fr.json'
 
 describe('When Text is instantiated', () => {
   it('should have an exposed name', () => {
@@ -9,7 +9,7 @@ describe('When Text is instantiated', () => {
       locales: 'fr-FR',
       translations: frenchTranslations,
     })
-    return import('../src/text').then(module => {
+    return import('../../src/classes/text').then(module => {
       const Text = module.default
       assert.equal(Object.getPrototypeOf(Text).className, 'Texte')
     })
@@ -20,7 +20,7 @@ describe('When Text is instantiated', () => {
       locales: 'fr-FR',
       translations: frenchTranslations,
     })
-    return import('../src/text').then(module => {
+    return import('../../src/classes/text').then(module => {
       const Text = module.default
       let exposed = Text.prototype.exposed
       assert.deepEqual(exposed['définirTexte'], {
@@ -35,7 +35,7 @@ describe('When Text is instantiated', () => {
       locales: 'fr-FR',
       translations: frenchTranslations,
     })
-    return import('../src/text').then(module => {
+    return import('../../src/classes/text').then(module => {
       const Text = module.default
       let exposed = Text.prototype.exposed
       assert.deepEqual(exposed['supprimer'], {
@@ -46,7 +46,7 @@ describe('When Text is instantiated', () => {
   })
 
   it('should trigger a custom listener when set with reference to instance', () => {
-    return import('../src/text').then(module => {
+    return import('../../src/classes/text').then(module => {
       const Text = module.default
       const anObject = new Text()
       let called = null
@@ -59,7 +59,7 @@ describe('When Text is instantiated', () => {
   })
 
   it('should pass parameters to a listener', () => {
-    return import('../src/text').then(module => {
+    return import('../../src/classes/text').then(module => {
       const Text = module.default
       const anObject = new Text()
       let receivedParameter1 = null
@@ -75,7 +75,7 @@ describe('When Text is instantiated', () => {
   })
 
   it('should trigger a create listener when instance is created', () => {
-    return import('../src/text').then(module => {
+    return import('../../src/classes/text').then(module => {
       const Text = module.default
       let called = null
       Text.addListener('create', function() {
@@ -87,7 +87,7 @@ describe('When Text is instantiated', () => {
   })
 
   it('should trigger a delete listener when instance is deleted', () => {
-    return import('../src/text').then(module => {
+    return import('../../src/classes/text').then(module => {
       const Text = module.default
       const anObject = new Text()
       let called = null
@@ -101,9 +101,9 @@ describe('When Text is instantiated', () => {
 
   it('should not trigger a text delete listener when base class instance is deleted', () => {
     let Text, BaseClass
-    return import('../src/text').then(module => {
+    return import('../../src/classes/text').then(module => {
       Text = module.default
-      return import('../src/base-class').then(module => {
+      return import('../../src/base-class').then(module => {
         BaseClass = module.default
         const anObject = new BaseClass()
         let called = null
@@ -118,9 +118,9 @@ describe('When Text is instantiated', () => {
 
   it('should trigger a base class delete listener when text instance is deleted', () => {
     let Text, BaseClass
-    return import('../src/text').then(module => {
+    return import('../../src/classes/text').then(module => {
       Text = module.default
-      return import('../src/base-class').then(module => {
+      return import('../../src/base-class').then(module => {
         BaseClass = module.default
         const anObject = new Text()
         let called = null
@@ -134,7 +134,7 @@ describe('When Text is instantiated', () => {
   })
 
   it('should not trigger a listener when removed', () => {
-    return import('../src/text').then(module => {
+    return import('../../src/classes/text').then(module => {
       const Text = module.default
       const anObject = new Text()
       let called = false

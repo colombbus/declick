@@ -4,6 +4,7 @@ const path = require('path')
 const env = require('yargs').argv.env // use --env with webpack 2
 const pkg = require('./package.json')
 const fs = require('fs')
+const webpack = require('webpack')
 
 let libraryName = pkg.name
 
@@ -19,9 +20,7 @@ if (env === 'build') {
 
 const config = {
   mode: mode,
-  entry: fs.readdirSync('./src/').filter(function(file) {
-    return file.match(/.*\.js$/)
-  }),
+  entry: __dirname + '/src/loader.js',
   devtool: 'source-map',
   output: {
     path: __dirname + '/lib',
@@ -48,6 +47,13 @@ const config = {
     modules: [path.resolve('./node_modules'), path.resolve('./src')],
     extensions: ['.json', '.js'],
   },
+  plugins: [
+    new webpack.DefinePlugin({
+      __CLASSES__: JSON.stringify(
+        fs.readdirSync('./src/classes').filter(file => file.match(/.*\.js$/)),
+      ),
+    }),
+  ],
 }
 
 module.exports = config

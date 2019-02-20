@@ -6,8 +6,8 @@
   "scripts": {
     "build": "webpack --env dev && webpack --env build",
     "dev": "webpack --progress --colors --watch --env dev",
-    "test": "mocha --require @babel/register --colors ./test/*.spec.js",
-    "test:watch": "mocha --require @babel/register --colors -w ./test/*.spec.js"
+    "test": "mocha --require @babel/register --colors --recursive './test/**/*.spec.js'",
+    "test:watch": "mocha --require @babel/register --colors -w './test/**/*.spec.js'"
   },
   "repository": {
     "type": "git",

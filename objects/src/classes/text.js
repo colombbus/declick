@@ -1,6 +1,6 @@
 import i18n from 'es2015-i18n-tag'
-import { expose, translate } from './i18n'
-import BaseClass from './base-class'
+import { expose, translate } from '../i18n'
+import BaseClass from '../base-class'
 
 @translate(i18n`Text`)
 class Text extends BaseClass {
