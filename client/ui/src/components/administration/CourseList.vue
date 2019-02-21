@@ -1,50 +1,57 @@
-<template lang="pug">
-div
-  //- input.form-control(type='text'
-  //-  placeholder='recherche par nom'
-  //-  disabled='disabled'
-  //- )
-  table.table.table-hover
-    thead
-      tr
-        th identifiant
-        th nom
-        th description courte
-        th
-          // actions
-    tbody
-      tr.list-group(v-for='course in courses')
-        td {{ course.id }}
-        td {{ course.name }}
-        td {{ course.short_description }}
-        td
-          router-link.btn.btn-default(:to="'/administration/courses/' + course.id") modifier
-  course-creator(@course-created='loadcourseList')
+<template>
+  <div>
+    <input
+      type="text"
+      class="form-control"
+      placeholder="recherche par nom"
+      disabled="disabled"
+    >
+    <table class="table table-hover">
+      <thead>
+        <tr>
+          <th>identifiant</th>
+          <th>nom</th>
+          <th>description courte</th>
+          <th><!-- actions --></th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr v-for="course in courses" class="list-group">
+          <td>{{ course.id }}</td>
+          <td>{{ course.name }}</td>
+          <td>{{ course.short_description }}</td>
+          <td>
+            <router-link
+              :to="'/administration/courses/' + course.id"
+              class="btn btn-default"
+            >modifier</router-link>
+          </td>
+        </tr>
+      </tbody>
+    </table>
+    <course-creator @course-created="loadcourseList"></course-creator>
+  </div>
 </template>
 
 <script>
 // TODO: use store
 
 import CourseCreator from './CourseCreator'
-import Api from '@/api'
+import config from 'assets/config/declick'
 
 export default {
-  data() {
+  data () {
     return {
-      courses: [],
+      courses: []
     }
   },
-  methods: {
-    async loadcourseList() {
-      let body = await Api.getAllCourses()
-      this.courses = body
-    },
-  },
-  created() {
-    this.loadcourseList()
+  async created () {
+    let endpoint = `${config.apiUrl}v1/circuits`
+    let {body} = await this.$http.get(endpoint)
+    this.courses = body
   },
   components: {
-    CourseCreator,
-  },
+    CourseCreator
+  }
 }
 </script>

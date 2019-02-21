@@ -1,33 +1,34 @@
 <template lang="pug">
-.application(:class="fullscreenMode ? 'application--fullscreen': null")
-  header-bar.application__header
-  main-menu
-  //- .content
-  //-   course-run(v-show="this.$route.name === 'step'")
-  //-   create-view(v-show="this.$route.name === 'create'")
-  //-   execute(v-show="this.$route.name === 'execute'")
-  //-   keep-alive
-    //-   router-view(
-    //-     v-if='$route.meta.keepAlive === undefined || $route.meta.keepAlive',
-    //-     :key='viewId',
-    //-     :id='viewId'
-    //-   )
-    //- router-view(
-    //-   v-if='$route.meta.keepAlive !== undefined && !$route.meta.keepAlive',
-    //-   :key='viewId',
-    //-   :id='viewId'
-    //- )
-  router-view
-  footer-bar.application__footer(v-show='!viewUseFullscreen')
+.self(:style="{overflow: viewUseFullscreen ? 'hidden' : null}")
+  HeaderBar.application__header
+  MainMenu.header(v-show='!viewUseFullscreen')
+  .content
+    course-run(v-show="this.$route.name === 'step'")
+    create-view(v-show="this.$route.name === 'create'")
+    execute(v-show="this.$route.name === 'execute'")
+    keep-alive
+      router-view(
+        v-if='$route.meta.keepAlive === undefined || $route.meta.keepAlive',
+        :key='viewId',
+        :id='viewId'
+      )
+    router-view(
+      v-if='$route.meta.keepAlive !== undefined && !$route.meta.keepAlive',
+      :key='viewId',
+      :id='viewId'
+    )
+  footer-bar(v-show='!viewUseFullscreen')
 </template>
 
 <script>
-import CourseRun from '@/components/learn/CourseRun'
-import CreateView from '@/components/create/CreateView'
-import FooterBar from '@/components/navigation/FooterBar'
-import MainMenu from '@/components/navigation/MainMenu'
-import HeaderBar from '@/components/navigation/HeaderBar'
-import Execute from '@/components/execute/Execute'
+import R from 'ramda'
+import courseRun from 'components/learn/CourseRun'
+import CreateView from 'components/create/CreateView'
+import FooterBar from 'components/navigation/FooterBar'
+import HeaderBar from 'components/navigation/HeaderBar'
+import MainMenu from 'components/navigation/MainMenu'
+
+import Execute from 'components/execute/Execute'
 
 export default {
   computed: {
@@ -40,15 +41,12 @@ export default {
       }
       return null
     },
-    fullscreenMode () {
-      return this.$route.matched.some(match => match.meta.useFullscreen)
-    },
     viewUseFullscreen () {
       return this.$route.matched.some(match => match.meta.useFullscreen)
     }
   },
   components: {
-    CourseRun,
+    courseRun,
     CreateView,
     FooterBar,
     HeaderBar,
@@ -59,21 +57,37 @@ export default {
 </script>
 
 <style lang="sass">
-.application
-  display: grid
+@font-face
+	font-family: 'Rubik'
+	src: url('assets/font/Rubik-Regular.eot')
+	src: url('assets/font/Rubik-Regular.eot?#iefix') format('embedded-opentype')
+  src: url('assets/font/Rubik-Regular.woff') format('woff')
+	src: url('assets/font/Rubik-Regular.ttf') format('truetype')
+	font-weight: normal
+	font-style: normal
+
+html, body
   height: 100%
   margin: 0
   padding: 0
-  grid-template-rows: auto auto 1fr auto
+</style>
 
-.application--fullscreen
-  &__header-bar, &__footer-bar
-    display: none
+<style lang="sass" scoped>
+.self
+  height: 100%
+  margin: 0
+  padding: 0
 
-// small devices
+.header
+  box-shadow: 0 2px 6px 0 rgba(0, 0, 0, .25)
 
-@media only screen and (max-width: 576px)
-  .application__header,
-  .application__footer
-    display: none
+.content
+  // header-bar:
+  //   slogan-bar: 100px
+  //   main-menu: 45px
+  //   breadcrumb: 25px
+  // footer-bar: 25px
+  // total: 195px
+  min-height: calc(100% - 195px)
+  overflow: hidden
 </style>

@@ -64,7 +64,7 @@ div
 
 <script>
 import Vue from 'vue'
-import config from '@/config'
+import config from 'assets/config/declick'
 
 export default {
   data () {

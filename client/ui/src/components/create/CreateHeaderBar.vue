@@ -16,7 +16,7 @@
   width: 45px
   height: 45px
   vertical-align: bottom
-  background-image: url(~@/assets/images/mini-logo.png)
+  background-image: url(~assets/image/mini-logo.png)
   cursor: pointer
 
 .title
@@ -33,9 +33,9 @@
   width: 42px
   height: 42px
   vertical-align: bottom
-  background-image: url(~@/assets/images/close-2.png)
+  background-image: url(~assets/image/close.png)
   cursor: pointer
 
 .close-link:hover
-  background-image: url(~@/assets/images/close-hover.png)
+  background-image: url(~assets/image/close-hover.png)
 </style>

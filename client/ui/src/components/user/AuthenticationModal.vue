@@ -38,6 +38,18 @@ transition(name='modal')
               | &nbsp;
               span.fa.fa-circle-o-notch.fa-spin
           button(
+            type='button'
+            class='btn btn-block btn-social btn-google disabled'
+          )
+            span.fa.fa-google
+            | se connecter via Google
+          button(
+            type='button'
+            class='btn btn-block btn-social btn-facebook disabled'
+          )
+            span.fa.fa-facebook
+            | se connecter via Facebook
+          button(
             @click="mode = 'registration'"
             type='button'
             class='btn btn-block btn-link'
@@ -50,8 +62,8 @@ transition(name='modal')
 </template>
 
 <script>
-import '@fortawesome/fontawesome-free/css/fontawesome.css'
-
+import 'bootstrap-social/bootstrap-social.css'
+import 'font-awesome/css/font-awesome.css'
 import RegistrationForm from './RegistrationForm'
 
 export default {

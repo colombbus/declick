@@ -16,6 +16,16 @@
   padding: 0
   border: 0
   background-color: transparent
-  background-image: url(~@/assets/images/logos/Declick.svg)
+  background-image: url(../../assets/images/logos/Declick.svg)
+  background-repeat: no-repeat
   outline: 0
+
+@media only screen and (max-width: 576px)
+  .slogan-bar
+    border: 0
+    background-color: transparent
+  .slogan-bar__logo
+    height: 60px
+    width: 60px
+    background-image: url(../../assets/images/logos/Declick-small.svg)
 </style>

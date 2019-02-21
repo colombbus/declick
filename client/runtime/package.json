@@ -1,0 +1,32 @@
+{
+  "name": "declick-client-v2",
+  "author": {
+    "name": "Colombbus",
+    "email": "contact@colombbus.org"
+  },
+  "version": "2.0.0",
+  "license": "GPL-3.0",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/colombbus/declick-client-v2.git"
+  },
+  "dependencies": {
+    "ace-builds": "^1.2.2",
+    "babylonjs": "~2.0.1",
+    "intro.js": "^2.2.0",
+    "jquery": "1.11.1",
+    "requirejs": "2.1.15"
+  },
+  "devDependencies": {
+    "grunt": "^0.4.5",
+    "grunt-cleanempty": "^1.0.4",
+    "grunt-contrib-jshint": "^0.11.2",
+    "grunt-contrib-requirejs": "^1.0.0",
+    "grunt-contrib-uglify": "~0.5.0",
+    "grunt-front-end-modules": "^1.2.2",
+    "grunt-html-build": "^0.6.1"
+  },
+  "scripts": {
+    "install_declick": "npm install && grunt install_declick"
+  }
+}

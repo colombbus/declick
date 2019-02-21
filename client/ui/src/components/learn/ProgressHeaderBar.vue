@@ -2,86 +2,87 @@
   <div id="navigation-bar-small">
     <router-link to="/" id="home-control-small"></router-link>
     <div id="page-title">{{this.assessmentName}}</div>
-    <router-link :to="'/progress/course/'+this.$route.params.id" id="map-control-small"></router-link>
+    <router-link :to="'/progress/course/'+this.$route.params.id" id="map-control-small" ></router-link>
     <div id="mapController">
-      <div id="leftLink" @click="previous()"></div>
+      <div id="leftLink" @click="previous()" ></div>
       <div id="rightLink" @click="next()"></div>
     </div>
   </div>
+
 </template>
 
 <script>
 /* global $ */
 
-import { mapState, mapActions } from 'vuex'
+import {mapState, mapActions} from 'vuex'
 
 export default {
-  data() {
+  data () {
     return {}
   },
   computed: {
-    assessmentName() {
+    assessmentName () {
       if (this.currentAssessment) {
         return this.currentAssessment.name
       } else {
         return ''
       }
     },
-    ...mapState(['currentAssessment']),
+    ...mapState(['currentAssessment'])
   },
   methods: {
-    previous() {
+    previous () {
       this.selectPreviousAssessment()
     },
-    next() {
+    next () {
       this.selectNextAssessment()
     },
-    toggleMapIframe() {
+    toggleMapIframe () {
       $('#declick-client-learn').css('display', 'none')
       $('#map').css('display', 'block')
     },
-    ...mapActions(['selectPreviousAssessment', 'selectNextAssessment']),
-  },
+    ...mapActions(['selectPreviousAssessment', 'selectNextAssessment'])
+  }
 }
 </script>
 
 <style>
-#mapController div {
-  cursor: pointer;
+#mapController div{
+  cursor: pointer
 }
 #rightLink:hover {
-  background-image: url('../../assets/images/arrow-right-hover.png');
+    background-image: url('../../assets/img/arrow-right-hover.png');
 }
 #leftLink:hover {
-  background-image: url('../../assets/images/arrow-left-hover.png');
+    background-image: url('../../assets/img/arrow-left-hover.png');
 }
 #rightLink {
-  background-image: url('../../assets/images/arrow-right.png');
-  content: '';
-  position: absolute;
-  right: 115px !important;
-  top: 9px;
-  background-color: transparent;
-  height: 33px;
-  width: 33px;
+    background-image: url('../../assets/img/arrow-right.png');
+    content: '';
+    position: absolute;
+    right: 115px !important;
+    top: 9px;
+    background-color: transparent;
+    height: 33px;
+    width: 33px;
 }
 #leftLink {
-  position: absolute;
-  content: '';
-  background-image: url('../../assets/images/arrow-left.png');
-  right: 165px;
-  top: 9px;
-  left: initial !important;
-  background-color: transparent;
-  transform: initial;
-  -webkit-transform: initial;
-  height: 33px;
-  width: 33px;
+    position: absolute;
+    content: '';
+    background-image: url('../../assets/img/arrow-left.png');
+    right: 165px;
+    top: 9px;
+    left: initial !important;
+    background-color: transparent;
+    transform: initial;
+    -webkit-transform: initial;
+    height: 33px;
+    width: 33px;
 }
 #navigation-bar-small {
   padding: 0px 10px;
-  background-color: #480a2a;
-  border-bottom: 5px solid #d1d718;
+  background-color: #480A2A;
+  border-bottom: 5px solid #D1D718;
   height: 55px;
 }
 
@@ -101,7 +102,7 @@ export default {
   width: 45px;
   height: 45px;
   cursor: pointer;
-  background-image: url('../../assets/images/dk.png');
+  background-image: url('../../assets/img/dk.png');
 }
 
 #map-control-small {
@@ -111,10 +112,10 @@ export default {
   width: 42px;
   height: 42px;
   cursor: pointer;
-  background-image: url('../../assets/images/carte.png');
+  background-image: url('../../assets/img/carte.png');
 }
 
 #map-control-small:hover {
-  background-image: url('../../assets/images/carte-hover.png');
+  background-image: url('../../assets/img/carte-hover.png')
 }
 </style>

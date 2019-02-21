@@ -1,0 +1,28 @@
+# Build and Release Folders
+dist/
+dist/*
+
+# Other files and folders
+.settings/
+
+# Project files, i.e. `.project`, `.actionScriptProperties` and `.flexProperties`
+# should NOT be excluded as they contain compiler settings and other important
+# information for Eclipse / Flash Builder.
+/nbproject/private/
+/src/resources/config.json
+
+/bower_components/*
+/js/libs-bower/*
+/nbproject/
+/node_modules/
+/resources/config.json
+.project
+npm-debug.log
+/src/js/libs/jquery/
+/src/js/libs/requirejs/
+/src/js/libs/babylonjs/
+/src/js/libs/introjs/
+/src/js/libs/ace/
+
+#includes
+inc/*
