@@ -1,29 +1,43 @@
-<template lang="pug">
-.self
-  .course(v-for='course in courses')
-    .image-area
-      img(v-if='course.imageUrl', :src='course.imageUrl')
-    p.fields-area
-      router-link.name(:to="'/progress/course/' + course.id") {{course.name}}
-      br
-      span.summary {{course.summary}}
-      br
-      span(v-if='!course.showDetails')
-        a.toggle-details-link(@click='course.showDetails = true')
-          span.glyphicon.glyphicon-triangle-right
-          |
-          | afficher les détails
-      span(v-else)
-        a.toggle-details-link(@click='course.showDetails = false')
-          span.glyphicon.glyphicon-triangle-bottom
-          |
-          | masquer les détails
-        br
-        span.details {{course.details}}
+<template>
+  <div>
+    <input
+      type="text"
+      class="form-control"
+      placeholder="recherche par nom"
+      disabled="disabled"
+    >
+    <table class="table table-hover">
+      <thead>
+        <tr>
+          <th>identifiant</th>
+          <th>nom</th>
+          <th>description courte</th>
+          <th><!-- actions --></th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr v-for="course in courses" class="list-group">
+          <td>{{ course.id }}</td>
+          <td>{{ course.name }}</td>
+          <td>{{ course.short_description }}</td>
+          <td>
+            <router-link
+              :to="'/administration/courses/' + course.id"
+              class="btn btn-default"
+            >modifier</router-link>
+          </td>
+        </tr>
+      </tbody>
+    </table>
+    <course-creator @course-created="loadcourseList"></course-creator>
+  </div>
 </template>
 
 <script>
-import {mapActions} from 'vuex'
+// TODO: use store
+
+import CourseCreator from './CourseCreator'
+import config from 'assets/config/declick'
 
 export default {
   data () {
@@ -32,13 +46,13 @@ export default {
     }
   },
   async created () {
-    let courses = await this.getAllCourses()
-    courses.forEach((course) => {
-      course.showDetails = false
-    })
-    this.courses = courses
+    let endpoint = `${config.apiUrl}v1/circuits`
+    let {body} = await this.$http.get(endpoint)
+    this.courses = body
   },
-  methods: mapActions(['getAllCourses'])
+  components: {
+    CourseCreator
+  }
 }
 </script>
 
