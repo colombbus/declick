@@ -7,20 +7,20 @@
       code informatique et de les appliquer à travers des projets, individuels
       ou collectifs, d'applications ou de jeux vidéo.
   .home__box
-    img.home__robot-train(src='~@/assets/images/figures/robot-train.svg')
+    img.home__robot-train(src='../assets/images/figures/robot-train.svg')
     h3 les parcours
     p.
       La section « APPRENDRE » regroupe des parcours qui vous permettent
       d'assimiler progressivement des notions de programmation.
   .home__box
-    img.home__robot-idea(src='~@/assets/images/figures/robot-idea.svg')
+    img.home__robot-idea(src='../assets/images/figures/robot-idea.svg')
     h3 l'espace créatif
     p.
       La section « CRÉER » vous propose un environnement de travail où vous
       pouvez composer avec les notions acquises pour créer vos propres jeux et
       applications.
   .home__box
-    img.home__robot-observe(src='~@/assets/images/figures/robot-observe.svg')
+    img.home__robot-observe(src='../assets/images/figures/robot-observe.svg')
     h3 l'espace découverte
     p.
       Dans la section « JOUER » retrouvez et testez les jeux ou les
@@ -35,7 +35,7 @@
   )
   h2 notre approche
   .home__box
-    img(src='~@/assets/images/figures/target.svg')
+    img(src='../assets/images/figures/target.svg')
     h3 notre mission
     p.
       Declick a été conçu pour initier les 8-15 ans au code et à la création
@@ -43,7 +43,7 @@
       ainsi une étape intermédiaire entre les éditeurs visuels (type Scratch)
       et les vrais environnements de programmation.
   .home__box
-    img(src='~@/assets/images/figures/chart.svg')
+    img(src='../assets/images/figures/chart.svg')
     h3 notre pédagogie
     p.
       Declick est le fruit de plus de 10 ans d'expérience de l'enseignement de
@@ -52,13 +52,13 @@
       d'ateliers dans les collèges les écoles élémentaires et les centres
       d'animation.
   .home__box
-    img(src='~@/assets/images/logos/Octocat.svg')
+    img(src='../assets/images/logos/Octocat.svg')
     h3 un logiciel libre
     p.
       Declick est gratuit et libre : le code source de la plateforme est
       hébergé sur GitHub et diffusé sous license GPL 3.0. Si vous voulez
       contribuer au développement, n'hésitez pas à nous contacter !
-    img.home__tag(src='~@/assets/images/figures/made-in-France.svg')
+    img.home__tag(src='../assets/images/figures/made-in-France.svg')
   .home__about-us
     h3 l'association Colombbus
     p.
@@ -75,70 +75,70 @@
         href='https://pixees.fr/classcode-v2/'
         title="Class'Code"
         target='_blank'
-      ): img(src='~@/assets/images/logos/ClassCode.svg')
+      ): img(src='../assets/images/logos/ClassCode.svg')
       a(
         href='https://d-clicsnumeriques.org/'
         title='D-Clics Numériques'
         target='_blank'
-      ): img(src='~@/assets/images/logos/D-Clics-Numeriques.svg')
+      ): img(src='../assets/images/logos/D-Clics-Numeriques.svg')
       a(
         href='https://www.reseau-canope.fr/'
         title='Réseau Canopé'
         target='_blank'
-      ): img(src='~@/assets/images/logos/Canope.svg')
+      ): img(src='../assets/images/logos/Canope.svg')
       a(
         href='http://www.ensiie.fr/'
         title='ENSIIE'
         target='_blank'
-      ): img(src='~@/assets/images/logos/ENSIIE.svg')
+      ): img(src='../assets/images/logos/ENSIIE.svg')
       a(
         href='http://www.france-ioi.org/'
         title='France-IOI'
         target='_blank'
-      ): img(src='~@/assets/images/logos/France-IOI.svg')
+      ): img(src='../assets/images/logos/France-IOI.svg')
     h3 nos partenaires publics
     .home__logo-group
       a(
         href='http://www.education.gouv.fr/'
         title="Ministère de l'Éducation nationale"
         target='_blank'
-      ): img(src='~@/assets/images/logos/Ministere-Education-nationale.svg')
+      ): img(src='../assets/images/logos/Ministere-Education-nationale.svg')
       a(
         href='http://www.europe-en-france.gouv.fr/'
         title="L'Europe s'engage"
         target='_blank'
-      ): img(src='~@/assets/images/logos/lEurope-sengage.svg')
+      ): img(src='../assets/images/logos/lEurope-sengage.svg')
       a(
         href='https://www.paris.fr/'
         title='Mairie de Paris'
         target='_blank'
-      ): img(src='~@/assets/images/logos/Mairie-de-Paris.svg')
+      ): img(src='../assets/images/logos/Mairie-de-Paris.svg')
     h3 nos mécènes
     .home__logo-group
       a(
         href='https://www.vivendi.com/create-joy-fr/'
         title='Vivendi Create Joy'
         target='_blank'
-      ): img(src='~@/assets/images/logos/Vivendi-Create-Joy.svg')
+      ): img(src='../assets/images/logos/Vivendi-Create-Joy.svg')
       a(
         href='https://www.thalesgroup.com/fr'
         title='Thales'
         target='_blank'
-      ): img(src='~@/assets/images/logos/Thales.svg')
+      ): img(src='../assets/images/logos/Thales.svg')
       a(
         href='https://www.fondation-sncf.org/fr/'
         title='Fondation SNCF'
         target='_blank'
-      ): img(src='~@/assets/images/logos/Fondation-SNCF.svg')
+      ): img(src='../assets/images/logos/Fondation-SNCF.svg')
       a(
         href='https://group.bnpparibas/decouvrez-le-groupe/fondation-bnp-paribas'
         title='Fondation BNP Paribas'
         target='_blank'
-      ): img(src='~@/assets/images/logos/Fondation-BNP-Paribas.svg')
+      ): img(src='../assets/images/logos/Fondation-BNP-Paribas.svg')
 </template>
 
 <style lang="sass">
-@import '~@/styles/mixins'
+@import '../styles/mixins'
 
 $crimson: #e32c20
 $cab-sav: #480a2a
@@ -155,15 +155,6 @@ $vertical-gap: 40px
     width: 100px
     margin: auto
     margin-top: 7px
-    margin-bottom: 12px
-    border-bottom: 1px solid #{$color}
-
-@mixin preline($color)
-  &:before
-    content: ''
-    display: block
-    width: 100px
-    margin: auto
     margin-bottom: 12px
     border-bottom: 1px solid #{$color}
 
@@ -202,6 +193,7 @@ $vertical-gap: 40px
   color: $crimson
 
 .home h3
+  font-weight: bold
   font-size: 12pt
 
 .home h4
@@ -213,6 +205,8 @@ $vertical-gap: 40px
   width: 66%
   margin-left: auto
   margin-right: auto
+  &, h4
+    font-size: 14pt
 
 .home__box > img
   height: 50px
@@ -224,11 +218,13 @@ $vertical-gap: 40px
 .home__box .home__robot-observe
   margin-top: 30px
 
-.home__tag
+.home .home__tag
   position: absolute
   bottom: 0
   right: 0
   display: block
+  width: 75px
+  height: 75px
 
 .home__video
   +ratio-container(16, 9)
@@ -288,7 +284,6 @@ $vertical-gap: 40px
 @media only screen and (max-width: 576px)
   .home
     text-align: justify
-    text-align-last: center
   .home__presentation,
   .home__about-us
     width: 100%
@@ -299,22 +294,22 @@ $vertical-gap: 40px
       display: inline-block
       margin: 0
       vertical-align: baseline
-      line-height: 30px
     & > img
       position: relative
       top: 4px
       height: 20px
       margin-right: 11px
-    & > p
-      @include preline($crimson)
-  .home__box > h3:after
-    display: none
+  .home h2:after,
+  .home h3:after
+    margin-left: 0
   .home__box .home__robot-train,
   .home__box .home__robot-idea,
     height: 35px
   .home__box .home__robot-observe
     height: 23px
     margin-top: 0
+  .home__box p
+    margin-top: 3px
   .home__box .home__tag
     display: none
   .home__partners
@@ -324,4 +319,6 @@ $vertical-gap: 40px
     border-left: 0
   .home__partners h3
     margin-top: 20px
+  .home__logo-group
+    justify-content: left
 </style>

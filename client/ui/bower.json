@@ -1,0 +1,17 @@
+{
+  "name": "declick-ui",
+  "description": "Declick platform front-end",
+  "authors": [
+    "Colombbus"
+  ],
+  "license": "MIT",
+  "homepage": "https://github.com/colombbus/declick-ui",
+  "ignore": [
+    "bower_components",
+    "node_modules"
+  ],
+  "dependencies": {
+    "paper": "0.10.2",
+    "pem-platform": "France-ioi/pem-platform#~2.12.0"
+  }
+}

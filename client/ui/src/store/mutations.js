@@ -2,30 +2,30 @@ import Vue from 'vue'
 import * as mutations from './mutation-types.js'
 
 export default {
-  setExecuteProject(state, project) {
+  setExecuteProject (state, project) {
     state.executeProject = project
   },
-  [mutations.LOG_IN](state, { token, user }) {
+  [mutations.LOG_IN] (state, {token, user}) {
     state.token = token
     state.user = user
   },
-  [mutations.LOG_OUT](state) {
+  [mutations.LOG_OUT] (state) {
     state.token = null
     state.user = null
     state.currentProject = null
   },
-  [mutations.PROJECT_SELECTION](state, { project }) {
+  [mutations.PROJECT_SELECTION] (state, {project}) {
     state.currentProject = project
   },
-  [mutations.COURSE_SELECTION](state, { id, course }) {
+  [mutations.COURSE_SELECTION] (state, {id, course}) {
     state.currentAssessment = null
     state.currentCourseId = id
     state.currentCourse = course
     state.currentCourseResults = []
   },
-  [mutations.ASSESSMENT_SELECTION](state, { id }) {
+  [mutations.ASSESSMENT_SELECTION] (state, {id}) {
     let [assessment] = state.currentCourse.filter(
-      assessment => assessment.id === id,
+      assessment => assessment.id === id
     )
     if (assessment) {
       state.currentAssessment = assessment
@@ -33,12 +33,12 @@ export default {
       state.currentAssessment = null
     }
   },
-  [mutations.RECEIVE_RESULTS](state, { results }) {
+  [mutations.RECEIVE_RESULTS] (state, {results}) {
     state.currentCourseResults = results
   },
-  [mutations.ASSESSMENT_RESULT](state, { id, result }) {
+  [mutations.ASSESSMENT_RESULT] (state, {id, result}) {
     let [resultEntry] = state.currentCourseResults.filter(
-      resultItem => resultItem.assessmentId === id,
+      resultItem => resultItem.assessmentId === id
     )
     if (resultEntry) {
       if (resultEntry.passed && !result.passed) {
@@ -52,8 +52,8 @@ export default {
         assessmentId: id,
         visited: true,
         passed: result.passed,
-        solution: result.solution,
+        solution: result.solution
       })
     }
-  },
+  }
 }

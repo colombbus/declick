@@ -14,7 +14,7 @@ div
 </template>
 
 <script>
-import Api from '@/api'
+import Api from 'src/api'
 
 export default {
   props: ['id'],

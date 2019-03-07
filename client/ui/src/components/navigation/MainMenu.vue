@@ -32,10 +32,10 @@ div.main-menu(:class='stateClass' ref='menu')
 
 
 
-// .self
-//   ul
-//     li
-//       router-link(
+//- // .self
+//- //   ul
+//- //     li
+//- //       router-link(
 //         to='/explore'
 //         class='illustrated-link explore-link'
 //       ) Découvrir
@@ -81,6 +81,7 @@ import config from "../../config"
 export default {
   data () {
     return {
+      userID: this.$store.state.user ? this.$store.state.user.id : false,
       // user: this.$store.state.user,
       // logOut: false,
       isAuthenticationModalVisible: false,
@@ -103,7 +104,6 @@ export default {
   },
   computed: {
     getUserIDLink () {
-      
       return '/users/' + this.$store.state.user.id
     },
     user_id () {

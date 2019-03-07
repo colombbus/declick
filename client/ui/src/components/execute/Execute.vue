@@ -1,18 +1,21 @@
 <template lang="pug">
 .main
-  .loading(ref='loading')
-    img(src='../../assets/images/spinner.gif')
+  .loading(ref="loading")
+    img(src="../../assets/img/spinner.gif")    
     p Chargement...
   execute-header-bar
-  .main__execute
-    iframe.execution(:src='iframeUrl' frameborder='0' scrolling='no' onmousewheel='' :style='iframeStyle')
+  .main__execute(v-if="projectReady")
+    iframe.execution(:src="iframeUrl", frameborder="0", scrolling="no", onmousewheel="", :style="iframeStyle")
 </template>
 
 <script>
 import {mapState} from 'vuex'
-import config from '@/config'
+import config from 'assets/config/declick'
 import ExecuteHeaderBar from './ExecuteHeaderBar'
 import store from '../../store'
+import Vue from 'vue'
+import VueResource from 'vue-resource'
+Vue.use(VueResource)
 
 let viewPortTag
 let currentId = -1
@@ -41,20 +44,24 @@ export default {
       return content
     },
     iframeUrl () {
-      if (!this.hidden && this.project && this.project.mainProgram) {
-        return `${config.clientUrl}execute.html#id=${this.project.id}&init=${encodeURI(this.project.mainProgram)}&count=${this.count}`
-      } else {
-        return `${config.clientUrl}execute.html#`
-      }
+      return config.clientUrl + 'execute.html#id=' + this.project.id + '&init=' + encodeURI(this.project.mainProgram) + "&count=" + this.count
     },
-    ...mapState({project: 'executeProject'})
+    ...mapState({project: 'executeProject'}),
+    projectReady () {
+      if (this.project !== null) {
+        return true
+      } else {
+        return false
+      }
+    }
   },
   mounted () {
-    viewPortTag = document.createElement('meta')
-    viewPortTag.id = 'viewport'
-    viewPortTag.name = 'viewport'
-    viewPortTag.content = 'width=device-width, user-scalable=no'
-    document.getElementsByTagName('head')[0].appendChild(viewPortTag)
+    if (this.project === null && this.$route.path.indexOf('execute') >= 0) {
+      this.publicUserNeedIfram()
+      this.startConfig()
+    } else {
+      this.startConfig()
+    }
     if (this.$route.name === 'execute') {
       this.checkId()
     }
@@ -62,9 +69,9 @@ export default {
   watch: {
     project () {
       if (this.project.sceneWidth) {
-        viewPortTag.content = `width=${this.project.sceneWidth}, user-scalable=no`
+        viewPortTag.content = "width=" + this.project.sceneWidth + ", user-scalable=no"
       } else {
-        viewPortTag.content = 'width=device-width, user-scalable=no'
+        viewPortTag.content = "width=device-width, user-scalable=no"
       }
     },
     $route (to, from) {
@@ -80,6 +87,18 @@ export default {
     ExecuteHeaderBar
   },
   methods: {
+    startConfig () {
+      viewPortTag = document.createElement('meta')
+      viewPortTag.id = "viewport"
+      viewPortTag.name = "viewport"
+      viewPortTag.content = "width=device-width, user-scalable=no"
+      document.getElementsByTagName('head')[0].appendChild(viewPortTag)
+    },
+    async publicUserNeedIfram () {
+      let {body} = await Vue.http.get(`${config.apiUrl}v1/projects/${this.$route.path.split('/')[2]}`)
+      // this.project = body
+      return body
+    },
     async checkId () {
       if (this.$route.params.projectId) {
         let newId = parseInt(this.$route.params.projectId)
@@ -99,7 +118,7 @@ export default {
 </script>
 
 <style lang="sass" scoped>
-.main
+.main 
   height: 100vh
   background-color: #000000
   position: relative
@@ -130,4 +149,5 @@ export default {
 
 .loading p
   font-weight: bolder
+
 </style>

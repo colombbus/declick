@@ -1,54 +1,53 @@
-<template lang="pug">
-#course-creator.panel.panel-default
-  .panel-heading(@click="newParcour = !newParcour" class="cursor") nouveau parcours
-  .panel-body(v-if="newParcour")
-    .form-group
-      label(for='name') nom :
-      input#name.form-control(type='text' name='name' v-model='name')
-    .form-group
-      label(for='shortDescription') description courte :
-      textarea#shortDescription.form-control(name='shortDescription' v-model='shortDescription')
-    .form-group
-      label(for='description') description :
-      textarea#description.form-control(name='description' v-model='description')
-    button.btn.btn-success(type='button' @click='create') créer
+<template>
+  <div class="panel panel-default" id="course-creator">
+    <div class="panel-heading">nouveau parcours</div>
+    <div class="panel-body">
+      <div class="form-group">
+        <label for="name">nom :</label>
+        <input type="text" name="name" class="form-control" id="name" v-model="name">
+      </div>
+      <div class="form-group">
+        <label for="shortDescription">description courte :</label>
+        <textarea name="shortDescription" class="form-control" id="shortDescription" v-model="shortDescription"></textarea>
+      </div>
+      <div class="form-group">
+        <label for="description">description :</label>
+        <textarea name="description" class="form-control" id="description" v-model="description"></textarea>
+      </div>
+      <button class="btn btn-success" type="button" @click="create">créer</button>
+    </div>
+  </div>
 </template>
 
 <script>
 import Vue from 'vue'
-import config from '@/assets/config/declick'
-import axios from 'axios'
+import config from 'assets/config/declick'
 
 export default {
-  data() {
+  data () {
     return {
       name: '',
       shortDescription: '',
-      description: '',
-      newParcour: false,
+      description: ''
     }
   },
   methods: {
-    create() {
+    create () {
       let course = {
         name: this.name,
         short_description: this.shortDescription,
-        description: this.description,
+        description: this.description
       }
-      axios({
-        method: 'POST',
-        url: `${config.apiUrl}circuits`,
-        data: course,
-      }).then(() => this.$emit('course-created'))
-    },
-  },
+      Vue.http.post(`${config.apiUrl}v1/circuits`, course).then(() =>
+        this.$emit('course-created')
+      )
+    }
+  }
 }
 </script>
 
-<style lang="sass">
-#course-creator
-  width: 100%
-
-.cursor
-  cursor:pointer
+<style>
+#course-creator {
+  width: 100%;
+}
 </style>

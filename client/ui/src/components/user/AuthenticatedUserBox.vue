@@ -27,12 +27,14 @@ a
 
 .self
   height: 38px
-  width: 150px
+  // width: 150px ( 'mathieuLauffenburger' ca déborde)
   text-align: center
   line-height: 35px
   background-color: #642D46
+  padding: 0 5px
 
 .glyphicon
   position: relative
   top: 3px
+  margin: 0 5px
 </style>

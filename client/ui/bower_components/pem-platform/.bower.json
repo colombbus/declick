@@ -1,0 +1,34 @@
+{
+  "name": "pem-platform",
+  "description": "platform-side implementation of PEM Task API v1 (working only with pem-task implementation)",
+  "moduleType": "globals",
+  "main": "task-xd-pr.js",
+  "authors": [
+    {
+      "name": "France IOI association"
+    }
+  ],
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/France-ioi/pem-platform.git"
+  },
+  "bugs": {
+    "url": "https://github.com/France-ioi/pem-platform/issues"
+  },
+  "license": "MIT",
+  "dependencies": {
+    "jquery": "*",
+    "jschannel": "*"
+  },
+  "homepage": "https://github.com/France-ioi/pem-platform",
+  "version": "2.12.0",
+  "_release": "2.12.0",
+  "_resolution": {
+    "type": "version",
+    "tag": "v2.12.0",
+    "commit": "bcd3ec5faa8d00ea8f25524d8a1118c48fcad0f8"
+  },
+  "_source": "https://github.com/France-ioi/pem-platform.git",
+  "_target": "~2.12.0",
+  "_originalSource": "France-ioi/pem-platform"
+}

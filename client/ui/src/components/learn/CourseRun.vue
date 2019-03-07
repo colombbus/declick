@@ -1,32 +1,36 @@
 <template>
-  <div id="courseContainer">
+  <div>
     <progress-header-bar></progress-header-bar>
-    <iframe :src="urlLearn" id="declick-client-learn" class="fullscreen-iframe2"></iframe>
+    <iframe
+      :src="urlLearn"
+      id="declick-client-learn"
+      class="fullscreen-iframe2"
+    ></iframe>
   </div>
 </template>
 
 <script>
-import config from '@/assets/config/declick.js'
-// import Channel from 'exports-loader?Channel!jschannel/src/jschannel.js'
-import { mapState, mapActions } from 'vuex'
-// import Api from '@/api'
-// import {EventBus} from '@/eventBus'
+import config from 'assets/config/declick'
+import Channel from 'exports-loader?Channel!jschannel/src/jschannel.js'
+import {mapState, mapActions} from 'vuex'
+// import Api from 'src/api'
+// import {EventBus} from 'src/eventBus'
 
-import ProgressHeaderBar from '@/components/learn/ProgressHeaderBar'
+import ProgressHeaderBar from '../learn/ProgressHeaderBar'
 
-// window.Channel = Channel
+window.Channel = Channel
 // import pem from 'exports-loader?TaskProxyManager&Platform!pem-platform/task-xd-pr.js'
 // var task = false
 export default {
-  data() {
+  data () {
     return {
       storeReady: false,
       componentReady: false,
-      initialized: false,
+      initialized: false
     }
   },
   methods: {
-    init() {
+    init () {
       if (this.initialized || !this.storeReady || !this.componentReady) {
         return
       }
@@ -34,16 +38,12 @@ export default {
       this.initialized = true
 
       if (this.$route.name === 'step') {
-        this.selectAssessment({ id: parseInt(this.$route.params.assessmentId) })
+        this.selectAssessment({id: parseInt(this.$route.params.assessmentId)})
       }
 
-      window.addEventListener(
-        'message',
-        event => {
-          if (event.data == 'validateExercise') this.selectNextAssessment()
-        },
-        false,
-      )
+      window.addEventListener('message', event => {
+        this.selectNextAssessment()
+      }, false)
 
       // var self = this
       // pem.Platform.prototype.showView = function (views, success, error) {
@@ -105,21 +105,25 @@ export default {
       'selectCourse',
       'selectAssessment',
       'selectNextAssessment',
-      'registerCurrentAssessmentResult',
-    ]),
+      'registerCurrentAssessmentResult'
+    ])
   },
   computed: {
-    urlLearn() {
+    urlLearn () {
       if (this.currentAssessment) {
         if (this.currentAssessment.url) {
           // return this.currentAssessment.url + '&token=' + this.token + '&channelId=declick'
+          // return this.currentAssessment.url + '&token=' + this.token + '&channelId=declick'
+          // let regx = /[a-z]*\.html#[a-z]*=(\d{1,})$/g
+          // let urlMatch = this.currentAssessment.url.match(regx)
+          // console.log(urlMatch)
+          // return config.clientUrl + urlMatch + '&token=' + this.token
+          // return de base
+          // console.log(this.currentAssessment.url)
           return this.currentAssessment.url + '&token=' + this.token
         } else {
           // chapter
-          this.$router.push({
-            name: 'map',
-            params: { id: this.$route.params.id },
-          })
+          this.$router.push({name: 'map', params: {id: this.$route.params.id}})
           // return config.clientUrl + 'learn.html#token=' + this.token + '&channelId=declick'
           return config.clientUrl + 'learn.html#token=' + this.token
         }
@@ -128,44 +132,34 @@ export default {
         return config.clientUrl + 'learn.html#token=' + this.token
       }
     },
-    ...mapState([
-      'currentAssessment',
-      'currentCourse',
-      'currentCourseResults',
-      'token',
-    ]),
+    ...mapState(['currentAssessment', 'currentCourse', 'currentCourseResults', 'token'])
   },
-  mounted() {
+  mounted () {
     this.componentReady = true
     this.init()
   },
   watch: {
     currentCourseResults: {
-      handler: function(value) {
+      handler: function (value) {
         if (value) {
           this.storeReady = true
           this.init()
         }
       },
-      immediate: true,
-    },
+      immediate: true
+    }
   },
   components: {
-    ProgressHeaderBar,
-  },
+    ProgressHeaderBar
+  }
 }
+
 </script>
 <style lang="css">
-#courseContainer {
-  position: absolute;
-  top: 0;
-  z-index: 500;
-  width: 100%;
-}
 .fullscreen-iframe2 {
   height: calc(100vh - 60px);
   width: 100%;
   border: none;
-  overflow: hidden;
+  overflow:hidden;
 }
 </style>
