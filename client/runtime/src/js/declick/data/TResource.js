@@ -1,26 +1,26 @@
-define(['jquery'], function($) {
-    var TResource = function() {
+define(['jquery'], function ($) {
+    var TResource = function () {
         var cacheEnabled = false;
         var log = false;
-
+        var error;
         /*
          * Set cache support (i.e. use of localStorage)
          * If true, check validity of cached data, ensuring that it is no older than 1 day
          * @param {boolean} value
          */
-        this.setCacheEnabled = function(value, version) {
+        this.setCacheEnabled = function (value, version) {
 
-            var clearCache = function() {
+            var clearCache = function () {
                 var toBeRemoved = [];
 
-                for (var i=0; i<localStorage.length; i++) {
+                for (var i = 0; i < localStorage.length; i++) {
                     var key = localStorage.key(i);
-                    if (key.substring(0, 7)=="client.") {
+                    if (key.substring(0, 7) == "client.") {
                         toBeRemoved.push(key);
                     }
                 }
 
-                for (i=0;i<toBeRemoved.length;i++) {
+                for (i = 0; i < toBeRemoved.length; i++) {
                     localStorage.removeItem(toBeRemoved[i]);
                 }
             }
@@ -56,13 +56,13 @@ define(['jquery'], function($) {
          * @param {Function} callback
          * @param {Function} errorCallback
          */
-        this.get = function(name, fields, callback, errorCallback) {
+        this.get = function (name, fields, callback, errorCallback) {
             if (cacheEnabled) {
                 // try to retrieve value from local storage
-                var value = localStorage.getItem("client."+name);
+                var value = localStorage.getItem("client." + name);
                 if (value) {
                     // value is available from local storage
-                    callback.call(this,JSON.parse(value));
+                    callback.call(this, JSON.parse(value));
                     return;
                 }
             }
@@ -70,33 +70,33 @@ define(['jquery'], function($) {
             $.ajax({
                 dataType: "json",
                 url: name,
-                success: function(data) {
+                success: function (data) {
                     var value;
-                    if (fields.length>0) {
+                    if (fields.length > 0) {
                         value = {};
-                        for (var i=0; i<fields.length; i++) {
+                        for (var i = 0; i < fields.length; i++) {
                             if (typeof data[fields[i]] !== 'undefined') {
                                 value[fields[i]] = data[fields[i]];
-                                self.log("found field '"+fields[i]+"' in resource '"+name);
+                                self.log("found field '" + fields[i] + "' in resource '" + name);
                             }
                         }
                     } else {
                         value = data;
                     }
                     if (cacheEnabled) {
-                        try  {
-                            localStorage.setItem("client."+name,JSON.stringify(value));
+                        try {
+                            localStorage.setItem("client." + name, JSON.stringify(value));
                         } catch (e) {
-                            this.error("Error trying to cache value "+value+": "+e);
+                            this.error("Error trying to cache value " + value + ": " + e);
                         }
                     }
                     callback.call(this, value);
                 },
-                error: function(data, status, error) {
+                error: function (data, status, error) {
                     if (typeof errorCallback !== 'undefined') {
                         errorCallback.call(this, error);
                     } else {
-                        self.error("Error loading resource '"+name+"'");
+                        self.error("Error loading resource '" + name + "'");
                         callback.call(this, {});
                     }
                 }
@@ -104,21 +104,21 @@ define(['jquery'], function($) {
         };
 
 
-         /*
-         * Get value from a text resource file
-         * @param {String} name the name of resource file
-         * @param {Function} callback
-         * @param {Function} errorCallback
-         */
-        this.getPlain = function(name, callback, errorCallback) {
+        /*
+        * Get value from a text resource file
+        * @param {String} name the name of resource file
+        * @param {Function} callback
+        * @param {Function} errorCallback
+        */
+        this.getPlain = function (name, callback, errorCallback) {
             if (cacheEnabled) {
                 // try to retrieve value from local storage
-                var value = localStorage.getItem("client."+name);
+                var value = localStorage.getItem("client." + name);
                 if (value) {
                     // value is available from local storage
                     // postpone callback execution
-                    setTimeout(function() {
-                        callback.call(this,value);
+                    setTimeout(function () {
+                        callback.call(this, value);
                     }, 0);
                     return;
                 }
@@ -126,47 +126,47 @@ define(['jquery'], function($) {
             $.ajax({
                 dataType: "text",
                 url: name,
-                success: function(data) {
+                success: function (data) {
                     if (cacheEnabled) {
                         try {
-                            localStorage.setItem("client."+name,data);
+                            localStorage.setItem("client." + name, data);
                         } catch (e) {
-                            this.error("Error trying to cache value "+data+": "+e);
+                            this.error("Error trying to cache value " + data + ": " + e);
                         }
 
                     }
                     callback.call(this, data);
                 },
-                error: function(data, status, error) {
+                error: function (data, status, error) {
                     if (typeof errorCallback !== 'undefined') {
                         errorCallback.call(this, error);
                     } else {
-                        this.error("Error loading resource '"+name+"'");
+                        this.error("Error loading resource '" + name + "'");
                         callback.call(this, "");
                     }
                 }
             });
         };
 
-        this.setLog = function(value) {
+        this.setLog = function (value) {
             log = value;
         };
 
-        this.setError = function(value) {
+        this.setError = function (value) {
             error = value;
         };
 
-        this.log = function(message) {
+        this.log = function (message) {
             if (log) {
                 window.console.log(message);
             }
         };
 
-        this.error = function(message) {
+        this.error = function (message) {
             if (error) {
                 window.console.error(message);
             } else {
-                this.log("ERROR> "+message);
+                this.log("ERROR> " + message);
             }
         };
     };

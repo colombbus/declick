@@ -1,3 +1,5 @@
+// import declick from "../../../../ui/src/assets/config/declick";
+
 require.config({
     "baseUrl": 'js/declick',
     paths: {
@@ -112,7 +114,14 @@ function load() {
                 TEnvironment.log("* Building User Interface *");
                 TEnvironment.log("***************************");
                 frame = new TFrame(function (component) {
-                    $("body").append(component);
+                    const nodeName = $("script[src='js/libs/requirejs/require.js']").attr("data-entry")
+                    const declickNode = document.createElement("div") 
+                    declickNode.setAttribute('class', nodeName)
+                    $("body").append(declickNode)
+                    // Create with jQuery
+                    // $(`.${nodeName}`).append(component);
+                    $("body").append(component)
+
                     TEnvironment.log("*******************");
                     TEnvironment.log("* Initiating link *");
                     TEnvironment.log("*******************");

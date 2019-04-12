@@ -5,7 +5,9 @@
       :src="urlLearn"
       id="declick-client-learn"
       class="fullscreen-iframe2"
+      ref="iframe"
     ></iframe>
+    <!-- <div id="testDeclick"></div> -->
   </div>
 </template>
 
@@ -38,6 +40,8 @@ export default {
       this.initialized = true
 
       if (this.$route.name === 'step') {
+        // set step visited
+        // créé une method alternative seulement pour les visites
         this.selectAssessment({id: parseInt(this.$route.params.assessmentId)})
       }
 
@@ -99,7 +103,6 @@ export default {
       //   })
       //   iframe.removeEventListener('load', initProxy)
       // }
-      // iframe.addEventListener('load', initProxy)
     },
     ...mapActions([
       'selectCourse',
@@ -110,31 +113,39 @@ export default {
   },
   computed: {
     urlLearn () {
+      // let id = this.$store.getters.getUser.id
+      let lastParams = ""
+      if (this.$route.path.split("/")[4] === "run") {
+        lastParams = "&project-id=" + this.$route.path.split("/")[5]
+      }
       if (this.currentAssessment) {
         if (this.currentAssessment.url) {
           // return this.currentAssessment.url + '&token=' + this.token + '&channelId=declick'
           // return this.currentAssessment.url + '&token=' + this.token + '&channelId=declick'
-          // let regx = /[a-z]*\.html#[a-z]*=(\d{1,})$/g
-          // let urlMatch = this.currentAssessment.url.match(regx)
-          // console.log(urlMatch)
-          // return config.clientUrl + urlMatch + '&token=' + this.token
+          let regx = /[a-z]*\.html#[a-z]*=(\d{1,})$/g
+          let urlMatch = this.currentAssessment.url.match(regx)
+          return config.clientUrl + urlMatch + '&token=' + this.token + lastParams
           // return de base
           // console.log(this.currentAssessment.url)
-          return this.currentAssessment.url + '&token=' + this.token
+          // return this.currentAssessment.url + '&token=' + this.token
         } else {
           // chapter
           this.$router.push({name: 'map', params: {id: this.$route.params.id}})
           // return config.clientUrl + 'learn.html#token=' + this.token + '&channelId=declick'
-          return config.clientUrl + 'learn.html#token=' + this.token
+          return config.clientUrl + 'learn.html#token=' + this.token + lastParams
         }
       } else {
         // return config.clientUrl + 'learn.html#token=' + this.token + '&channelId=declick'
-        return config.clientUrl + 'learn.html#token=' + this.token
+        return config.clientUrl + 'learn.html#token=' + this.token + lastParams
       }
     },
     ...mapState(['currentAssessment', 'currentCourse', 'currentCourseResults', 'token'])
   },
   mounted () {
+    // let declick = document.createElement('script')
+    // declick.setAttribute('src', config.clientUrl + 'learn.html')
+    // document.head.appendChild(declick)
+    // console.log(declick)
     this.componentReady = true
     this.init()
   },

@@ -50,6 +50,12 @@ $app->group(['prefix' => 'api/v1'], function () use ($app) {
         $app->delete('results', 'UserResultController@delete');
     });
 
+    $app->post('token/{token}/set-results','UserResultController@createByToken');
+    $app->get('token/{token}/step-id/{step_id}/get-results','UserResultController@getByToken');
+    $app->post('token/{token}/step-id/{step_id}/visited','UserResultController@stepVisited');
+
+
+
     // authorizations routes
     $app->post('login', 'AuthorizationController@create');
     $app->post('logout', 'AuthorizationController@deleteCurrent');

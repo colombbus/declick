@@ -1,6 +1,6 @@
 <template lang="html">
   <div>
-    <p class="mapHelp">appuis sur la barre d'espace si la carte disparais</p>
+    <p class="mapHelp">appuie sur la barre d'espace si la carte disparait</p>
     <div id="declickMap">
       <canvas id="map" ></canvas>
     </div>

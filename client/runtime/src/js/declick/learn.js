@@ -36,8 +36,8 @@ require.config({
         "TExerciseProject": "data/TExerciseProject",
         "TResource": "data/TResource",
         "jschannel": "../libs/jschannel/jschannel",
-        "js-interpreter":"../libs/js-interpreter/interpreter",
-        "prism":"../libs/prism/prism",
+        "js-interpreter": "../libs/js-interpreter/interpreter",
+        "prism": "../libs/prism/prism",
         "introjs": "../libs/introjs/intro.min"
     },
     map: {
@@ -63,19 +63,19 @@ require.config({
 });
 
 function load() {
-    require(['jquery', 'TEnvironment', 'TRuntime', 'ui/TLearnFrame', 'Task', 'Grader'], function($, TEnvironment, TRuntime, TLearnFrame, Task, Grader) {
+    require(['jquery', 'TEnvironment', 'TRuntime', 'ui/TLearnFrame', 'Task', 'Grader'], function ($, TEnvironment, TRuntime, TLearnFrame, Task, Grader) {
         window.console.log("*******************");
         window.console.log("* Loading Environment *");
         window.console.log("*******************");
-        TEnvironment.load(function() {
+        TEnvironment.load(function () {
             TEnvironment.log("*******************");
             TEnvironment.log("* Loading Runtime *");
             TEnvironment.log("*******************");
-            TRuntime.load(function() {
+            TRuntime.load(function () {
                 TEnvironment.log("***************************");
                 TEnvironment.log("* Building User Interface *");
                 TEnvironment.log("***************************");
-                frame = new TLearnFrame(function(component) {
+                frame = new TLearnFrame(function (component) {
                     $("body").append(component);
                     TEnvironment.log("*******************");
                     TEnvironment.log("* Initiating link *");
@@ -87,7 +87,7 @@ function load() {
                     TEnvironment.log("* Loading exercise *");
                     TEnvironment.log("********************");
                     var self = this;
-                    $(document).ready(function() {
+                    $(document).ready(function () {
                         self.mounted();
                         TRuntime.init();
                         // trigger resize in order for canvas to update its size (and remove the 5px bottom margin)

@@ -15,6 +15,7 @@ class Authorization extends Model
      */
     protected $fillable = [
         'token',
+        'owner'
     ];
 
     /**

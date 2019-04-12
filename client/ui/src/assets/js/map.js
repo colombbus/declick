@@ -286,6 +286,7 @@ function DeclickMap() {
     };
 
     var initSteps = function(data) {
+
         steps = [];
         let currentPosition = 0
         function getObject(value, chapter) {
@@ -840,8 +841,9 @@ function DeclickMap() {
     };
 
     this.setResults = function (results) {
-        console.log("results received:");
-        console.log(results);
+        // console.log("results received:");
+        // console.log(results);
+        
         results.forEach(result => {
             for (var i=0;i<steps.length;i++) {
                 if (steps[i].id &&
@@ -852,10 +854,14 @@ function DeclickMap() {
                     steps[i].passed = false
                     if (result) {
                         steps[i].visited = true
+                        
                     }
-                    if (result && result.passed) {
+                    if (result && result.passed || result.solution !== "") {
+                        console.log(result);
                         steps[i].passed = result.passed;
                     }
+
+
                     var old = displayedSteps[i];
                     var point = old.position;
                     var symbol = getSymbol(steps[i]);

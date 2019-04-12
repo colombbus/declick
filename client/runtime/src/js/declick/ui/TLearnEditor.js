@@ -1,4 +1,4 @@
-define(['ui/TComponent', 'TParser', 'ui/TLog', 'TEnvironment', 'TUtils', 'TRuntime', 'jquery', 'ace/ace', 'ace/autocomplete', 'ace/range', 'platform-pr', 'objects'], function(TComponent, TParser, TLog, TEnvironment, TUtils, TRuntime, $, ace, ace_autocomplete, ace_range) {
+define(['ui/TComponent', 'TParser', 'ui/TLog', 'TEnvironment', 'TUtils', 'TRuntime', 'jquery', 'ace/ace', 'ace/autocomplete', 'ace/range', 'platform-pr', 'objects'], function (TComponent, TParser, TLog, TEnvironment, TUtils, TRuntime, $, ace, ace_autocomplete, ace_range) {
     /**
      * TLearnEditor is like TEditor, but adapted to "Learn" part of Declick.
      * @exports TLearnEditor
@@ -6,7 +6,7 @@ define(['ui/TComponent', 'TParser', 'ui/TLog', 'TEnvironment', 'TUtils', 'TRunti
     function TLearnEditor(callback) {
         var $editor, $editorText;
 
-        TComponent.call(this, "TLearnEditor.html", function(component) {
+        TComponent.call(this, "TLearnEditor.html", function (component) {
             $editor = component;
             $editorText = component.find("#tlearneditor-text");
             if (typeof callback !== 'undefined') {
@@ -27,7 +27,7 @@ define(['ui/TComponent', 'TParser', 'ui/TLog', 'TEnvironment', 'TUtils', 'TRunti
         /**
          * Initialize LearnEditor.
          */
-        this.mounted = function() {
+        this.mounted = function () {
             aceEditor = ace.edit($editorText.attr("id"));
             aceEditor.getSession().setMode("ace/mode/javascript");
             // Disable JSHint
@@ -38,10 +38,10 @@ define(['ui/TComponent', 'TParser', 'ui/TLog', 'TEnvironment', 'TUtils', 'TRunti
             aceEditor.setHighlightActiveLine(false);
             aceEditor.setTheme("ace/theme/twilight");
             aceEditor.$blockScrolling = Infinity;
-            aceEditor.on('input', function() {
+            aceEditor.on('input', function () {
                 if (triggerPopup) {
                     triggerPopup = false;
-                    popupTimeout = setTimeout(function() {
+                    popupTimeout = setTimeout(function () {
                         popupTriggered = false;
                         // Force Ace popup to not add gutter width when computing popup pos
                         // since gutter is not shown
@@ -56,8 +56,8 @@ define(['ui/TComponent', 'TParser', 'ui/TLog', 'TEnvironment', 'TUtils', 'TRunti
             });
             aceEditor.commands.addCommand({
                 name: "save",
-                bindKey: {win: "Ctrl-S", mac: "Command-S"},
-                exec: function(arg) {
+                bindKey: { win: "Ctrl-S", mac: "Command-S" },
+                exec: function (arg) {
                     // platform.validate("stay");
                 }
             });
@@ -74,7 +74,7 @@ define(['ui/TComponent', 'TParser', 'ui/TLog', 'TEnvironment', 'TUtils', 'TRunti
          * Get code in LearnEditor.
          * @returns {String}
          */
-        this.getValue = function() {
+        this.getValue = function () {
             var simpleText = aceEditor.getSession().getValue();
             var protectedText = TUtils.addQuoteDelimiters(simpleText);
             var command = TUtils.parseQuotes(protectedText);
@@ -85,7 +85,7 @@ define(['ui/TComponent', 'TParser', 'ui/TLog', 'TEnvironment', 'TUtils', 'TRunti
          * Set code in LearnEditor to value.
          * @param {String} value
          */
-        this.setValue = function(value) {
+        this.setValue = function (value) {
             aceEditor.getSession().setValue(value);
             // set cursor to the end of line
             aceEditor.gotoPageDown();
@@ -94,7 +94,7 @@ define(['ui/TComponent', 'TParser', 'ui/TLog', 'TEnvironment', 'TUtils', 'TRunti
         /**
          * Brings the current `textInput` into focus.
          */
-        this.focus = function() {
+        this.focus = function () {
             aceEditor.focus();
         };
 
@@ -102,21 +102,21 @@ define(['ui/TComponent', 'TParser', 'ui/TLog', 'TEnvironment', 'TUtils', 'TRunti
          * Update Program & get statements of Program's code.
          * @returns {Statement[]}
          */
-        this.getStatements = function() {
+        this.getStatements = function () {
             return TParser.parse(this.getValue());
         };
 
         /**
          * Clear LearnEditor.
          */
-        this.clear = function() {
+        this.clear = function () {
             aceEditor.setValue("");
         };
 
         /**
          * Show LearnEditor.
          */
-        this.show = function() {
+        this.show = function () {
             $editor.show();
             aceEditor.focus();
         };
@@ -124,7 +124,7 @@ define(['ui/TComponent', 'TParser', 'ui/TLog', 'TEnvironment', 'TUtils', 'TRunti
         /**
          * Hide LearnEditor.
          */
-        this.hide = function() {
+        this.hide = function () {
             $editor.hide();
         };
 
@@ -132,7 +132,7 @@ define(['ui/TComponent', 'TParser', 'ui/TLog', 'TEnvironment', 'TUtils', 'TRunti
          * Get LearnEditor's height.
          * @returns {Number}
          */
-        this.getHeight = function() {
+        this.getHeight = function () {
             if (computedHeight === -1) {
                 computedHeight = $editor.outerHeight(false);
             }
@@ -142,7 +142,7 @@ define(['ui/TComponent', 'TParser', 'ui/TLog', 'TEnvironment', 'TUtils', 'TRunti
         /**
          * Enable helping methods.
          */
-        this.enableMethodHelper = function() {
+        this.enableMethodHelper = function () {
             aceEditor.commands.addCommand(dotCommand);
             aceEditor.commands.addCommand(backspaceCommand);
             aceEditor.commands.addCommand(classCommand);
@@ -152,7 +152,7 @@ define(['ui/TComponent', 'TParser', 'ui/TLog', 'TEnvironment', 'TUtils', 'TRunti
         /**
          * Disable helping methods.
          */
-        this.disableMethodHelper = function() {
+        this.disableMethodHelper = function () {
             aceEditor.commands.removeCommand(dotCommand);
             aceEditor.commands.removeCommand(backspaceCommand);
             aceEditor.commands.removeCommand(classCommand);
@@ -163,7 +163,7 @@ define(['ui/TComponent', 'TParser', 'ui/TLog', 'TEnvironment', 'TUtils', 'TRunti
         /**
          * Resize the ACE editor according to its container's height
          */
-        this.resize = function() {
+        this.resize = function () {
             aceEditor.resize();
         };
 
@@ -253,8 +253,8 @@ define(['ui/TComponent', 'TParser', 'ui/TLog', 'TEnvironment', 'TUtils', 'TRunti
 
         var dotCommand = {
             name: "methodHelper",
-            bindKey: {win: '.', mac: '.'},
-            exec: function(editor) {
+            bindKey: { win: '.', mac: '.' },
+            exec: function (editor) {
                 triggerPopup = true;
                 return false; // let default event perform
             },
@@ -263,8 +263,8 @@ define(['ui/TComponent', 'TParser', 'ui/TLog', 'TEnvironment', 'TUtils', 'TRunti
 
         var backspaceCommand = {
             name: "methodHelper2",
-            bindKey: {win: 'Backspace', mac: 'Backspace'},
-            exec: function(editor) {
+            bindKey: { win: 'Backspace', mac: 'Backspace' },
+            exec: function (editor) {
                 var cursor = editor.selection.getCursor();
                 var token = editor.getSession().getTokenAt(cursor.row, cursor.column - 1);
                 if (token !== null && token.type === "punctuation.operator" && token.value === ".") {
@@ -276,7 +276,7 @@ define(['ui/TComponent', 'TParser', 'ui/TLog', 'TEnvironment', 'TUtils', 'TRunti
         };
         var classCommand = {
             name: "classHelper",
-            bindKey: {win: 'Space', mac: 'Space'},
+            bindKey: { win: 'Space', mac: 'Space' },
             exec: function (editor) {
                 var cursor = editor.selection.getCursor();
                 var token = editor.getSession().getTokenAt(cursor.row, cursor.column - 1);

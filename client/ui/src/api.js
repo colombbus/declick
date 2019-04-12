@@ -254,17 +254,18 @@ export default {
     data,
     token
   ) {
+    
     let endpoint = `${config.apiUrl}v1/users/${userId}/results`
     let body = {
       step_id: assessmentId,
       passed: data.passed,
       solution: data.solution
     }
-    await Vue.http.post(
-      endpoint,
-      body,
-      {headers: {Authorization: 'Token ' + token}}
-    )
+    // await Vue.http.post(
+    //   endpoint,
+    //   body,
+    //   {headers: {Authorization: 'Token ' + token}}
+    // )
   },
   async getAllUserResults (id, token) {
     let endpoint = `${config.apiUrl}v1/users/${id}/results`
@@ -272,7 +273,11 @@ export default {
       endpoint,
       {headers: {Authorization: 'Token ' + token}}
     )
+
+    
     let results = body.map(result => {
+      console.log(result);
+      
       return {
         id: result.id,
         userId: result.user_id,
