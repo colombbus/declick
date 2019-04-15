@@ -37,18 +37,18 @@ transition(name='modal')
             span(v-show='isLogingIn')
               | &nbsp;
               span.fa.fa-circle-o-notch.fa-spin
-          button(
-            type='button'
-            class='btn btn-block btn-social btn-google disabled'
-          )
-            span.fa.fa-google
-            | se connecter via Google
-          button(
-            type='button'
-            class='btn btn-block btn-social btn-facebook disabled'
-          )
-            span.fa.fa-facebook
-            | se connecter via Facebook
+          // button(
+          //   type='button'
+          //   class='btn btn-block btn-social btn-google disabled'
+          // )
+          //   span.fa.fa-google
+          //   | se connecter via Google
+          // button(
+          //   type='button'
+          //   class='btn btn-block btn-social btn-facebook disabled'
+          // )
+          //   span.fa.fa-facebook
+          //   | se connecter via Facebook
           button(
             @click="mode = 'registration'"
             type='button'
