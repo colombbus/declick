@@ -21,6 +21,9 @@ export default {
     return {}
   },
   computed: {
+    backroad () {
+      return this.$route.params.assessmentId - 1 + ''
+    },
     assessmentName () {
       if (this.currentAssessment) {
         return this.currentAssessment.name
@@ -45,11 +48,18 @@ export default {
     // console.log(currentPosition)
   },
   methods: {
-    previous () {
+    async previous () {
+      this.$route.params.assessmentId = this.$route.params.assessmentId - 1
+      // console.log(this.$route.params.assessmentId)
+      // console.log(this.$store.state.currentCourse[this.$route.params.assessmentId - 1])
       this.selectPreviousAssessment()
     },
     next () {
+      this.$route.params.assessmentId = this.$route.params.assessmentId + 1
       this.selectNextAssessment()
+      // this.$router.go("/progress/course/1/run/" + this.$route.params.assessmentId + 1)
+      // console.log(this.$router.go("/progress/course/1/run/" + this.$route.params.assessmentId + 1))
+      // console.log(this.$store.state.currentCourse[this.$route.params.assessmentId + 1])
     },
     toggleMapIframe () {
       $('#declick-client-learn').css('display', 'none')

@@ -116,7 +116,7 @@ export default {
       // let id = this.$store.getters.getUser.id
       let lastParams = ""
       if (this.$route.path.split("/")[4] === "run") {
-        lastParams = "&project-id=" + this.$route.path.split("/")[5]
+        lastParams = "&project-id=" + this.$route.params.assessmentId
       }
       if (this.currentAssessment) {
         if (this.currentAssessment.url) {

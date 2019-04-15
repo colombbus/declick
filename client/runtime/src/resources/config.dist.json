@@ -2,7 +2,7 @@
     "debug": false,
     "backend-path": "/declick-serveur/api/v1/",
     "wpaint-path": "/js/libs/wpaint-2.5.0/",
-    "slide-url": "http://pages.declick.net/",
+    "slide-url": "http://v2.declick.net/cms/api/1/tables/slides/rows/",
     "cache": true,
     "log": false,
     "error": true,

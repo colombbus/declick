@@ -857,7 +857,6 @@ function DeclickMap() {
                         
                     }
                     if (result && result.passed || result.solution !== "") {
-                        console.log(result);
                         steps[i].passed = result.passed;
                     }
 

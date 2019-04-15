@@ -273,11 +273,7 @@ export default {
       endpoint,
       {headers: {Authorization: 'Token ' + token}}
     )
-
-    
     let results = body.map(result => {
-      console.log(result);
-      
       return {
         id: result.id,
         userId: result.user_id,
