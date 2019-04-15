@@ -258,8 +258,8 @@ define(['ui/TComponent', 'jquery', 'ui/TLearnCanvas', 'ui/TLearnEditor', 'TRunti
                         var url = TEnvironment.getConfig('backend-path')+"token/"+token+"/step-id/"+projectID+"/visited"
                 
                         var data = {
-                            "step_id":step_id,
-                            "passed":false
+                            "step_id":projectID,
+                            "passed":0
                         }
 
                     // TODO: make request to set visited (juste create in db)
