@@ -226,17 +226,12 @@ define(['ui/TComponent', 'jquery', 'ui/TLearnCanvas', 'ui/TLearnEditor', 'TRunti
                 $(this).hide();
             });
            
-            console.log("init() l142 TLearnFrame.js")
             // get user result
             var getparams = window.location + ""
             var token = getparams.match(/&token=(\w*)/)[1]
             var step_id = getparams.match(/#[a-z]*=(\d*)/)[1]
             var projectID = getparams.match(/&project-id=(\d*)/)[1]
-            console.log("project ID");
-            
-            console.log(projectID)
             var url = TEnvironment.getConfig('backend-path')+"token/"+token+"/step-id/"+projectID+"/get-results"
-
             if(typeof token !== undefined){
                 $.ajax({
                     type: "GET",
@@ -244,35 +239,23 @@ define(['ui/TComponent', 'jquery', 'ui/TLearnCanvas', 'ui/TLearnEditor', 'TRunti
                     crossDomain:true,
                     headers: {Authorization: 'Token ' + token}
                 }).done(function(r){
-                    console.log("ajax DONE")
                     if(r !== '404'){
-                    console.log("ajax r !== 404")
-
                         if(r.solution !== ""){
                             $('#tlearnframe-text-input').value = r.solution
                             editor.setValue(r.solution)
                         }                       
                     } else {
-                    console.log("ajax r === 404")
-
                         var url = TEnvironment.getConfig('backend-path')+"token/"+token+"/step-id/"+projectID+"/visited"
-                
                         var data = {
                             "step_id":projectID,
                             "passed":0
                         }
-
-                    // TODO: make request to set visited (juste create in db)
                         $.ajax({
                             type: "POST",
                             url: url,
                             crossDomain:true,
                             data:data,
                             headers: {Authorization: 'Token ' + token}
-                        }).done(function() {
-                            console.log("visited")
-                            console.log(url);
-                            
                         })
                     }
                 });
@@ -368,11 +351,6 @@ define(['ui/TComponent', 'jquery', 'ui/TLearnCanvas', 'ui/TLearnEditor', 'TRunti
             // // TODO:save solution @ serve
             // // url POST : users/{userId}/results
             // {headers: {Authorization: 'Token ' + token}}
-            var data = {
-                    "solution":solution,
-                    "step_id":step_id,
-                    "passed":passed
-                }
             var url = TEnvironment.getConfig('backend-path')+"token/"+token+"/set-results"
             if(typeof token !== undefined){
                 $.ajax({

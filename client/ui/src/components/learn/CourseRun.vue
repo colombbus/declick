@@ -113,10 +113,20 @@ export default {
   },
   computed: {
     urlLearn () {
+      // this.testSomeShit()
       // let id = this.$store.getters.getUser.id
       let lastParams = ""
       if (this.$route.path.split("/")[4] === "run") {
-        lastParams = "&project-id=" + this.$route.params.assessmentId
+        if (this.currentCourse !== null) {
+          for (let index = 0; index < this.currentCourse.length; index++) {
+            let currentItem = this.currentCourse[index]
+            if (currentItem.id === this.currentAssessment.id) {
+              console.log("this.currentCourse")
+              console.log(this.currentAssessment, currentItem)
+              lastParams = "&project-id=" + currentItem.position
+            }
+          }
+        }
       }
       if (this.currentAssessment) {
         if (this.currentAssessment.url) {
