@@ -106,15 +106,16 @@ class ProjectResourceController extends Controller
         $projectId,
         $resourceId)
     {
-        $project = Project::findOrFail($projectId);
+        // TODO: find why resourceId is projectId and projectId is resourceId 
+        $project = Project::findOrFail($resourceId);
 
-        $resource = $project->resources()->findOrFail($resourceId);
+        $resource = $project->resources()->findOrFail($projectId);
 
         $this->authorize('updateContent', $resource);
 
         $directoryPath =
-            storage_path('app/projects/' . $projectId . '/resources');
-        $filePath = $directoryPath . '/' . $resourceId;
+            storage_path('app/projects/' . $resourceId . '/resources');
+        $filePath = $directoryPath . '/' . $projectId;
 
         if (!file_exists($directoryPath)) {
             mkdir($directoryPath, 0755, true);
