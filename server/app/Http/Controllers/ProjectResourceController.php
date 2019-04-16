@@ -103,19 +103,19 @@ class ProjectResourceController extends Controller
     }
     public function updateContent(
         Request $request,
-        $projectId,
-        $resourceId)
+        // weird error oblige us to interveting resourceID and projectID
+        $resourceId,
+        $projectId)
     {
-        // TODO: find why resourceId is projectId and projectId is resourceId 
-        $project = Project::findOrFail($resourceId);
+        $project = Project::findOrFail($projectId);
 
-        $resource = $project->resources()->findOrFail($projectId);
+        $resource = $project->resources()->findOrFail($resourceId);
 
         $this->authorize('updateContent', $resource);
 
         $directoryPath =
-            storage_path('app/projects/' . $resourceId . '/resources');
-        $filePath = $directoryPath . '/' . $projectId;
+            storage_path('app/projects/' . $projectId . '/resources');
+        $filePath = $directoryPath . '/' . $resourceId;
 
         if (!file_exists($directoryPath)) {
             mkdir($directoryPath, 0755, true);
