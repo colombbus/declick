@@ -105,6 +105,7 @@ export default {
       // }
     },
     ...mapActions([
+      'currentAssessment',
       'selectCourse',
       'selectAssessment',
       'selectNextAssessment',
@@ -121,9 +122,7 @@ export default {
           for (let index = 0; index < this.currentCourse.length; index++) {
             let currentItem = this.currentCourse[index]
             if (currentItem.id === this.currentAssessment.id) {
-              console.log("this.currentCourse")
-              console.log(this.currentAssessment, currentItem)
-              lastParams = "&project-id=" + currentItem.position
+              lastParams = "&project-id=" + this.currentAssessment.id
             }
           }
         }

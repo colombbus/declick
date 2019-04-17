@@ -17,7 +17,8 @@ class CircuitNode extends Model
         'name',
         'link',
         'parent_id',
-        'position'
+        'position',
+        'circuit_id'
     ];
 
     /**

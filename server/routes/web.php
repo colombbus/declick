@@ -136,6 +136,8 @@ $app->group(['prefix' => 'api/v1'], function () use ($app) {
     ]);
     $app->delete('circuits/{id}', 'CircuitController@delete');
 
+    $app->get('check-step-id','CircuitController@getByUrl');
+
     // circuits nodes routes
     $app->group(['prefix' => 'circuits/{circuitId}'], function () use ($app) {
         $app->get('nodes', 'CircuitNodeController@index');
