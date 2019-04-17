@@ -265,7 +265,10 @@ define(['ui/TComponent', 'jquery', 'ui/TLearnCanvas', 'ui/TLearnEditor', 'TRunti
                 }).done(function(r){
                     if(r !== '404'){
                         if(r.solution !== ""){
-                            $('#tlearnframe-text-input').value = r.solution
+                            console.log('r.solution',r.solution);
+                            console.log("$('#tlearnframe-text-input').value",$('#tlearnframe-text-input'))
+                            
+                            $('#tlearnframe-text-input')[0].value = r.solution
                             editor.setValue(r.solution)
                         }                       
                     } else {
@@ -398,6 +401,9 @@ define(['ui/TComponent', 'jquery', 'ui/TLearnCanvas', 'ui/TLearnEditor', 'TRunti
             }).success(function(r){
              // var val = editor.getValue()
             var solution =  editor.getValue() === "" ? $('#tlearnframe-text-input').val() : editor.getValue()
+
+            console.log('soolution',solution)
+            
             var getparams = window.location + ""
             var token = getparams.match(/token=(\w*)/)[1]
             // var step_id = getparams.match(/#[a-z]*=(\d*)/)[1]
