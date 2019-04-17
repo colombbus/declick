@@ -57,8 +57,14 @@ export default {
   },
   watch: {
     'currentAssessment.id' () {
-      this.loadSteps()
-      console.log('currentAssessment.id', this.currentAssessment.id)
+      // this.loadSteps()
+      this.$router.push({
+        name: 'step',
+        params: {
+          id: this.$route.params.id,
+          assessmentId: this.currentAssessment.id
+        }
+      })
     },
     currentCourseResults: {
       handler: function (value) {
