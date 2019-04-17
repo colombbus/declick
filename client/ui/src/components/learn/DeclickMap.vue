@@ -47,6 +47,7 @@ export default {
         // Load steps
         this.loadSteps()
       })
+      map.setCurrentStep(this.currentCourse[1].id, false)
     })
   },
   activated () {
@@ -55,6 +56,10 @@ export default {
     }
   },
   watch: {
+    'currentAssessment.id' () {
+      this.loadSteps()
+      console.log('currentAssessment.id', this.currentAssessment.id)
+    },
     currentCourseResults: {
       handler: function (value) {
         if (value) {
