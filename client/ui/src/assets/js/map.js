@@ -286,7 +286,6 @@ function DeclickMap() {
     };
 
     var initSteps = function(data) {
-
         steps = [];
         let currentPosition = 0
         function getObject(value, chapter) {

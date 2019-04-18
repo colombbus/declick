@@ -232,30 +232,7 @@ define(['ui/TComponent', 'jquery', 'ui/TLearnCanvas', 'ui/TLearnEditor', 'TRunti
 
             if(typeof token !== undefined){
 
-
-            // get user result
-
-            // var step_id = getparams.match(/#[a-z]*=(\d*)/)[1]
-            // var projectID = getparams.match(/&project-id=(\d*)/)[1]
-
-
-            // '/node/{nodeUrl}'
-            var url =  TEnvironment.getConfig('backend-path')+"check-step-id"
-            var type = getparams.match(/([a-z]*\.html)\#([a-z]*=\d*)/)[1]
-            var id = getparams.match(/([a-z]*\.html)\#([a-z]*=\d*)/)[2]
-            console.log(type,id);
-            
-            $.ajax({
-                type:'GET',
-                url:url,
-                crossDomain:true,
-                headers: {Authorization: 'Token ' + token},
-                data:{
-                    type:type,
-                    id:id
-                }
-            }).success(function(r){
-                var step_id = r
+                var step_id = getparams.match(/&project-id=(\d*)/)[1]
                 url = TEnvironment.getConfig('backend-path')+"token/"+token+"/step-id/"+step_id+"/get-results"
                 $.ajax({
                     type: "GET",
@@ -265,9 +242,6 @@ define(['ui/TComponent', 'jquery', 'ui/TLearnCanvas', 'ui/TLearnEditor', 'TRunti
                 }).done(function(r){
                     if(r !== '404'){
                         if(r.solution !== ""){
-                            console.log('r.solution',r.solution);
-                            console.log("$('#tlearnframe-text-input').value",$('#tlearnframe-text-input'))
-                            
                             $('#tlearnframe-text-input')[0].value = r.solution
                             editor.setValue(r.solution)
                         }                       
@@ -286,9 +260,6 @@ define(['ui/TComponent', 'jquery', 'ui/TLearnCanvas', 'ui/TLearnEditor', 'TRunti
                         })
                     }
                 });
-            })
-            
-            
             }
         };
 
@@ -375,31 +346,6 @@ define(['ui/TComponent', 'jquery', 'ui/TLearnCanvas', 'ui/TLearnEditor', 'TRunti
 
             var token = getparams.match(/&token=(\w*)/)[1]
 
-
-
-            // get user result
-
-            // var step_id = getparams.match(/#[a-z]*=(\d*)/)[1]
-            // var projectID = getparams.match(/&project-id=(\d*)/)[1]
-
-
-            // '/node/{nodeUrl}'
-            var url =  TEnvironment.getConfig('backend-path')+"check-step-id"
-            var type = getparams.match(/([a-z]*\.html)\#([a-z]*=\d*)/)[1]
-            var id = getparams.match(/([a-z]*\.html)\#([a-z]*=\d*)/)[2]
-            console.log(type,id);
-            
-            $.ajax({
-                type:'GET',
-                url:url,
-                crossDomain:true,
-                headers: {Authorization: 'Token ' + token},
-                data:{
-                    type:type,
-                    id:id
-                }
-            }).success(function(r){
-             // var val = editor.getValue()
             var solution =  editor.getValue() === "" ? $('#tlearnframe-text-input').val() : editor.getValue()
 
             console.log('soolution',solution)
@@ -407,7 +353,7 @@ define(['ui/TComponent', 'jquery', 'ui/TLearnCanvas', 'ui/TLearnEditor', 'TRunti
             var getparams = window.location + ""
             var token = getparams.match(/token=(\w*)/)[1]
             // var step_id = getparams.match(/#[a-z]*=(\d*)/)[1]
-            var step_id = r
+            var step_id = getparams.match(/&project-id=(\d*)/)[1]
             var passed = 1
             // // TODO:save solution @ serve
             // // url POST : users/{userId}/results
@@ -428,7 +374,6 @@ define(['ui/TComponent', 'jquery', 'ui/TLearnCanvas', 'ui/TLearnEditor', 'TRunti
                     console.log('done save result')
                 })
             }
-            })
          };
 
         this.validateExercise = function (message, next) {

@@ -33,6 +33,7 @@ export default {
     let robotPath = __webpack_public_path__ + // eslint-disable-line camelcase
       'static/map-robot.svg'
     map.init('map', robotPath, (step) => {
+      console.log('step', step)
       this.selectAssessment({id: step.id})
       this.$router.push({
         name: 'step',
@@ -57,7 +58,7 @@ export default {
   },
   watch: {
     'currentAssessment.id' () {
-      // this.loadSteps()
+      this.loadSteps()
       this.$router.push({
         name: 'step',
         params: {
