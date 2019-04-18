@@ -145,6 +145,8 @@ function DeclickMap() {
         var tool = new paper.Tool();
         tool.onKeyDown = function(event) {
             if (event.key === 'space') {
+                console.log(initCenter);
+                
                 setTarget(initCenter, 1);
             }
         };

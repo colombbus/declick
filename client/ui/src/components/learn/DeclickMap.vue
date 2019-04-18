@@ -1,9 +1,24 @@
 <template lang="html">
   <div>
-    <p class="mapHelp">appuie sur la barre d'espace si la carte disparait</p>
+    <p class="mapHelp">
+      <input type="button" value="centrer la carte" @click="centeringMap">
+      <input type="button" value="remise a zero du parcours" @click="showRest = true;">
+    </p>
     <div id="declickMap">
       <canvas id="map" ></canvas>
     </div>
+    
+    <div id="popinResetCircuits" v-if="showRest">
+      <div>
+        <p class="mapHelp alignCenter">
+          Attention tu vas supprimer tout t'est resultat<br>
+          <input type="button" value="oui" @click="resetCircuitResult">
+          <input type="button" value="non" @click="showRest = false">
+        </p>
+
+      </div>
+    </div>
+
   </div>
 </template>
 
@@ -13,6 +28,8 @@
 import Map from '../../assets/js/map.js'
 import {mapState, mapActions} from 'vuex'
 
+import Api from '../../api'
+
 import mapConfig from './mapConfig'
 
 var map = new Map()
@@ -20,13 +37,15 @@ var map = new Map()
 export default {
   data () {
     return {
+      showRest: false
     }
   },
   computed: mapState([
     'currentAssessment',
     'currentCourse',
     'currentCourseResults',
-    'user'
+    'user',
+    'token'
   ]),
   mounted () {
     // TODO: Find a better solution.
@@ -48,8 +67,8 @@ export default {
         // Load steps
         this.loadSteps()
       })
-      map.setCurrentStep(this.currentCourse[1].id, false)
     })
+    map.setCurrentStep(this.currentCourse[1].id, false)
   },
   activated () {
     if (this.currentAssessment) {
@@ -58,7 +77,6 @@ export default {
   },
   watch: {
     'currentAssessment.id' () {
-      this.loadSteps()
       this.$router.push({
         name: 'step',
         params: {
@@ -84,6 +102,18 @@ export default {
     }
   },
   methods: {
+    async resetCircuitResult () {
+      console.log("reset", Api)
+      // this.$forceUpdate()
+      await Api.resetCircuitNodes(this.token, this.$route.params.id, this.user.id)
+      this.showRest = false
+    },
+    centeringMap () {
+      map.loadPathFromUI(mapConfig, () => {
+        // Load steps
+        this.loadSteps()
+      })
+    },
     async loadSteps () {
       await this.selectCourse({id: this.$route.params.id})
       map.loadStepsFromUI(this.currentCourse)
@@ -97,6 +127,21 @@ export default {
 </script>
 
 <style lang="css">
+.alignCenter{
+  text-align: center 
+}
+#popinResetCircuits{
+  position: absolute;
+  top: 0;
+  left: 0;
+  bottom: 0;
+  right: 0;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  background: rgba(155,155,155,0.5);
+  z-index: 999;
+}
 #declickMap {
     background-color:#000000;
     height: calc(100vh - 210px)

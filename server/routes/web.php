@@ -54,6 +54,7 @@ $app->group(['prefix' => 'api/v1'], function () use ($app) {
     $app->get('token/{token}/step-id/{step_id}/get-results','UserResultController@getByToken');
     $app->post('token/{token}/step-id/{step_id}/visited','UserResultController@stepVisited');
 
+    $app->delete('reset/{circuitId}/user-id/{userId}','UserResultController@resetCircuitResults');
 
 
     // authorizations routes

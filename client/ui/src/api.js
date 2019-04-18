@@ -288,6 +288,11 @@ export default {
   async importProject (id, token) {
     let endpoint = `${config.apiUrl}v1/projects/import/${id}`
     await Vue.http.post(endpoint, {}, {headers: {Authorization: 'Token ' + token}})
+  },
+
+  async resetCircuitNodes (token, circuitId, userId) {
+    let endpoint = `${config.apiUrl}v1/reset/${circuitId}/user-id/${userId}`
+    await Vue.http.delete(endpoint,{},{headers: {Authorization: 'Token ' + token}})
   }
 }
 

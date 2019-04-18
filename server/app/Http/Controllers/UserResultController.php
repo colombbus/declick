@@ -7,6 +7,7 @@ use Illuminate\Http\Request;
 use App\User;
 use App\UserResult;
 use App\Authorization;
+use App\CircuitNode;
 
 class UserResultController extends Controller
 {
@@ -100,5 +101,21 @@ class UserResultController extends Controller
         $user->results()->delete();
 
         return response('', 204);
+    }
+
+    public function resetCircuitResults($circuitId, $userId) {
+        $userResults = User::findOrFail($userId)->results()->get();
+        $circuitNodes = CircuitNode::where(['circuit_id'=>$circuitId])->get();
+
+        foreach ($userResults as $index => $result) {
+            foreach ($circuitNodes as $key => $value) {
+                if($result->step_id === $key){
+                    var_dump($result->step_id);
+                    $result->delete();
+                }
+            }
+        }
+
+        die();
     }
 }
