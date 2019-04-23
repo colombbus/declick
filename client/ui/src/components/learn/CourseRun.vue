@@ -46,7 +46,9 @@ export default {
       }
 
       window.addEventListener('message', event => {
-        this.selectNextAssessment()
+        if (event.data === "validateExercise") {
+          this.selectNextAssessment()
+        }
       }, false)
 
       // var self = this

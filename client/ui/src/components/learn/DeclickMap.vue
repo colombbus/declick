@@ -52,7 +52,6 @@ export default {
     let robotPath = __webpack_public_path__ + // eslint-disable-line camelcase
       'static/map-robot.svg'
     map.init('map', robotPath, (step) => {
-      console.log('step', step)
       this.selectAssessment({id: step.id})
       this.$router.push({
         name: 'step',
@@ -67,8 +66,8 @@ export default {
         // Load steps
         this.loadSteps()
       })
+      // map.setCurrentStep(this.currentCourse[1].id, false)
     })
-    map.setCurrentStep(this.currentCourse[1].id, false)
   },
   activated () {
     if (this.currentAssessment) {
@@ -103,10 +102,28 @@ export default {
   },
   methods: {
     async resetCircuitResult () {
-      console.log("reset", Api)
       // this.$forceUpdate()
       await Api.resetCircuitNodes(this.token, this.$route.params.id, this.user.id)
       this.showRest = false
+      let robotPath = __webpack_public_path__ + // eslint-disable-line camelcase
+      'static/map-robot.svg'
+      map.init('map', robotPath, (step) => {
+        console.log('step', step)
+        this.selectAssessment({id: step.id})
+        this.$router.push({
+          name: 'step',
+          params: {
+            id: this.$route.params.id,
+            assessmentId: step.id
+          }
+        })
+      }, () => {
+        // Load path
+        map.loadPathFromUI(mapConfig, () => {
+          // Load steps
+          this.loadSteps()
+        })
+      })
     },
     centeringMap () {
       map.loadPathFromUI(mapConfig, () => {
