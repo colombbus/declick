@@ -568,7 +568,6 @@ define(['jquery', 'TEnvironment', 'TGraphicalObject', 'objects/sprite/Sprite', '
         this.loadJSON(
             configUrl,
             function (data) {
-                console.log('data',data)
                 // check that nothing changed during load
                 if (self.custom || self.aspectName != name) {
                     return;
