@@ -1,8 +1,8 @@
 {
     "images": {
-            "forward":["robot_right_1.png","robot_right_2.png","robot_right_3.png","robot_right_2.png"],
-            "backward":["robot_left_1.png","robot_left_2.png","robot_left_3.png","robot_left_2.png"],
-            "front":["robot_face_1.png","robot_face_2.png"]
+            "forward":["robot_right_1.png","robot_right_2.png","robot_right_3.png","robot_right_4.png"],
+            "backward":["robot_left_1.png","robot_left_2.png","robot_left_3.png","robot_left_4.png"],
+            "front":["robot_face_1.png","robot_face_2.png","robot_face_3.png","robot_face_4.png","robot_face_5.png","robot_face_6.png"]
         },
     "durationMove": 0.3,
     "durationPause": 1

@@ -1,8 +1,8 @@
 {
     "images": {
-            "forward":["builder_right_1.png", "builder_right_2.png"],
-            "backward":["builder_left_1.png","builder_left_2.png"],
-            "front":["builder_face_1.png","builder_face_2.png"]
+            "forward":["builder_right_1.png", "builder_right_2.png","builder_right_3.png"],
+            "backward":["builder_left_1.png","builder_left_2.png","builder_left_3.png"],
+            "front":["builder_face_1.png","builder_face_2.png","builder_face_3.png","builder_face_4.png","builder_face_5.png","builder_face_6.png","builder_face_7.png"]
         },
     "durationMove": 0.3,
     "durationPause": 1

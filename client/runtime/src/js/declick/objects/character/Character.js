@@ -568,6 +568,7 @@ define(['jquery', 'TEnvironment', 'TGraphicalObject', 'objects/sprite/Sprite', '
         this.loadJSON(
             configUrl,
             function (data) {
+                console.log('data',data)
                 // check that nothing changed during load
                 if (self.custom || self.aspectName != name) {
                     return;
@@ -579,6 +580,7 @@ define(['jquery', 'TEnvironment', 'TGraphicalObject', 'objects/sprite/Sprite', '
                 try {
                     self._removeImageSet(self.translatedFront);
                 } catch (e) { }
+                
                 for (var i = 0; i < frontImages.length; i++) {
                     var imageName = name + "/" + frontImages[i];
                     //frontAssets.push(imageName);
