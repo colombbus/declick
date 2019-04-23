@@ -173,6 +173,16 @@ export default {
 #text,.mapHelp {
     color:#FFFFFF;
 }
+.mapHelp input{
+  background: #31383A;
+  border-radius: 5px;
+  border:none;
+  padding: 5px 10px;
+  color: white
+}
+.mapHelp input:hover{
+  background: #2B2F31;
+}
 .mapHelp{
   background-color: #46102A;
   padding: 5px 5px;
