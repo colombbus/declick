@@ -133,7 +133,7 @@ export default {
         if (this.currentAssessment.url) {
           // return this.currentAssessment.url + '&token=' + this.token + '&channelId=declick'
           // return this.currentAssessment.url + '&token=' + this.token + '&channelId=declick'
-          let regx = /[a-z]*\.html#[a-z]*=(\d{1,})$/g
+          let regx = /[a-z]*\.html#[a-z]*=(\d{1,})($|&ok=false)/g
           let urlMatch = this.currentAssessment.url.match(regx)
           return config.clientUrl + urlMatch + '&token=' + this.token + lastParams
           // return de base
