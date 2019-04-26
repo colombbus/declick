@@ -321,6 +321,8 @@ define(['jquery', 'TEnvironment', 'TUtils', 'CommandManager', 'SynchronousManage
             return item.getName();
         },
         getGridX: function () {
+            console.log("this.p",this.p);
+            
             return this.p.gridX;
         },
         getGridY: function () {
@@ -490,6 +492,8 @@ define(['jquery', 'TEnvironment', 'TUtils', 'CommandManager', 'SynchronousManage
      * @returns {Integer}
      */
     Robot.prototype._getGridY = function () {
+        console.log("this.gObject.p",this.gObject.p);
+        
         return (this.gObject.p.gridY);
     };
 

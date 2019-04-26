@@ -348,7 +348,7 @@ define(['ui/TComponent', 'jquery', 'ui/TLearnCanvas', 'ui/TLearnEditor', 'TRunti
 
             var solution =  editor.getValue() === "" ? $('#tlearnframe-text-input').val() : editor.getValue()
 
-            console.log('soolution',solution)
+            // console.log('soolution',solution)
             
             var getparams = window.location + ""
             var token = getparams.match(/token=(\w*)/)[1]
@@ -370,8 +370,6 @@ define(['ui/TComponent', 'jquery', 'ui/TLearnCanvas', 'ui/TLearnEditor', 'TRunti
                     },
                     crossDomain:true,
                     headers: {Authorization: 'Token ' + token}
-                }).done(function(){
-                    console.log('done save result')
                 })
             }
          };

@@ -51,14 +51,17 @@ define(['jquery', 'TUtils', 'objects/robot/Robot', 'objects/maze/Maze', 'objects
      * @param {Integer} y
      */
     Builder.prototype._buildGround = function(x, y) {
-        if (typeof x === 'undefined') {
-            if (typeof x !== 'undefined') {
-                throw this.getMessage("parameter ground");
+        setTimeout(function(){
+            if (typeof x === 'undefined') {
+                if (typeof x !== 'undefined') {
+                    throw this.getMessage("parameter ground");
+                }
+                x = this.gObject.getGridX();
+                y = this.gObject.getGridY();
             }
-            x = this.gObject.getGridX();
-            y = this.gObject.getGridY();
-        }
-        this.maze._buildGround(x, y);
+            this.maze._buildGround(x, y);
+        },100)
+        
     };
     
 
