@@ -2,7 +2,7 @@
   <div>
     <p class="mapHelp">
       <input type="button" value="centrer la carte" @click="centeringMap">
-      <input type="button" value="remise a zero du parcours" @click="showRest = true;">
+      <input type="button" value="remise a zero du parcours" @click="showRest = true;" v-if="user !== null && token !== null">
     </p>
     <div id="declickMap">
       <canvas id="map" ></canvas>
@@ -48,6 +48,7 @@ export default {
     'token'
   ]),
   mounted () {
+    console.log(this.user, this.token)
     // TODO: Find a better solution.
     let robotPath = __webpack_public_path__ + // eslint-disable-line camelcase
       'static/map-robot.svg'
@@ -76,12 +77,13 @@ export default {
   },
   watch: {
     'currentAssessment.id' () {
-      this.$router.push({
-        name: 'step',
-        params: {
-          id: this.$route.params.id,
-          assessmentId: this.currentAssessment.id
-        }
+      this.$store.dispatch("loadCurrentCourseResults").then(() => {
+        setTimeout(() => {
+          map.loadPathFromUI(mapConfig, () => {
+            // Load steps
+            this.loadSteps()
+          })
+        }, 100)
       })
     },
     currentCourseResults: {
@@ -97,32 +99,27 @@ export default {
       this.loadSteps()
     },
     '$route.params.id' () {
-      this.loadSteps()
+      map.loadPathFromUI(mapConfig, () => {
+        // Load steps
+        this.loadSteps()
+      })
     }
   },
   methods: {
     async resetCircuitResult () {
       // this.$forceUpdate()
-      await Api.resetCircuitNodes(this.token, this.$route.params.id, this.user.id)
-      this.showRest = false
-      let robotPath = __webpack_public_path__ + // eslint-disable-line camelcase
-      'static/map-robot.svg'
-      map.init('map', robotPath, (step) => {
-        console.log('step', step)
-        this.selectAssessment({id: step.id})
-        this.$router.push({
-          name: 'step',
-          params: {
-            id: this.$route.params.id,
-            assessmentId: step.id
-          }
-        })
-      }, () => {
-        // Load path
-        map.loadPathFromUI(mapConfig, () => {
-          // Load steps
-          this.loadSteps()
-        })
+      await Api.resetCircuitNodes(this.token, this.$route.params.id, this.user.id).then((r) => {
+        this.showRest = false
+        this.$store.dispatch("loadCurrentCourseResults")
+        setTimeout(() => {
+          // this.$forceUpdate()
+          // console.log(this.currentAssessment.id)
+            // Load path
+          map.loadPathFromUI(mapConfig, () => {
+            // Load steps
+            this.loadSteps()
+          })
+        }, 250)
       })
     },
     centeringMap () {

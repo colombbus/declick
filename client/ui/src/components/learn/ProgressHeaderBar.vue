@@ -21,9 +21,6 @@ export default {
     return {}
   },
   computed: {
-    backroad () {
-      return this.$route.params.assessmentId - 1 + ''
-    },
     assessmentName () {
       if (this.currentAssessment) {
         return this.currentAssessment.name
