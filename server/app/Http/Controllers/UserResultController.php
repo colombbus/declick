@@ -109,12 +109,7 @@ class UserResultController extends Controller
 
         foreach ($userResults as $index => $result) {
             foreach ($circuitNodes as $key => $value) {
-                // var_dump($value->name );
-                // if ($value->parent_id + 1 === $result->step_id) {
-                //     var_dump($result->step_id);
-                // }
-                if($result->step_id === $key){
-                    // var_dump($result->step_id);
+                if($value->id === $result->step_id){
                     $result->delete();
                 }
             }
