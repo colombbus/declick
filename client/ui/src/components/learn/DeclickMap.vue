@@ -1,8 +1,8 @@
 <template lang="html">
   <div>
     <p class="mapHelp">
-      <input type="button" value="centrer la carte" @click="centeringMap">
-      <input type="button" value="remise a zero du parcours" @click="showRest = true;" v-if="user !== null && token !== null">
+      <input type="button" value="Centrer la carte" @click="centeringMap">
+      <input type="button" value="Réinitialiser le parcours " @click="showRest = true;" v-if="user !== null && token !== null">
     </p>
     <div id="declickMap">
       <canvas id="map" ></canvas>
@@ -11,9 +11,9 @@
     <div id="popinResetCircuits" v-if="showRest">
       <div>
         <p class="mapHelp alignCenter">
-          Attention tu vas supprimer tout t'est resultat<br>
-          <input type="button" value="oui" @click="resetCircuitResult">
-          <input type="button" value="non" @click="showRest = false">
+          Attention ! Cette action supprimera l'ensemble des réponses du parcours<br>
+          <input type="button" id="validation" value="Confirmer" @click="resetCircuitResult">
+          <input type="button" id="annullation" value="Annuler" @click="showRest = false">
         </p>
 
       </div>
@@ -48,7 +48,6 @@ export default {
     'token'
   ]),
   mounted () {
-    console.log(this.user, this.token)
     // TODO: Find a better solution.
     let robotPath = __webpack_public_path__ + // eslint-disable-line camelcase
       'static/map-robot.svg'
@@ -70,13 +69,30 @@ export default {
       // map.setCurrentStep(this.currentCourse[1].id, false)
     })
   },
+  updated () {
+    console.log("updated")
+  },
   activated () {
+    console.log("actived")
     if (this.currentAssessment) {
       map.setCurrentStep(this.currentAssessment.id, false)
     }
   },
   watch: {
+    '$route' () {
+      map.loadPathFromUI(mapConfig, () => {
+        // Load steps
+        this.loadSteps()
+      })
+    },
     'currentAssessment.id' () {
+      this.$router.push({
+        name: 'step',
+        params: {
+          id: this.$route.params.id,
+          assessmentId: this.currentAssessment.id
+        }
+      })
       this.$store.dispatch("loadCurrentCourseResults").then(() => {
         setTimeout(() => {
           map.loadPathFromUI(mapConfig, () => {
@@ -112,8 +128,6 @@ export default {
         this.showRest = false
         this.$store.dispatch("loadCurrentCourseResults")
         setTimeout(() => {
-          // this.$forceUpdate()
-          // console.log(this.currentAssessment.id)
             // Load path
           map.loadPathFromUI(mapConfig, () => {
             // Load steps
@@ -143,6 +157,12 @@ export default {
 <style lang="css">
 .alignCenter{
   text-align: center 
+}
+#popinResetCircuits #validation:hover{
+  color: green
+}
+#popinResetCircuits #annullation:hover{
+  color: red
 }
 #popinResetCircuits{
   position: absolute;

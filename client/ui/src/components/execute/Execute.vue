@@ -27,9 +27,6 @@ export default {
       hidden: true
     }
   },
-  created () {
-    // console.log(this.$store)
-  },
   computed: {
     iframeStyle () {
       let content = "width:"

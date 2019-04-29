@@ -2,7 +2,7 @@
   <div id="navigation-bar-small">
     <router-link to="/" id="home-control-small"></router-link>
     <div id="page-title">{{this.assessmentName}}</div>
-    <router-link :to="'/progress/course/'+this.$route.params.id" id="map-control-small" ></router-link>
+    <router-link :to="'/progress/course/'+this.$route.params.id" id="map-control-small"></router-link>
     <div id="mapController">
       <div id="leftLink" @click="previous()" ></div>
       <div id="rightLink" @click="next()"></div>
@@ -28,7 +28,7 @@ export default {
         return ''
       }
     },
-    ...mapState(['currentAssessment'])
+    ...mapState(['currentAssessment', 'updateMap'])
   },
   updated () {
     // console.log(this.currentAssessment.id)
@@ -46,13 +46,27 @@ export default {
   },
   methods: {
     async previous () {
-      this.$route.params.assessmentId = this.$route.params.assessmentId - 1
+      // this.$route.params.assessmentId = this.$route.params.assessmentId - 1
+      this.$router.push({
+        name: 'step',
+        params: {
+          id: this.$route.params.id,
+          assessmentId: this.$route.params.assessmentId - 1
+        }
+      })
       // console.log(this.$route.params.assessmentId)
       // console.log(this.$store.state.currentCourse[this.$route.params.assessmentId - 1])
       this.selectPreviousAssessment()
     },
     next () {
-      this.$route.params.assessmentId = this.$route.params.assessmentId + 1
+      // this.$route.params.assessmentId = this.$route.params.assessmentId + 1
+      this.$router.push({
+        name: 'step',
+        params: {
+          id: this.$route.params.id,
+          assessmentId: this.$route.params.assessmentId + 1
+        }
+      })
       this.selectNextAssessment()
       // this.$router.go("/progress/course/1/run/" + this.$route.params.assessmentId + 1)
       // console.log(this.$router.go("/progress/course/1/run/" + this.$route.params.assessmentId + 1))
