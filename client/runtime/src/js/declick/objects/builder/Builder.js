@@ -50,18 +50,16 @@ define(['jquery', 'TUtils', 'objects/robot/Robot', 'objects/maze/Maze', 'objects
      * @param {Integer} x
      * @param {Integer} y
      */
+    // ne marche pas si le cache est désactivé
     Builder.prototype._buildGround = function(x, y) {
-        setTimeout(function(){
-            if (typeof x === 'undefined') {
-                if (typeof x !== 'undefined') {
-                    throw this.getMessage("parameter ground");
-                }
-                x = this.gObject.getGridX();
-                y = this.gObject.getGridY();
+        if (typeof x === 'undefined') {
+            if (typeof x !== 'undefined') {
+                throw this.getMessage("parameter ground");
             }
-            this.maze._buildGround(x, y);
-        },100)
-        
+            x = this.gObject.getGridX();
+            y = this.gObject.getGridY();
+        }
+        this.maze._buildGround(x, y);
     };
     
 
