@@ -321,4 +321,10 @@ $vertical-gap: 40px
     margin-top: 20px
   .home__logo-group
     justify-content: left
+
+
+
+@media only screen and (max-width: 376px)
+  .home
+    display: block
 </style>
