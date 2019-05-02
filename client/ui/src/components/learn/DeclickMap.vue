@@ -49,41 +49,16 @@ export default {
   ]),
   mounted () {
     // TODO: Find a better solution.
-    let robotPath = __webpack_public_path__ + // eslint-disable-line camelcase
-      'static/map-robot.svg'
-    map.init('map', robotPath, (step) => {
-      this.selectAssessment({id: step.id})
-      this.$router.push({
-        name: 'step',
-        params: {
-          id: this.$route.params.id,
-          assessmentId: step.id
-        }
-      })
-    }, () => {
-      // Load path
-      map.loadPathFromUI(mapConfig, () => {
-        // Load steps
-        this.loadSteps()
-      })
-      // map.setCurrentStep(this.currentCourse[1].id, false)
-    })
-  },
-  updated () {
-    console.log("updated")
+    this.initMap()
   },
   activated () {
-    console.log("actived")
     if (this.currentAssessment) {
       map.setCurrentStep(this.currentAssessment.id, false)
     }
   },
   watch: {
     '$route' () {
-      map.loadPathFromUI(mapConfig, () => {
-        // Load steps
-        this.loadSteps()
-      })
+      this.initMap()
     },
     'currentAssessment.id' () {
       this.$router.push({
@@ -95,10 +70,7 @@ export default {
       })
       this.$store.dispatch("loadCurrentCourseResults").then(() => {
         setTimeout(() => {
-          map.loadPathFromUI(mapConfig, () => {
-            // Load steps
-            this.loadSteps()
-          })
+          this.initMap()
         }, 100)
       })
     },
@@ -114,33 +86,39 @@ export default {
     user () {
       this.loadSteps()
     },
-    '$route.params.id' () {
-      map.loadPathFromUI(mapConfig, () => {
-        // Load steps
-        this.loadSteps()
-      })
-    }
   },
   methods: {
+    initMap () {
+      let robotPath = __webpack_public_path__ + // eslint-disable-line camelcase
+      'static/map-robot.svg'
+      map.init('map', robotPath, (step) => {
+        this.selectAssessment({id: step.id})
+        this.$router.push({
+          name: 'step',
+          params: {
+            id: this.$route.params.id,
+            assessmentId: step.id
+          }
+        })
+      }, () => {
+        // Load path
+        map.loadPathFromUI(mapConfig, () => {
+          // Load steps
+          this.loadSteps()
+        })
+      })
+    },
     async resetCircuitResult () {
-      // this.$forceUpdate()
       await Api.resetCircuitNodes(this.token, this.$route.params.id, this.user.id).then((r) => {
         this.showRest = false
         this.$store.dispatch("loadCurrentCourseResults")
         setTimeout(() => {
-            // Load path
-          map.loadPathFromUI(mapConfig, () => {
-            // Load steps
-            this.loadSteps()
-          })
+          this.initMap()
         }, 250)
       })
     },
     centeringMap () {
-      map.loadPathFromUI(mapConfig, () => {
-        // Load steps
-        this.loadSteps()
-      })
+      this.initMap()
     },
     async loadSteps () {
       await this.selectCourse({id: this.$route.params.id})

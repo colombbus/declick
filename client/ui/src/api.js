@@ -219,7 +219,7 @@ export default {
       return {
         id: course.id,
         name: course.name,
-        imageUrl: 'http://www.declick.net/images/default-level.png',
+        imageUrl: config.default_circuits_images,
         summary: course.short_description,
         details: course.description
       }

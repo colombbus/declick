@@ -10,6 +10,7 @@ import config from 'assets/config/declick'
 import Application from './Application'
 import VueAnalytics from 'vue-analytics'
 
+import i18n from './i18n'
 // document.domain = config.domain
 
 if (config.googleId) {
@@ -25,6 +26,7 @@ new Vue({
   template: '<application/>',
   store,
   router,
+  i18n,
   components: {
     Application
   },

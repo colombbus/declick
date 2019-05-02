@@ -8,18 +8,19 @@
       br
       span.summary {{course.summary}}
       br
-      span(v-if='!course.showDetails')
-        a.toggle-details-link(@click='course.showDetails = true')
-          span.glyphicon.glyphicon-triangle-right
-          |
-          | afficher les détails
-      span(v-else)
-        a.toggle-details-link(@click='course.showDetails = false')
-          span.glyphicon.glyphicon-triangle-bottom
-          |
-          | masquer les détails
-        br
-        span.details {{course.details}}
+      div(v-if='course.details')
+        span(v-if='!course.showDetails')
+          a.toggle-details-link(@click='course.showDetails = true')
+            span.glyphicon.glyphicon-triangle-right
+            |
+            | afficher les détails
+        span(v-else)
+          a.toggle-details-link(@click='course.showDetails = false')
+            span.glyphicon.glyphicon-triangle-bottom
+            |
+            | masquer les détails
+          br
+          span.details {{course.details}}
 </template>
 
 <script>
@@ -37,6 +38,7 @@ export default {
       course.showDetails = false
     })
     this.courses = courses
+    console.log(this.courses[0])
   },
   methods: mapActions(['getAllCourses'])
 }

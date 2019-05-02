@@ -19,6 +19,10 @@ import UserProfile from 'components/user/UserProfile'
 import UserEditor from 'components/user/UserEditor'
 
 import HomePage from 'components/HomePage'
+
+import MapDraw from 'components/map-generator/MapDrawer'
+import MapWriter from 'components/map-generator/MapWriter'
+
 var routes = [
   {
     path: '/',
@@ -125,7 +129,17 @@ var routes = [
         meta: { title: 'Modification de parcours' }
       }
     ]
-  }
+  },
+    //  {
+    //   path: '/draw',
+    //   component: MapDraw,
+    //   meta: 'Créé tes niveaux'
+    // },
+    // {
+    //   path: '/write',
+    //   component: MapWriter,
+    //   meta: 'Créé tes niveaux'
+    // }
 ]
 
 export default new VueRouter({

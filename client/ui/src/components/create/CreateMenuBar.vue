@@ -14,6 +14,10 @@
     @click='toggleMode',
     :class="editor ? 'show-view-link' : 'show-editor-link'"
   )
+  //- a(
+  //-   @click='toggleModeGenerator',
+  //-   :class="generator ? 'show-generator-link' : 'show-editor-link'"
+  //- )
 </template>
 
 <script>
