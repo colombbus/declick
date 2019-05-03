@@ -7,6 +7,7 @@
       class="fullscreen-iframe2"
       ref="iframe"
     ></iframe>
+    <div class="error"></div>
     <!-- <div id="testDeclick"></div> -->
   </div>
 </template>
@@ -44,6 +45,21 @@ export default {
         // créé une method alternative seulement pour les visites
         this.selectAssessment({id: parseInt(this.$route.params.assessmentId)})
       }
+
+
+      
+      window.addEventListener('message', event => {
+        // if(this.$store.getters.getUser.id !== null && event.data === "checkLocationBeforGoToCreate") {
+          if( event.data === "checkLocationBeforGoToCreate"){
+            this.$router.push("/create")
+          }
+          // console.log('router',this.$router)
+          // console.log('route',this.$route)
+          
+        // } else if (this.$store.getters.getUser.id !== null) {
+
+        // }
+      })
 
       window.addEventListener('message', event => {
         if (event.data === "validateExercise") {
