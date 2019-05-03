@@ -46,7 +46,7 @@ export default {
 }
 </script>
 
-<style lang="css">
+<style lang="css" scope>
 .editor {
   height: 80vh;
 }

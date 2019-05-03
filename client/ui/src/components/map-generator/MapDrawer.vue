@@ -500,7 +500,7 @@ export default {
 }
 </script>
 
-<style>
+<style scoped>
 :root {
   --main-dark-color: #480a2a;
   --main-spacing: 0.3vw;
