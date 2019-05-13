@@ -2,7 +2,7 @@
 .self
   .course(v-for='course in courses')
     .image-area
-      img(v-if='course.imageUrl', :src='course.imageUrl')
+      img(v-if='course.imageUrl', :src='getImg(course)')
     p.fields-area
       router-link.name(:to="'/progress/course/' + course.id") {{course.name}}
       br
@@ -32,6 +32,12 @@ export default {
       courses: []
     }
   },
+  methods: {
+    getImg (course) {
+      return "//v2.declick.net/images/" + course.id + ".png"
+    },
+    ...mapActions(['getAllCourses'])
+  },
   async created () {
     let courses = await this.getAllCourses()
     courses.forEach((course) => {
@@ -40,7 +46,6 @@ export default {
     this.courses = courses
     console.log(this.courses[0])
   },
-  methods: mapActions(['getAllCourses'])
 }
 </script>
 
