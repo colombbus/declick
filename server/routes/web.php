@@ -71,6 +71,7 @@ $app->group(['prefix' => 'api/v1'], function () use ($app) {
     });
 
     // projects routes
+    $app->get('projects/exercices','ProjectController@show_exercices');
     $app->get('projects', 'ProjectController@index');
     $app->get('projects/{id}', [
         'as' => 'projects',

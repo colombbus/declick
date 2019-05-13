@@ -43,7 +43,7 @@ class ProjectResourceController extends Controller
         ]);
     }
 
-    public function update(Request $request, $projectId, $resourceId)
+    public function update(Request $request, $resourceId, $projectId)
     {
         $project = Project::findOrFail($projectId);
 
@@ -205,17 +205,19 @@ class ProjectResourceController extends Controller
 
     }
 
+    // ATTENTION il y a un gros souci ici projec_id et ressource_id sont interverti .... 
+    // va comprendre pourquoi
     public function delete($projectId, $resourceId)
     {
-        $project = Project::findOrFail($projectId);
+        $project = Project::findOrFail($resourceId);
 
-        $resource = $project->resources()->findOrFail($resourceId);
+        $resource = $project->resources()->findOrFail($projectId);
 
         $this->authorize('delete', $resource);
 
         $directoryPath =
-            storage_path('app/projects/' . $projectId . '/resources');
-        $filePath = $directoryPath . '/' . $resourceId;
+            storage_path('app/projects/' . $resourceId . '/resources');
+        $filePath = $directoryPath . '/' . $projectId;
 
         if (file_exists($filePath)) {
             unlink($filePath);

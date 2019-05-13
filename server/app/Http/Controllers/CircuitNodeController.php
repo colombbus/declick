@@ -39,20 +39,21 @@ class CircuitNodeController extends Controller
 
     public function update(Request $request, $circuitId, $nodeId)
     {
-        Circuit::findOrFail($circuitId);
-
-        $node = CircuitNode::findOrFail($nodeId);
-
-        $values = array_only($request->input(), [
+                $values = array_only($request->input(), [
             'name',
             'link',
             'parent_id',
             'position',
         ]);
+        Circuit::findOrFail($circuitId);
 
+        $node = CircuitNode::findOrFail($nodeId);
+
+
+        // var_dump($values);
         $node->update($values);
 
-        return $node;
+        return response($node,200);
     }
 
     public function show($circuitId, $nodeId)

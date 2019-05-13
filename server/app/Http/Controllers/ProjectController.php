@@ -140,6 +140,6 @@ class ProjectController extends Controller
     }
 
     public function show_exercices () {
-        return Project::where('is_exercices',1)->get();
+        return Project::where('is_exercise',1)->get();
     }
 }
