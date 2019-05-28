@@ -6,7 +6,7 @@
     p.fields-area
       router-link.name(:to="'/progress/course/' + course.id") {{course.name}}
       br
-      span.summary {{course.summary}}
+      p.summary(v-html="course.summary")
       br
       div(v-if='course.details')
         span(v-if='!course.showDetails')
@@ -20,33 +20,34 @@
             |
             | masquer les détails
           br
-          span.details {{course.details}}
+          span.details(v-html="course.details")
 </template>
 
 <script>
-import {mapActions} from 'vuex'
 
-export default {
-  data () {
-    return {
-      courses: []
-    }
-  },
-  methods: {
-    getImg (course) {
-      return "//v2.declick.net/images/" + course.id + ".png"
+  import {mapActions} from 'vuex'
+
+  export default {
+    data () {
+      return {
+        courses: []
+      }
     },
-    ...mapActions(['getAllCourses'])
-  },
-  async created () {
-    let courses = await this.getAllCourses()
-    courses.forEach((course) => {
-      course.showDetails = false
-    })
-    this.courses = courses
-    console.log(this.courses[0])
-  },
-}
+    methods: {
+      getImg (course) {
+        return "//v2.declick.net/images/" + course.id + ".png"
+      },
+      ...mapActions(['getAllCourses'])
+    },
+    async created () {
+      let courses = await this.getAllCourses()
+      courses.forEach((course) => {
+        course.showDetails = false
+      })
+      this.courses = courses
+      console.log(this.courses[0])
+    },
+  }
 </script>
 
 <style lang="sass" scoped>
@@ -82,6 +83,7 @@ export default {
 
 .summary
   color: #2E75B6
+  padding: 0 10px
 
 .toggle-details-link, .details
   color: #A6A6A6
@@ -94,6 +96,7 @@ export default {
   display: block
   margin-left: 25px
   white-space: pre-wrap
+  padding: 0 10px
 
 .glyphicon
   position: relative

@@ -1,4 +1,4 @@
-import paper from'paper'
+import paper, {Raster} from'paper'
 import './jquery.mousewheel.min.js'
 
 function DeclickMap() {
@@ -63,7 +63,7 @@ function DeclickMap() {
     // max and min levels of zoom
     var maxZoom = 3.5;
 
-
+    
     /*
      *  INITIALIZATION
      */
