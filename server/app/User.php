@@ -18,7 +18,7 @@ class User extends Model implements AuthorizableContract
      * @var array
      */
     protected $fillable = [
-        'username', 'email', 'password_hash', 'current_project_id'
+        'username', 'email', 'password_hash', 'current_project_id', 'is_animator'
     ];
 
     /**
@@ -33,6 +33,10 @@ class User extends Model implements AuthorizableContract
     public function isAdmin()
     {
         return $this->is_admin;
+    }
+    public function isAnimator()
+    {
+        return $this->is_animator;
     }
 
     public function authorizations()
@@ -67,6 +71,7 @@ class User extends Model implements AuthorizableContract
             "username" => $this->username,
             "email" => $this->email,
             "is_admin" => boolval($this->is_admin),
+            "is_animator" => boolval($this->is_animator),
             "default_project_id" => ($this->default_project_id === null)
                 ? null
                 : intval($this->default_project_id),

@@ -17,6 +17,13 @@ $app->get('/', function () use ($app) {
 
 $app->group(['prefix' => 'api/v1'], function () use ($app) {
 
+    // return groupes lists
+    $app->get('groupes','GroupesController@index');
+    // return user in groupe
+    $app->get('groupes/{groupeId}','GroupesController@show');
+
+    $app->post('groupes/create','GroupesController@create');
+
     // users routes
     $app->get('users/me', 'UserController@showCurrentUser');
     $app->get('users', 'UserController@index');
