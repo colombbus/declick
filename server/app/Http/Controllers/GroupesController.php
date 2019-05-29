@@ -84,4 +84,16 @@ class GroupesController extends Controller
        $unresgister = UserGroupes::where(['user_id'=>$userId,'groupe_id'=>$groupeId])->delete();
         return response($unresgister,204);
     }
+
+    public function memberOf($userId){
+        $groupList = UserGroupes::where('user_id',$userId)->get();
+
+        $list = [];
+        
+        foreach ($groupList as $key => $groupe) {
+            array_push($list,Groupes::where('id',$groupe["groupe_id"])->firstOrFail());
+        }
+
+        return response($list,200);
+    }
 }

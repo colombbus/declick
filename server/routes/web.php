@@ -26,6 +26,7 @@ $app->group(['prefix' => 'api/v1'], function () use ($app) {
     $app->post('groupes/{groupeId}/register/{userId}','GroupesController@registerUser');
     $app->post('groupes/{groupeId}/unregister/{userId}','GroupesController@removeUser');
 
+    $app->get('groupes/member/{userId}','GroupesController@memberOf');
 
 
     // users routes
