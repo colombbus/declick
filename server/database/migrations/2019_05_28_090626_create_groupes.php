@@ -18,7 +18,7 @@ class CreateGroupes extends Migration
             $table->increments('id');
             $table->string('name')->unique();
             $table->string('description');
-            $table->integer('user_creator');
+            $table->integer('owner')->nullable(false);
         });
     }
 

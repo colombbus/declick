@@ -19,10 +19,14 @@ $app->group(['prefix' => 'api/v1'], function () use ($app) {
 
     // return groupes lists
     $app->get('groupes','GroupesController@index');
+    $app->post('groupes/create', 'GroupesController@create');
+    $app->delete('groupes/delete/{groupeId}', 'GroupesController@delete');
     // return user in groupe
-    $app->get('groupes/{groupeId}','GroupesController@show');
+    $app->get('groupes/{groupeId}', 'GroupesController@show');
+    $app->post('groupes/{groupeId}/register/{userId}','GroupesController@registerUser');
+    $app->post('groupes/{groupeId}/unregister/{userId}','GroupesController@removeUser');
 
-    $app->post('groupes/create','GroupesController@create');
+
 
     // users routes
     $app->get('users/me', 'UserController@showCurrentUser');

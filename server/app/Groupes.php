@@ -15,6 +15,7 @@ class Groupes extends Model
      */
     protected $fillable = [
         'name',
+        'owner',
         'description'
     ];
 

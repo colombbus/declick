@@ -4,7 +4,7 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 
-use App\Users;
+use App\User;
 use App\Groupes;
 use App\UserGroupes;
 
@@ -17,8 +17,16 @@ class GroupesController extends Controller
     }
 
     public function show(Request $request, $groupeId){
-
-        return UserGroupes::where('groupe_id',$groupeId)->get();
+        
+        $groupe = Groupes::where('id',$groupeId)->firstOrFail();
+        $users = UserGroupes::where('groupe_id',$groupeId)->get();
+        $list = [];
+        
+        foreach ($users as $key => $user) {
+            array_push($list,User::where('id',$user["user_id"])->firstOrFail());
+        }
+        $myResp = ['users'=>$list,'groupe'=>$groupe];
+        return response($myResp);
     }
 
     /****
@@ -30,28 +38,29 @@ class GroupesController extends Controller
 
         $values = array_only($request->input(), [
             'name',
-            'user_id'
+            'owner'
         ]);
-        
+
         if(Groupes::where('name',$values['name'])->exists()){
             
             // $groupe = Groupes::where('name',$values['name'])->first();
 
-            return response(402);
+            return response(203);
 
         } else {
-
             $groupe = Groupes::create($values);
             return response($groupe, 201);
         }
     }
 
-    public function delete(){
-
+    public function delete($groupe_id){
+        $groupe = Groupes::findOrFail($groupe_id);
+        $groupe->delete();
+        return response('', 204);
     }
 
     public function update(){
-
+ 
     }
 
     /****
@@ -59,11 +68,20 @@ class GroupesController extends Controller
     * user groupe crud
     *
     ****/
-    public function registerUser(){
-
+    public function registerUser(Request $request, $groupeId, $userId){
+        $values = ["groupe_id" => $groupeId,"user_id" => $userId];
+        if(UserGroupes::where($values)->exists()){
+            return response('',203);
+        }
+        $resgister = UserGroupes::create($values);
+        $resgister->groupe_id = $groupeId;
+        $resgister->user_id = $userId;
+        $resgister->save();
+        return response($resgister,201);
     }
 
-    public function  removeUser(){
-
+    public function  removeUser(Request $request, $groupeId, $userId){
+       $unresgister = UserGroupes::where(['user_id'=>$userId,'groupe_id'=>$groupeId])->delete();
+        return response($unresgister,204);
     }
 }

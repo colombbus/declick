@@ -38,6 +38,14 @@ class User extends Model implements AuthorizableContract
     {
         return $this->is_animator;
     }
+    
+    public function groupes(){
+        return $this->hasMany('App\Groupe','owner');
+    }
+
+    public function memberOf(){
+        return $this->hasMany('App\UserGroupes','user_id');
+    }
 
     public function authorizations()
     {

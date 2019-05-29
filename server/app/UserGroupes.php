@@ -25,8 +25,8 @@ class UserGroupes extends Model
      */
     protected $hidden = [];
 
-    // public function members()
-    // {
-    //     return $this->hasMany('App\UserGroupe', 'user')->get();
-    // }
+    public function members()
+    {
+        return $this->hasMany('App\UserGroupe', 'user')->get();
+    }
 }
