@@ -1,6 +1,5 @@
 <template lang="pug">
   .map-generator
-    create-header-bar
     header.generator-header
       router-link(to="create")
         img.site-logo(src='../../assets/mini-logo.png' alt='declick log')
@@ -36,7 +35,6 @@
         i.button-icon.fab.fa-readme(:title="$t('mapgen.info')" @click='help = !help')
       span.cells-count(:title="$t('mapgen.cells-desc')") {{$t('mapgen.cells')}} {{rows*columns}}
       span.button-icon.fab.fa-readme(:title="$t('mapgen.info')" @click='help = !help' v-show="currentView === 'drawer'")
-
     .map-drawer(v-show="currentView === 'drawer'")
       table#grid(draggable='false')
         tbody
@@ -69,8 +67,6 @@
 <script>
 import * as Matrix from '../../assets/js/matrix.js'
 import * as Maze from '../../assets/js/maze.js'
-
-import CreateHeaderBar from '../create/CreateHeaderBar'
 
 import Vue from 'vue'
 import EasyStar from 'easystarjs'
@@ -584,7 +580,7 @@ label.view-select.vue-js-switch.toggled div.v-switch-core div.v-switch-button {
 .map-drawer {
   /* padding-top: 7vw; */
   width: 99vw;
-  height: 100%;
+  height: 90vh;
   overflow: auto;
 }
 
