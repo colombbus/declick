@@ -96,4 +96,11 @@ class GroupesController extends Controller
 
         return response($list,200);
     }
+
+    public function myGroups($userId){
+
+        $groupList = Groupes::where('owner',$userId)->get();
+        
+        return response($groupList, 200);
+    }
 }

@@ -23,11 +23,13 @@ $app->group(['prefix' => 'api/v1'], function () use ($app) {
     $app->delete('groupes/delete/{groupeId}', 'GroupesController@delete');
     // return user in groupe
     $app->get('groupes/{groupeId}', 'GroupesController@show');
+    // register user in groups
     $app->post('groupes/{groupeId}/register/{userId}','GroupesController@registerUser');
     $app->post('groupes/{groupeId}/unregister/{userId}','GroupesController@removeUser');
-
+    // list groups where userId is registered
     $app->get('groupes/member/{userId}','GroupesController@memberOf');
-
+    // list groups user have created
+    $app->get('groupes/owner/{userId}','GroupesController@myGroups');
 
     // users routes
     $app->get('users/me', 'UserController@showCurrentUser');
