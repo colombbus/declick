@@ -14,10 +14,10 @@
     @click='toggleMode',
     :class="editor ? 'show-view-link' : 'show-editor-link'"
   )
-  //- a(
-  //-   @click='toggleModeGenerator',
-  //-   :class="generator ? 'show-generator-link' : 'show-editor-link'"
-  //- )
+  router-link(
+    to="/draw"
+    class="show-maze-editor-link"
+  )
 </template>
 
 <script>
@@ -71,6 +71,7 @@ a
   vertical-align: middle
 
 .show-editor-link,
+.show-maze-editor-link,
 .show-view-link
   display: inline-block
   float: right
@@ -90,4 +91,14 @@ a
 
 .show-view-link:hover
   background-image: url(~assets/image/switch-view-hover.png)
-</style>
+
+.show-maze-editor-link:hover
+  background-image: url(~assets/findPath.svg)
+.show-maze-editor-link
+  background-image: url(~assets/path.svg)
+  height: 36px
+  width: 36px
+  margin: 5px
+  border-radius: 50px
+
+</style>: 'show-maze-editor-link'

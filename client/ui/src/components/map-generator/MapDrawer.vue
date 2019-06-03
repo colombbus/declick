@@ -1,11 +1,12 @@
 <template lang="pug">
   .map-generator
+    create-header-bar
     header.generator-header
-      a(href='//www.declick.net')
+      router-link(to="create")
         img.site-logo(src='../../assets/mini-logo.png' alt='declick log')
       .editor-selector(@click.self="isDrawer = !isDrawer")
         i.fa.fa-paint-brush(@click.self="isDrawer = !isDrawer")
-        toggle-button.view-select(:cssColors='true' :sync="true" v-model='isDrawer')
+        toggle-button.view-select(:sync="true" v-model='isDrawer')
         i.fa.fa-keyboard(@click.self="isDrawer = !isDrawer")
       span.separator
       .drawer-options(v-show="currentView === 'drawer'")
@@ -30,7 +31,8 @@
         input.settings.builder-action(type='text' :placeholder="$t('mapgen.builder-action-desc')" :title="$t('mapgen.builder-action-desc')" @input='updateTextEditor' v-model='builderAction')
         i.button-icon.fas.fa-eraser(:title="$t('mapgen.erase-code-desc')" @click="clearTextEditor")
         i.button-icon.fas.fa-clipboard(:title="$t('mapgen.clipboard-desc')" @click='copyToClipboard')
-        i.button-icon.fas.fa-file-export(:title="$t('mapgen.export-code')" @click='importCodeFromTextarea')
+        //- c'est un peut bizar d'avoir un btn pour cca c'etait pas mieux en automatique ??????? ?
+        i.button-icon.fas.fa-file-export(:title="$t('mapgen.export-code')" @click='importCodeFromTextarea') 
         i.button-icon.fab.fa-readme(:title="$t('mapgen.info')" @click='help = !help')
       span.cells-count(:title="$t('mapgen.cells-desc')") {{$t('mapgen.cells')}} {{rows*columns}}
       span.button-icon.fab.fa-readme(:title="$t('mapgen.info')" @click='help = !help' v-show="currentView === 'drawer'")
@@ -51,22 +53,24 @@
         .help-drawer
           h3 {{ $t('mapgen.help-editor')}}
           i.fas.fa-times-circle(@click='help=false')
-      .dark-layer(v-show='showRemoveAll || showReset' @click='showRemoveAll= false; showReset=false')
-        .remove-all(v-show='showRemoveAll')
-          | {{$t('mapgen.alert.remove-all')}}
-          div
-            i.button-icon.far.fa-check-circle(:title="$t('mapgen.alert.accept')" @click='clearMap')
-            i.far.fa-times-circle.warn(:title="$t('mapgen.alert.refuse')" @click='showRemoveAll = false')
-        .remove-all(v-show='showReset')
-          | {{$t('mapgen.alert.reset')}}
-          div
-            i.far.fa-check-circle(:title="$t('mapgen.alert.accept')" @click='clearAll')
-            i.far.fa-times-circle.warn(:title="$t('mapgen.alert.refuse')" @click='showReset = false')
+    .dark-layer(v-show='showRemoveAll || showReset' @click='showRemoveAll= false; showReset=false')
+      .remove-all(v-show='showRemoveAll')
+        | {{$t('mapgen.alert.remove-all')}}
+        div
+          i.button-icon.far.fa-check-circle(:title="$t('mapgen.alert.accept')" @click='clearMap')
+          i.far.fa-times-circle.warn(:title="$t('mapgen.alert.refuse')" @click='showRemoveAll = false')
+      .remove-all(v-show='showReset')
+        | {{$t('mapgen.alert.reset')}}
+        div
+          i.far.fa-check-circle(:title="$t('mapgen.alert.accept')" @click='clearAll')
+          i.far.fa-times-circle.warn(:title="$t('mapgen.alert.refuse')" @click='showReset = false')
 </template>
 
 <script>
 import * as Matrix from '../../assets/js/matrix.js'
 import * as Maze from '../../assets/js/maze.js'
+
+import CreateHeaderBar from '../create/CreateHeaderBar'
 
 import Vue from 'vue'
 import EasyStar from 'easystarjs'
@@ -287,6 +291,10 @@ export default {
       this.columns = lines[0].length
       this.$nextTick(this.updateTiles)
       this.currentView = 'drawer'
+
+      if (this.isPathToggled) {
+        this.findPath()
+      }
     },
     increaseBuildingMaterial () {
       return this.toBuild < 5 ? this.toBuild++ : (this.toBuild = 0)
@@ -322,6 +330,7 @@ export default {
       this.editor.focus()
     },
     updateTextEditor () {
+
       const tiles = this.tiles
       const code = tiles.map(item => {
         if (item.length > 0) {

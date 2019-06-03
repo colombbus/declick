@@ -130,17 +130,15 @@ var routes = [
       }
     ]
   },
-    //  {
-    //   path: '/draw',
-    //   component: MapDraw,
-    //   meta: 'Créé tes niveaux'
-    // },
-    // {
-    //   path: '/write',
-    //   component: MapWriter,
-    //   meta: 'Créé tes niveaux'
-    // }
-]
+  {
+    path: '/draw',
+    component: MapDraw,
+    meta: {
+      useFullscreen: true,
+      title: 'Créé tes niveaux'
+    }
+  }
+];
 
 export default new VueRouter({
   mode: 'history',
