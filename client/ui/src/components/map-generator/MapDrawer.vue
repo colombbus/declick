@@ -362,6 +362,10 @@ export default {
       this.tiles[0][1] = 3
       this.tiles[this.tiles.length - columnExitStep][this.tiles[0].length - rowExitStep] = 4
       this.$nextTick(this.updateTiles)
+
+      if(this.isPathToggled){
+        this.findPath()
+      }
     },
     updateTiles () {
       const cells = [...document.querySelectorAll('table#grid td')]
@@ -508,13 +512,16 @@ export default {
   }
 }
 </script>
-
-<style scoped>
+<style>
 :root {
   --main-dark-color: #480a2a;
   --main-spacing: 0.3vw;
   --main-hover-color: #d0d717;
 }
+</style>
+
+<style scoped>
+
 .editor-selector {
   height: 5vw;
 }

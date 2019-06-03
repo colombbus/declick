@@ -57,6 +57,7 @@ export default {
 </script>
 
 <style lang="sass">
+
 @font-face
 	font-family: 'Rubik'
 	src: url('assets/font/Rubik-Regular.eot')
