@@ -7,7 +7,7 @@
 export default {
   methods: {
     testRoute () {
-      if (this.$route.name === 'create' || this.$route.path.indexOf('execute') >= 0 || this.$route.path.indexOf('run') >= 0) return 0
+      if (this.$route.name === 'create' || this.$route.path.indexOf('execute') >= 0 || this.$route.path.indexOf('draw') >= 0 || this.$route.path.indexOf('run') >= 0) return 0
       else return 1
     }
   }

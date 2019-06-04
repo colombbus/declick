@@ -1,6 +1,6 @@
 <template lang="pug">
 .self(:style="{overflow: viewUseFullscreen ? 'hidden' : null}")
-  HeaderBar.application__header(v-show='!viewUseFullscreen')
+  HeaderBar.application__header
   MainMenu.header(v-show='!viewUseFullscreen')
   .content
     course-run(v-show="this.$route.name === 'step'")
