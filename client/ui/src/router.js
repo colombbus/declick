@@ -21,7 +21,7 @@ import UserEditor from 'components/user/UserEditor'
 import HomePage from 'components/HomePage'
 
 import MapDraw from 'components/map-generator/MapDrawer'
-import MapWriter from 'components/map-generator/MapWriter'
+import page404 from 'components/page404'
 
 var routes = [
   {
@@ -132,11 +132,17 @@ var routes = [
   },
   {
     path: '/draw',
+    name: 'draw',
     component: MapDraw,
     meta: {
       useFullscreen: true,
       title: 'Créé tes niveaux'
     }
+  },
+  {
+    path: '*',
+    name: 'error',
+    component: page404
   }
 ];
 
