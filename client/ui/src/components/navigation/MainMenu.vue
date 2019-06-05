@@ -19,7 +19,7 @@ div.main-menu(:class='stateClass' ref='menu')
         v-else
         @click='logOut'
       ) SE DÉCONNECTER
-    li.main-menu__item(v-if="user && user.isAdmin"): router-link.main-menu__link(to='/administration') ADMINISTRATION
+    //- li.main-menu__item(v-if="user && user.isAdmin"): router-link.main-menu__link(to='/administration') ADMINISTRATION
     li.main-menu__item(v-if="user"): router-link.main-menu__link(:to="getUserIDLink") MON COMPTE
 
 

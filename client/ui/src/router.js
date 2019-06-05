@@ -109,28 +109,6 @@ var routes = [
     }
   },
   {
-    path: '/administration',
-    component: Administration,
-    meta: { title: 'Administration' },
-    children: [
-      {
-        path: 'users',
-        component: UserList,
-        meta: { title: 'Liste des utilisateurs' }
-      },
-      {
-        path: 'courses',
-        component: AdministrationCourseList,
-        meta: { title: 'Liste des parcours' }
-      },
-      {
-        path: 'courses/:id',
-        component: CourseEditor,
-        meta: { title: 'Modification de parcours' }
-      }
-    ]
-  },
-  {
     path: '/draw',
     name: 'draw',
     component: MapDraw,
