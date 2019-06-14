@@ -31,6 +31,17 @@ import MainMenu from 'components/navigation/MainMenu'
 import Execute from 'components/execute/Execute'
 
 export default {
+    metaInfo: {
+      meta: [
+        {property: 'og:title', content: 'Declick'},
+        {property: 'og:description', content: 'apprend la programmation avec declick'},
+        {property: 'og:image:alt', content: 'un ecrous'},
+        {property: 'og:type', content: 'image/png'},
+        {property: 'og:url', content: 'http://v2.declick.net'},
+        {property: 'og:image', content: 'http://v2.declick.net/static/img/mini-logo.png'},
+        {property: 'og:image:secure_url', content: 'https://v2.declick.net/static/img/mini-logo.png'},
+      ]
+  },
   computed: {
     viewId () {
       if (this.$route.matched) {

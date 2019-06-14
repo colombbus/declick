@@ -4,7 +4,7 @@ import VueRouter from 'vue-router'
 Vue.use(VueRouter)
 
 import CmsDocument from 'components/CmsDocument'
-import Administration from 'components/Administration'
+// import Administration from 'components/Administration'
 import Course from 'components/learn/Course'
 import CourseList from 'components/learn/CourseList'
 import Progress from 'components/learn/Progress'
@@ -12,9 +12,9 @@ import DeclickMap from 'components/learn/DeclickMap'
 
 import config from 'assets/config/declick'
 
-import AdministrationCourseList from 'components/administration/CourseList'
-import CourseEditor from 'components/administration/CourseEditor'
-import UserList from 'components/user/UserList'
+// import AdministrationCourseList from 'components/administration/CourseList'
+// import CourseEditor from 'components/administration/CourseEditor'
+// import UserList from 'components/user/UserList'
 import UserProfile from 'components/user/UserProfile'
 import UserEditor from 'components/user/UserEditor'
 
@@ -60,6 +60,14 @@ var routes = [
   },
   {
     path: '/explore',
+    component: CmsDocument,
+    meta: {
+      id: 6,
+      title: 'Découvrir'
+    }
+  },
+  {
+    path: '/history',
     component: CmsDocument,
     meta: {
       id: 5,

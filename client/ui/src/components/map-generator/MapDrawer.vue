@@ -51,6 +51,7 @@
         .help-drawer
           h3 {{ $t('mapgen.help-editor')}}
           i.fas.fa-times-circle(@click='help=false')
+          
     .dark-layer(v-show='showRemoveAll || showReset' @click='showRemoveAll= false; showReset=false')
       .remove-all(v-show='showRemoveAll')
         | {{$t('mapgen.alert.remove-all')}}
@@ -79,6 +80,20 @@ import 'brace/theme/twilight'
 Vue.component('toggle-button', ToggleButton)
 
 export default {
+   metaInfo: {
+    // Children can override the title.
+    title: 'Créateur de niveaux',
+    // Result: My Page Title ← My Site
+    // If a child changes the title to "My Other Page Title",
+    // it will become: My Other Page Title ← My Site
+    titleTemplate: '%s - Colombbus',
+    // Define meta tags here.
+    meta: [
+      {'http-equiv': 'Content-Type', content: 'text/html; charset=utf-8'},
+      {name: 'viewport', content: 'width=device-width, initial-scale=1'},
+      {vmid: 'description', name: 'description', content: 'Créateur de niveaux sur declick'},
+    ]
+  },
   name: 'mapGenerator',
   data  () {
     return {
@@ -175,7 +190,9 @@ export default {
       this.setLocalStorage({ rows, columns, tiles })
 
       this.tiles = tiles
+
       this.init()
+
     },
     setLocalStorage (target) {
       if (target === null) {
@@ -201,6 +218,8 @@ export default {
       })
     },
     clearPath () {
+      console.log("clear path");
+      
       this.filterTilesArray([5], this.tiles)
       this.$nextTick(this.updateTiles)
     },
@@ -503,7 +522,19 @@ export default {
       return this.tiles[0].length
     },
     mapCode () {
+        this.clearPath()
+
       return this.updateCode()
+    },
+    isDrawer() {
+
+      console.log(this.isPathToggled && !this.isDrawer);
+      if (this.isPathToggled && !this.isDrawer) {
+        this.clearPath()
+      }
+      if (this.isPathToggled && this.isDrawer) {
+        this.findPath()
+      }
     }
   }
 }
@@ -557,6 +588,7 @@ export default {
 }
 .editor {
   font-size: 20px;
+  height: 99vh
 }
 label.view-select.vue-js-switch.toggled div.v-switch-core div.v-switch-button {
   width: 0.8vw !important;

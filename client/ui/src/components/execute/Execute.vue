@@ -21,6 +21,7 @@ let viewPortTag
 let currentId = -1
 
 export default {
+
   data () {
     return {
       count: 0,
