@@ -31,17 +31,21 @@ import MainMenu from 'components/navigation/MainMenu'
 import Execute from 'components/execute/Execute'
 
 export default {
-    metaInfo: {
-      meta: [
-        {property: 'og:title', content: 'Declick'},
-        {property: 'og:description', content: 'apprend la programmation avec declick'},
-        {property: 'og:image:alt', content: 'un ecrous'},
-        {property: 'og:type', content: 'image/png'},
-        {property: 'og:url', content: 'http://v2.declick.net'},
-        {property: 'og:image', content: 'http://v2.declick.net/static/img/mini-logo.png'},
-        {property: 'og:image:secure_url', content: 'https://v2.declick.net/static/img/mini-logo.png'},
-      ]
-  },
+  //   metaInfo: {
+  //     meta: [
+  //       {property: 'og:title', content: 'Declick'},
+  //       {property: 'og:description', content: 'apprend la programmation avec declick'},
+  //       {property: 'og:image:alt', content: 'un ecrous'},
+  //       {property: 'og:type', content: 'image/png'},
+  //       {property: 'og:url', content: 'http://v2.declick.net'},
+  //       {property: 'og:image', content: 'http://v2.declick.net/static/img/oglogo.png'},
+  //       {property: 'og:image:secure_url', content: 'https://v2.declick.net/static/img/oglogo.png'},
+  //       {property: 'og:site_name', content: 'Declick'},
+  //       {property: 'og:image:width', content: '400'},
+  //       {property: 'og:image:height', content: '300'},
+  //       {name: 'keywords', content: 'Declick, programmation, javascript'},
+  //     ]
+  // },
   computed: {
     viewId () {
       if (this.$route.matched) {
