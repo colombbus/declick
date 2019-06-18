@@ -80,20 +80,20 @@ import 'brace/theme/twilight'
 Vue.component('toggle-button', ToggleButton)
 
 export default {
-   metaInfo: {
-    // Children can override the title.
-    title: 'Créateur de niveaux',
-    // Result: My Page Title ← My Site
-    // If a child changes the title to "My Other Page Title",
-    // it will become: My Other Page Title ← My Site
-    titleTemplate: '%s - Colombbus',
-    // Define meta tags here.
-    meta: [
-      {'http-equiv': 'Content-Type', content: 'text/html; charset=utf-8'},
-      {name: 'viewport', content: 'width=device-width, initial-scale=1'},
-      {vmid: 'description', name: 'description', content: 'Créateur de niveaux sur declick'},
-    ]
-  },
+  //  metaInfo: {
+  //   // Children can override the title.
+  //   title: 'Créateur de niveaux',
+  //   // Result: My Page Title ← My Site
+  //   // If a child changes the title to "My Other Page Title",
+  //   // it will become: My Other Page Title ← My Site
+  //   titleTemplate: '%s - Colombbus',
+  //   // Define meta tags here.
+  //   meta: [
+  //     {'http-equiv': 'Content-Type', content: 'text/html; charset=utf-8'},
+  //     {name: 'viewport', content: 'width=device-width, initial-scale=1'},
+  //     {vmid: 'description', name: 'description', content: 'Créateur de niveaux sur declick'},
+  //   ]
+  // },
   name: 'mapGenerator',
   data  () {
     return {
@@ -230,8 +230,11 @@ export default {
         if (col > -1) {
           pos = { x: col, y: rowIndex }
         }
+     
       })
+     
       if (typeof pos === 'undefined') {
+     
         pos = -1
       }
       return pos
@@ -522,19 +525,7 @@ export default {
       return this.tiles[0].length
     },
     mapCode () {
-        this.clearPath()
-
       return this.updateCode()
-    },
-    isDrawer() {
-
-      console.log(this.isPathToggled && !this.isDrawer);
-      if (this.isPathToggled && !this.isDrawer) {
-        this.clearPath()
-      }
-      if (this.isPathToggled && this.isDrawer) {
-        this.findPath()
-      }
     }
   }
 }

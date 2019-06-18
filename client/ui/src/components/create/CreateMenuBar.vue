@@ -17,6 +17,7 @@
   router-link(
     to="/draw"
     class="show-maze-editor-link"
+    title="designer de niveau - beta"
   )
 </template>
 

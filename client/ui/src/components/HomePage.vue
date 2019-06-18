@@ -1,26 +1,26 @@
 <template lang="pug">
 .home
   .home__presentation
-    h4 Declick est un outil clé en main !
+    h1 Declick est un outil clé en main !
     p.
       En classe, en atelier ou à la maison, il permet d'aborder les bases du
       code informatique et de les appliquer à travers des projets, individuels
       ou collectifs, d'applications ou de jeux vidéo.
   .home__box
-    img.home__robot-train(src='../assets/images/figures/robot-train.svg')
+    img.home__robot-train(src='../assets/images/figures/robot-train.svg' alt="robot logo declick")
     h3 les parcours
     p.
       La section « APPRENDRE » regroupe des parcours qui vous permettent
       d'assimiler progressivement des notions de programmation.
   .home__box
-    img.home__robot-idea(src='../assets/images/figures/robot-idea.svg')
+    img.home__robot-idea(src='../assets/images/figures/robot-idea.svg' alt="robot logo declick")
     h3 l'espace créatif
     p.
       La section « CRÉER » vous propose un environnement de travail où vous
       pouvez composer avec les notions acquises pour créer vos propres jeux et
       applications.
   .home__box
-    img.home__robot-observe(src='../assets/images/figures/robot-observe.svg')
+    img.home__robot-observe(src='../assets/images/figures/robot-observe.svg' alt="robot logo declick")
     h3 l'espace découverte
     p.
       Dans la section « JOUER » retrouvez et testez les jeux ou les
@@ -32,6 +32,7 @@
     webkitallowfullscreen
     mozallowfullscreen
     allowfullscreen
+    alt="video presentation declick"
   )
   h2 notre approche
   .home__box
@@ -138,22 +139,22 @@
 </template>
 
 <script>
-export default {
-  metaInfo: {
-    // Children can override the title.
-    title: 'Bienvenus sur declick',
-    // Result: My Page Title ← My Site
-    // If a child changes the title to "My Other Page Title",
-    // it will become: My Other Page Title ← My Site
-    titleTemplate: 'declick - Colombbus',
-    // Define meta tags here.
-    meta: [
-      {'http-equiv': 'Content-Type', content: 'text/html; charset=utf-8'},
-      {name: 'viewport', content: 'width=device-width, initial-scale=1'},
-      {vmid: 'description', name: 'description', content: 'Bienvenus sur declick'},
-    ]
-  }
-}
+// export default {
+//   metaInfo: {
+//     // Children can override the title.
+//     title: 'Bienvenus sur declick',
+//     // Result: My Page Title ← My Site
+//     // If a child changes the title to "My Other Page Title",
+//     // it will become: My Other Page Title ← My Site
+//     titleTemplate: 'declick - Colombbus',
+//     // Define meta tags here.
+//     meta: [
+//       {'http-equiv': 'Content-Type', content: 'text/html; charset=utf-8'},
+//       {name: 'viewport', content: 'width=device-width, initial-scale=1'},
+//       {vmid: 'description', name: 'description', content: 'Bienvenus sur declick'},
+//     ]
+//   }
+// }
 </script>
 
 <style lang="sass">
@@ -215,7 +216,7 @@ $vertical-gap: 40px
   font-weight: bold
   font-size: 12pt
 
-.home h4
+.home h4, .home h1
   margin-bottom: 5px
   font-size: 12pt
   font-weight: bold
@@ -224,7 +225,7 @@ $vertical-gap: 40px
   width: 66%
   margin-left: auto
   margin-right: auto
-  &, h4
+  &, h4, h1
     font-size: 14pt
 
 .home__box > img
