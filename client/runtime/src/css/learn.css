@@ -532,3 +532,12 @@ pre[class*="language-"], :not(pre) > code[class*="language-"]{
 	font-family: monospace;
 	overflow: auto;
 }
+
+#tlearnframe-instructions code.string{
+	background-color: white;
+    color: green;
+	padding: 0 5px 0 5px;
+	border-radius: 4px;
+	font-family: monospace;
+	overflow: auto;
+}
