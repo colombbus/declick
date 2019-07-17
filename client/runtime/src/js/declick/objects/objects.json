@@ -323,6 +323,15 @@
         },
         "parents": true
     },
+        "Arduino": {
+        "path": "arduino",
+        "translations": {
+            "fr": "Arduino",
+            "es": "Arduino",
+            "en": "Arduino"
+        },
+        "parents": true
+    },
     "Platform": {
     	"path": "platform",
     	"translations": {
