@@ -1,4 +1,4 @@
-define(['jquery', 'TEnvironment', 'TObject', 'TUtils', 'TUI', 'TLink'], function($, TEnvironment, TObject, TUtils, TUI, TLink) {
+define(['jquery', 'TEnvironment', 'TObject', 'TUtils', 'TUI', 'TLink', 'objects/button/Button'], function($, TEnvironment, TObject, TUtils, TUI, TLink, Button) {
     /**
      * Defines Arduino, inherited from TObject.
      * Arduino is a remote control robot.
@@ -6,16 +6,16 @@ define(['jquery', 'TEnvironment', 'TObject', 'TUtils', 'TUI', 'TLink'], function
      */
     var Arduino = function() {
         TObject.call(this);
+        console.log(this);
 
         this.data = null; //arduino code
         this.connectedBoards = [];
         this.hex = null; //compiled arduino code
         this.elf = null;
         this.port = null;
-        this.port = null;
-        this.port = null;
+        this.fqbn = null;
 
-        this.daemon = new ArdCreAgtDaemon('https://guillermc.iiens.net/tests/rosa-arduino/comArduino/');
+        this.daemon = new ArdCreAgtDaemon('/builder');
 
         this.boardsList = {};
 
@@ -37,7 +37,7 @@ define(['jquery', 'TEnvironment', 'TObject', 'TUtils', 'TUI', 'TLink'], function
         };
 
 
-        xhr.open("GET", "https://guillermc.iiens.net/tests/rosa-arduino/comArduino/boards.php");
+        xhr.open("GET", "/builder/boards.php");
         xhr.send();
 
 
@@ -76,6 +76,7 @@ define(['jquery', 'TEnvironment', 'TObject', 'TUtils', 'TUI', 'TLink'], function
 
                 this.arduino.hex = res["hex"];
                 this.arduino.elf = res["elf"];
+                this.arduino.compilationResult = res;
             }
             else{//compilation échouée
                 console.log("failed compilation");
@@ -87,7 +88,7 @@ define(['jquery', 'TEnvironment', 'TObject', 'TUtils', 'TUI', 'TLink'], function
             }
         };
 
-        xhr.open('POST', "https://guillermc.iiens.net/tests/rosa-arduino/comArduino/compile.php", true);
+        xhr.open('POST', "/builder/compile.php", true);
         xhr.send(JSON.stringify({"data":this.data,"board":this.fqbn}));
 
     };
@@ -99,11 +100,11 @@ define(['jquery', 'TEnvironment', 'TObject', 'TUtils', 'TUI', 'TLink'], function
 
 
     Arduino.prototype._upload = function() {
-        var target = {port:this.port, fqbn:this.fqbn};
+        var target = {port:this.port, board:this.fqbn};
 
         var sketchName = "test";
     
-        var compilationResult = this.hex;
+        var compilationResult = this.compilationResult;
     
         var verbose = true;
     
@@ -173,6 +174,7 @@ define(['jquery', 'TEnvironment', 'TObject', 'TUtils', 'TUI', 'TLink'], function
         
         // Upload progress
         this.daemon.uploading.subscribe(upload => {
+            console.log(upload)
             //if ('msg' in upload) document.getElementById(uploadLogArea).innerHTML += upload["msg"] + "<br/>";
         });
 
@@ -221,6 +223,15 @@ define(['jquery', 'TEnvironment', 'TObject', 'TUtils', 'TUI', 'TLink'], function
     Arduino.prototype._setFile = function(file){
         this.file = file;
         return this;
+    }
+
+    Arduino.prototype._show = function(){
+        this.graphics = {};
+        this.graphics.button = {};
+        this.graphics.button.compile = new Button("compile");
+        this.graphics.button.compile._show();
+        this.graphics.button.compile._addCommand("a.vérifier()");
+
     }
     
     return Arduino;
