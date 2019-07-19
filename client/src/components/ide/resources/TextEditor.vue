@@ -4,7 +4,7 @@
 </template>
 
 <script>
-const content = `t = new Texte()\nt.()`
+const content = `t = new Texte()\nt.récupérerTexte()`
 
 import * as ace from 'brace'
 import 'brace/mode/javascript'
@@ -15,9 +15,7 @@ import 'brace/theme/twilight'
 export default {
   props: ['programId'],
   created() {
-    this.$nextTick(() => {
-      this.createEditor()
-    })
+    this.$nextTick(() => this.createEditor())
   },
   methods: {
     createEditor() {
@@ -43,6 +41,8 @@ export default {
 
 <style lang="scss">
 .editor {
+  background-color: black;
+  color: white;
 }
 
 .editor__disabled-message {
