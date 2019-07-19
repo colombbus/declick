@@ -6,6 +6,5 @@ export default {
     cmsUrl: 'http://v2.declick.net/cms/',
     forumUrl: 'http://test.declick.net/forum',
     wikiUrl: 'http://create.declick.net/wiki/',
-    googleId: 'UA-9457907-8'
+    googleId: ''
   }
-  
