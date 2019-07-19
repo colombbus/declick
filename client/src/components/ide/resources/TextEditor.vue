@@ -22,13 +22,14 @@ export default {
   methods: {
     createEditor() {
       this.editor = ace.edit(this.$refs.editor)
+
       this.editSession = this.editor.getSession()
+      this.editSession.setMode('ace/mode/javascript')
+      this.editSession.setValue(content)
       // editor options
       this.editor.setTheme(`ace/theme/twilight`)
-      this.editSession.setMode('ace/mode/javascript')
-
       this.editor.setShowPrintMargin(false)
-      this.editSession.setValue(content)
+      this.editor.setFontSize('20px')
       this.editor.focus()
     },
   },
