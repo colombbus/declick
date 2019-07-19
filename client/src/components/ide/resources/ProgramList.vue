@@ -21,46 +21,46 @@ import range from 'lodash.range'
 import ProgramItem from './ProgramItem.vue'
 
 export default {
-  data () {
+  data() {
     return {
       programs: [],
       selectedId: null,
     }
   },
-  created () {
+  created() {
     range(0, 5).forEach(() => this.createProgram())
   },
   methods: {
-    select (id) {
+    select(id) {
       this.selectedId = id
     },
-    renameProgram (id, newName) {
+    renameProgram(id, newName) {
       this.programs.find(program => program.id === id).name = newName
     },
-    createProgram () {
+    createProgram() {
       this.programs.push({
         id: this.generateId(),
         name: this.generateName(),
       })
     },
-    destroySelectedProgram () {
+    destroySelectedProgram() {
       this.destroyProgram(this.selectedId)
     },
-    destroyProgram (id) {
+    destroyProgram(id) {
       this.programs = this.programs.filter(program => program.id !== id)
       if (this.selectedId === id) {
         this.selectedId = null
       }
     },
-    generateName () {
+    generateName() {
       let i = 1
       const name = index => this.$t('pattern.program.name', { index })
-      while (this.programs.some((program) => program.name === name(i))) {
+      while (this.programs.some(program => program.name === name(i))) {
         i++
       }
       return name(i)
     },
-    generateId () {
+    generateId() {
       let i = 1
       while (this.programs.some(({ id }) => id === i)) {
         i++
@@ -69,7 +69,7 @@ export default {
     },
   },
   computed: {
-    orderedPrograms () {
+    orderedPrograms() {
       return this.programs.sort((a, b) => a.name.localeCompare(b.name))
     },
   },
