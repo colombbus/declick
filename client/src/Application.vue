@@ -58,10 +58,9 @@ export default {
     Execute
   },
   created(){
-    DeclickRuntime.initialize({},{});
     DeclickObjects.load('fr')
     .then(objects => {
-      console.debug(objects);
+      DeclickRuntime.initialize(objects);
     })
   }
 }
