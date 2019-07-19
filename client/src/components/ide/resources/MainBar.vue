@@ -6,7 +6,10 @@
     :class="helpVisible ? 'main-bar__help--active': null"
   )
   button.main-bar__hints(type='button')
-  button.main-bar__play(type='button')
+  button.main-bar__play(
+    type='button'
+    @click="$emit('play')"
+  )
   button.main-bar__save(type='button')
 </template>
 

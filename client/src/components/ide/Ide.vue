@@ -11,6 +11,7 @@
     v-show="view === 'resource-manager'"
     @toggle-help='toggleHelp'
     :helpVisible='helpVisible'
+    @play='play'
   )
 </template>
 
@@ -53,6 +54,12 @@ export default {
         ? 'preview'
         : 'resource-manager'
     },
+    play() {
+      DeclickRuntime.executeCode(`t = new Texte();
+      t.définirTexte('abracadabra');
+      t.récupérerTexte();`)
+      console.log(DeclickRuntime.getLastValue())
+    }
   },
   components: {
     Help,

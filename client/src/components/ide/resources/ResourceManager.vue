@@ -4,6 +4,7 @@
   main-bar.resource-manager__main-bar(
     @toggle-help="$emit('toggle-help')"
     :helpVisible='helpVisible'
+    @play="$emit('play')"
   )
   resource-panel.resource-manager__resource-panel
 </template>
