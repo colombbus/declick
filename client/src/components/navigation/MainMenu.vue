@@ -5,7 +5,7 @@ div.main-menu(:class='stateClass' ref='menu')
   ul.main-menu__list
     li.main-menu__item: router-link.main-menu__link.main-menu__home(to='/') ACCUEIL
     li.main-menu__item: router-link.main-menu__link(to='/progress') APPRENDRE
-    li.main-menu__item: router-link.main-menu__link(to='/create') CRÉER
+    li.main-menu__item: router-link.main-menu__link(to='/ide') CRÉER
     li.main-menu__item: router-link.main-menu__link(to='/explore') JOUER
     //- li.main-menu__item: router-link.main-menu__link(to='/resources') RESSOURCES
     //- li.main-menu__item: router-link.main-menu__link(to='/contact') CONTACT
@@ -74,22 +74,22 @@ div.main-menu(:class='stateClass' ref='menu')
 </template>
 
 <script>
-import AuthenticationModal from "../user/AuthenticationModal"
-import { mapState, mapActions } from "vuex"
-import config from "../../config"
+import AuthenticationModal from '../user/AuthenticationModal'
+import { mapState, mapActions } from 'vuex'
+import config from '../../config'
 
 export default {
-  data () {
+  data() {
     return {
       // user: this.$store.state.user,
       // logOut: false,
       isAuthenticationModalVisible: false,
       opened: false,
       sticky: false,
-      onScroll: null
+      onScroll: null,
     }
   },
-  mounted () {
+  mounted() {
     const menuY = this.$refs.menu.offsetTop
     this.onScroll = () => {
       if (document.body.scrollTop > menuY) {
@@ -99,40 +99,39 @@ export default {
       }
     }
     this.onScroll()
-    document.body.addEventListener("scroll", this.onScroll)
+    document.body.addEventListener('scroll', this.onScroll)
   },
   computed: {
-    getUserIDLink () {
-      
+    getUserIDLink() {
       return '/users/' + this.$store.state.user.id
     },
-    user_id () {
+    user_id() {
       return this.userID
     },
-    forumLink () {
+    forumLink() {
       return config.forumUrl
     },
-    stateClass () {
+    stateClass() {
       return {
-        "main-menu--opened": this.opened,
-        "main-menu--closed": !this.opened,
-        "main-menu--sticky": this.sticky
+        'main-menu--opened': this.opened,
+        'main-menu--closed': !this.opened,
+        'main-menu--sticky': this.sticky,
       }
     },
-    ...mapState(["user"])
+    ...mapState(['user']),
   },
   methods: {
-    open () {
+    open() {
       this.opened = true
     },
-    close () {
+    close() {
       this.opened = false
     },
-    ...mapActions(["logOut"])
+    ...mapActions(['logOut']),
   },
   components: {
-    AuthenticationModal
-  }
+    AuthenticationModal,
+  },
 }
 </script>
 
