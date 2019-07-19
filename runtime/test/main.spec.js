@@ -36,7 +36,9 @@ describe('When runtime is initialized', () => {
       exposedSetResult: { method: 'setResult' },
     }
 
-    runtime.initialize({ aClass: MyClass2 }, { anInstance: myInstance })
+    Object.getPrototypeOf(MyClass2).className = 'aClass'
+
+    runtime.initialize([MyClass2], { anInstance: myInstance })
   })
 
   beforeEach(() => {
