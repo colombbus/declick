@@ -13,7 +13,7 @@ describe('When Loader is importer', () => {
   it('should load French translated classes', () => {
     return loader.load('fr').then(classes => {
       let textClass = classes[0]
-      assert.equal(Object.getPrototypeOf(textClass).className, 'Texte')
+      assert.equal(textClass.prototype.className, 'Texte')
       assert.deepEqual(textClass.prototype.exposed['définirTexte'], {
         method: 'setText',
         help: 'définirTexte("texte")',

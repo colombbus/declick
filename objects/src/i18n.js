@@ -10,6 +10,6 @@ export function expose(name, helpText) {
 
 export function translate(name) {
   return function decorator(target) {
-    Object.getPrototypeOf(target).className = name
+    target.prototype.className = name
   }
 }

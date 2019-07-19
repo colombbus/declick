@@ -7,7 +7,7 @@ let _interpreter = null
 export default {
   initialize(classes, instances) {
     classes.forEach(aClass =>
-      _data.addClass(aClass, Object.getPrototypeOf(aClass).className),
+      _data.addClass(aClass, aClass.prototype.className),
     )
 
     for (let name in instances) {
