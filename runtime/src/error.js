@@ -4,4 +4,10 @@ export default class {
   constructor(e) {
     this._message = e.toString()
   }
+
+  setLines() {}
+
+  detectError() {}
+
+  setProgramName() {}
 }
