@@ -1,9 +1,9 @@
 .vscode/
-client/ui/src/assets/config/declick.js
+client/src/assets/config/declick.js
 **/node_modules
 **/yarn-error.log
 server/vendor
 server/.env
 server/storage/app/projects
 **.htaccess
-client/ui/dist/*
+client/dist/*
