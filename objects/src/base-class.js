@@ -6,17 +6,6 @@ class BaseClass {
     this._runtime = runtime
   }
 
-  static get _listeners() {
-    if (!this.hasOwnProperty('_ownListeners')) {
-      this._ownListeners = new Map()
-    }
-    return this._ownListeners
-  }
-
-  static set _listeners(value) {
-    this._ownListeners = value
-  }
-
   constructor() {
     this._listeners = new Map()
     this._runtime = this.constructor._runtime
