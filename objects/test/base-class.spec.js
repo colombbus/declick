@@ -10,59 +10,50 @@ describe('When BaseClass is instantiated', () => {
       locales: 'fr-FR',
       translations: frenchTranslations,
     })
-    return import('../src/base-class').then(({default: BaseClass}) => {
-      assert.equal(Reflect.getMetadata('translated', BaseClass.prototype, 'delete'), 'supprimer')
-      assert.equal(Reflect.getMetadata('help', BaseClass.prototype, 'delete'), 'supprimer()')
+    return import('../src/base-class').then(({ default: BaseClass }) => {
+      assert.equal(
+        Reflect.getMetadata('translated', BaseClass.prototype, 'delete'),
+        'supprimer',
+      )
+      assert.equal(
+        Reflect.getMetadata('help', BaseClass.prototype, 'delete'),
+        'supprimer()',
+      )
     })
   })
 
   it('should trigger a custom listener when set with reference to instance', () => {
-    return import('../src/base-class').then(module => {
-      const BaseClass = module.default
+    return import('../src/base-class').then(({ default: BaseClass }) => {
       const anObject = new BaseClass()
       let called = null
-      BaseClass.addListener('customEvent', function() {
+      anObject._addListener('customEvent', function() {
         called = this
       })
-      BaseClass.dispatch('customEvent', anObject)
+      anObject._dispatch('customEvent', anObject)
       assert.deepEqual(called, anObject)
     })
   })
 
   it('should pass parameters to a listener', () => {
-    return import('../src/base-class').then(module => {
-      const BaseClass = module.default
+    return import('../src/base-class').then(({ default: BaseClass }) => {
       const anObject = new BaseClass()
       let receivedParameter1 = null
       let receivedParameter2 = null
-      BaseClass.addListener('customEvent', (param1, param2) => {
+      anObject._addListener('customEvent', (param1, param2) => {
         receivedParameter1 = param1
         receivedParameter2 = param2
       })
-      BaseClass.dispatch('customEvent', anObject, 1234, 5678)
+      anObject._dispatch('customEvent', 1234, 5678)
       assert.equal(receivedParameter1, 1234)
       assert.equal(receivedParameter2, 5678)
     })
   })
 
-  it('should trigger a create listener when instance is created', () => {
-    return import('../src/base-class').then(module => {
-      const BaseClass = module.default
-      let called = null
-      BaseClass.addListener('create', function() {
-        called = this
-      })
-      const anObject = new BaseClass()
-      assert.deepEqual(called, anObject)
-    })
-  })
-
   it('should trigger a delete listener when instance is deleted', () => {
-    return import('../src/base-class').then(module => {
-      const BaseClass = module.default
+    return import('../src/base-class').then(({ default: BaseClass }) => {
       const anObject = new BaseClass()
       let called = null
-      BaseClass.addListener('delete', function() {
+      anObject._addListener('delete', function() {
         called = this
       })
       anObject.delete()
@@ -71,16 +62,57 @@ describe('When BaseClass is instantiated', () => {
   })
 
   it('should not trigger a listener when removed', () => {
-    return import('../src/base-class').then(module => {
-      const BaseClass = module.default
+    return import('../src/base-class').then(({ default: BaseClass }) => {
       const anObject = new BaseClass()
       let called = false
-      BaseClass.addListener('customEvent', () => {
+      anObject._addListener('customEvent', () => {
         called = true
       })
-      BaseClass.removeListener('customEvent')
-      BaseClass.dispatch('customEvent', anObject)
+      anObject._removeListener('customEvent')
+      anObject._dispatch('customEvent')
       assert.equal(called, false)
+    })
+  })
+
+  it('should record reference to runtime and every instance should have it', () => {
+    return import('../src/base-class').then(({ default: BaseClass }) => {
+      const fakeRuntime = {
+        addObject() {},
+      }
+      BaseClass.setRuntime(fakeRuntime)
+      const anObject = new BaseClass()
+      assert.equal(anObject._runtime, fakeRuntime)
+    })
+  })
+
+  it('should call runtime addObject method when instance is created', () => {
+    return import('../src/base-class').then(({ default: BaseClass }) => {
+      let called = null
+      const fakeRuntime = {
+        addObject(value) {
+          called = value
+        },
+      }
+      BaseClass.setRuntime(fakeRuntime)
+      const anObject = new BaseClass()
+      assert.deepEqual(called, anObject)
+    })
+  })
+
+  it('should call runtime deleteObject method when instance is deleted', () => {
+    return import('../src/base-class').then(({ default: BaseClass }) => {
+      let called = null
+      const fakeRuntime = {
+        addObject() {},
+
+        deleteObject(value) {
+          called = value
+        },
+      }
+      BaseClass.setRuntime(fakeRuntime)
+      const anObject = new BaseClass()
+      anObject.delete()
+      assert.deepEqual(called, anObject)
     })
   })
 })

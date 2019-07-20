@@ -41,10 +41,10 @@ describe('When Text is instantiated', () => {
     return import('../../src/classes/text').then(({default: Text}) => {
       const anObject = new Text()
       let called = null
-      Text.addListener('customEvent', function() {
+      anObject._addListener('customEvent', function() {
         called = this
       })
-      Text.dispatch('customEvent', anObject)
+      anObject._dispatch('customEvent')
       assert.deepEqual(called, anObject)
     })
   })
@@ -54,22 +54,25 @@ describe('When Text is instantiated', () => {
       const anObject = new Text()
       let receivedParameter1 = null
       let receivedParameter2 = null
-      Text.addListener('customEvent', (param1, param2) => {
+      anObject._addListener('customEvent', (param1, param2) => {
         receivedParameter1 = param1
         receivedParameter2 = param2
       })
-      Text.dispatch('customEvent', anObject, 1234, 5678)
+      anObject._dispatch('customEvent', 1234, 5678)
       assert.equal(receivedParameter1, 1234)
       assert.equal(receivedParameter2, 5678)
     })
   })
 
-  it('should trigger a create listener when instance is created', () => {
+  it('should call runtime addOject method when instance is created', () => {
     return import('../../src/classes/text').then(({default: Text}) => {
       let called = null
-      Text.addListener('create', function() {
-        called = this
-      })
+      const fakeRuntime = {
+        addObject(value) {
+          called = value
+        }
+      }
+      Text.setRuntime(fakeRuntime)
       const anObject = new Text()
       assert.deepEqual(called, anObject)
     })
@@ -77,9 +80,11 @@ describe('When Text is instantiated', () => {
 
   it('should trigger a delete listener when instance is deleted', () => {
     return import('../../src/classes/text').then(({default: Text}) => {
-      const anObject = new Text()
       let called = null
-      Text.addListener('delete', function() {
+      // required because of preceding tests (runtime is maintained through baseclass)
+      Text.setRuntime(null)
+      const anObject = new Text()
+      anObject._addListener('delete', function() {
         called = this
       })
       anObject.delete()
@@ -87,45 +92,15 @@ describe('When Text is instantiated', () => {
     })
   })
 
-  it('should not trigger a text delete listener when base class instance is deleted', () => {
-    let Text, BaseClass
-    return import('../../src/classes/text').then(({default: Text}) => {
-      return import('../../src/base-class').then(({default: BaseClass}) => {
-        const anObject = new BaseClass()
-        let called = null
-        Text.addListener('delete', function() {
-          called = this
-        })
-        anObject.delete()
-        assert.equal(called, null)
-      })
-    })
-  })
-
-  it('should trigger a base class delete listener when text instance is deleted', () => {
-    let Text, BaseClass
-    return import('../../src/classes/text').then(({default: Text}) => {
-      return import('../../src/base-class').then(({default: BaseClass}) => {
-        const anObject = new Text()
-        let called = null
-        BaseClass.addListener('delete', function() {
-          called = this
-        })
-        anObject.delete()
-        assert.equal(called, anObject)
-      })
-    })
-  })
-
   it('should not trigger a listener when removed', () => {
     return import('../../src/classes/text').then(({default: Text}) => {
       const anObject = new Text()
       let called = false
-      Text.addListener('customEvent', () => {
+      anObject._addListener('customEvent', () => {
         called = true
       })
-      Text.removeListener('customEvent')
-      Text.dispatch('customEvent', anObject)
+      anObject._removeListener('customEvent')
+      anObject._dispatch('customEvent', anObject)
       assert.equal(called, false)
     })
   })
