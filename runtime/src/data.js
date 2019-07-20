@@ -2,7 +2,7 @@ import Interpreter from './interpreter'
 // Private properties
 
 //let _log = null;
-let _classes = {}
+let _classes = new Map()
 // classes without constructor
 let _classStructures = {}
 let _instances = {}
@@ -76,32 +76,29 @@ let _getMethodWrapper = function(interpreter, method) {
   }
 }
 
-let _toInterpreterClass = function(interpreter, AClass) {
+let _toInterpreterClass = function(interpreter, classObject, classMethods) {
+  const className = classObject.prototype.className
   // 1st prototype
   let interpreterClass = interpreter.createObject(interpreter.FUNCTION)
-  if (AClass.prototype != null && AClass.prototype.exposed != null) {
-    for (let name in AClass.prototype.exposed) {
-      let methodName = AClass.prototype.exposed[name].method
-      interpreter.setProperty(
-        interpreterClass.properties.prototype,
-        name,
-        interpreter.createNativeFunction(
-          _getMethodWrapper(interpreter, AClass.prototype[methodName]),
-        ),
-      )
-    }
-  }
+  classMethods.forEach((classMethod, methodName) => {
+    interpreter.setProperty(
+      interpreterClass.properties.prototype,
+      methodName,
+      interpreter.createNativeFunction(
+        _getMethodWrapper(interpreter, classObject.prototype[classMethod]),
+      ),
+    )
+  })
+
   // store class prototype to be able to create interpreter objects from native ones
-  if (AClass.prototype.className != null) {
-    _classStructures[AClass.prototype.className] = interpreterClass
-  }
+  _classStructures[className] = interpreterClass
 
   // 2nd listeners
   // TODO: attention à l'héritage, peut-être qu'il ne faut déclarer ça que sur BaseClass ?
-  AClass.addListener('create', function() {
+  classObject.addListener('create', function() {
     _createdObjects.push(this)
   })
-  AClass.addListener('delete', function() {
+  classObject.addListener('delete', function() {
     _deleteInterpreterObject(interpreter, this)
     _createdObjects.splice(_createdObjects.indexOf(this), 1)
   })
@@ -112,7 +109,7 @@ let _toInterpreterClass = function(interpreter, AClass) {
     let args = [...arguments].map(argument => {
       return _toNativeData(argument)
     })
-    instance.data = new AClass(...args)
+    instance.data = new classObject(...args)
     return instance
   }
   return interpreter.createNativeFunction(constructor)
@@ -170,9 +167,16 @@ let data = {
             _instances[name],
           )
         }
-        for (name in _classes) {
-          _classes[name] = _toInterpreterClass(interpreter, _classes[name])
-        }
+        _classes.forEach((classData, name) => {
+          _classes.set(
+            name,
+            _toInterpreterClass(
+              interpreter,
+              classData.object,
+              classData.methods,
+            ),
+          )
+        })
         _stored = true
       }
 
@@ -184,11 +188,11 @@ let data = {
       }
 
       // #2 Declare classes
-      for (name in _classes) {
-        interpreter.setProperty(scope, name, _classes[name], {
+      _classes.forEach((interpreterClass, name) => {
+        interpreter.setProperty(scope, name, interpreterClass, {
           writable: false,
         })
-      }
+      })
     })
 
     return _interpreter
@@ -202,8 +206,8 @@ let data = {
     return _toNativeData(data)
   },
 
-  addClass(aClass, name) {
-    _classes[name] = aClass
+  addClass(name, object, methods) {
+    _classes.set(name, { object: object, methods: methods })
   },
 
   addInstance(instance, name) {
@@ -211,8 +215,8 @@ let data = {
   },
 
   getClass(name) {
-    if (_classes[name]) {
-      return _classes[name]
+    if (_classes.has(name)) {
+      return _classes.get(name)
     }
     return null
   },
@@ -283,7 +287,7 @@ let data = {
   },
 
   reset() {
-    _classes = {}
+    _classes.clear()
     _classStructures = {}
     _instances = {}
     _createdObjects = []

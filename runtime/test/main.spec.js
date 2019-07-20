@@ -32,13 +32,14 @@ describe('When runtime is initialized', () => {
       static addListener() {}
     }
 
-    MyClass2.prototype.exposed = {
-      exposedSetResult: { method: 'setResult' },
-    }
+    const methods = new Map([['exposedSetResult', 'setResult']])
 
-    MyClass2.prototype.className = 'aClass'
+    MyClass2.prototype.className = 'MyClass2'
 
-    runtime.initialize([MyClass2], { anInstance: myInstance })
+    runtime.initialize(
+      [{ name: 'aClass', object: MyClass2, methods: methods }],
+      { anInstance: myInstance },
+    )
   })
 
   beforeEach(() => {

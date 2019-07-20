@@ -42,11 +42,11 @@ describe('When data has created interpreter', () => {
       static addListener() {}
     }
 
-    MyClass.prototype.exposed = {
-      exposedSetResult: { method: 'setResult' },
-    }
+    MyClass.prototype.className = 'MyClass'
 
-    data.addClass(MyClass, 'Test')
+    const methods = new Map([['exposedSetResult', 'setResult']])
+
+    data.addClass('Test', MyClass, methods)
     let interpreter = data.createInterpreter()
     let code = `toto = new Test()
     toto.exposedSetResult()`
@@ -60,7 +60,7 @@ describe('When data has created interpreter', () => {
   it('should be able to add a class with its constructor to interpreter', () => {
     let result = false
 
-    let MyClass = class {
+    const MyClass = class {
       constructor(value) {
         this.registeredValue = value
       }
@@ -70,11 +70,11 @@ describe('When data has created interpreter', () => {
       static addListener() {}
     }
 
-    MyClass.prototype.exposed = {
-      exposedSetResult: { method: 'setResult' },
-    }
+    MyClass.prototype.className = 'MyClass'
 
-    data.addClass(MyClass, 'Test')
+    const methods = new Map([['exposedSetResult', 'setResult']])
+
+    data.addClass('Test', MyClass, methods)
     let interpreter = data.createInterpreter()
     let code = `toto = new Test('coucou')
     toto.exposedSetResult()`
@@ -124,11 +124,11 @@ describe('When data has created interpreter', () => {
       static addListener() {}
     }
 
-    MyClass.prototype.exposed = {
-      exposedSetResult: { method: 'setResult' },
-    }
+    MyClass.prototype.className = 'MyClass'
 
-    data.addClass(MyClass, 'ATestClass')
+    const methods = new Map([['exposedSetResult', 'setResult']])
+
+    data.addClass('ATestClass', MyClass, methods)
     let interpreter = data.createInterpreter()
     let code = `toto = new ATestClass('yes')
     toto.exposedSetResult()`
@@ -154,14 +154,14 @@ describe('When data has created interpreter', () => {
       static addListener() {}
     }
 
-    MyClass.prototype.exposed = {
-      exposedGetSecretValue: { method: 'getSecretValue' },
-      exposedSetResult: { method: 'setResult' },
-    }
+    const methods = new Map([
+      ['exposedSetResult', 'setResult'],
+      ['exposedGetSecretValue', 'getSecretValue'],
+    ])
 
-    MyClass.prototype.className = 'aStringUsedToRetrieveTheClass'
+    MyClass.prototype.className = 'MyClass'
 
-    data.addClass(MyClass, 'ATestClass')
+    data.addClass('ATestClass', MyClass, methods)
     let interpreter = data.createInterpreter()
     let instance = new MyClass(53)
     let interpreterInstance = data.toInterpreterData(instance)
@@ -205,7 +205,9 @@ describe('When data has created interpreter', () => {
       }
     }
 
-    data.addClass(MyClass, 'ATestClass')
+    MyClass.prototype.className = 'MyClass'
+
+    data.addClass('ATestClass', MyClass, new Map())
     let interpreter = data.createInterpreter()
     let code = 'toto = new ATestClass()'
     let ast = parse(code)
@@ -226,11 +228,11 @@ describe('When data has created interpreter', () => {
       }
     }
 
-    MyClass.prototype.exposed = {
-      exposedTickle: { method: 'tickle' },
-    }
+    const methods = new Map([['exposedTickle', 'tickle']])
 
-    data.addClass(MyClass, 'ATestClass')
+    MyClass.prototype.className = 'MyClass'
+
+    data.addClass('ATestClass', MyClass, methods)
     let interpreter = data.createInterpreter()
     let code = 'toto = new ATestClass()'
     let ast = parse(code)
@@ -254,11 +256,11 @@ describe('When data has created interpreter', () => {
         static addListener() {}
       }
 
-      MyClass.prototype.exposed = {
-        exposedSetResult: { method: 'setResult' },
-      }
+      MyClass.prototype.className = 'MyClass'
 
-      data.addClass(MyClass, 'Test')
+      const methods = new Map([['exposedSetResult', 'setResult']])
+
+      data.addClass('Test', MyClass, methods)
       let interpreter = data.createInterpreter()
       let code = 'toto = new Test()'
       let ast = parse(code)
@@ -281,11 +283,11 @@ describe('When data has created interpreter', () => {
         static addListener() {}
       }
 
-      MyClass.prototype.exposed = {
-        exposedSetResult: { method: 'setResult' },
-      }
+      const methods = new Map([['exposedSetResult', 'setResult']])
 
-      data.addClass(MyClass, 'Test')
+      MyClass.prototype.className = 'MyClass'
+
+      data.addClass('Test', MyClass, methods)
       let interpreter = data.createInterpreter()
       interpreter.reset()
       let code = `toto = new Test()
