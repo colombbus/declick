@@ -33,6 +33,7 @@ export default {
   computed: {
     viewId() {
       if (this.$route.matched) {
+        /*eslint-disable no-undef */
         var last = R.last(this.$route.matched)
         if (last && last.meta && last.meta.id) {
           return last.meta.id
@@ -54,12 +55,6 @@ export default {
     HeaderBar,
     MainMenu,
     Execute,
-  },
-  created() {
-    DeclickRuntime.initialize({}, {})
-    DeclickObjects.load('fr').then(objects => {
-      console.debug(objects)
-    })
   },
 }
 </script>

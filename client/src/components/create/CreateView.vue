@@ -91,12 +91,15 @@ export default {
       }
     },
     beforeEnter(element) {
+      /*eslint-disable no-undef */
       $(element).hide()
     },
     onEnter(element, done) {
+      /*eslint-disable no-undef */
       $(element).slideDown(1000, done)
     },
     onLeave(element, done) {
+      /*eslint-disable no-undef */
       $(element).slideUp(1000, done)
     },
     toggleWiki() {

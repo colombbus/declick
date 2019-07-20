@@ -69,6 +69,7 @@ export default {
         viewPortTag.content = 'width=device-width, user-scalable=no'
       }
     },
+    /*eslint-disable no-unused-vars */
     $route(to, from) {
       if (to.name === 'execute') {
         this.hidden = false
@@ -89,6 +90,7 @@ export default {
           this.$refs.loading.style.display = 'flex'
           await store.dispatch('loadExecuteProject', { id: newId })
           this.$refs.loading.style.display = 'none'
+          // eslint-disable-next-line
           currentId = newId
           this.count = 0
         } else {
