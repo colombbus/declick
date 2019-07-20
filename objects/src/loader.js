@@ -1,5 +1,6 @@
 //replaced by webpack
 const classes = __CLASSES__
+const instances = __INSTANCES__
 import { i18nConfig } from 'es2015-i18n-tag'
 import 'reflect-metadata'
 
@@ -8,7 +9,7 @@ function _getAllTranslatedMethodNames(aPrototype) {
   do {
     const keys = Reflect.ownKeys(aPrototype)
     keys.forEach(key => {
-      let translatedValue = Reflect.getMetadata('translated', aPrototype, key)
+      const translatedValue = Reflect.getMetadata('translated', aPrototype, key)
       if (translatedValue) {
         translatedMethods.set(translatedValue, key)
       }
@@ -25,19 +26,22 @@ export default {
           locales: locale,
           translations: translations,
         })
-        const classesLoaders = classes.map(className =>
-          import(`./classes/${className}`).then(
-            ({ default: importedClass }) => {
-              importedClass.prototype.declickObject = className.slice(0, -3)
-              return {
-                object: importedClass,
-                name: Reflect.getMetadata('translated', importedClass),
-                methods: _getAllTranslatedMethodNames(importedClass.prototype),
-              }
-            },
-          ),
+        const sources = classes
+          .map(className => `./classes/${className}`)
+          .concat(instances.map(className => `./instances/${className}`))
+
+        const loaders = sources.map(source =>
+          import(source).then(({ default: importedClass }) => {
+            importedClass.prototype._declickId_ = source.slice(2, -3)
+            return {
+              instance: Reflect.getMetadata('instance', importedClass),
+              name: Reflect.getMetadata('translated', importedClass),
+              object: importedClass,
+              methods: _getAllTranslatedMethodNames(importedClass.prototype),
+            }
+          }),
         )
-        return Promise.all(classesLoaders)
+        return Promise.all(loaders)
       },
     )
   },

@@ -8,6 +8,18 @@
 			"type": "string",
 			"minLength": 1
 		},
+		"clear": {
+			"type": "string",
+			"minLength": 1
+		},
+		"clear_help": {
+			"type": "string",
+			"minLength": 1
+		},
+		"declick": {
+			"type": "string",
+			"minLength": 1
+		},
 		"delete": {
 			"type": "string",
 			"minLength": 1
@@ -24,6 +36,14 @@
 			"type": "string",
 			"minLength": 1
 		},
+		"resume": {
+			"type": "string",
+			"minLength": 1
+		},
+		"resume_help": {
+			"type": "string",
+			"minLength": 1
+		},
 		"setText": {
 			"type": "string",
 			"minLength": 1
@@ -31,16 +51,41 @@
 		"setText_help": {
 			"type": "string",
 			"minLength": 1
+		},
+		"suspend": {
+			"type": "string",
+			"minLength": 1
+		},
+		"suspend_help": {
+			"type": "string",
+			"minLength": 1
+		},
+		"write": {
+			"type": "string",
+			"minLength": 1
+		},
+		"write_help": {
+			"type": "string",
+			"minLength": 1
 		}
 	},
 	"required": [
 		"Text",
+		"clear",
+		"clear_help",
+		"declick",
 		"delete",
 		"delete_help",
 		"getText",
 		"getText_help",
+		"resume",
+		"resume_help",
 		"setText",
-		"setText_help"
+		"setText_help",
+		"suspend",
+		"suspend_help",
+		"write",
+		"write_help"
 	],
 	"additionalProperties": false
 }

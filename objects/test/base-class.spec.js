@@ -22,33 +22,6 @@ describe('When BaseClass is instantiated', () => {
     })
   })
 
-  it('should trigger a custom listener when set with reference to instance', () => {
-    return import('../src/base-class').then(({ default: BaseClass }) => {
-      const anObject = new BaseClass()
-      let called = null
-      anObject._addListener('customEvent', function() {
-        called = this
-      })
-      anObject._dispatch('customEvent', anObject)
-      assert.deepEqual(called, anObject)
-    })
-  })
-
-  it('should pass parameters to a listener', () => {
-    return import('../src/base-class').then(({ default: BaseClass }) => {
-      const anObject = new BaseClass()
-      let receivedParameter1 = null
-      let receivedParameter2 = null
-      anObject._addListener('customEvent', (param1, param2) => {
-        receivedParameter1 = param1
-        receivedParameter2 = param2
-      })
-      anObject._dispatch('customEvent', 1234, 5678)
-      assert.equal(receivedParameter1, 1234)
-      assert.equal(receivedParameter2, 5678)
-    })
-  })
-
   it('should trigger a delete listener when instance is deleted', () => {
     return import('../src/base-class').then(({ default: BaseClass }) => {
       const anObject = new BaseClass()
@@ -58,19 +31,6 @@ describe('When BaseClass is instantiated', () => {
       })
       anObject.delete()
       assert.deepEqual(called, anObject)
-    })
-  })
-
-  it('should not trigger a listener when removed', () => {
-    return import('../src/base-class').then(({ default: BaseClass }) => {
-      const anObject = new BaseClass()
-      let called = false
-      anObject._addListener('customEvent', () => {
-        called = true
-      })
-      anObject._removeListener('customEvent')
-      anObject._dispatch('customEvent')
-      assert.equal(called, false)
     })
   })
 
@@ -113,6 +73,12 @@ describe('When BaseClass is instantiated', () => {
       const anObject = new BaseClass()
       anObject.delete()
       assert.deepEqual(called, anObject)
+    })
+  })
+
+  it('should have metadata instance set to false', () => {
+    return import('../src/base-class').then(({ default: BaseClass }) => {
+      assert.equal(Reflect.getMetadata('instance', BaseClass), false)
     })
   })
 })

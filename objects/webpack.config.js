@@ -52,6 +52,9 @@ const config = {
       __CLASSES__: JSON.stringify(
         fs.readdirSync('./src/classes').filter(file => file.match(/.*\.js$/)),
       ),
+      __INSTANCES__: JSON.stringify(
+        fs.readdirSync('./src/instances').filter(file => file.match(/.*\.js$/)),
+      ),
     }),
   ],
 }

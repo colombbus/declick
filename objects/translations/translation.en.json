@@ -6,5 +6,14 @@
   "getText_help": "getText()",
   "setText": "setText",
   "setText_help": "setText(\"text\")",
-  "Text": "Text"
+  "Text": "Text",
+  "clear": "clear",
+  "clear_help": "clear()",
+  "declick": "declick",
+  "resume": "resume",
+  "resume_help": "resume()",
+  "suspend": "suspend",
+  "suspend_help": "suspend()",
+  "write": "write",
+  "write_help": "write(\"text\")"
 }
