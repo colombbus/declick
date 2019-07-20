@@ -5,7 +5,7 @@ const LOCAL_STORAGE_PREFIX = 'ui'
 const LOCAL_STORAGE_VERSION = 5
 
 
-export const setCurrentCode = async ({ state, commit }, { content }) => {
+export const setCurrentCode = async ({ commit }, { content }) => {
   commit(mutations.CURRENT_CODE_UPDATE, { result: content })
 }
 
@@ -14,6 +14,7 @@ export const loadExecuteProject = async ({ state, commit }, { id }) => {
   const resources = await Api.getAllProjectResources(project.id)
   let program = null
   if (project.mainProgramId) {
+    /*eslint-disable no-extra-semi */
     ;[{ file_name: program }] = resources.filter(
       resource => resource.id === project.mainProgramId,
     )
@@ -58,7 +59,7 @@ export const logIn = async (
   commit(mutations.PROJECT_SELECTION, { project })
   dispatch('loadCurrentCourseResults')
 }
-
+/*eslint-disable no-unused-vars */
 export const logOut = async ({ commit, dispatch, state }, { token }) => {
   clearLocalItems()
   Api.destroyToken(state.token)
@@ -131,7 +132,7 @@ export const loadCurrentCourseResults = async ({ commit, state }) => {
     }
   }
 }
-
+/*eslint-disable no-unused-vars */
 export const selectAssessment = async ({ dispatch, commit, state }, { id }) => {
   commit(mutations.ASSESSMENT_SELECTION, { id })
   await dispatch('registerCurrentAssessmentResult', {})
