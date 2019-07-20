@@ -4,7 +4,7 @@ import Interpreter from './interpreter'
 //let _log = null;
 let _classes = new Map()
 // classes without constructor
-let _classStructures = {}
+let _classStructures = new Map()
 let _instances = {}
 let _interpreter = null
 let _stored = false
@@ -56,11 +56,11 @@ let _toInterpreterData = function(interpreter, data) {
     // Object
     if (
       data.declickObject != null &&
-      _classStructures[data.declickObject] != null
+      _classStructures.has(data.declickObject)
     ) {
       // declick object: wrap it
       let result = interpreter.createObject(
-        _classStructures[data.declickObject],
+        _classStructures.get(data.declickObject),
       )
       result.data = data
       return result
@@ -96,7 +96,7 @@ let _toInterpreterClass = function(interpreter, classObject, classMethods) {
   })
 
   // store class prototype to be able to create interpreter objects from native ones
-  _classStructures[objectName] = interpreterClass
+  _classStructures.set(objectName, interpreterClass)
 
   // 2nd constructor
   let constructor = function() {
@@ -283,7 +283,7 @@ let data = {
 
   reset() {
     _classes.clear()
-    _classStructures = {}
+    _classStructures.clear()
     _instances = {}
     _createdObjects = []
     _interpreter = null
