@@ -16,9 +16,10 @@ describe('When Loader is imported', () => {
       return import('../src/classes/text').then(({default:Text}) => {
         let textClassData = classes[0]
         assert.equal(textClassData.name, 'Texte')
-        assert.deepEqual(textClassData.classPrototype, Text.prototype)
+        assert.deepEqual(textClassData.object, Text)
         assert.equal(textClassData.methods.get('définirTexte'), 'setText')
         assert.equal(textClassData.methods.get('supprimer'), 'delete')
+        assert.equal(textClassData.object.prototype.declickObject, 'text')
       })
     })
   })

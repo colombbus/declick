@@ -27,11 +27,14 @@ export default {
         })
         const classesLoaders = classes.map(className =>
           import(`./classes/${className}`).then(
-            ({ default: importedClass }) => ({
-              classPrototype: importedClass.prototype,
-              name: Reflect.getMetadata('translated', importedClass),
-              methods: _getAllTranslatedMethodNames(importedClass.prototype),
-            }),
+            ({ default: importedClass }) => {
+              importedClass.prototype.declickObject = className.slice(0, -3)
+              return {
+                object: importedClass,
+                name: Reflect.getMetadata('translated', importedClass),
+                methods: _getAllTranslatedMethodNames(importedClass.prototype),
+              }
+            },
           ),
         )
         return Promise.all(classesLoaders)
