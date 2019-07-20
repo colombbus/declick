@@ -8,19 +8,13 @@ describe('When runtime is initialized', () => {
 
   before(() => {
     let MyClass = class {
-      constructor() {
-        this.exposedMethods = {
-          setResult: 'exposedSetResult',
-        }
-      }
       setResult() {
         instanceResult = true
       }
       addListener() {}
       setRuntime() {}
     }
-
-    let myInstance = new MyClass()
+    const methods = new Map([['exposedSetResult', 'setResult']])
 
     let MyClass2 = class {
       constructor(value) {
@@ -33,14 +27,14 @@ describe('When runtime is initialized', () => {
       static setRuntime() {}
     }
 
-    const methods = new Map([['exposedSetResult', 'setResult']])
+    const methods2 = new Map([['exposedSetResult', 'setResult']])
 
     MyClass2.prototype.className = 'MyClass2'
 
-    runtime.initialize(
-      [{ name: 'aClass', object: MyClass2, methods: methods }],
-      { anInstance: myInstance },
-    )
+    runtime.initialize([
+      { instance: true, name: 'anInstance', object: MyClass, methods: methods },
+      { instance: false, name: 'aClass', object: MyClass2, methods: methods2 },
+    ])
   })
 
   beforeEach(() => {

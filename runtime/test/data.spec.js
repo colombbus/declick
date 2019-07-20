@@ -11,18 +11,15 @@ describe('When data has created interpreter', () => {
   it('should be able to add an instance to interpreter', () => {
     let result = false
     let MyClass = class {
-      constructor() {
-        this.exposedMethods = {
-          setResult: 'exposedSetResult',
-        }
-      }
       setResult() {
         result = true
       }
     }
     let myInstance = new MyClass()
 
-    data.addInstance(myInstance, 'test')
+    const methods = new Map([['exposedSetResult', 'setResult']])
+
+    data.addInstance('test', myInstance, methods)
     let interpreter = data.createInterpreter()
     let code = 'test.exposedSetResult()'
     let ast = parse(code)
@@ -93,13 +90,11 @@ describe('When data has created interpreter', () => {
       }
     }
 
-    MyClass.prototype.exposedMethods = {
-      setResult: 'exposedSetResult',
-    }
+    const methods = new Map([['exposedSetResult', 'setResult']])
 
     let myInstance = new MyClass()
 
-    data.addInstance(myInstance, 'testInstance')
+    data.addInstance('testInstance', myInstance, methods)
     let interpreter = data.createInterpreter()
     let code = 'testInstance.exposedSetResult()'
     let ast = parse(code)
@@ -159,7 +154,7 @@ describe('When data has created interpreter', () => {
       ['exposedGetSecretValue', 'getSecretValue'],
     ])
 
-    MyClass.prototype.declickObject = 'MyClass'
+    MyClass.prototype._declickId_ = 'MyClass'
 
     data.addClass('ATestClass', MyClass, methods)
     let interpreter = data.createInterpreter()
@@ -180,16 +175,13 @@ describe('When data has created interpreter', () => {
 
   it('should prevent from redeclaring a declared instance', () => {
     let MyClass = class {
-      constructor() {
-        this.exposedMethods = {
-          setResult: 'exposedSetResult',
-        }
-      }
       setResult() {}
     }
     let myInstance = new MyClass()
 
-    data.addInstance(myInstance, 'test')
+    const methods = new Map([['exposedSetResult', 'setResult']])
+
+    data.addInstance('test', myInstance, methods)
     let interpreter = data.createInterpreter()
     let code = 'test = 5'
     let ast = parse(code)
@@ -276,18 +268,16 @@ describe('When data has created interpreter', () => {
     it('should be able to call an instance declared previously', () => {
       let result = false
       let MyClass = class {
-        constructor() {
-          this.exposedMethods = {
-            setResult: 'exposedSetResult',
-          }
-        }
         setResult() {
           result = true
         }
         addListener() {}
       }
+
+      const methods = new Map([['exposedSetResult', 'setResult']])
+
       let myInstance = new MyClass()
-      data.addInstance(myInstance, 'test')
+      data.addInstance('test', myInstance, methods)
       let interpreter = data.createInterpreter()
       interpreter.reset()
       let code = 'test.exposedSetResult()'

@@ -2,13 +2,14 @@ import Interpreter from './interpreter'
 // Private properties
 
 //let _log = null;
-let _classes = new Map()
+const _classes = new Map()
 // classes without constructor
-let _classStructures = new Map()
-let _instances = {}
+const _classStructures = new Map()
+const _instances = new Map()
 let _interpreter = null
 let _stored = false
-let _createdObjects = []
+let _registeredObjects = []
+let _registeredInstances = []
 
 // Private methods
 
@@ -54,13 +55,10 @@ let _toInterpreterData = function(interpreter, data) {
     return result
   } else if (typeof data === 'object') {
     // Object
-    if (
-      data.declickObject != null &&
-      _classStructures.has(data.declickObject)
-    ) {
+    if (data._declickId_ != null && _classStructures.has(data._declickId_)) {
       // declick object: wrap it
       let result = interpreter.createObject(
-        _classStructures.get(data.declickObject),
+        _classStructures.get(data._declickId_),
       )
       result.data = data
       return result
@@ -82,7 +80,7 @@ let _getMethodWrapper = function(interpreter, method) {
 }
 
 let _toInterpreterClass = function(interpreter, classObject, classMethods) {
-  const objectName = classObject.prototype.declickObject
+  const classId = classObject.prototype._declickId_
   // 1st prototype
   let interpreterClass = interpreter.createObject(interpreter.FUNCTION)
   classMethods.forEach((classMethod, methodName) => {
@@ -96,7 +94,7 @@ let _toInterpreterClass = function(interpreter, classObject, classMethods) {
   })
 
   // store class prototype to be able to create interpreter objects from native ones
-  _classStructures.set(objectName, interpreterClass)
+  _classStructures.set(classId, interpreterClass)
 
   // 2nd constructor
   let constructor = function() {
@@ -110,23 +108,21 @@ let _toInterpreterClass = function(interpreter, classObject, classMethods) {
   return interpreter.createNativeFunction(constructor)
 }
 
-//TODO: modifier ça en fonction des choix pris pour les instances
-let _toInterpreterInstance = function(interpreter, instance) {
-  let interpreterInstance = interpreter.createObject(interpreter.FUNCTION)
-  interpreterInstance.data = instance
-  if (instance.exposedMethods != null) {
-    for (let name in instance.exposedMethods) {
-      interpreter.setProperty(
-        interpreterInstance,
-        instance.exposedMethods[name],
-        interpreter.createNativeFunction(
-          _getMethodWrapper(interpreter, instance[name]),
-        ),
-      )
-    }
-  }
+let _toInterpreterInstance = function(interpreter, object, methods) {
+  const interpreterInstance = interpreter.createObject(interpreter.FUNCTION)
+  interpreterInstance.data = object
+  methods.forEach((instanceMethod, methodName) => {
+    interpreter.setProperty(
+      interpreterInstance,
+      methodName,
+      interpreter.createNativeFunction(
+        _getMethodWrapper(interpreter, object[instanceMethod]),
+      ),
+    )
+  })
   return interpreterInstance
 }
+
 let _deleteInterpreterObject = function(interpreter, reference) {
   let scope = interpreter.getScope()
   while (scope) {
@@ -156,13 +152,17 @@ let data = {
 
       // at first launch, create and store interpreter instances and classes
       if (!_stored) {
-        for (name in _instances) {
-          _instances[name] = _toInterpreterInstance(
-            interpreter,
-            _instances[name],
+        Array.from(_instances).forEach(([name, instanceData]) => {
+          _instances.set(
+            name,
+            _toInterpreterInstance(
+              interpreter,
+              instanceData.object,
+              instanceData.methods,
+            ),
           )
-        }
-        _classes.forEach((classData, name) => {
+        })
+        Array.from(_classes).forEach(([name, classData]) => {
           _classes.set(
             name,
             _toInterpreterClass(
@@ -176,11 +176,11 @@ let data = {
       }
 
       // #1 Declare instances
-      for (name in _instances) {
-        interpreter.setProperty(scope, name, _instances[name], {
+      _instances.forEach((interpreterInstance, name) => {
+        interpreter.setProperty(scope, name, interpreterInstance, {
           writable: false,
         })
-      }
+      })
 
       // #2 Declare classes
       _classes.forEach((interpreterClass, name) => {
@@ -205,8 +205,8 @@ let data = {
     _classes.set(name, { object: object, methods: methods })
   },
 
-  addInstance(instance, name) {
-    _instances[name] = instance
+  addInstance(name, object, methods) {
+    _instances.set(name, { object: object, methods: methods })
   },
 
   getClass(name) {
@@ -267,36 +267,34 @@ let data = {
   },
 
   clear() {
-    while (_createdObjects.length > 0) {
-      if (_createdObjects[0].deleteObject != null) {
-        _createdObjects[0].deleteObject()
-      } else {
-        _createdObjects.shift()
-      }
+    //TODO: à améliorer
+    while (_registeredObjects.length > 0) {
+      _registeredObjects[0].delete()
     }
-    for (let name in _instances) {
-      if (_instances[name].clear != null) {
-        _instances[name].clear()
-      }
-    }
+    _registeredInstances.forEach(instance => instance._dispatch('clear'))
   },
 
   reset() {
     _classes.clear()
     _classStructures.clear()
-    _instances = {}
-    _createdObjects = []
+    _instances.clear()
+    _registeredObjects = []
+    _registeredInstances = []
     _interpreter = null
     _stored = false
   },
 
-  addObject(object) {
-    _createdObjects.push(object)
+  registerObject(object) {
+    _registeredObjects.push(object)
   },
 
   deleteObject(object) {
     _deleteInterpreterObject(_interpreter, object)
-    _createdObjects.splice(_createdObjects.indexOf(object), 1)
+    _registeredObjects.splice(_registeredObjects.indexOf(object), 1)
+  },
+
+  registerInstance(object) {
+    _registeredInstances.push(object)
   },
 }
 

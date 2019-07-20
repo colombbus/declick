@@ -5,15 +5,17 @@ import _parser from './parser'
 let _interpreter = null
 
 export default {
-  initialize(classes, instances) {
-    classes.forEach(classData => {
-      classData.object.setRuntime(this)
-      _data.addClass(classData.name, classData.object, classData.methods)
+  initialize(objects) {
+    objects.forEach(objectData => {
+      if (objectData.instance) {
+        const instance = new objectData.object()
+        instance.setRuntime(this)
+        _data.addInstance(objectData.name, instance, objectData.methods)
+      } else {
+        objectData.object.setRuntime(this)
+        _data.addClass(objectData.name, objectData.object, objectData.methods)
+      }
     })
-
-    for (let name in instances) {
-      _data.addInstance(instances[name], name)
-    }
 
     _interpreter = _data.createInterpreter()
 
@@ -70,10 +72,14 @@ export default {
   },
 
   addObject(object) {
-    _data.addObject(object)
+    _data.registerObject(object)
   },
 
   deleteObject(object) {
     _data.deleteObject(object)
+  },
+
+  addInstance(object) {
+    _data.registerInstance(object)
   },
 }
