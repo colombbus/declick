@@ -9,13 +9,9 @@ describe('When BaseClass is instantiated', () => {
       locales: 'fr-FR',
       translations: frenchTranslations,
     })
-    return import('../src/base-class').then(module => {
-      const BaseClass = module.default
-      let exposed = BaseClass.prototype.exposed
-      assert.deepEqual(exposed['supprimer'], {
-        method: 'delete',
-        help: 'supprimer()',
-      })
+    return import('../src/base-class').then(({default: BaseClass}) => {
+      assert.equal(Reflect.getMetadata('translated', BaseClass.prototype, 'delete'), 'supprimer')
+      assert.equal(Reflect.getMetadata('help', BaseClass.prototype, 'delete'), 'supprimer()')
     })
   })
 

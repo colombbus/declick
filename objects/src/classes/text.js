@@ -1,23 +1,23 @@
 import i18n from 'es2015-i18n-tag'
-import { expose, translate } from '../i18n'
 import BaseClass from '../base-class'
+import 'reflect-metadata'
 
-@translate(i18n`Text`)
-class Text extends BaseClass {
+@Reflect.metadata('translated', i18n`Text`)
+export default class extends BaseClass {
   constructor() {
     super()
     this._value = ''
   }
 
-  @expose(i18n`setText`, i18n`setText_help`)
+  @Reflect.metadata('translated', i18n`setText`)
+  @Reflect.metadata('help', i18n`setText_help`)
   setText(value) {
     this._value = value
   }
 
-  @expose(i18n`getText`, i18n`getText_help`)
+  @Reflect.metadata('translated', i18n`getText`)
+  @Reflect.metadata('help', i18n`getText_help`)
   getText() {
     return this._value
   }
 }
-
-export default Text

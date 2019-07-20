@@ -2,6 +2,7 @@
 import { assert } from 'chai'
 import { i18nConfig } from 'es2015-i18n-tag'
 import frenchTranslations from '../../translations/translation.fr.json'
+import 'reflect-metadata'
 
 describe('When Text is instantiated', () => {
   it('should have an exposed name', () => {
@@ -9,9 +10,8 @@ describe('When Text is instantiated', () => {
       locales: 'fr-FR',
       translations: frenchTranslations,
     })
-    return import('../../src/classes/text').then(module => {
-      const Text = module.default
-      assert.equal(Text.prototype.className, 'Texte')
+    return import('../../src/classes/text').then(({default: Text}) => {
+      assert.equal(Reflect.getMetadata('translated', Text), 'Texte')
     })
   })
 
@@ -20,13 +20,9 @@ describe('When Text is instantiated', () => {
       locales: 'fr-FR',
       translations: frenchTranslations,
     })
-    return import('../../src/classes/text').then(module => {
-      const Text = module.default
-      let exposed = Text.prototype.exposed
-      assert.deepEqual(exposed['définirTexte'], {
-        method: 'setText',
-        help: 'définirTexte("texte")',
-      })
+    return import('../../src/classes/text').then(({default: Text}) => {
+      assert.equal(Reflect.getMetadata('translated', Text.prototype, 'setText'), 'définirTexte')
+      assert.equal(Reflect.getMetadata('help', Text.prototype, 'setText'), 'définirTexte("texte")')
     })
   })
 
@@ -35,19 +31,14 @@ describe('When Text is instantiated', () => {
       locales: 'fr-FR',
       translations: frenchTranslations,
     })
-    return import('../../src/classes/text').then(module => {
-      const Text = module.default
-      let exposed = Text.prototype.exposed
-      assert.deepEqual(exposed['supprimer'], {
-        method: 'delete',
-        help: 'supprimer()',
-      })
+    return import('../../src/classes/text').then(({default: Text}) => {
+      assert.equal(Reflect.getMetadata('translated', Text.prototype, 'delete'), 'supprimer')
+      assert.equal(Reflect.getMetadata('help', Text.prototype, 'delete'), 'supprimer()')
     })
   })
 
   it('should trigger a custom listener when set with reference to instance', () => {
-    return import('../../src/classes/text').then(module => {
-      const Text = module.default
+    return import('../../src/classes/text').then(({default: Text}) => {
       const anObject = new Text()
       let called = null
       Text.addListener('customEvent', function() {
@@ -59,8 +50,7 @@ describe('When Text is instantiated', () => {
   })
 
   it('should pass parameters to a listener', () => {
-    return import('../../src/classes/text').then(module => {
-      const Text = module.default
+    return import('../../src/classes/text').then(({default: Text}) => {
       const anObject = new Text()
       let receivedParameter1 = null
       let receivedParameter2 = null
@@ -75,8 +65,7 @@ describe('When Text is instantiated', () => {
   })
 
   it('should trigger a create listener when instance is created', () => {
-    return import('../../src/classes/text').then(module => {
-      const Text = module.default
+    return import('../../src/classes/text').then(({default: Text}) => {
       let called = null
       Text.addListener('create', function() {
         called = this
@@ -87,8 +76,7 @@ describe('When Text is instantiated', () => {
   })
 
   it('should trigger a delete listener when instance is deleted', () => {
-    return import('../../src/classes/text').then(module => {
-      const Text = module.default
+    return import('../../src/classes/text').then(({default: Text}) => {
       const anObject = new Text()
       let called = null
       Text.addListener('delete', function() {
@@ -101,10 +89,8 @@ describe('When Text is instantiated', () => {
 
   it('should not trigger a text delete listener when base class instance is deleted', () => {
     let Text, BaseClass
-    return import('../../src/classes/text').then(module => {
-      Text = module.default
-      return import('../../src/base-class').then(module => {
-        BaseClass = module.default
+    return import('../../src/classes/text').then(({default: Text}) => {
+      return import('../../src/base-class').then(({default: BaseClass}) => {
         const anObject = new BaseClass()
         let called = null
         Text.addListener('delete', function() {
@@ -118,10 +104,8 @@ describe('When Text is instantiated', () => {
 
   it('should trigger a base class delete listener when text instance is deleted', () => {
     let Text, BaseClass
-    return import('../../src/classes/text').then(module => {
-      Text = module.default
-      return import('../../src/base-class').then(module => {
-        BaseClass = module.default
+    return import('../../src/classes/text').then(({default: Text}) => {
+      return import('../../src/base-class').then(({default: BaseClass}) => {
         const anObject = new Text()
         let called = null
         BaseClass.addListener('delete', function() {
@@ -134,8 +118,7 @@ describe('When Text is instantiated', () => {
   })
 
   it('should not trigger a listener when removed', () => {
-    return import('../../src/classes/text').then(module => {
-      const Text = module.default
+    return import('../../src/classes/text').then(({default: Text}) => {
       const anObject = new Text()
       let called = false
       Text.addListener('customEvent', () => {

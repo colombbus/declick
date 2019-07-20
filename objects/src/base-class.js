@@ -1,7 +1,7 @@
 import i18n from 'es2015-i18n-tag'
-import { expose } from './i18n'
+import 'reflect-metadata'
 
-class BaseClass {
+export default class {
   static get _listeners() {
     if (!this.hasOwnProperty('_ownListeners')) {
       this._ownListeners = new Map()
@@ -45,10 +45,9 @@ class BaseClass {
     }
   }
 
-  @expose(i18n`delete`, i18n`delete_help`)
+  @Reflect.metadata('translated', i18n`delete`)
+  @Reflect.metadata('help', i18n`delete_help`)
   delete() {
     this.constructor.dispatch('delete', this)
   }
 }
-
-export default BaseClass
