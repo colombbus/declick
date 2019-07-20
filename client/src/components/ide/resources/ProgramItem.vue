@@ -80,7 +80,7 @@ export default {
       }
     },
     select() {
-      this.$emit('select', this.id)
+      this.$emit('select')
     },
     startRename() {
       this.inputMode = true

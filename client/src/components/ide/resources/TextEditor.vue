@@ -6,7 +6,7 @@
 
 <script>
 import * as ace from 'brace'
-import { mapActions, mapState } from 'vuex'
+import { mapActions } from 'vuex'
 import { debounce } from 'underscore'
 
 import 'brace/mode/javascript'
@@ -14,7 +14,9 @@ import 'brace/ext/modelist'
 import 'brace/ext/themelist'
 import 'brace/theme/twilight'
 
-const content = `t = new Texte()\nt.récupérerTexte()`
+const content = `t = new Texte();
+t.définirTexte('abracadabra');
+t.récupérerTexte();`
 
 export default {
   props: ['programId'],
@@ -40,10 +42,10 @@ export default {
         'change',
         debounce(() => {
           const content = this.editSession.getValue()
-          this.setCurrentCode({})
-          console.log(state, id, result)
+          this.setCurrentCode({ content })
         }, 300),
       )
+      this.setCurrentCode({ content })
     },
     ...mapActions(['setCurrentCode']),
   },

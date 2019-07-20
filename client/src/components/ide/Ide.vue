@@ -22,6 +22,8 @@ import Help from './Help.vue'
 import DeclickRuntime from '../../../../runtime/lib/declick-runtime'
 import DeclickObjects from '../../../../objects/lib/declick-objects'
 
+import { mapState } from 'vuex'
+
 export default {
   data() {
     return {
@@ -44,6 +46,7 @@ export default {
   destroyed() {
     document.removeEventListener('keyup', this.onKeyUp)
   },
+  computed: mapState(['currentCode']),
   methods: {
     toggleHelp() {
       this.helpVisible = !this.helpVisible
@@ -53,9 +56,11 @@ export default {
         this.view === 'resource-manager' ? 'preview' : 'resource-manager'
     },
     play() {
-      DeclickRuntime.executeCode(`t = new Texte();
-      t.définirTexte('abracadabra');
-      t.récupérerTexte();`)
+      // DeclickRuntime.executeCode(`t = new Texte();
+      // t.définirTexte('abracadabra');
+      // t.récupérerTexte();`)
+      console.log(this.currentCode)
+      DeclickRuntime.executeCode(this.currentCode)
       console.log(DeclickRuntime.getLastValue())
     },
   },

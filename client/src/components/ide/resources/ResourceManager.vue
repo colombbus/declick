@@ -3,8 +3,8 @@
   text-editor.resource-manager__text-editor(:programId="programId")
   main-bar.resource-manager__main-bar(
     @toggle-help="$emit('toggle-help')"
-    :helpVisible='helpVisible'
     @play="$emit('play')"
+    :helpVisible='helpVisible'
   )
   resource-panel.resource-manager__resource-panel(@select="programId = $event")
 </template>
@@ -23,7 +23,7 @@ export default {
   },
   data() {
     return {
-      programId: null,
+      programId: 1,
     }
   },
 }

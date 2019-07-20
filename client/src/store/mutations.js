@@ -58,7 +58,7 @@ export default {
     }
   },
 
-  [mutations.CURRENT_CODE_UPDATE](state, { id, result }) {
-    console.log(state, id, result)
+  [mutations.CURRENT_CODE_UPDATE](state, { result }) {
+    state.currentCode = result
   }
 }

@@ -5,8 +5,8 @@ const LOCAL_STORAGE_PREFIX = 'ui'
 const LOCAL_STORAGE_VERSION = 5
 
 
-export const setCurrentCode = async ({ state, commit }, { id }) => {
-  commit(mutations.CURRENT_CODE_UPDATE, id)
+export const setCurrentCode = async ({ state, commit }, { content }) => {
+  commit(mutations.CURRENT_CODE_UPDATE, { result: content })
 }
 
 export const loadExecuteProject = async ({ state, commit }, { id }) => {
