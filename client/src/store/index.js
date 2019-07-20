@@ -13,6 +13,7 @@ export default new Vuex.Store({
     currentCourse: null,
     currentCourseResults: null,
     currentAssessment: null,
+    currentCode: null,
     executeProject: null,
   },
   mutations,

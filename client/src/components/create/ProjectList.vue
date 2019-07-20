@@ -13,30 +13,31 @@ div
 </template>
 
 <script>
-import {mapActions} from 'vuex'
+import { mapActions } from 'vuex'
 
 export default {
-  data () {
+  data() {
     return {
-      projects: []
+      projects: [],
     }
   },
-  async created () {
+  async created() {
     this.projects = await this.getAllUserProjects()
   },
-  methods: mapActions(['getAllUserProjects'])
+  methods: mapActions(['getAllUserProjects']),
 }
 </script>
 
-<style lang="sass" scoped>
-a
-  color: inherit
-
-a:hover
-  color: inherit
-  text-decoration: none
-
-.list-group-item:hover
-  background-color: #F5F5F5
-  cursor: pointer
+<style lang="scss" scoped>
+a {
+  color: inherit;
+}
+a:hover {
+  color: inherit;
+  text-decoration: none;
+}
+.list-group-item:hover {
+  background-color: #f5f5f5;
+  cursor: pointer;
+}
 </style>

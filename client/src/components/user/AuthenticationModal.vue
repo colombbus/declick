@@ -55,22 +55,22 @@ import '@fortawesome/fontawesome-free/css/fontawesome.css'
 import RegistrationForm from './RegistrationForm'
 
 export default {
-  data () {
+  data() {
     return {
       mode: 'connection',
       isLogingIn: false,
       username: '',
       password: '',
-      error: null
+      error: null,
     }
   },
   methods: {
-    async logIn () {
+    async logIn() {
       this.isLogingIn = true
       try {
         await this.$store.dispatch('logIn', {
           username: this.username,
-          password: this.password
+          password: this.password,
         })
         this.$emit('close')
       } catch (e) {
@@ -78,47 +78,49 @@ export default {
       } finally {
         this.isLogingIn = false
       }
-    }
+    },
   },
   components: {
-    RegistrationForm
-  }
+    RegistrationForm,
+  },
 }
 </script>
 
-<style lang="sass" scoped>
-.mask
-  position: fixed
-  z-index: 9999
-  top: 0
-  left: 0
-  width: 100%
-  height: 100%
-  background-color: rgba(0, 0, 0, .5)
-  display: table
-  transition: opacity .3s ease
-
-.wrapper
-  display: table-cell
-  vertical-align: middle
-
-.container
-  width: 300px
-  margin: 0px auto
-  padding: 20px
-  background-color: #F8F8F8
-  box-shadow: 0 2px 8px rgba(0, 0, 0, .33)
-  transition: all .3s ease
-
+<style lang="scss" scoped>
+.mask {
+  position: fixed;
+  z-index: 9999;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background-color: rgba(0, 0, 0, 0.5);
+  display: table;
+  transition: opacity 0.3s ease;
+}
+.wrapper {
+  display: table-cell;
+  vertical-align: middle;
+}
+.container {
+  width: 300px;
+  margin: 0px auto;
+  padding: 20px;
+  background-color: #f8f8f8;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.33);
+  transition: all 0.3s ease;
+}
 .modal-enter,
-.modal-leave-active
-  opacity: 0
+.modal-leave-active {
+  opacity: 0;
+}
 
 .modal-enter .container,
-.modal-leave-active .container
-  -webkit-transform: scale(1.1)
-  transform: scale(1.1)
-
-.input-group
-  margin-bottom: 6px
+.modal-leave-active .container {
+  -webkit-transform: scale(1.1);
+  transform: scale(1.1);
+}
+.input-group {
+  margin-bottom: 6px;
+}
 </style>

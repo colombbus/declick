@@ -39,47 +39,48 @@ div
 </template>
 
 <script>
-import {mapActions, mapState} from 'vuex'
+import { mapActions, mapState } from 'vuex'
 import Api from '@/api'
 
 export default {
   props: ['params'],
   computed: {
-    project () {
+    project() {
       return this.params.project
     },
-    ...mapState(['currentProject', 'user'])
+    ...mapState(['currentProject', 'user']),
   },
   methods: {
-    async selectAsCurrentProject () {
-      await this.selectProject({id: this.project.id})
+    async selectAsCurrentProject() {
+      await this.selectProject({ id: this.project.id })
       this.$emit('close')
     },
-    async deleteProject () {
+    async deleteProject() {
       await Api.deleteProject(this.project.id, this.$store.state.token)
       if (this.currentProject.id === this.project.id) {
-        this.selectProject({id: this.user.defaultProjectId})
+        this.selectProject({ id: this.user.defaultProjectId })
       }
-      this.$emit('showView', {view: 'ProjectList'})
+      this.$emit('showView', { view: 'ProjectList' })
     },
-    ...mapActions(['selectProject'])
-  }
+    ...mapActions(['selectProject']),
+  },
 }
 </script>
 
-<style lang="sass" scoped>
-.panel
-  padding-top: 20px
-
-dt
-  display: inline-block
-  padding: 5px
-  width: 25%
-  font-weight: bold
-  text-align: right
-
-dd
-  display: inline-block
-  width: 75%
-  padding: 5px
+<style lang="scss" scoped>
+.panel {
+  padding-top: 20px;
+}
+dt {
+  display: inline-block;
+  padding: 5px;
+  width: 25%;
+  font-weight: bold;
+  text-align: right;
+}
+dd {
+  display: inline-block;
+  width: 75%;
+  padding: 5px;
+}
 </style>

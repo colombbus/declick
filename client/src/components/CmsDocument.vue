@@ -158,17 +158,17 @@ export default {
   #content .page-text p, #content .page-text ul, #content .page-text ol {margin:0 0 22px 0;}
   #content .page-text ul, #content .page-text ol {margin-left:25px;}
   #content .page-text ul ul, #content .page-text ol ul, #content .page-text ul ol, #content .page-text ol ol {
-  	margin:0 0 0 25px;
+    margin:0 0 0 25px;
   }
   #content .page-text blockquote {
-  	margin:0 0 22px 20px;
-  	line-height: 19px;
-  	font-size:13px;
-  	color:#666;
-  	font-style:italic;
-  	border-left:2px solid #ccc;
-  	padding:0 0 0 15px;
-  	}
+    margin:0 0 22px 20px;
+    line-height: 19px;
+    font-size:13px;
+    color:#666;
+    font-style:italic;
+    border-left:2px solid #ccc;
+    padding:0 0 0 15px;
+    }
   /*
   #content code {border:1px dotted #ececec;padding:2px;font-family: Consolas, Monaco, "Courier New", Courier, monospace;font-size: 12px;background:#f9f9f9;color:#000;}
   #content pre code {line-height:17px;padding:15px;border:1px dotted #ececec;font-family: Consolas, Monaco, "Courier New", Courier, monospace;font-size: 12px;background:#f9f9f9;color:#000;margin-bottom:22px;display:block;}
@@ -177,10 +177,10 @@ export default {
 
   #content .page-text img {margin:0 0 0 0;border:none;vertical-align:bottom;}
   .code-declick {
-  	background-color: #d7d7d7;
+    background-color: #d7d7d7;
       border-radius: 18px;
       padding: 28px;
-  	width:500px;
+    width:500px;
   }
   a#declick{
   color:#e47637;
@@ -190,70 +190,70 @@ export default {
   }
 
   #box-content {
-  	max-height:200px;
-  	overflow-y:scroll;
-  	overflow-x:hidden;
+    max-height:200px;
+    overflow-y:scroll;
+    overflow-x:hidden;
   }
 
   #content table {
-  	text-align:left;
+    text-align:left;
   }
 
   #content table td {
-  	vertical-align:top;
+    vertical-align:top;
   }
 
   #sommaire, #quoi, #qui, #ensemble, #logos {
-  	table-layout: fixed;
-  	border-spacing:15px;
+    table-layout: fixed;
+    border-spacing:15px;
   }
 
   #sommaire {
-  	margin:7px;
-  	box-sizing:border-box;
-  	border-spacing:15px;
+    margin:7px;
+    box-sizing:border-box;
+    border-spacing:15px;
   }
 
   #sommaire td {
-  	padding: 0 10px;
-  	position:relative;
+    padding: 0 10px;
+    position:relative;
   }
 
   #content #sommaire td p {
-  	margin:0 0 50px 0;
+    margin:0 0 50px 0;
   }
 
   #sommaire td a {
-  	display:block;
-  	position:absolute;
-  	bottom:0;
-  	right:15px;
-  	text-transform: uppercase;
-  	color:#FFFFFF;
-  	background-color:#480A2A;
-  	min-width:100px;
-  	text-align:center;
-  	text-decoration:none;
-  	font-family:"rubik";
-  	padding:7px 7px;
-  	font-weight:500;
-  	font-size:1.1em;
+    display:block;
+    position:absolute;
+    bottom:0;
+    right:15px;
+    text-transform: uppercase;
+    color:#FFFFFF;
+    background-color:#480A2A;
+    min-width:100px;
+    text-align:center;
+    text-decoration:none;
+    font-family:"rubik";
+    padding:7px 7px;
+    font-weight:500;
+    font-size:1.1em;
   }
 
   #content h2:nth-of-type(1) img {
-  		position:absolute;
-  		right:0;
-  		top:-75px;
+      position:absolute;
+      right:0;
+      top:-75px;
   }
 
   #content h2:nth-of-type(2) img {
-  		position:absolute;
-  		left:0;
-  		top:-75px;
+      position:absolute;
+      left:0;
+      top:-75px;
   }
 
   #quoi {
-  	margin:7px;
+    margin:7px;
   }
 
   #quoi td {
@@ -261,57 +261,57 @@ export default {
   }
 
   #quoi td ul li {
-  	list-style-image: url('../assets/images/yellow.png');
+    list-style-image: url('../assets/images/yellow.png');
   }
 
   #qui, #ensemble, #logos {
-  	max-width:800px;
-  	margin-left:auto;
-  	margin-right:auto;
+    max-width:800px;
+    margin-left:auto;
+    margin-right:auto;
   }
 
   #qui td {
-  	position:relative;
-  	padding-right:15px;
+    position:relative;
+    padding-right:15px;
   }
 
   #content #qui td p {
-  	margin-bottom:50px;
+    margin-bottom:50px;
   }
 
   #qui td a {
-  	position:absolute;
-  	bottom:0;
-  	right:15px;
-  	color:#480A2A;
-  	font-size:0.9em;
+    position:absolute;
+    bottom:0;
+    right:15px;
+    color:#480A2A;
+    font-size:0.9em;
   }
 
   #logos td {
-  	text-align:center;
-  	width:50%;
+    text-align:center;
+    width:50%;
   }
 
   #logos td img {
-  	padding:0 20px;
+    padding:0 20px;
   }
 
   #partenaires {
-  	margin-top:-90px;
-  	background-color:#480A2A;
-  	text-align:center;
-  	padding:30px 0px;
+    margin-top:-90px;
+    background-color:#480A2A;
+    text-align:center;
+    padding:30px 0px;
   }
 
   #content #partenaires img {
-  	display:inline-block;
-  	margin:0 10px;
+    display:inline-block;
+    margin:0 10px;
   }
 
   #enseignants-animateurs #wrapper {
-  	max-width:800px;
-  	margin-left:auto;
-  	margin-right:auto;
+    max-width:800px;
+    margin-left:auto;
+    margin-right:auto;
   }
 
   #enseignants-animateurs #content h3 { font-family:arial;font-size:18px;margin:20px 0 20px 0;text-transform: none;font-weight:600;}
@@ -321,39 +321,39 @@ export default {
   {margin:20px 0 0 7px;text-transform: uppercase;}
 
   #sections p{
-  	padding-left: 7px;
-  	padding-right: 7px;
+    padding-left: 7px;
+    padding-right: 7px;
   }
 
   #sections {
-  	margin-top:30px;
-  	margin-bottom:40px;
+    margin-top:30px;
+    margin-bottom:40px;
   }
 
   #outils p{
-  	padding-left: 7px;
-  	padding-right: 7px;
+    padding-left: 7px;
+    padding-right: 7px;
   }
 
   #animateurs {
-  	display: block;
-  	position:absolute;
-  	width:144px;
-  	height:144px;
-  	background-image:url("../assets/images/animateurs.png");
-  	left:0;
-  	right:0;
-  	margin-left:auto;
-  	margin-right:auto;
-  	color:transparent;
+    display: block;
+    position:absolute;
+    width:144px;
+    height:144px;
+    background-image:url("../assets/images/animateurs.png");
+    left:0;
+    right:0;
+    margin-left:auto;
+    margin-right:auto;
+    color:transparent;
   }
 
   #animateurs:hover {
-  	background-image:url("../assets/images//animateurs_on.png");
+    background-image:url("../assets/images//animateurs_on.png");
   }
 
   #content .page-text img#image_contact {
-  	margin-top:12px;
+    margin-top:12px;
   }
 
   #enseignants-animateurs #content table a

@@ -3,12 +3,13 @@
   .program-list__content
     program-item(
       v-for='program in orderedPrograms'
-      @select='select (program.id)'
+      @select='select(program.id)'
       @rename='name => renameProgram(program.id, name)'
       @destroy='destroyProgram(program.id)'
       :key='program.id'
       :name='program.name'
       :selected='selectedId === program.id'
+      :id='program.id'
     )
   .program-list__controls
     button.program-list__new(@click='createProgram' type='button')
@@ -33,6 +34,7 @@ export default {
   methods: {
     select(id) {
       this.selectedId = id
+      this.$emit('select', id)
     },
     renameProgram(id, newName) {
       this.programs.find(program => program.id === id).name = newName
@@ -70,7 +72,8 @@ export default {
   },
   computed: {
     orderedPrograms() {
-      return this.programs.sort((a, b) => a.name.localeCompare(b.name))
+      const self = this
+      return self.programs.sort((a, b) => a.name.localeCompare(b.name))
     },
   },
   components: {

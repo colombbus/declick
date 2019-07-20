@@ -21,46 +21,46 @@ import range from 'lodash.range'
 import AssetItem from './AssetItem.vue'
 
 export default {
-  data () {
+  data() {
     return {
       assets: [],
       selectedId: null,
     }
   },
-  created () {
+  created() {
     range(0, 5).forEach(() => this.createAsset())
   },
   methods: {
-    select (id) {
+    select(id) {
       this.selectedId = id
     },
-    renameAsset (id, newName) {
+    renameAsset(id, newName) {
       this.assets.find(asset => asset.id === id).name = newName
     },
-    createAsset () {
+    createAsset() {
       this.assets.push({
         id: this.generateId(),
         name: this.generateName(),
       })
     },
-    destroySelectedAsset () {
+    destroySelectedAsset() {
       this.destroyAsset(this.selectedId)
     },
-    destroyAsset (id) {
+    destroyAsset(id) {
       this.assets = this.assets.filter(asset => asset.id !== id)
       if (this.selectedId === id) {
         this.selectedId = null
       }
     },
-    generateName () {
+    generateName() {
       let i = 1
       const name = index => this.$t('pattern.asset.name', { index })
-      while (this.assets.some((asset) => asset.name === name(i))) {
+      while (this.assets.some(asset => asset.name === name(i))) {
         i++
       }
       return name(i)
     },
-    generateId () {
+    generateId() {
       let i = 1
       while (this.assets.some(({ id }) => id === i)) {
         i++
@@ -69,8 +69,9 @@ export default {
     },
   },
   computed: {
-    orderedAssets () {
-      return this.assets.sort((a, b) => a.name.localeCompare(b.name))
+    orderedAssets() {
+      const self = this
+      return self.assets.sort((a, b) => a.name.localeCompare(b.name))
     },
   },
   components: {

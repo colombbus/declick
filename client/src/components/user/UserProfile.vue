@@ -18,35 +18,37 @@ import Api from '@/api'
 
 export default {
   props: ['id'],
-  data () {
+  data() {
     return {
-      user: null
+      user: null,
     }
   },
-  async created () {
+  async created() {
     this.user = await Api.getUser(this.id)
   },
   methods: {
-    editUser () {
-      this.$router.push({path: '/users/' + this.user.id + '/edit'})
-    }
-  }
+    editUser() {
+      this.$router.push({ path: '/users/' + this.user.id + '/edit' })
+    },
+  },
 }
 </script>
 
-<style lang="sass" scoped>
-.panel
-  padding-top: 20px
+<style lang="scss" scoped>
+.panel {
+  padding-top: 20px;
+}
 
-dt
-  display: inline-block
-  padding: 5px
-  width: 25%
-  font-weight: bold
-  text-align: right
-
-dd
-  display: inline-block
-  width: 75%
-  padding: 5px
+dt {
+  display: inline-block;
+  padding: 5px;
+  width: 25%;
+  font-weight: bold;
+  text-align: right;
+}
+dd {
+  display: inline-block;
+  width: 75%;
+  padding: 5px;
+}
 </style>

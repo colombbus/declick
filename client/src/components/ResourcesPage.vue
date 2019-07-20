@@ -2,5 +2,3 @@
 .resources
 </template>
 
-<style lang="sass">
-</style>

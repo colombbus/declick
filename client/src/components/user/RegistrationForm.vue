@@ -67,7 +67,7 @@ import Vue from 'vue'
 import config from '@/config'
 
 export default {
-  data () {
+  data() {
     return {
       username: '',
       email: '',
@@ -76,50 +76,58 @@ export default {
         username: null,
         email: null,
         password: null,
-        passwordConfirmation: null
+        passwordConfirmation: null,
       },
       passwordConfirmation: '',
-      lastUsernameTest: 0
+      lastUsernameTest: 0,
     }
   },
   watch: {
-    username (value) {
+    // eslint-disable-next-line
+    username(value) {
       this.errors.username = null
       if (this.checkTimeout) {
         window.clearTimeout(this.checkTimeout)
       }
       this.checkTimeout = window.setTimeout(async () => {
         let endpoint = `${config.apiUrl}v1/test/username`
-        let {body: response} = await Vue.http.post(endpoint, {username: this.username})
+        let { body: response } = await Vue.http.post(endpoint, {
+          username: this.username,
+        })
         if (response.result === false) {
           this.errors.username = ["Ce nom d'utilisateur est déjà pris."]
         }
       }, 500)
     },
-    password () {
+    password() {
       this.errors.password = null
       this.comparePasswords()
     },
-    passwordConfirmation () {
+    passwordConfirmation() {
       this.errors.passwordConfirmation = null
       this.comparePasswords()
     },
-    email () {
+    email() {
       this.errors.email = null
-    }
+    },
   },
   methods: {
-    async register () {
+    async register() {
       this.errors.server = null
       try {
         if (!this.password || this.password.trim().length === 0) {
-          let error = {body: {password: ["Mot de passe vide"]}}
+          let error = { body: { password: ['Mot de passe vide'] } }
           throw error
         }
-        if (!this.errors.username && !this.errors.password && !this.errors.passwordConfirmation && !this.errors.email) {
+        if (
+          !this.errors.username &&
+          !this.errors.password &&
+          !this.errors.passwordConfirmation &&
+          !this.errors.email
+        ) {
           var data = {
             username: this.username,
-            password: this.password
+            password: this.password,
           }
           if (this.email.trim().length > 0) {
             data.email = this.email
@@ -127,7 +135,7 @@ export default {
           await this.$store.dispatch('register', data)
           await this.$store.dispatch('logIn', {
             username: this.username,
-            password: this.password
+            password: this.password,
           })
           this.$emit('close')
         }
@@ -137,26 +145,33 @@ export default {
             this.errors[field] = e.body[field]
           }
         } else {
-          this.errors.server = ["Erreur du serveur"]
+          this.errors.server = ['Erreur du serveur']
         }
       }
     },
-    comparePasswords () {
-      if ((this.password && this.password.trim().length > 0) || (this.passwordConfirmation && this.passwordConfirmation.trim().length > 0)) {
+    comparePasswords() {
+      if (
+        (this.password && this.password.trim().length > 0) ||
+        (this.passwordConfirmation &&
+          this.passwordConfirmation.trim().length > 0)
+      ) {
         if (this.password === this.passwordConfirmation) {
           return true
         } else {
-          this.errors.passwordConfirmation = ["Les mots de passe ne correspondent pas"]
+          this.errors.passwordConfirmation = [
+            'Les mots de passe ne correspondent pas',
+          ]
         }
       }
       return false
-    }
+    },
   },
-  checkTimeout: false
+  checkTimeout: false,
 }
 </script>
 
-<style lang="sass" scoped>
-.input-group
-  margin-bottom: 6px
+<style lang="scss" scoped>
+.input-group {
+  margin-bottom: 6px;
+}
 </style>

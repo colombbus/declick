@@ -9,30 +9,33 @@
 </template>
 
 <script>
-import {mapState} from 'vuex'
+import { mapState } from 'vuex'
 
 export default {
-  computed: mapState(['user'])
+  computed: mapState(['user']),
 }
 </script>
 
-<style lang="sass" scoped>
-a
-  padding: 0
-  font-family: Rubik, sans-serif
-  font-size: 18.6667px
-  color: white
-  outline: 0
-  cursor: pointer
+<style lang="scss" scoped>
+a {
+  padding: 0;
+  font-family: Rubik, sans-serif;
+  font-size: 18.6667px;
+  color: white;
+  outline: 0;
+  cursor: pointer;
+}
 
-.self
-  height: 38px
-  width: 150px
-  text-align: center
-  line-height: 35px
-  background-color: #642D46
+.self {
+  height: 38px;
+  width: 150px;
+  text-align: center;
+  line-height: 35px;
+  background-color: #642d46;
+}
 
-.glyphicon
-  position: relative
-  top: 3px
+.glyphicon {
+  position: relative;
+  top: 3px;
+}
 </style>

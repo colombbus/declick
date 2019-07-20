@@ -81,23 +81,31 @@ export default {
   },
   computed: {
     urlLearn() {
+      let prefix
+      let suffix
+
       if (this.currentAssessment) {
         if (this.currentAssessment.url) {
           // return this.currentAssessment.url + '&token=' + this.token + '&channelId=declick'
-          return this.currentAssessment.url + '&token=' + this.token
+          prefix = this.currentAssessment.url
+          suffix = '&token='
         } else {
+          const self = this
           // chapter
-          this.$router.push({
+          self.$router.push({
             name: 'map',
-            params: { id: this.$route.params.id },
+            params: { id: self.$route.params.id },
           })
           // return config.clientUrl + 'learn.html#token=' + this.token + '&channelId=declick'
-          return config.clientUrl + 'learn.html#token=' + this.token
+          prefix = config.clientUrl
+          suffix = 'learn.html#token='
         }
       } else {
         // return config.clientUrl + 'learn.html#token=' + this.token + '&channelId=declick'
-        return config.clientUrl + 'learn.html#token=' + this.token
+        prefix = config.clientUrl
+        suffix = 'learn.html#token='
       }
+      return prefix + suffix + this.token
     },
     ...mapState([
       'currentAssessment',
@@ -156,7 +164,6 @@ export default {
   font-weight: bold;
   src: url('../../assets/fonts/DejaVuSans-Bold.ttf');
 }
-
 
 /* CSS from learn.css */
 body,

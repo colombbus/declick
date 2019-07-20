@@ -33,7 +33,7 @@ import DeclickObjects from '../../objects/lib/declick-objects'
 
 export default {
   computed: {
-    viewId () {
+    viewId() {
       if (this.$route.matched) {
         var last = R.last(this.$route.matched)
         if (last && last.meta && last.meta.id) {
@@ -42,12 +42,12 @@ export default {
       }
       return null
     },
-    fullscreenMode () {
+    fullscreenMode() {
       return this.$route.matched.some(match => match.meta.useFullscreen)
     },
-    viewUseFullscreen () {
+    viewUseFullscreen() {
       return this.$route.matched.some(match => match.meta.useFullscreen)
-    }
+    },
   },
   components: {
     CourseRun,
@@ -55,34 +55,38 @@ export default {
     FooterBar,
     HeaderBar,
     MainMenu,
-    Execute
+    Execute,
   },
-  created(){
-    DeclickRuntime.initialize({},{});
-    DeclickObjects.load('fr')
-    .then(objects => {
-      console.debug(objects);
+  created() {
+    DeclickRuntime.initialize({}, {})
+    DeclickObjects.load('fr').then(objects => {
+      console.debug(objects)
     })
-  }
+  },
 }
 </script>
 
-<style lang="sass">
-.application
-  display: grid
-  height: 100%
-  margin: 0
-  padding: 0
-  grid-template-rows: auto auto 1fr auto
-
-.application--fullscreen
-  &__header-bar, &__footer-bar
-    display: none
+<style lang="scss">
+.application {
+  display: grid;
+  height: 100%;
+  margin: 0;
+  padding: 0;
+  grid-template-rows: auto auto 1fr auto;
+}
+.application--fullscreen {
+  &__header-bar,
+  &__footer-bar {
+    display: none;
+  }
+}
 
 // small devices
 
-@media only screen and (max-width: 576px)
+@media only screen and (max-width: 576px) {
   .application__header,
-  .application__footer
-    display: none
+  .application__footer {
+    display: none;
+  }
+}
 </style>

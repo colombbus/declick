@@ -110,15 +110,16 @@ export default {
   },
   computed: {
     urlLearn() {
+      const self = this
       if (this.currentAssessment) {
         if (this.currentAssessment.url) {
           // return this.currentAssessment.url + '&token=' + this.token + '&channelId=declick'
           return this.currentAssessment.url + '&token=' + this.token
         } else {
           // chapter
-          this.$router.push({
+          self.$router.push({
             name: 'map',
-            params: { id: this.$route.params.id },
+            params: { id: self.$route.params.id },
           })
           // return config.clientUrl + 'learn.html#token=' + this.token + '&channelId=declick'
           return config.clientUrl + 'learn.html#token=' + this.token

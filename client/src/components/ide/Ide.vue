@@ -20,14 +20,14 @@ import ResourceManager from '@/components/ide/resources/ResourceManager.vue'
 import Help from './Help.vue'
 
 export default {
-  data () {
+  data() {
     return {
       view: 'resource-manager', // 'resource-manager' | 'preview'
       helpVisible: false,
       onKeyUp: null,
     }
   },
-  created () {
+  created() {
     this.onKeyUp = event => {
       if (event.ctrlKey && event.keyCode === 13) {
         this.toggleView()
@@ -35,17 +35,16 @@ export default {
     }
     document.addEventListener('keyup', this.onKeyUp)
   },
-  destroyed () {
+  destroyed() {
     document.removeEventListener('keyup', this.onKeyUp)
   },
   methods: {
-    toggleHelp () {
+    toggleHelp() {
       this.helpVisible = !this.helpVisible
     },
-    toggleView () {
-      this.view = (this.view === 'resource-manager')
-        ? 'preview'
-        : 'resource-manager'
+    toggleView() {
+      this.view =
+        this.view === 'resource-manager' ? 'preview' : 'resource-manager'
     },
   },
   components: {
@@ -56,19 +55,23 @@ export default {
 }
 </script>
 
-<style lang="sass">
-.ide
-  height: 100%
-  width: 100%
-  display: grid
-  grid-template-areas: 'help content'
-  grid-template-columns: auto 1fr
-  grid-template-rows: 100%
+<style lang="scss">
+.ide {
+  height: 100%;
+  width: 100%;
+  display: grid;
+  grid-template-areas: 'help content';
+  grid-template-columns: auto 1fr;
+  grid-template-rows: 100%;
+}
 
-.ide__help
-  width: 350px
-  grid-area: help
+.ide__help {
+  width: 350px;
+  grid-area: help;
+}
 
-.ide__preview, .ide__resource-manager
-  grid-area: content
+.ide__preview,
+.ide__resource-manager {
+  grid-area: content;
+}
 </style>

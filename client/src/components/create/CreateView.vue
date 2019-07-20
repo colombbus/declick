@@ -26,7 +26,7 @@
 </template>
 
 <script>
-import {mapState} from 'vuex'
+import { mapState } from 'vuex'
 import CreateHeaderBar from './CreateHeaderBar'
 import CreateMenuBar from './CreateMenuBar'
 import ProjectCreator from './ProjectCreator'
@@ -34,49 +34,55 @@ import ProjectDetails from './ProjectDetails'
 import ProjectEditor from './ProjectEditor'
 import ProjectList from './ProjectList'
 import config from '@/config'
-import {EventBus} from '@/eventBus'
+import { EventBus } from '@/eventBus'
 
 export default {
-  data () {
+  data() {
     return {
       view: null,
       params: null,
       editor: true,
       wikiUrl: config.wikiUrl,
-      wiki: false
+      wiki: false,
     }
   },
   computed: {
-    frameUrl () {
-      return `${config.clientUrl}index.html` +
+    frameUrl() {
+      return (
+        `${config.clientUrl}index.html` +
         `#editor=${this.editor}` +
         `&token=${this.token}` +
         (this.currentProject ? `&id=${this.currentProject.id}` : '') +
         `&wiki=${this.wiki}`
+      )
     },
-    ...mapState(['currentProject', 'token'])
+    ...mapState(['currentProject', 'token']),
   },
-  mounted () {
-    window.addEventListener('message', ({data}) => {
-      switch (data) {
-        case 'switchEditor':
-          this.editor = true
-          break
-        case 'switchView':
-          this.editor = false
-          break
-        case 'toggleWiki':
-          this.toggleWiki()
-          break
-      }
-    }, false)
+  mounted() {
+    window.addEventListener(
+      'message',
+      ({ data }) => {
+        switch (data) {
+          case 'switchEditor':
+            this.editor = true
+            break
+          case 'switchView':
+            this.editor = false
+            break
+          case 'toggleWiki':
+            this.toggleWiki()
+            break
+        }
+      },
+      false,
+    )
     let createFrame = this.$refs.createFrame
     EventBus.$on('initCreate', () => {
       createFrame.contentWindow.postMessage('init', '*')
     })
   },
   methods: {
-    showView (payload) {
+    showView(payload) {
       if (typeof payload === 'string') {
         this.view = payload
       } else {
@@ -84,16 +90,16 @@ export default {
         this.params = payload.params
       }
     },
-    beforeEnter (element) {
+    beforeEnter(element) {
       $(element).hide()
     },
-    onEnter (element, done) {
+    onEnter(element, done) {
       $(element).slideDown(1000, done)
     },
-    onLeave (element, done) {
+    onLeave(element, done) {
       $(element).slideUp(1000, done)
     },
-    toggleWiki () {
+    toggleWiki() {
       // Disabled in favor of new interface components.
       /*
       let wikiFrame = $(this.$refs.wikiFrame)
@@ -109,7 +115,7 @@ export default {
         createFrame.animate({'padding-left': '8px'}, 500, function () { $(this).css('padding-left', '') })
       }
       */
-    }
+    },
   },
   components: {
     CreateHeaderBar,
@@ -117,43 +123,47 @@ export default {
     ProjectCreator,
     ProjectDetails,
     ProjectEditor,
-    ProjectList
-  }
+    ProjectList,
+  },
 }
 </script>
 
-<style lang="sass" scoped>
-.create-view
-  position:relative
+<style lang="scss" scoped>
+.create-view {
+  position: relative;
+}
 
-.slider
-  position: absolute
-  height: calc(100vh - 112px)
-  width: 100%
-  padding: 10px
-  background-color: #FFF
-  overflow: auto
+.slider {
+  position: absolute;
+  height: calc(100vh - 112px);
+  width: 100%;
+  padding: 10px;
+  background-color: #fff;
+  overflow: auto;
+}
+.close-button {
+  float: right;
+  width: 26px;
+  height: 26px;
+  margin-top: 20px;
+  background-color: transparent;
+  background-image: url(~@/assets/images/close-small.png);
+  border: none;
+}
 
-.close-button
-  float: right
-  width: 26px
-  height: 26px
-  margin-top: 20px
-  background-color: transparent
-  background-image: url(~@/assets/images/close-small.png)
-  border: none
+.frame {
+  height: calc(100vh - 112px);
+  width: 100%;
+  padding: 0 8px 8px 8px;
+  border: none;
+  overflow: hidden;
+}
 
-.frame
-  height: calc(100vh - 112px)
-  width: 100%
-  padding: 0 8px 8px 8px
-  border: none
-  overflow: hidden
-
-.wikiFrame
-  position: absolute
-  height: calc(100vh - 112px)
-  width: 365px
-  display: none
-  border: none
+.wikiFrame {
+  position: absolute;
+  height: calc(100vh - 112px);
+  width: 365px;
+  display: none;
+  border: none;
+}
 </style>

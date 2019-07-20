@@ -1,6 +1,6 @@
 <template lang="pug">
 .resource-panel(:class='`resource-panel--${view}`')
-  program-list(v-show="view === 'programs'")
+  program-list(v-show="view === 'programs'" @select="$emit('select',$event)")
   asset-list(v-show="view === 'assets'")
   .resource-panel__tabs
     button.resource-panel__switch-programs(@click="view = 'programs'" type='button')
@@ -12,7 +12,7 @@ import AssetList from './AssetList.vue'
 import ProgramList from './ProgramList.vue'
 
 export default {
-  data () {
+  data() {
     return {
       view: 'programs',
     }

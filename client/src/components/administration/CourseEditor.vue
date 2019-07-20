@@ -93,20 +93,19 @@ export default {
       require('brace/snippets/javascript') //snippet
     },
     async saveResourceChange(currentContent, resource_id, projectID) {
-      console.log(content)
+      console.log(currentContent)
       await axios({
-        url: `${
-          config.apiUrl
-        }projects/${projectID}/resources/${resource_id}/contentExercise`,
+        url: `${config.apiUrl}projects/${projectID}/resources/${resource_id}/contentExercise`,
         method: 'PATCH',
         data: currentContent[1],
         headers: {
           Authorization: 'Token ' + this.token,
         },
-      }).then(r => {
-        // console.log(r);
-        // TODO: signal this is ok
       })
+      // .then(r => {
+      //   // console.log(r);
+      //   // TODO: signal this is ok
+      // })
     },
     async retrieveCourse() {
       await axios({
@@ -210,49 +209,57 @@ export default {
 }
 </script>
 
-<style lang="sass">
-
-#courseModificationContainer 
+<style lang="scss">
+#courseModificationContainer {
   display: flex;
   flex-direction: row;
   width: 65%;
+}
 
-   
-#courseModificationContainer > div
+#courseModificationContainer > div {
   margin: 0px 10px;
-  width:calc(100% / 3 - 20px)
+  width: calc(100% / 3 - 20px);
   // width: 90%;
+}
 
-#courseModificationContainer > div > textarea
+#courseModificationContainer > div > textarea {
   width: 100%;
-  height: 250px
+  height: 250px;
+}
 
-#course-tree-view
+#course-tree-view {
   // float: left
-  clear:both
+  clear: both;
+}
 
-#course-step-editor
-  float: left
-  margin-left: 20px
+#course-step-editor {
+  float: left;
+  margin-left: 20px;
+}
 
-#course-tree-view
-  margin: 0
-  padding: 0
-  list-style-type: none
-  ol
-    margin: 0
-    padding: 0
-    list-style-type: none
-  li
-    margin: 0px
-  a
-    text-decoration: none
-  .glyphicon
-    color: #2A6698
-  .node-control
-    display: inline-block
-    width: 25px
-    padding: 0 5px
-    text-align: center
-
+#course-tree-view {
+  margin: 0;
+  padding: 0;
+  list-style-type: none;
+  ol {
+    margin: 0;
+    padding: 0;
+    list-style-type: none;
+  }
+  li {
+    margin: 0px;
+  }
+  a {
+    text-decoration: none;
+  }
+  .glyphicon {
+    color: #2a6698;
+  }
+  .node-control {
+    display: inline-block;
+    width: 25px;
+    padding: 0 5px;
+    text-align: center;
+  }
+}
 </style>

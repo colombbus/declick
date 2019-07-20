@@ -46,14 +46,18 @@ export default {
 }
 </script>
 
-<style lang="sass">
-.tree-view-children
-  margin-left: 20px
-  cursor: pointer
+<style lang="scss">
+.tree-view-children {
+  margin-left: 20px;
+  cursor: pointer;
+}
+.fade-enter-active,
+.fade-leave-active {
+  transition: opacity 0.5s;
+}
 
-.fade-enter-active, .fade-leave-active
-  transition: opacity 0.5s
-
-.fade-enter, .fade-leave-active
-  opacity: 0
+.fade-enter,
+.fade-leave-active {
+  opacity: 0;
+}
 </style>

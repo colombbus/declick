@@ -1,16 +1,20 @@
 <template lang="pug">
-.editor(ref="editor")
-  .editor__disabled-message(v-show='disabled') {{ $t('message.editor.no-program-opened') }}
+.editor
+  .editor__disabled-message(v-if='!enabled') {{ $t('message.editor.no-program-opened') }}
+  .editor__wrapper(v-show='enabled' ref="editor")
 </template>
 
 <script>
-const content = `t = new Texte()\nt.récupérerTexte()`
-
 import * as ace from 'brace'
+import { mapActions, mapState } from 'vuex'
+import { debounce } from 'underscore'
+
 import 'brace/mode/javascript'
 import 'brace/ext/modelist'
 import 'brace/ext/themelist'
 import 'brace/theme/twilight'
+
+const content = `t = new Texte()\nt.récupérerTexte()`
 
 export default {
   props: ['programId'],
@@ -21,19 +25,31 @@ export default {
     createEditor() {
       this.editor = ace.edit(this.$refs.editor)
 
-      this.editSession = this.editor.getSession()
-      this.editSession.setMode('ace/mode/javascript')
-      this.editSession.setValue(content)
       // editor options
       this.editor.setTheme(`ace/theme/twilight`)
       this.editor.setShowPrintMargin(false)
       this.editor.setFontSize('20px')
       this.editor.focus()
+
+      // editor session
+      this.editSession = this.editor.getSession()
+      this.editSession.setMode('ace/mode/javascript')
+      this.editSession.setValue(content)
+
+      this.editSession.on(
+        'change',
+        debounce(() => {
+          const content = this.editSession.getValue()
+          this.setCurrentCode({})
+          console.log(state, id, result)
+        }, 300),
+      )
     },
+    ...mapActions(['setCurrentCode']),
   },
   computed: {
-    disabled() {
-      return !this.programId
+    enabled() {
+      return this.programId
     },
   },
 }
@@ -43,16 +59,23 @@ export default {
 .editor {
   background-color: black;
   color: white;
-}
-
-.editor__disabled-message {
-  height: 100%;
-  width: 100%;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  font-size: 1em;
-  color: white;
-  opacity: 0.3;
+  position: relative;
+  &__wrapper {
+    position: absolute;
+    top: 0;
+    right: 0;
+    bottom: 0;
+    left: 0;
+  }
+  &__disabled-message {
+    height: 100%;
+    width: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 1em;
+    color: white;
+    opacity: 0.3;
+  }
 }
 </style>

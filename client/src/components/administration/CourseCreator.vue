@@ -15,7 +15,6 @@
 </template>
 
 <script>
-import Vue from 'vue'
 import config from '@/assets/config/declick'
 import axios from 'axios'
 
@@ -45,10 +44,12 @@ export default {
 }
 </script>
 
-<style lang="sass">
-#course-creator
-  width: 100%
+<style lang="scss">
+#course-creator {
+  width: 100%;
+}
 
-.cursor
-  cursor:pointer
+.cursor {
+  cursor: pointer;
+}
 </style>

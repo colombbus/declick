@@ -36,6 +36,7 @@ export default {
   [mutations.RECEIVE_RESULTS](state, { results }) {
     state.currentCourseResults = results
   },
+
   [mutations.ASSESSMENT_RESULT](state, { id, result }) {
     let [resultEntry] = state.currentCourseResults.filter(
       resultItem => resultItem.assessmentId === id,
@@ -56,4 +57,8 @@ export default {
       })
     }
   },
+
+  [mutations.CURRENT_CODE_UPDATE](state, { id, result }) {
+    console.log(state, id, result)
+  }
 }

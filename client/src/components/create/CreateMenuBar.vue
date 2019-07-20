@@ -17,73 +17,79 @@
 </template>
 
 <script>
-import {mapState} from 'vuex'
+import { mapState } from 'vuex'
 import Api from '@/api'
 
 export default {
   props: ['editor'],
   methods: {
-    importExamplePrograms () {
+    importExamplePrograms() {
       Api.importProject(402, this.token)
-      window.alert('Les programmes ont été importés, veuillez recharger la page.')
+      window.alert(
+        'Les programmes ont été importés, veuillez recharger la page.',
+      )
     },
-    toggleMode () {
+    toggleMode() {
       this.$emit('toggleEditor')
-    }
+    },
   },
-  computed: mapState(['token', 'user', 'currentProject'])
+  computed: mapState(['token', 'user', 'currentProject']),
 }
 </script>
 
-<style lang="sass" scoped>
-a
-  cursor: pointer
+<style lang="scss" scoped>
+a {
+  cursor: pointer;
+}
+.self {
+  height: 50px;
+  padding: 0 5px;
+  line-height: 50px;
+}
+.dropdown {
+  display: inline-block;
+}
 
-.self
-  height: 50px
-  padding: 0 5px
-  line-height: 50px
-
-.dropdown
-  display: inline-block
-
-.dropdown-trigger
-  display: inline-block
-  width: 21px
-  height: 50px
-  background-image: url(~@/assets/images/dropdown-trigger.png)
-  background-repeat: no-repeat
-  background-position: center
-  vertical-align: bottom
-  cursor: pointer
-
-.project-name
-  display: inline-block
-  margin-left: 10px
-  font-family: "Rubik", sans-serif
-  font-size: 20pt
-  font-weight: 700
-  color: #480A2A
-  vertical-align: middle
-
+.dropdown-trigger {
+  display: inline-block;
+  width: 21px;
+  height: 50px;
+  background-image: url(~@/assets/images/dropdown-trigger.png);
+  background-repeat: no-repeat;
+  background-position: center;
+  vertical-align: bottom;
+  cursor: pointer;
+}
+.project-name {
+  display: inline-block;
+  margin-left: 10px;
+  font-family: 'Rubik', sans-serif;
+  font-size: 20pt;
+  font-weight: 700;
+  color: #480a2a;
+  vertical-align: middle;
+}
 .show-editor-link,
-.show-view-link
-  display: inline-block
-  float: right
-  width: 36px
-  height: 36px
-  margin-top: 5px
-  cursor: pointer
+.show-view-link {
+  display: inline-block;
+  float: right;
+  width: 36px;
+  height: 36px;
+  margin-top: 5px;
+  cursor: pointer;
+}
+.show-editor-link {
+  background-image: url(~@/assets/images/switch-editor.png);
+}
+.show-editor-link:hover {
+  background-image: url(~@/assets/images/switch-editor-hover.png);
+}
 
-.show-editor-link
-  background-image: url(~@/assets/images/switch-editor.png)
+.show-view-link {
+  background-image: url(~@/assets/images/switch-view.png);
+}
 
-.show-editor-link:hover
-  background-image: url(~@/assets/images/switch-editor-hover.png)
-
-.show-view-link
-  background-image: url(~@/assets/images/switch-view.png)
-
-.show-view-link:hover
-  background-image: url(~@/assets/images/switch-view-hover.png)
+.show-view-link:hover {
+  background-image: url(~@/assets/images/switch-view-hover.png);
+}
 </style>

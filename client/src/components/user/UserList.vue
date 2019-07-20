@@ -74,11 +74,14 @@ export default {
 }
 </script>
 
-<style lang="sass" scoped>
-#flexNeedGrow
-  flex-grow: 2
-a
-  cursor: pointer
-li
-  cursor: pointer
+<style lang="scss" scoped>
+#flexNeedGrow {
+  flex-grow: 2;
+}
+a {
+  cursor: pointer;
+}
+li {
+  cursor: pointer;
+}
 </style>

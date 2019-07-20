@@ -19,11 +19,8 @@
 import ClickOutside from 'vue-click-outside'
 
 export default {
-  props: [
-    'name',
-    'selected',
-  ],
-  data () {
+  props: ['name', 'selected', 'id'],
+  data() {
     return {
       inputMode: false,
       inputValue: null,
@@ -32,7 +29,7 @@ export default {
     }
   },
   computed: {
-    selectedClass () {
+    selectedClass() {
       switch (this.selectedMode) {
         case 'active':
           return 'program-item--selected-active'
@@ -43,7 +40,7 @@ export default {
       }
     },
   },
-  created () {
+  created() {
     this.onKeyUp = event => {
       if (event.keyCode === 46) {
         this.onPressDelete()
@@ -51,16 +48,16 @@ export default {
     }
     document.addEventListener('keyup', this.onKeyUp)
   },
-  destroyed () {
+  destroyed() {
     document.removeEventListener('keyup', this.onKeyUp)
   },
   watch: {
-    selected (value) {
+    selected(value) {
       this.selectedMode = value ? 'active' : null
     },
   },
   methods: {
-    onClick () {
+    onClick() {
       if (this.selectedMode === 'active' && !this.inputMode) {
         this.startRename()
       } else if (this.selectedMode === 'passive') {
@@ -69,7 +66,7 @@ export default {
         this.select()
       }
     },
-    onClickOutside () {
+    onClickOutside() {
       if (this.inputMode) {
         this.endRename()
       }
@@ -77,29 +74,29 @@ export default {
         this.selectedMode = 'passive'
       }
     },
-    onPressDelete () {
+    onPressDelete() {
       if (!this.inputMode && this.selectedMode === 'active') {
         this.destroy()
       }
     },
-    select () {
-      this.$emit('select')
+    select() {
+      this.$emit('select', this.id)
     },
-    startRename () {
+    startRename() {
       this.inputMode = true
       this.inputValue = this.name
       this.$nextTick(() => this.$refs.input.focus())
     },
-    cancelRename () {
+    cancelRename() {
       this.inputMode = false
     },
-    endRename () {
+    endRename() {
       if (this.inputValue.length > 0) {
         this.$emit('rename', this.inputValue)
       }
       this.inputMode = false
     },
-    destroy () {
+    destroy() {
       this.$emit('destroy')
     },
   },
