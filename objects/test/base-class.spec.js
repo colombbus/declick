@@ -2,6 +2,7 @@
 import { assert } from 'chai'
 import { i18nConfig } from 'es2015-i18n-tag'
 import frenchTranslations from '../translations/translation.fr.json'
+import 'reflect-metadata'
 
 describe('When BaseClass is instantiated', () => {
   it('should have an exposed delete method', () => {
