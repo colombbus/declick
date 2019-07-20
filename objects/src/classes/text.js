@@ -3,7 +3,7 @@ import BaseClass from '../base-class'
 import 'reflect-metadata'
 
 @Reflect.metadata('translated', i18n`Text`)
-export default class extends BaseClass {
+class Text extends BaseClass {
   constructor() {
     super()
     this._value = ''
@@ -21,3 +21,5 @@ export default class extends BaseClass {
     return this._value
   }
 }
+
+export default Text

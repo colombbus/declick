@@ -1,7 +1,7 @@
 import i18n from 'es2015-i18n-tag'
 import 'reflect-metadata'
 
-export default class {
+class BaseClass {
   static get _listeners() {
     if (!this.hasOwnProperty('_ownListeners')) {
       this._ownListeners = new Map()
@@ -51,3 +51,5 @@ export default class {
     this.constructor.dispatch('delete', this)
   }
 }
+
+export default BaseClass
