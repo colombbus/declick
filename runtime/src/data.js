@@ -98,17 +98,7 @@ let _toInterpreterClass = function(interpreter, classObject, classMethods) {
   // store class prototype to be able to create interpreter objects from native ones
   _classStructures[objectName] = interpreterClass
 
-  // 2nd listeners
-  // TODO: attention à l'héritage, peut-être qu'il ne faut déclarer ça que sur BaseClass ?
-  classObject.addListener('create', function() {
-    _createdObjects.push(this)
-  })
-  classObject.addListener('delete', function() {
-    _deleteInterpreterObject(interpreter, this)
-    _createdObjects.splice(_createdObjects.indexOf(this), 1)
-  })
-
-  // 3rd constructor
+  // 2nd constructor
   let constructor = function() {
     let instance = interpreter.createObject(interpreterClass)
     let args = [...arguments].map(argument => {
@@ -298,6 +288,15 @@ let data = {
     _createdObjects = []
     _interpreter = null
     _stored = false
+  },
+
+  addObject(object) {
+    _createdObjects.push(object)
+  },
+
+  deleteObject(object) {
+    _deleteInterpreterObject(_interpreter, object)
+    _createdObjects.splice(_createdObjects.indexOf(object), 1)
   },
 }
 

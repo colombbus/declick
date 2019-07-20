@@ -197,35 +197,10 @@ describe('When data has created interpreter', () => {
     assert.throw(interpreter.run.bind(interpreter), TypeError)
   })
 
-  it('should add listeners to every instance of a declared class', () => {
-    let test = []
-    let MyClass = class {
-      static addListener(name) {
-        test.push(name)
-      }
-    }
-
-    MyClass.prototype.declickObjet = 'MyClass'
-
-    data.addClass('ATestClass', MyClass, new Map())
-    let interpreter = data.createInterpreter()
-    let code = 'toto = new ATestClass()'
-    let ast = parse(code)
-    interpreter.appendCode(ast)
-    interpreter.run()
-    assert.include(test, 'delete')
-    assert.include(test, 'create')
-  })
-
-  it('should remove reference to an instance of a declared class when delete listener is invoked', () => {
+  it('should remove reference to an instance of a declared class when asked to delete object', () => {
     let callback = function() {}
     let MyClass = class {
       tickle() {}
-      static addListener(name, aCallback) {
-        if (name === 'delete') {
-          callback = aCallback
-        }
-      }
     }
 
     const methods = new Map([['exposedTickle', 'tickle']])
@@ -238,7 +213,7 @@ describe('When data has created interpreter', () => {
     let ast = parse(code)
     interpreter.appendCode(ast)
     interpreter.run()
-    callback.apply(data.toNativeData(data.findInterpreterObject('toto')))
+    data.deleteObject(data.toNativeData(data.findInterpreterObject('toto')))
     code = 'toto.exposedTickle()'
     ast = parse(code)
     interpreter.appendCode(ast)

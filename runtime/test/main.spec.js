@@ -17,6 +17,7 @@ describe('When runtime is initialized', () => {
         instanceResult = true
       }
       addListener() {}
+      setRuntime() {}
     }
 
     let myInstance = new MyClass()
@@ -29,7 +30,7 @@ describe('When runtime is initialized', () => {
       setResult() {
         classResult = this.value
       }
-      static addListener() {}
+      static setRuntime() {}
     }
 
     const methods = new Map([['exposedSetResult', 'setResult']])

@@ -6,9 +6,10 @@ let _interpreter = null
 
 export default {
   initialize(classes, instances) {
-    classes.forEach(classData =>
-      _data.addClass(classData.name, classData.object, classData.methods),
-    )
+    classes.forEach(classData => {
+      classData.object.setRuntime(this)
+      _data.addClass(classData.name, classData.object, classData.methods)
+    })
 
     for (let name in instances) {
       _data.addInstance(instances[name], name)
@@ -66,5 +67,13 @@ export default {
   reset() {
     _scheduler.clear()
     _data.reset()
+  },
+
+  addObject(object) {
+    _data.addObject(object)
+  },
+
+  deleteObject(object) {
+    _data.deleteObject(object)
   },
 }
