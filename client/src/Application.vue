@@ -28,8 +28,6 @@ import FooterBar from '@/components/navigation/FooterBar'
 import MainMenu from '@/components/navigation/MainMenu'
 import HeaderBar from '@/components/navigation/HeaderBar'
 import Execute from '@/components/execute/Execute'
-import DeclickRuntime from '../../runtime/lib/declick-runtime'
-import DeclickObjects from '../../objects/lib/declick-objects'
 
 export default {
   computed: {

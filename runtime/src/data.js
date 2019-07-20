@@ -99,7 +99,7 @@ let _toInterpreterClass = function(interpreter, AClass) {
   // 2nd listeners
   // TODO: attention à l'héritage, peut-être qu'il ne faut déclarer ça que sur BaseClass ?
   AClass.addListener('create', function() {
-    _createdObjects.push(declickObject)
+    _createdObjects.push(this)
   })
   AClass.addListener('delete', function() {
     _deleteInterpreterObject(interpreter, this)

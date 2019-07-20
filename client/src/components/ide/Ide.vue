@@ -3,7 +3,7 @@
   transition(name='ide__help')
     help.ide__help(v-show='helpVisible')
   preview.ide__preview(
-    v-show="view === 'preview'" 
+    v-show="view === 'preview'"
     @toggle-help='toggleHelp'
     :helpVisible='helpVisible'
   )
@@ -11,6 +11,7 @@
     v-show="view === 'resource-manager'"
     @toggle-help='toggleHelp'
     :helpVisible='helpVisible'
+    @play='play'
   )
 </template>
 
@@ -18,6 +19,8 @@
 import Preview from '@/components/ide/preview/Preview.vue'
 import ResourceManager from '@/components/ide/resources/ResourceManager.vue'
 import Help from './Help.vue'
+import DeclickRuntime from '../../../../runtime/lib/declick-runtime'
+import DeclickObjects from '../../../../objects/lib/declick-objects'
 
 export default {
   data() {
@@ -34,6 +37,10 @@ export default {
       }
     }
     document.addEventListener('keyup', this.onKeyUp)
+    DeclickObjects.load('fr')
+    .then(objects => {
+      DeclickRuntime.initialize(objects);
+    })
   },
   destroyed() {
     document.removeEventListener('keyup', this.onKeyUp)
@@ -46,6 +53,12 @@ export default {
       this.view =
         this.view === 'resource-manager' ? 'preview' : 'resource-manager'
     },
+    play() {
+      DeclickRuntime.executeCode(`t = new Texte();
+      t.définirTexte('abracadabra');
+      t.récupérerTexte();`)
+      console.log(DeclickRuntime.getLastValue())
+    }
   },
   components: {
     Help,

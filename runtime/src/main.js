@@ -6,9 +6,9 @@ let _interpreter = null
 
 export default {
   initialize(classes, instances) {
-    for (let name in classes) {
-      _data.addClass(classes[name], name)
-    }
+    classes.forEach(aClass =>
+      _data.addClass(aClass, aClass.prototype.className),
+    )
 
     for (let name in instances) {
       _data.addInstance(instances[name], name)

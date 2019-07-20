@@ -65,7 +65,7 @@ let _nextStep = function() {
     }
     _stop(interpreter.getGlobalScope())
 
-    if (typeof _errorHandler !== 'undefined') {
+    if (_errorHandler != null) {
       _errorHandler(error)
     } else {
       throw error
