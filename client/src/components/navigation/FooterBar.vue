@@ -13,6 +13,7 @@ a {
 .self {
   clear: both;
   height: 25px;
+  line-height: 25px;
   padding: 0 5px;
   font-size: 12pt;
   color: #fff;

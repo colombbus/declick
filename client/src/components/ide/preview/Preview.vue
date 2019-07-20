@@ -29,8 +29,8 @@ export default {
 }
 
 .preview__canvas {
-  height: 100%;
-  width: 100%;
+  justify-self: stretch;
+  align-self: stretch;
   background-color: white;
 }
 </style>

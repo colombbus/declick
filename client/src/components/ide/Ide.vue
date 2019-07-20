@@ -37,9 +37,8 @@ export default {
       }
     }
     document.addEventListener('keyup', this.onKeyUp)
-    DeclickObjects.load('fr')
-    .then(objects => {
-      DeclickRuntime.initialize(objects);
+    DeclickObjects.load('fr').then(objects => {
+      DeclickRuntime.initialize(objects)
     })
   },
   destroyed() {
@@ -58,7 +57,7 @@ export default {
       t.définirTexte('abracadabra');
       t.récupérerTexte();`)
       console.log(DeclickRuntime.getLastValue())
-    }
+    },
   },
   components: {
     Help,
@@ -75,7 +74,7 @@ export default {
   display: grid;
   grid-template-areas: 'help content';
   grid-template-columns: auto 1fr;
-  grid-template-rows: 100%;
+  // grid-template-rows: 1fr;
 }
 
 .ide__help {
