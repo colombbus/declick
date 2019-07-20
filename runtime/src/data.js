@@ -54,9 +54,14 @@ let _toInterpreterData = function(interpreter, data) {
     return result
   } else if (typeof data === 'object') {
     // Object
-    if (data.className != null && _classStructures[data.className] != null) {
+    if (
+      data.declickObject != null &&
+      _classStructures[data.declickObject] != null
+    ) {
       // declick object: wrap it
-      let result = interpreter.createObject(_classStructures[data.className])
+      let result = interpreter.createObject(
+        _classStructures[data.declickObject],
+      )
       result.data = data
       return result
     }
@@ -77,7 +82,7 @@ let _getMethodWrapper = function(interpreter, method) {
 }
 
 let _toInterpreterClass = function(interpreter, classObject, classMethods) {
-  const className = classObject.prototype.className
+  const objectName = classObject.prototype.declickObject
   // 1st prototype
   let interpreterClass = interpreter.createObject(interpreter.FUNCTION)
   classMethods.forEach((classMethod, methodName) => {
@@ -91,7 +96,7 @@ let _toInterpreterClass = function(interpreter, classObject, classMethods) {
   })
 
   // store class prototype to be able to create interpreter objects from native ones
-  _classStructures[className] = interpreterClass
+  _classStructures[objectName] = interpreterClass
 
   // 2nd listeners
   // TODO: attention à l'héritage, peut-être qu'il ne faut déclarer ça que sur BaseClass ?

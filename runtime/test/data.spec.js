@@ -42,7 +42,7 @@ describe('When data has created interpreter', () => {
       static addListener() {}
     }
 
-    MyClass.prototype.className = 'MyClass'
+    MyClass.prototype.declickObject = 'MyClass'
 
     const methods = new Map([['exposedSetResult', 'setResult']])
 
@@ -70,7 +70,7 @@ describe('When data has created interpreter', () => {
       static addListener() {}
     }
 
-    MyClass.prototype.className = 'MyClass'
+    MyClass.prototype.declickObjet = 'MyClass'
 
     const methods = new Map([['exposedSetResult', 'setResult']])
 
@@ -124,7 +124,7 @@ describe('When data has created interpreter', () => {
       static addListener() {}
     }
 
-    MyClass.prototype.className = 'MyClass'
+    MyClass.prototype.declickObjet = 'MyClass'
 
     const methods = new Map([['exposedSetResult', 'setResult']])
 
@@ -159,7 +159,7 @@ describe('When data has created interpreter', () => {
       ['exposedGetSecretValue', 'getSecretValue'],
     ])
 
-    MyClass.prototype.className = 'MyClass'
+    MyClass.prototype.declickObject = 'MyClass'
 
     data.addClass('ATestClass', MyClass, methods)
     let interpreter = data.createInterpreter()
@@ -205,7 +205,7 @@ describe('When data has created interpreter', () => {
       }
     }
 
-    MyClass.prototype.className = 'MyClass'
+    MyClass.prototype.declickObjet = 'MyClass'
 
     data.addClass('ATestClass', MyClass, new Map())
     let interpreter = data.createInterpreter()
@@ -230,7 +230,7 @@ describe('When data has created interpreter', () => {
 
     const methods = new Map([['exposedTickle', 'tickle']])
 
-    MyClass.prototype.className = 'MyClass'
+    MyClass.prototype.declickObjet = 'MyClass'
 
     data.addClass('ATestClass', MyClass, methods)
     let interpreter = data.createInterpreter()
@@ -256,7 +256,7 @@ describe('When data has created interpreter', () => {
         static addListener() {}
       }
 
-      MyClass.prototype.className = 'MyClass'
+      MyClass.prototype.declickObjet = 'MyClass'
 
       const methods = new Map([['exposedSetResult', 'setResult']])
 
@@ -285,7 +285,7 @@ describe('When data has created interpreter', () => {
 
       const methods = new Map([['exposedSetResult', 'setResult']])
 
-      MyClass.prototype.className = 'MyClass'
+      MyClass.prototype.declickObjet = 'MyClass'
 
       data.addClass('Test', MyClass, methods)
       let interpreter = data.createInterpreter()
