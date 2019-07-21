@@ -1,5 +1,6 @@
 /*eslint-env mocha */
 import { assert } from 'chai'
+//TODO: make this work (canvas...)
 import runtime from '../src/main'
 
 describe('When runtime is initialized', () => {

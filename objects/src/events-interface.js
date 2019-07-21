@@ -3,12 +3,12 @@ class EventsInterface {
     this._listeners = new Map()
   }
 
-  _addListener(name, callback) {
+  addListener(name, callback) {
     this._listeners.has(name) || this._listeners.set(name, [])
     this._listeners.get(name).unshift(callback)
   }
 
-  _removeListener(name, callback) {
+  removeListener(name, callback) {
     if (this._listeners.has(name)) {
       let listeners = this._listeners.get(name)
       listeners = listeners.filter(listener => {
@@ -18,7 +18,7 @@ class EventsInterface {
     }
   }
 
-  _dispatch(name, ...args) {
+  dispatch(name, ...args) {
     if (this._listeners.has(name)) {
       const listeners = this._listeners.get(name)
       listeners.forEach(listener => {

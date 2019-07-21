@@ -8,6 +8,10 @@
 			"type": "string",
 			"minLength": 1
 		},
+		"Variable": {
+			"type": "string",
+			"minLength": 1
+		},
 		"clear": {
 			"type": "string",
 			"minLength": 1
@@ -36,6 +40,70 @@
 			"type": "string",
 			"minLength": 1
 		},
+		"moveAlwaysBackward": {
+			"type": "string",
+			"minLength": 1
+		},
+		"moveAlwaysBackward_help": {
+			"type": "string",
+			"minLength": 1
+		},
+		"moveAlwaysDownward": {
+			"type": "string",
+			"minLength": 1
+		},
+		"moveAlwaysDownward_help": {
+			"type": "string",
+			"minLength": 1
+		},
+		"moveAlwaysForward": {
+			"type": "string",
+			"minLength": 1
+		},
+		"moveAlwaysForward_help": {
+			"type": "string",
+			"minLength": 1
+		},
+		"moveAlwaysUpward": {
+			"type": "string",
+			"minLength": 1
+		},
+		"moveAlwaysUpward_help": {
+			"type": "string",
+			"minLength": 1
+		},
+		"moveBackward": {
+			"type": "string",
+			"minLength": 1
+		},
+		"moveBackward_help": {
+			"type": "string",
+			"minLength": 1
+		},
+		"moveDownward": {
+			"type": "string",
+			"minLength": 1
+		},
+		"moveDownward_help": {
+			"type": "string",
+			"minLength": 1
+		},
+		"moveForward": {
+			"type": "string",
+			"minLength": 1
+		},
+		"moveForward_help": {
+			"type": "string",
+			"minLength": 1
+		},
+		"moveUpward": {
+			"type": "string",
+			"minLength": 1
+		},
+		"moveUpward_help": {
+			"type": "string",
+			"minLength": 1
+		},
 		"resume": {
 			"type": "string",
 			"minLength": 1
@@ -49,6 +117,14 @@
 			"minLength": 1
 		},
 		"setText_help": {
+			"type": "string",
+			"minLength": 1
+		},
+		"stop": {
+			"type": "string",
+			"minLength": 1
+		},
+		"stop_help": {
 			"type": "string",
 			"minLength": 1
 		},
@@ -71,6 +147,7 @@
 	},
 	"required": [
 		"Text",
+		"Variable",
 		"clear",
 		"clear_help",
 		"declick",
@@ -78,10 +155,28 @@
 		"delete_help",
 		"getText",
 		"getText_help",
+		"moveAlwaysBackward",
+		"moveAlwaysBackward_help",
+		"moveAlwaysDownward",
+		"moveAlwaysDownward_help",
+		"moveAlwaysForward",
+		"moveAlwaysForward_help",
+		"moveAlwaysUpward",
+		"moveAlwaysUpward_help",
+		"moveBackward",
+		"moveBackward_help",
+		"moveDownward",
+		"moveDownward_help",
+		"moveForward",
+		"moveForward_help",
+		"moveUpward",
+		"moveUpward_help",
 		"resume",
 		"resume_help",
 		"setText",
 		"setText_help",
+		"stop",
+		"stop_help",
 		"suspend",
 		"suspend_help",
 		"write",

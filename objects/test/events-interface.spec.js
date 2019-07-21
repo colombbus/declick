@@ -7,10 +7,10 @@ describe('When EventInterface is instantiated', () => {
   it('should trigger a custom listener when dispatch is called', () => {
     const anObject = new EventInterface()
     let called = false
-    anObject._addListener('customEvent', function() {
+    anObject.addListener('customEvent', function() {
       called = true
     })
-    anObject._dispatch('customEvent')
+    anObject.dispatch('customEvent')
     assert.equal(called, true)
   })
 
@@ -18,11 +18,11 @@ describe('When EventInterface is instantiated', () => {
     const anObject = new EventInterface()
     let receivedParameter1 = null
     let receivedParameter2 = null
-    anObject._addListener('customEvent', (param1, param2) => {
+    anObject.addListener('customEvent', (param1, param2) => {
       receivedParameter1 = param1
       receivedParameter2 = param2
     })
-    anObject._dispatch('customEvent', 1234, 5678)
+    anObject.dispatch('customEvent', 1234, 5678)
     assert.equal(receivedParameter1, 1234)
     assert.equal(receivedParameter2, 5678)
   })
@@ -30,11 +30,11 @@ describe('When EventInterface is instantiated', () => {
   it('should not trigger a listener when removed', () => {
     const anObject = new EventInterface()
     let called = false
-    anObject._addListener('customEvent', () => {
+    anObject.addListener('customEvent', () => {
       called = true
     })
-    anObject._removeListener('customEvent')
-    anObject._dispatch('customEvent')
+    anObject.removeListener('customEvent')
+    anObject.dispatch('customEvent')
     assert.equal(called, false)
   })
 

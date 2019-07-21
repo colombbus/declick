@@ -5,7 +5,7 @@ import { i18nConfig } from 'es2015-i18n-tag'
 let loader
 describe('When Loader is imported', () => {
   before(function() {
-    global.__CLASSES__ = ['text.js']
+    global.__CLASSES__ = ['variable.js']
     global.__INSTANCES__ = ['declick.js']
     return import('../src/loader').then(lib => {
       loader = lib
@@ -14,13 +14,13 @@ describe('When Loader is imported', () => {
 
   it('should load French translated classes', () => {
     return loader.load('fr').then(objects => {
-      return import('../src/classes/text').then(({default:Text}) => {
-        let textClassData = objects.find(item => !(item.instance))
-        assert.equal(textClassData.name, 'Texte')
-        assert.deepEqual(textClassData.object, Text)
-        assert.equal(textClassData.methods.get('définirTexte'), 'setText')
-        assert.equal(textClassData.methods.get('supprimer'), 'delete')
-        assert.equal(textClassData.object.prototype._declickId_, 'classes/text')
+      return import('../src/classes/variable').then(({default:Variable}) => {
+        let variableClassData = objects.find(item => !(item.instance))
+        assert.equal(variableClassData.name, 'Variable')
+        assert.deepEqual(variableClassData.object, Variable)
+        assert.equal(variableClassData.methods.get('définirTexte'), 'setText')
+        assert.equal(variableClassData.methods.get('supprimer'), 'delete')
+        assert.equal(variableClassData.object.prototype._declickId_, 'classes/variable')
       })
     })
   })

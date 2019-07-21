@@ -26,7 +26,7 @@ describe('When BaseClass is instantiated', () => {
     return import('../src/base-class').then(({ default: BaseClass }) => {
       const anObject = new BaseClass()
       let called = null
-      anObject._addListener('delete', function() {
+      anObject.addListener('delete', function() {
         called = this
       })
       anObject.delete()

@@ -1,6 +1,7 @@
 import _data from './data'
 import _scheduler from './scheduler'
 import _parser from './parser'
+import _graphics from './graphics'
 
 let _interpreter = null
 
@@ -81,5 +82,17 @@ export default {
 
   addInstance(object) {
     _data.registerInstance(object)
+  },
+
+  initDisplay(canvas, container) {
+    _graphics.initialize(canvas, container)
+  },
+
+  resizeDisplay() {
+    _graphics.resize()
+  },
+
+  getGraphics() {
+    return _graphics
   },
 }

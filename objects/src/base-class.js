@@ -14,7 +14,7 @@ class BaseClass extends EventsInterface {
     if (this._runtime) {
       this._runtime.addObject(this)
     }
-    this._addListener('delete', () => {
+    this.addListener('delete', () => {
       if (this._runtime) {
         this._runtime.deleteObject(this)
       }
@@ -24,7 +24,7 @@ class BaseClass extends EventsInterface {
   @Reflect.metadata('translated', i18n`delete`)
   @Reflect.metadata('help', i18n`delete_help`)
   delete() {
-    this._dispatch('delete')
+    this.dispatch('delete')
   }
 }
 

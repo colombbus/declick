@@ -46,6 +46,12 @@ export default {
   destroyed() {
     document.removeEventListener('keyup', this.onKeyUp)
   },
+  mounted() {
+    DeclickRuntime.initDisplay(
+      document.getElementsByClassName('preview__canvas')[0],
+      document.getElementsByClassName('preview__canvas_container')[0],
+    )
+  },
   computed: mapState(['currentCode']),
   methods: {
     toggleHelp() {
@@ -59,9 +65,11 @@ export default {
       // DeclickRuntime.executeCode(`t = new Texte();
       // t.définirTexte('abracadabra');
       // t.récupérerTexte();`)
-      console.log(this.currentCode)
       DeclickRuntime.executeCode(this.currentCode)
-      console.log(DeclickRuntime.getLastValue())
+      this.view = 'preview'
+      this.$nextTick(() => {
+        DeclickRuntime.resizeDisplay()
+      })
     },
   },
   components: {

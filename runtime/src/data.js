@@ -271,7 +271,7 @@ let data = {
     while (_registeredObjects.length > 0) {
       _registeredObjects[0].delete()
     }
-    _registeredInstances.forEach(instance => instance._dispatch('clear'))
+    _registeredInstances.forEach(instance => instance.dispatch('clear'))
   },
 
   reset() {

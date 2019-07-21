@@ -1,6 +1,7 @@
 <template lang="pug">
 .preview
-  canvas.preview__canvas
+  .preview__canvas_container
+    canvas.preview__canvas
   preview-bar(
     @toggle-help="$emit('toggle-help')"
     :helpVisible='helpVisible'
@@ -15,6 +16,9 @@ export default {
   components: {
     PreviewBar,
   },
+  mounted() {
+    let el = document.getElementsByClassName('preview__canvas')[0]
+  }
 }
 </script>
 
@@ -28,7 +32,7 @@ export default {
   grid-template-rows: 1fr auto;
 }
 
-.preview__canvas {
+.preview__canvas_container {
   justify-self: stretch;
   align-self: stretch;
   background-color: white;

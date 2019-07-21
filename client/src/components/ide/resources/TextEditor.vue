@@ -16,7 +16,7 @@ import 'brace/theme/twilight'
 
 const content = `t = new Texte();
 t.définirTexte('abracadabra');
-t.récupérerTexte();`
+t.avancer(200);`
 
 export default {
   props: ['programId'],
