@@ -41,6 +41,17 @@ const config = {
         loader: 'eslint-loader',
         exclude: /node_modules/,
       },
+      {
+        test: /\.(png|svg|jpg|gif)$/,
+        use: [
+          {
+            loader: 'url-loader',
+            options: {
+              limit: 10000,
+            },
+          },
+        ],
+      },
     ],
   },
   resolve: {

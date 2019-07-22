@@ -14,9 +14,8 @@ import 'brace/ext/modelist'
 import 'brace/ext/themelist'
 import 'brace/theme/twilight'
 
-const content = `t = new Texte();
-t.définirTexte('abracadabra');
-t.avancer(200);`
+const content = `s = new Sprite();
+s.avancer(800);`
 
 export default {
   props: ['programId'],

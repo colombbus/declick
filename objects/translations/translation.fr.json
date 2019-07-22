@@ -34,5 +34,6 @@
   "moveUpward_help": "monter(10)",
   "stop": "arrêter",
   "stop_help": "arrêter()",
-  "Variable": "Variable"
+  "Variable": "Variable",
+  "Sprite": "Sprite"
 }
