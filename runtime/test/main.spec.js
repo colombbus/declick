@@ -1,5 +1,6 @@
 /*eslint-env mocha */
 import { assert } from 'chai'
+import './setup.canvas.js'
 //TODO: make this work (canvas...)
 import runtime from '../src/main'
 
