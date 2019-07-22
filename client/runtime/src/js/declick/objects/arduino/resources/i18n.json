@@ -7,8 +7,10 @@
             {"name":"_setData","translated":"modifierDonnées","displayed":"modifierDonnées()"},
             {"name":"_setPort","translated":"modifierPort","displayed":"modifierPort()"},
             {"name":"_setBoard","translated":"modifierCarte","displayed":"modifierCarte()"},
-            {"name":"_setFile","translated":"sélectionnerFichier","displayed":"sélectionnerFichier()"},
-            {"name":"_show","translated":"montrer","displayed":"montrer()"}
+            {"name":"_import","translated":"importer","displayed":"importer()"},
+            {"name":"_importDeclick","translated":"importerDeclick","displayed":"importerDeclick()"},
+            {"name":"_setup","translated":"initialiser","displayed":"initialiser()"},
+            {"name":"_loop","translated":"boucle","displayed":"boucle()"}
         ]
     }
 }
