@@ -1,6 +1,26 @@
 {
     "fr": {
+        "setupFunction":"initialiser",
+        "loopFunction":"boucle",
+        "compilationSuccess":"compilation réussie",
+        "compilationFail":"compilation échouée",
+        "uploadSuccess":"téléversement réussi",
+        "uploadFail":"téléversement échoué",
+        "agentCo":"agent connecté",
+        "agentNotCo":"agent non connecté",
+        "channelOpen":"canal ouvert",
+        "channelClose":"canal fermé"
     },
     "en": {
+        "setupFunction":"setup",
+        "loopFunction":"loop",
+        "compilationSuccess":"succeedeed compilation",
+        "compilationFail":"failed compilation",
+        "uploadSuccess":"succeedeed upload",
+        "uploadFail":"failed upload",
+        "agentCo":"connected agent",
+        "agentNotCo":"deconnected agent",
+        "channelOpen":"openned canal",
+        "channelClose":"closed canal"
     }
 }

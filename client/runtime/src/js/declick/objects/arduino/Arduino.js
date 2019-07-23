@@ -1,38 +1,51 @@
-define(['jquery', 'TEnvironment', 'TObject', 'TUtils', 'TUI', 'TLink', 'objects/button/Button'], function($, TEnvironment, TObject, TUtils, TUI, TLink, Button) {
+define(['jquery', 'TObject', 'TUI', 'TLink', 'SynchronousManager', 'TError', 'TRuntime'], function($, TObject, TUI, TLink, SyncMan, TError, TRuntime) {
     /**
      * Defines Arduino, inherited from TObject.
-     * Arduino is a remote control robot.
-     * @exports Arduino
+     * It's an object used to communicate and transfert code to an arduino board
+     * @exports Arduino 
      */
     var Arduino = function() {
         TObject.call(this);
+        console.log(this);
+
+        this.boardSelector = this._initBoardSelector();
+        console.log()
+
+        this.modules = ["declick.h"]; //modules used for compilation
+
+        this.syncMan = new SyncMan();
 
         this.data = null; //arduino code
         this.connectedBoards = [];
-        this.port = null;
-        this.fqbn = null;
+        this.port = null; //port on which the arduino board is connected
+        this.fqbn = null; //board's idenfifier
 
         this.daemon = new ArdCreAgtDaemon('/builder');
 
         this.boardsList = {};
 
-
+        //getting list of arduino boards
         var xhr = new XMLHttpRequest();
 
         xhr.arduino = this;
-
 
         xhr.onreadystatechange = function(){
             if (this.readyState == 4 && this.status == 200) {
 
                 this.arduino.boardsList = JSON.parse(this.responseText);
 
+                this.arduino.boardSelector.children("#arduinoSelectOtherBoard").empty();
+
+                for (var board in this.arduino.boardsList){
+                    if (this.arduino.boardsList[board] != null)
+                        this.arduino.boardSelector.children("#arduinoSelectOtherBoard").append("<option value='"+board+"'>"+this.arduino.boardsList[board].name+"</option>");
+                }
+
                 this.arduino._setupArdCreAgtDaemon();
 
             }
 
         };
-
 
         xhr.open("GET", "/builder/boards.php");
         xhr.send();
@@ -46,12 +59,15 @@ define(['jquery', 'TEnvironment', 'TObject', 'TUtils', 'TUI', 'TLink', 'objects/
     
     TObject
 
+    /**
+     * compile code through an server
+     * if upload is true upload the compiled code on the arduino board
+     * @param {boolean} upload
+     */
     Arduino.prototype._compileCode = function(upload){
         var xhr = new XMLHttpRequest();
 
         xhr.arduino = this;
-
-        
         
         xhr.onreadystatechange = function() {
             if (this.readyState == 4 && this.status == 200) {
@@ -61,22 +77,16 @@ define(['jquery', 'TEnvironment', 'TObject', 'TUtils', 'TUI', 'TLink', 'objects/
             console.log(res);
 
 
-            if (res["status"]){//compilation réussie
+            if (res["status"]){//compilation succedeed
                 console.log("succeedeed compilation");
-                TUI.showMessage("compilation réussie");
-                
-                //compilationLog.innerHTML = res["stdout"].replace(/\n/g, "<br>").replace(/ /g,"&nbsp;");
-
-                //if(upload) uploadSketch(res);
-
-                this.arduino.compilationResult = res;
+                TUI.addLogMessage(Arduino.prototype.getMessage("compilationSuccess"));
 
                 if (upload){
                     var target = {port:this.arduino.port, board:this.arduino.fqbn};
 
                     var sketchName = "test";
                 
-                    var compilationResult = this.arduino.compilationResult;
+                    var compilationResult = res;
                 
                     var verbose = true;
                 
@@ -84,11 +94,15 @@ define(['jquery', 'TEnvironment', 'TObject', 'TUtils', 'TUI', 'TLink', 'objects/
 
                 }
             }
-            else{//compilation échouée
+            else{//compilation failed
                 console.log("failed compilation");
-                TUI.showErrorMessage("compilation échouée");
-                TUI.showErrorMessage(res["stderr"]);
-                //compilationLog.innerHTML = res["stderr"].replace(/\n/g, "<br>").replace(/ /g,"&nbsp;");
+                TUI.addLogError(Error(Arduino.prototype.getMessage("compilationFail")));
+
+                
+                res["stderr"].split("\n").forEach(msg => {
+                    TUI.addLogError(Error(msg.replace(/ /g, "\u00a0")));
+                });
+                
             }
             
             }
@@ -99,71 +113,82 @@ define(['jquery', 'TEnvironment', 'TObject', 'TUtils', 'TUI', 'TLink', 'objects/
 
     };
 
-
+    /**
+     * compile the code
+     * @see _compileCode
+     */
     Arduino.prototype._compile = function() {
         this._compileCode(false);
     };
 
-
+    /**
+     * compile and upload the code
+     * @see _compileCode
+     */
     Arduino.prototype._upload = function() {
         this._compileCode(true);
     };
 
-
+    /**
+     * configure daemon's behaviour
+     */
     Arduino.prototype._setupArdCreAgtDaemon = function(){
-        /*lors d'une MàJ de l'état de l'agent affiche son état dans agentStatus
-
-        constantes globales :
-        - agentStatus
-        */
+        
         this.daemon.agentFound.subscribe(status => {
             if (status){
                 console.log("agent connecté");
+                TUI.addLogMessage(Arduino.prototype.getMessage("agentCo"));
             }
             else{
                 console.log("agent non connecté");
+                TUI.addLogMessage(Arduino.prototype.getMessage("agentNotCo"));
             }
         });
         
         
-        /*lors d'une MàJ de l'état du canal affiche son état dans channelStatus
         
-        constantes globales :
-        - channelStatus
-        */
         this.daemon.channelOpenStatus.subscribe(status => {
             if (status){
                 console.log("canal ouvert");
+                TUI.addLogMessage(Arduino.prototype.getMessage("channelOpen"));
             }
             else{
                 console.log("canal fermé");
+                TUI.addLogMessage(Arduino.prototype.getMessage("channelClose"));
             }
         });
         
         
-        /*lors d'une erreur, affiche l'erreur dans la console
-        */
+        
         this.daemon.error.subscribe(err => {
-            console.log(err);
+            if (err !== null){
+                console.log(err);
+                TUI.addLogError(Error(err));
+            }
         });
         
         
-        /*lors d'une MàJ des cartes connectées, les ajoute à la liste déroulante selectBoard
         
-        constantes globales :
-        - selectBoard
-        */
         this.daemon.devicesList.subscribe(({serial, network}) => {
 
             this.connectedBoards = [];
 
+            this.boardSelector.children("#arduinoSelectBoard").empty();
+
             for(var board of serial){
                 this.connectedBoards.push(this._getBoardInfo(board.ProductID, board.VendorID));
- 
+
+                var boardInfo = this._getBoardInfo(board.ProductID, board.VendorID);
+                this.boardSelector.children("#arduinoSelectBoard").append("<option value='"+JSON.stringify({board:boardInfo.fqbn, port:board.Name})+"' >"+boardInfo.name+" sur "+board.Name+"</option>");
 
             }
 
+            this.boardSelector.children("#arduinoSelectBoard").append("<option value='other'>other</option>");
+
+            this._updateSelectBoard();
+
             console.log(this.connectedBoards);
+            TUI.addLogMessage(this.connectedBoards);
         
         });
         
@@ -173,7 +198,9 @@ define(['jquery', 'TEnvironment', 'TObject', 'TUtils', 'TUI', 'TLink', 'objects/
         // Upload progress
         this.daemon.uploading.subscribe(upload => {
             console.log(upload)
-            //if ('msg' in upload) document.getElementById(uploadLogArea).innerHTML += upload["msg"] + "<br/>";
+            if (upload.status == 'UPLOAD_IN_PROGRESS') TUI.addLogMessage(upload.msg);
+            else if (upload.status == 'UPLOAD_DONE') TUI.addLogMessage(Arduino.prototype.getMessage("uploadSuccess"));
+            else if (upload.status == 'UPLOAD_ERROR') TUI.addLogError(Error(Arduino.prototype.getMessage("uploadFail")));
         });
 
 
@@ -181,10 +208,17 @@ define(['jquery', 'TEnvironment', 'TObject', 'TUtils', 'TUI', 'TLink', 'objects/
 
     };
     
+    /**
+     * return the card corresponding to the given pid and vid
+     * @param {string} pid
+     * @param {string} vid
+     */
     Arduino.prototype._getBoardInfo = function (pid, vid){
         var i;
         
-        for (var board of this.boardsList){
+        for (var boardId in this.boardsList){
+
+            var board = this.boardsList[boardId];
         
             if(board == null) continue;
         
@@ -199,52 +233,63 @@ define(['jquery', 'TEnvironment', 'TObject', 'TUtils', 'TUI', 'TLink', 'objects/
         return false;
     };
 
+    /**
+     * return connected Boards
+     */
     Arduino.prototype._listBoards = function(){
         return this.connectedBoards;
     };
 
+    /**
+     * set arduino code
+     * @param {string} data
+     */
     Arduino.prototype._setData = function(data){
         this.data = data;
         return this;
     };
 
+    /**
+     * set connected board's port
+     * @param {string} port
+     */
     Arduino.prototype._setPort = function(port){
         this.port = port;
         return this;
     };
 
+    /**
+     * set connected board's identifier
+     * @param {string} fqbn
+     */
     Arduino.prototype._setBoard = function(fqbn){
         this.fqbn = fqbn;
         return this;
     };
 
+    /**
+     * get arduino code in the file
+     * @param {string} name name of the file
+     */
     Arduino.prototype._import = function(name){
         TLink.getProgramCode(name, (e) => {console.log(e); this.data = e;});
         TLink.getProgramStatements(name, (e) => console.log(e));
     }
 
-    Arduino.prototype._setup = function(fct){
-        this.setup = fct;
-
-        console.log(this);
-    }
-
-    Arduino.prototype._loop = function(fct){
-        this.loop = fct;
-
-        console.log(this);
-    }
-
-
+    /**
+     * get Declick code in the file and convert it to arduino code
+     * @param {string} name name of the file
+     */
     Arduino.prototype._importDeclick = function(name){
+        this.syncMan.begin();
         TLink.getProgramStatements(name, (e) => {
             var vars = new Map();
             var a = declickToArduino(e, vars);
-            console.log(e);
-            console.log(vars);
+            //console.log(e);
+            //console.log(vars);
 
             var declareVars = "";
-            console.log(vars.keys());
+            //console.log(vars.keys());
             vars.forEach((val, key)=>{
                 declareVars += "auto ";
                 declareVars += key;
@@ -253,13 +298,84 @@ define(['jquery', 'TEnvironment', 'TObject', 'TUtils', 'TUI', 'TLink', 'objects/
                 declareVars += ";\n";
             });
 
-            var includes = "#include \"declick.h\"\n";
+            var includes = "";
+
+            this.modules.forEach(m=>{
+                includes += '#include "'+m+'"\n';
+            })
 
             console.log(includes+declareVars+a);
             this.data=includes+declareVars+a;
+
+            this.syncMan.end();
         });
     }
 
+    Arduino.prototype._hey = function(value){
+        var canvas = TUI.getCanvas();
+
+        if (typeof canvas !== 'undefined') {
+            this.syncMan.begin();
+
+            var button = canvas.getComponent().find("#tcanvas-popup-button");
+            var content = canvas.getComponent().find("#tcanvas-popup-content");
+            var popup = canvas.getComponent().find("#tcanvas-popup");
+
+            //popup.css("width","450");
+            //popup.css("margin-left", '-225px');
+            //popup.css("text-align", "center");
+
+            //button.text("select");
+            button.click(()=>console.log("aa"));
+            content.empty();
+            content.append(this.boardSelector);
+            popup.show();
+
+            this.syncMan.end();
+        }
+
+
+    }
+
+    Arduino.prototype._initBoardSelector = function(){
+        
+
+
+        return $("<div></div>", {
+            html:[
+                $("<select></select>", {
+                    id:"arduinoSelectBoard",
+                    on:{
+                        change:this._updateSelectBoard
+                    },
+                    html:$()
+                }),
+                $("<br/>", {}),
+                $("<select></select>", {
+                    id:"arduinoSelectOtherBoard",
+                    style:"display:none",
+                    on:{
+                        change:this._updateSelectBoard
+                    }
+                })]  
+        });
+
+    }
+
+
+    Arduino.prototype._updateSelectBoard = function(){
+        if ($("#arduinoSelectBoard").val()=='other'){
+            $("#arduinoSelectOtherBoard").css("display", "");
+        }
+        else{
+            $("#arduinoSelectOtherBoard").css("display", "none");
+        }
+    }
+
+    Arduino.prototype.deleteObject = function() {
+        console.log("rip");
+        TRuntime.removeObject(this);
+    };
 
 
 
@@ -275,7 +391,12 @@ define(['jquery', 'TEnvironment', 'TObject', 'TUtils', 'TUI', 'TLink', 'objects/
 
 
 
-
+    /**
+     * convert declick code to arduino code
+     * @param node : code's statements
+     * @param vars : declared vars in the setup function
+     * @param parentFonction : name of the parent function
+     */
     declickToArduino = function(node, vars=new Map(), parentFonction=null){
         var arduinoCode = "";
 
@@ -382,6 +503,22 @@ define(['jquery', 'TEnvironment', 'TObject', 'TUtils', 'TUI', 'TLink', 'objects/
                 arduinoCode += "; ";
                 arduinoCode += declickToArduino(node.update, vars, parentFonction);
                 arduinoCode += ")\n";
+                arduinoCode += declickToArduino(node.body, vars, parentFonction);
+                break;
+
+            case 'RepeatStatement':
+                if (node.count === null){
+                    arduinoCode = "while (true)\n";
+                }
+                else{
+                    do{
+                        var rand = 'i_'+Math.random().toString(36).replace('0.', '');
+                    }while (node.raw.indexOf(rand)!=-1);
+
+                    arduinoCode = "for (int "+rand+"=0; "+rand+"<";
+                    arduinoCode += declickToArduino(node.count, vars, parentFonction);
+                    arduinoCode += "; ++"+rand + ")\n";
+                }
                 arduinoCode += declickToArduino(node.body, vars, parentFonction);
                 break;
 
@@ -515,6 +652,12 @@ define(['jquery', 'TEnvironment', 'TObject', 'TUtils', 'TUI', 'TLink', 'objects/
 
             case 'FunctionDeclaration':
                 parentFonction = node.id.name;
+                if (parentFonction === Arduino.prototype.getMessage('setupFunction')){
+                    parentFonction = "setup";
+                }
+                else if (parentFonction === Arduino.prototype.getMessage('loopFunction')){
+                    parentFonction = "loop";
+                }
                 if(parentFonction=='setup' || parentFonction=='loop'){
                     arduinoCode = "void ";
                     arduinoCode += parentFonction;
@@ -545,8 +688,18 @@ define(['jquery', 'TEnvironment', 'TObject', 'TUtils', 'TUI', 'TLink', 'objects/
                 break;
             
             
+
+
+
             default:
-                throw node.type + " cannot be used with arduino";
+                var error = new TError(node.type + " can't be used with arduino");
+
+                error.setLines([node.loc.start.line, node.loc.end.line]);
+                error.detectError();
+                error.setProgramName(node.loc.source);
+
+                TUI.addLogError(error);
+                throw node.type + " can't be used with arduino";
                 
 
             

@@ -10,7 +10,8 @@
             {"name":"_import","translated":"importer","displayed":"importer()"},
             {"name":"_importDeclick","translated":"importerDeclick","displayed":"importerDeclick()"},
             {"name":"_setup","translated":"initialiser","displayed":"initialiser()"},
-            {"name":"_loop","translated":"boucle","displayed":"boucle()"}
+            {"name":"_loop","translated":"boucle","displayed":"boucle()"},
+            {"name":"_hey","translated":"hey","displayed":"hey()"}
         ]
     }
 }
