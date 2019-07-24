@@ -1,17 +1,13 @@
 {
     "fr": {
         "methods":[
-            {"name":"_compile","translated":"vérifier","displayed":"vérifier()"},
+            {"name":"_compileOnly","translated":"vérifier","displayed":"vérifier()"},
             {"name":"_upload","translated":"téléverser","displayed":"téléverser()"},
-            {"name":"_listBoards","translated":"listerCartes","displayed":"listerCartes()"},
             {"name":"_setData","translated":"modifierDonnées","displayed":"modifierDonnées()"},
             {"name":"_setPort","translated":"modifierPort","displayed":"modifierPort()"},
             {"name":"_setBoard","translated":"modifierCarte","displayed":"modifierCarte()"},
             {"name":"_import","translated":"importer","displayed":"importer()"},
-            {"name":"_importDeclick","translated":"importerDeclick","displayed":"importerDeclick()"},
-            {"name":"_setup","translated":"initialiser","displayed":"initialiser()"},
-            {"name":"_loop","translated":"boucle","displayed":"boucle()"},
-            {"name":"_hey","translated":"hey","displayed":"hey()"}
+            {"name":"_importDeclick","translated":"importerDeclick","displayed":"importerDeclick()"}
         ]
     }
 }

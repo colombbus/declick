@@ -6,10 +6,8 @@ define(['jquery', 'TObject', 'TUI', 'TLink', 'SynchronousManager', 'TError', 'TR
      */
     var Arduino = function() {
         TObject.call(this);
-        console.log(this);
 
         this.boardSelector = this._initBoardSelector();
-        console.log()
 
         this.modules = ["declick.h"]; //modules used for compilation
 
@@ -65,6 +63,12 @@ define(['jquery', 'TObject', 'TUI', 'TLink', 'SynchronousManager', 'TError', 'TR
      * @param {boolean} upload
      */
     Arduino.prototype._compileCode = function(upload){
+        if(!this.fqbn || (upload && !this.port)){
+            this._askBoard(upload);
+            return;
+        }
+
+
         var xhr = new XMLHttpRequest();
 
         xhr.arduino = this;
@@ -74,11 +78,7 @@ define(['jquery', 'TObject', 'TUI', 'TLink', 'SynchronousManager', 'TError', 'TR
 
             var res = JSON.parse(this.responseText);
 
-            console.log(res);
-
-
             if (res["status"]){//compilation succedeed
-                console.log("succeedeed compilation");
                 TUI.addLogMessage(Arduino.prototype.getMessage("compilationSuccess"));
 
                 if (upload){
@@ -95,7 +95,6 @@ define(['jquery', 'TObject', 'TUI', 'TLink', 'SynchronousManager', 'TError', 'TR
                 }
             }
             else{//compilation failed
-                console.log("failed compilation");
                 TUI.addLogError(Error(Arduino.prototype.getMessage("compilationFail")));
 
                 
@@ -117,7 +116,7 @@ define(['jquery', 'TObject', 'TUI', 'TLink', 'SynchronousManager', 'TError', 'TR
      * compile the code
      * @see _compileCode
      */
-    Arduino.prototype._compile = function() {
+    Arduino.prototype._compileOnly = function() {
         this._compileCode(false);
     };
 
@@ -136,11 +135,9 @@ define(['jquery', 'TObject', 'TUI', 'TLink', 'SynchronousManager', 'TError', 'TR
         
         this.daemon.agentFound.subscribe(status => {
             if (status){
-                console.log("agent connecté");
                 TUI.addLogMessage(Arduino.prototype.getMessage("agentCo"));
             }
             else{
-                console.log("agent non connecté");
                 TUI.addLogMessage(Arduino.prototype.getMessage("agentNotCo"));
             }
         });
@@ -149,11 +146,9 @@ define(['jquery', 'TObject', 'TUI', 'TLink', 'SynchronousManager', 'TError', 'TR
         
         this.daemon.channelOpenStatus.subscribe(status => {
             if (status){
-                console.log("canal ouvert");
                 TUI.addLogMessage(Arduino.prototype.getMessage("channelOpen"));
             }
             else{
-                console.log("canal fermé");
                 TUI.addLogMessage(Arduino.prototype.getMessage("channelClose"));
             }
         });
@@ -273,7 +268,6 @@ define(['jquery', 'TObject', 'TUI', 'TLink', 'SynchronousManager', 'TError', 'TR
      */
     Arduino.prototype._import = function(name){
         TLink.getProgramCode(name, (e) => {console.log(e); this.data = e;});
-        TLink.getProgramStatements(name, (e) => console.log(e));
     }
 
     /**
@@ -285,11 +279,8 @@ define(['jquery', 'TObject', 'TUI', 'TLink', 'SynchronousManager', 'TError', 'TR
         TLink.getProgramStatements(name, (e) => {
             var vars = new Map();
             var a = declickToArduino(e, vars);
-            //console.log(e);
-            //console.log(vars);
 
             var declareVars = "";
-            //console.log(vars.keys());
             vars.forEach((val, key)=>{
                 declareVars += "auto ";
                 declareVars += key;
@@ -311,29 +302,34 @@ define(['jquery', 'TObject', 'TUI', 'TLink', 'SynchronousManager', 'TError', 'TR
         });
     }
 
-    Arduino.prototype._hey = function(value){
-        var canvas = TUI.getCanvas();
+    Arduino.prototype._askBoard = function(upload){
 
-        if (typeof canvas !== 'undefined') {
-            this.syncMan.begin();
+        this.syncMan.begin();
 
-            var button = canvas.getComponent().find("#tcanvas-popup-button");
-            var content = canvas.getComponent().find("#tcanvas-popup-content");
-            var popup = canvas.getComponent().find("#tcanvas-popup");
+        var button = $("#tcanvas-popup-button");
+        var content = $("#tcanvas-popup-content");
+        var popup = $("#tcanvas-popup");
 
-            //popup.css("width","450");
-            //popup.css("margin-left", '-225px');
-            //popup.css("text-align", "center");
+        //this.previousPopupCss = popup.css();
 
-            //button.text("select");
-            button.click(()=>console.log("aa"));
-            content.empty();
-            content.append(this.boardSelector);
-            popup.show();
+        popup.css("width","450");
+        popup.css("margin-left", '-225px');
+        popup.css("text-align", "center");
 
+        //button.text("select");
+        button.click(()=>{
+            if($("#arduinoSelectBoard").val()!='other'){
+                var select = JSON.parse($("#arduinoSelectBoard").val());
+                this.fqbn=select["board"];
+                this.port=select["port"];
+            }
             this.syncMan.end();
-        }
-
+            this._compileCode(upload);
+        });
+        content.empty();
+        content.append(this.boardSelector);
+        content.change(this._updateSelectBoard);
+        popup.show();
 
     }
 
@@ -345,18 +341,12 @@ define(['jquery', 'TObject', 'TUI', 'TLink', 'SynchronousManager', 'TError', 'TR
             html:[
                 $("<select></select>", {
                     id:"arduinoSelectBoard",
-                    on:{
-                        change:this._updateSelectBoard
-                    },
-                    html:$()
+                    html:$()                    
                 }),
                 $("<br/>", {}),
                 $("<select></select>", {
                     id:"arduinoSelectOtherBoard",
-                    style:"display:none",
-                    on:{
-                        change:this._updateSelectBoard
-                    }
+                    style:"display:none"
                 })]  
         });
 
@@ -374,10 +364,19 @@ define(['jquery', 'TObject', 'TUI', 'TLink', 'SynchronousManager', 'TError', 'TR
 
     Arduino.prototype.deleteObject = function() {
         console.log("rip");
+        this.syncMan.begin();
+
+        if (true) {
+            var popup = $("#tcanvas-popup");
+
+            popup.css("width","250");
+            popup.css("margin-left", '-125px');
+            popup.css("text-align", "");
+        }
+        this.syncMan.end();
         TRuntime.removeObject(this);
+        
     };
-
-
 
 
 
