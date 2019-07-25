@@ -3,11 +3,12 @@
         "methods":[
             {"name":"_compileOnly","translated":"vérifier","displayed":"vérifier()"},
             {"name":"_upload","translated":"téléverser","displayed":"téléverser()"},
-            {"name":"_setData","translated":"modifierDonnées","displayed":"modifierDonnées()"},
+            {"name":"_setData","translated":"modifierCode","displayed":"modifierCode()"},
             {"name":"_setPort","translated":"modifierPort","displayed":"modifierPort()"},
             {"name":"_setBoard","translated":"modifierCarte","displayed":"modifierCarte()"},
             {"name":"_import","translated":"importer","displayed":"importer()"},
-            {"name":"_importDeclick","translated":"importerDeclick","displayed":"importerDeclick()"}
+            {"name":"_importDeclick","translated":"importerDeclick","displayed":"importerDeclick()"},
+            {"name":"_askBoard","translated":"ask","displayed":"ask()"}
         ]
     }
 }

@@ -9,7 +9,10 @@
         "agentCo":"agent connecté",
         "agentNotCo":"agent non connecté",
         "channelOpen":"canal ouvert",
-        "channelClose":"canal fermé"
+        "channelClose":"canal fermé",
+        "selectBoard":"sélectionne la carte",
+        "boardPort":"{0} sur {1}",
+        "other":"autre"
     },
     "en": {
         "setupFunction":"setup",
@@ -21,6 +24,9 @@
         "agentCo":"connected agent",
         "agentNotCo":"deconnected agent",
         "channelOpen":"openned canal",
-        "channelClose":"closed canal"
+        "channelClose":"closed canal",
+        "selectBoard":"select board",
+        "boardPort":"{0} on {1}",
+        "other":"other"
     }
 }
