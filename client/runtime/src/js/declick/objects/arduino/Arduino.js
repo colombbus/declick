@@ -35,6 +35,8 @@ define(['jquery', 'TObject', 'TUI', 'TLink', 'SynchronousManager', 'TError'], fu
      * @param {string} parentFonction : name of the parent function
      * 
      * @returns {string} arduino code (without vars declarations)
+     * 
+     * @todo replace declaration with var by declaration with let when it will aviable
      */
     Arduino.prototype._declickToArduino = function(node, vars=new Map(), parentFonction=null){
         var arduinoCode = "";
@@ -289,6 +291,35 @@ define(['jquery', 'TObject', 'TUI', 'TLink', 'SynchronousManager', 'TError'], fu
                 arduinoCode = String(node.value);
                 break;
 
+            case 'VariableDeclaration':
+                arduinoCode = "auto ";
+                
+                for (var decl in node.declarations) {
+                    if (decl !== '0'){
+                        arduinoCode += ", ";
+                    }
+                    arduinoCode += this._declickToArduino(node.declarations[decl], vars, parentFonction);
+                }
+                     
+                break;
+
+            case 'VariableDeclarator':
+                if(node.init === null){
+                    var error = new TError("you must assign a value when you declare a variable in arduino");
+
+                    error.setLines([node.loc.start.line, node.loc.end.line]);
+                    error.detectError();
+                    error.setProgramName(node.loc.source);
+
+                    TUI.addLogError(error);
+                    throw "you must assign a value when you declare a variable in arduino";
+                }
+
+                arduinoCode = this._declickToArduino(node.id, vars, parentFonction);
+                arduinoCode += " = ";
+                arduinoCode += this._declickToArduino(node.init, vars, parentFonction);
+                break;
+
             case 'FunctionDeclaration':
                 parentFonction = node.id.name;
                 if (parentFonction === Arduino.prototype.getMessage('setupFunction')){
@@ -516,11 +547,11 @@ define(['jquery', 'TObject', 'TUI', 'TLink', 'SynchronousManager', 'TError'], fu
                 }
             }
             else{//compilation failed
-                TUI.addLogError(Error(this.arduino.getMessage("compilationFail")));
-                
                 res["stderr"].split("\n").forEach(msg => {
                     TUI.addLogError(Error(msg.replace(/ /g, "\u00a0")));
                 });
+
+                TUI.addLogError(Error(this.arduino.getMessage("compilationFail")));
                 
             }
             
