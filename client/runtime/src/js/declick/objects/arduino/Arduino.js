@@ -590,7 +590,7 @@ define(['jquery', 'TObject', 'TUI', 'TLink', 'SynchronousManager', 'TError'], fu
         };
 
         xhr.open('POST', "/builder/compile.php", true);
-        xhr.send(JSON.stringify({"data":this.data,"board":this.fqbn}));
+        xhr.send(JSON.stringify({"data":this.data,"board":this.fqbn, "lang":Arduino.prototype.getMessage("lang")}));
 
     };
 

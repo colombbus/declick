@@ -12,7 +12,8 @@
         "channelClose":"canal fermé",
         "selectBoard":"sélectionne la carte",
         "boardPort":"{0} sur {1}",
-        "other":"autre"
+        "other":"autre",
+        "lang":"FRENCH"
     },
     "en": {
         "setupFunction":"setup",
@@ -27,6 +28,7 @@
         "channelClose":"closed canal",
         "selectBoard":"select board",
         "boardPort":"{0} on {1}",
-        "other":"other"
+        "other":"other",
+        "lang":"ENGLISH"
     }
 }
