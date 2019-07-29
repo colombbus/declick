@@ -47,8 +47,9 @@ define(['jquery', 'TObject', 'TUI', 'TLink', 'SynchronousManager', 'TError'], fu
 
         switch (node.type){
             case 'Program':
-                arduinoCode = "";
+                arduinoCode = "#line 1 \""+node.loc.source+"\"\n";
                 for (var statement of node.body){
+                    arduinoCode += "#line "+statement.loc.start.line+"\n";
                     arduinoCode += this._declickToArduino(statement, vars, parentFonction);
                     arduinoCode += ";\n";
                 }
@@ -64,7 +65,9 @@ define(['jquery', 'TObject', 'TUI', 'TLink', 'SynchronousManager', 'TError'], fu
 
             case 'DoWhileStatement':
                 arduinoCode = "do\n";
+                arduinoCode += "#line "+node.body.loc.start.line+"\n";
                 arduinoCode += this._declickToArduino(node.body, vars, parentFonction);
+                arduinoCode += "#line "+node.test.loc.start.line+"\n";
                 arduinoCode += "while(";
                 arduinoCode += this._declickToArduino(node.test, vars, parentFonction);
                 arduinoCode += ")";
@@ -74,9 +77,11 @@ define(['jquery', 'TObject', 'TUI', 'TLink', 'SynchronousManager', 'TError'], fu
                 arduinoCode = "if(";
                 arduinoCode += this._declickToArduino(node.test, vars, parentFonction);
                 arduinoCode += ")\n";
+                arduinoCode += "#line "+node.consequent.loc.start.line+"\n";
                 arduinoCode += this._declickToArduino(node.consequent, vars, parentFonction);
                 if (node.alternate !== null){
                     arduinoCode += "else\n";
+                    arduinoCode += "#line "+node.alternate.loc.start.line+"\n";
                     arduinoCode += this._declickToArduino(node.alternate, vars, parentFonction);
                 }
                 break;
@@ -92,7 +97,9 @@ define(['jquery', 'TObject', 'TUI', 'TLink', 'SynchronousManager', 'TError'], fu
                 arduinoCode += this._declickToArduino(node.discriminant, vars, parentFonction);
                 arduinoCode += ") {\n";
                 for (var caseStatement of node.cases){
+                    arduinoCode += "#line "+caseStatement.loc.start.line+"\n";
                     arduinoCode += this._declickToArduino(caseStatement, vars, parentFonction);
+                    arduinoCode += ";\n";
                 }
                 arduinoCode += "}";
                 break;
@@ -108,7 +115,6 @@ define(['jquery', 'TObject', 'TUI', 'TLink', 'SynchronousManager', 'TError'], fu
                 }
                 for (var statement of node.consequent){
                     arduinoCode += this._declickToArduino(statement, vars, parentFonction);
-                    arduinoCode += ";\n";
                 }
                 break;
 
@@ -116,6 +122,7 @@ define(['jquery', 'TObject', 'TUI', 'TLink', 'SynchronousManager', 'TError'], fu
                 arduinoCode = "while(";
                 arduinoCode += this._declickToArduino(node.test, vars, parentFonction);
                 arduinoCode += ")\n";
+                arduinoCode += "#line "+node.body.loc.start.line+"\n";
                 arduinoCode += this._declickToArduino(node.body, vars, parentFonction);
                 break;
 
@@ -130,6 +137,7 @@ define(['jquery', 'TObject', 'TUI', 'TLink', 'SynchronousManager', 'TError'], fu
             case 'BlockStatement':
                 arduinoCode = "{\n";
                 for (var statement of node.body){
+                    arduinoCode += "#line "+statement.loc.start.line+"\n";
                     arduinoCode += this._declickToArduino(statement, vars, parentFonction);
                     arduinoCode += ";\n";
                 }
@@ -144,6 +152,7 @@ define(['jquery', 'TObject', 'TUI', 'TLink', 'SynchronousManager', 'TError'], fu
                 arduinoCode += "; ";
                 arduinoCode += this._declickToArduino(node.update, vars, parentFonction);
                 arduinoCode += ")\n";
+                arduinoCode += "#line "+node.body.loc.start.line+"\n";
                 arduinoCode += this._declickToArduino(node.body, vars, parentFonction);
                 break;
 
@@ -160,6 +169,7 @@ define(['jquery', 'TObject', 'TUI', 'TLink', 'SynchronousManager', 'TError'], fu
                     arduinoCode += this._declickToArduino(node.count, vars, parentFonction);
                     arduinoCode += "; ++"+rand + ")\n";
                 }
+                arduinoCode += "#line "+node.body.loc.start.line+"\n";
                 arduinoCode += this._declickToArduino(node.body, vars, parentFonction);
                 break;
 
@@ -340,7 +350,9 @@ define(['jquery', 'TObject', 'TUI', 'TLink', 'SynchronousManager', 'TError'], fu
                         arduinoCode += "class myType";
                         arduinoCode += param;
                     }
-                    arduinoCode += ">\nmyTypeReturn ";
+                    arduinoCode += ">\n";
+                    arduinoCode += "#line "+node.id.loc.start.line+"\n";
+                    arduinoCode += "myTypeReturn ";
                     arduinoCode += this._declickToArduino(node.id, vars, parentFonction);
                     arduinoCode += " (";
                     for (var param in node.params) {
@@ -354,6 +366,7 @@ define(['jquery', 'TObject', 'TUI', 'TLink', 'SynchronousManager', 'TError'], fu
                     }
                 }
                 arduinoCode += ")\n";
+                arduinoCode += "#line "+node.body.loc.start.line+"\n";
                 arduinoCode += this._declickToArduino(node.body, vars, parentFonction);
                 break;
             
@@ -547,9 +560,27 @@ define(['jquery', 'TObject', 'TUI', 'TLink', 'SynchronousManager', 'TError'], fu
                 }
             }
             else{//compilation failed
-                res["stderr"].split("\n").forEach(msg => {
+                /*res["stderr"].split("\n").forEach(msg => {
                     TUI.addLogError(Error(msg.replace(/ /g, "\u00a0")));
-                });
+                });*/
+
+                console.log(res["stderr"]);
+
+
+                var e;
+                var error;
+                var regex = /^(.*):(\d*):(\d*): error: (.*)$/gm;
+                
+                while(e = regex.exec(res["stderr"])){
+                    console.log("error : "+e[4]+" (line "+ e[2]+")");
+                    error = new TError(e[1]+" : "+e[4]);
+                    error.setLines([e[2], e[2]]);
+                    error.detectError();
+                    error.setProgramName(e[1]);
+
+                    TUI.addLogError(error);
+                }
+                
 
                 TUI.addLogError(Error(this.arduino.getMessage("compilationFail")));
                 

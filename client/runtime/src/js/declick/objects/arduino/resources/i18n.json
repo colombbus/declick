@@ -7,8 +7,7 @@
             {"name":"_setPort","translated":"modifierPort","displayed":"modifierPort()"},
             {"name":"_setBoard","translated":"modifierCarte","displayed":"modifierCarte()"},
             {"name":"_import","translated":"importer","displayed":"importer()"},
-            {"name":"_importDeclick","translated":"importerDeclick","displayed":"importerDeclick()"},
-            {"name":"_askBoard","translated":"ask","displayed":"ask()"}
+            {"name":"_importDeclick","translated":"importerDeclick","displayed":"importerDeclick()"}
         ]
     }
 }
