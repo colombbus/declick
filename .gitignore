@@ -1,4 +1,3 @@
-.vscode/
 client/src/assets/config/declick.js
 **/node_modules
 **/yarn-error.log
