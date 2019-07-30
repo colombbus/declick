@@ -4,6 +4,10 @@
 		"$schema": {
 			"type": "string"
 		},
+		" ": {
+			"type": "string",
+			"minLength": 1
+		},
 		"Sprite": {
 			"type": "string",
 			"minLength": 1
@@ -13,6 +17,10 @@
 			"minLength": 1
 		},
 		"Variable": {
+			"type": "string",
+			"minLength": 1
+		},
+		"capslock": {
 			"type": "string",
 			"minLength": 1
 		},
@@ -36,11 +44,31 @@
 			"type": "string",
 			"minLength": 1
 		},
+		"down": {
+			"type": "string",
+			"minLength": 1
+		},
+		"escape": {
+			"type": "string",
+			"minLength": 1
+		},
 		"getText": {
 			"type": "string",
 			"minLength": 1
 		},
 		"getText_help": {
+			"type": "string",
+			"minLength": 1
+		},
+		"insert": {
+			"type": "string",
+			"minLength": 1
+		},
+		"keyboard": {
+			"type": "string",
+			"minLength": 1
+		},
+		"left": {
 			"type": "string",
 			"minLength": 1
 		},
@@ -116,6 +144,14 @@
 			"type": "string",
 			"minLength": 1
 		},
+		"return": {
+			"type": "string",
+			"minLength": 1
+		},
+		"right": {
+			"type": "string",
+			"minLength": 1
+		},
 		"setText": {
 			"type": "string",
 			"minLength": 1
@@ -137,6 +173,10 @@
 			"minLength": 1
 		},
 		"suspend_help": {
+			"type": "string",
+			"minLength": 1
+		},
+		"up": {
 			"type": "string",
 			"minLength": 1
 		},
@@ -242,16 +282,23 @@
 		}
 	},
 	"required": [
+		" ",
 		"Sprite",
 		"Text",
 		"Variable",
+		"capslock",
 		"clear",
 		"clear_help",
 		"declick",
 		"delete",
 		"delete_help",
+		"down",
+		"escape",
 		"getText",
 		"getText_help",
+		"insert",
+		"keyboard",
+		"left",
 		"moveAlwaysBackward",
 		"moveAlwaysBackward_help",
 		"moveAlwaysDownward",
@@ -270,12 +317,15 @@
 		"moveUpward_help",
 		"resume",
 		"resume_help",
+		"return",
+		"right",
 		"setText",
 		"setText_help",
 		"stop",
 		"stop_help",
 		"suspend",
 		"suspend_help",
+		"up",
 		"write",
 		"write_help",
 		"List",

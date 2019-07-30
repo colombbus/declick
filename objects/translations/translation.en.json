@@ -58,6 +58,14 @@
   "getSize": "getSize",
   "getSize_help": "getSize_help()",
   "void": "void",
-  "void_help":"vvoid_help()"
-
+  "void_help":"vvoid_help()",
+  "capslock": "capslock",
+  "down": "down",
+  "escape": "escape",
+  "insert": "insert",
+  "left": "left",
+  "return": "return",
+  "right": "right",
+  "up": "up",
+  " ": "space"
 }
