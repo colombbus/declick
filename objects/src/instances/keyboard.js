@@ -127,7 +127,6 @@ class KeyboardClass extends BaseInstance {
           : name,
       })
     }
-    console.debug(exposedProperties)
     this.addListener('runtimeInitialized', () => {
       this._runtime.exposeProperties(this, exposedProperties)
       window.addEventListener('keydown', event => {
