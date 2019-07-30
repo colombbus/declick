@@ -246,18 +246,22 @@ let data = {
     return _deleteInterpreterObject(_interpreter, reference)
   },
 
-  exposeProperty(reference, property, propertyName) {
+  exposeProperties(reference, properties) {
     let scope = _interpreter.getScope()
-    let wrapper = function() {
-      return _toInterpreterData(_interpreter, this.data[property])
+    const getPropertyWrapper = function(propertyName) {
+      return function() {
+        return _toInterpreterData(_interpreter, this.data[propertyName])
+      }
     }
     while (scope) {
       for (let name in scope.properties) {
-        let obj = scope.properties[name]
+        const obj = scope.properties[name]
         if (obj.data === reference) {
-          let prop = _interpreter.createObject(null)
-          prop.dynamic = wrapper
-          _interpreter.setProperty(obj, propertyName, prop)
+          properties.forEach(property => {
+            const prop = _interpreter.createObject(null)
+            prop.dynamic = getPropertyWrapper(property.name)
+            _interpreter.setProperty(obj, property.exposedName, prop)
+          })
           return true
         }
       }

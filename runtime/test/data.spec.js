@@ -212,7 +212,7 @@ describe('When data has created interpreter', () => {
     assert.throws(interpreter.run.bind(interpreter), ReferenceError)
   })
 
-  it('should be able to expose a property on a declared instance', () => {
+  it.only('should be able to expose a property on a declared instance', () => {
     let MyClass = class {
       setResult() {}
     }
@@ -226,7 +226,9 @@ describe('When data has created interpreter', () => {
     data.addInstance('test', myInstance, methods)
 
     const interpreter = data.createInterpreter()
-    data.exposeProperty(myInstance, 'innerValue', 'exposedValue')
+    data.exposeProperties(myInstance, [
+      { name: 'innerValue', exposedName: 'exposedValue' },
+    ])
     const code = 'test.exposedValue'
     const ast = parse(code)
     interpreter.appendCode(ast)
