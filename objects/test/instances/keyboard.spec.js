@@ -3,7 +3,7 @@ import { i18nConfig } from 'es2015-i18n-tag'
 import frenchTranslations from '../../translations/translation.fr.json'
 import 'reflect-metadata'
 
-describe.only('When keyboard is instantiated', () => {
+describe('When keyboard is instantiated', () => {
   it('should have an exposed name', () => {
     i18nConfig({
       locales: 'fr-FR',
