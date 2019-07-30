@@ -40,7 +40,7 @@ export default {
     }
     document.addEventListener('keyup', this.onKeyUp)
     DeclickObjects.load('fr').then(objects => {
-      DeclickRuntime.initialize(objects)
+      DeclickRuntime.initialize('fr', objects)
     })
   },
   destroyed() {

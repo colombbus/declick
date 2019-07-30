@@ -15,6 +15,7 @@ describe('When runtime is initialized', () => {
       }
       addListener() {}
       setRuntime() {}
+      dispatch() {}
     }
     const methods = new Map([['exposedSetResult', 'setResult']])
 
@@ -33,7 +34,7 @@ describe('When runtime is initialized', () => {
 
     MyClass2.prototype.className = 'MyClass2'
 
-    runtime.initialize([
+    return runtime.initialize('fr', [
       { instance: true, name: 'anInstance', object: MyClass, methods: methods },
       { instance: false, name: 'aClass', object: MyClass2, methods: methods2 },
     ])
@@ -66,6 +67,16 @@ describe('When runtime is initialized', () => {
     yo = new aClass(yep)
     yo.exposedSetResult()`)
     assert.equal(runtime.getDeclickObjectName(classResult), 'yep')
+  })
+
+  it('should be able to execute code with translated name of repeat statement', () => {
+    runtime.executeCode(`a=0
+    répéter(3) {
+      a++
+    }
+    yo = new aClass(a)
+    yo.exposedSetResult()`)
+    assert.equal(classResult, 3)
   })
 
   after(() => {
