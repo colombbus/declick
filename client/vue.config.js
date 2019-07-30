@@ -9,7 +9,6 @@ module.exports = {
     config
       .entry('app')
         .prepend('@babel/polyfill')
-        .prepend('../runtime/src/main.js')
         .end()
       .resolve
         .alias
