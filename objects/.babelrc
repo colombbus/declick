@@ -3,7 +3,7 @@
   "plugins": [
     "babel-plugin-add-module-exports",
     "babel-plugin-dynamic-import-node",
-    ["@babel/plugin-proposal-decorators", { "legacy":true} ],
+    ["@babel/plugin-proposal-decorators", { "legacy": true }],
     "@babel/plugin-proposal-class-properties"
   ]
 }
