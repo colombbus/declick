@@ -212,6 +212,29 @@ describe('When data has created interpreter', () => {
     assert.throws(interpreter.run.bind(interpreter), ReferenceError)
   })
 
+  it('should be able to expose a property on a declared instance', () => {
+    let MyClass = class {
+      setResult() {}
+    }
+
+    MyClass.prototype.innerValue = 542
+
+    const myInstance = new MyClass()
+
+    const methods = new Map([['exposedSetResult', 'setResult']])
+
+    data.addInstance('test', myInstance, methods)
+
+    const interpreter = data.createInterpreter()
+    data.exposeProperty(myInstance, 'innerValue', 'exposedValue')
+    const code = 'test.exposedValue'
+    const ast = parse(code)
+    interpreter.appendCode(ast)
+    interpreter.run()
+
+    assert.equal(interpreter.getLastValue(), 542)
+  })
+
   describe('When interpreter is reset', () => {
     beforeEach(() => {
       data.reset()
