@@ -15,7 +15,7 @@ import 'brace/ext/themelist'
 import 'brace/theme/twilight'
 
 const content = `s = new Sprite();
-while (true) {
+répéter() {
     if (clavier.droite) {
         s.avancer(10)
     }
