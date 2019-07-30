@@ -7,11 +7,13 @@ let _interpreter = null
 
 export default {
   initialize(objects) {
+    const instances = []
     objects.forEach(objectData => {
       if (objectData.instance) {
         const instance = new objectData.object()
         instance.setRuntime(this)
         _data.addInstance(objectData.name, instance, objectData.methods)
+        instances.push(instance)
       } else {
         objectData.object.setRuntime(this)
         _data.addClass(objectData.name, objectData.object, objectData.methods)
@@ -19,8 +21,11 @@ export default {
     })
 
     _interpreter = _data.createInterpreter()
-
     _scheduler.initialize(_interpreter)
+
+    instances.forEach(instance => {
+      instance.dispatch('runtimeInitialized')
+    })
   },
 
   getDeclickObjectName(reference) {
@@ -94,5 +99,9 @@ export default {
 
   getGraphics() {
     return _graphics
+  },
+
+  exposeProperties(object, properties) {
+    _data.exposeProperties(object, properties)
   },
 }
