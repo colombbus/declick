@@ -3,6 +3,7 @@
 const path = require('path')
 const env = require('yargs').argv.env // use --env with webpack 2
 const pkg = require('./package.json')
+const webpack = require('webpack')
 
 let libraryName = pkg.name
 
@@ -45,6 +46,11 @@ const config = {
     modules: [path.resolve('./node_modules'), path.resolve('./src')],
     extensions: ['.json', '.js'],
   },
+  plugins: [
+    new webpack.optimize.LimitChunkCountPlugin({
+      maxChunks: 1,
+    }),
+  ],
 }
 
 module.exports = config
