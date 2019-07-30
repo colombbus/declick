@@ -15,7 +15,20 @@ import 'brace/ext/themelist'
 import 'brace/theme/twilight'
 
 const content = `s = new Sprite();
-s.avancer(800);`
+while (true) {
+    if (clavier.droite) {
+        s.avancer(10)
+    }
+    if (clavier.gauche) {
+        s.reculer(10)
+    }
+    if (clavier.haut) {
+        s.monter(10)
+    }
+    if (clavier.bas) {
+        s.descendre(10)
+    }
+}`
 
 export default {
   props: ['programId'],
