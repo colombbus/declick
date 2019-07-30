@@ -35,5 +35,14 @@
   "stop": "stop",
   "stop_help": "stop()",
   "Variable": "Variable",
-  "Sprite": "Sprite"
+  "Sprite": "Sprite",
+  "capslock": "capslock",
+  "down": "down",
+  "escape": "escape",
+  "insert": "insert",
+  "left": "left",
+  "return": "return",
+  "right": "right",
+  "up": "up",
+  " ": "space"
 }

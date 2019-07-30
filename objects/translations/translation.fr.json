@@ -35,5 +35,15 @@
   "stop": "arrêter",
   "stop_help": "arrêter()",
   "Variable": "Variable",
-  "Sprite": "Sprite"
+  "Sprite": "Sprite",
+  " ": "espace",
+  "capslock": "majuscules",
+  "down": "bas",
+  "escape": "echap",
+  "insert": "inser",
+  "left": "gauche",
+  "return": "entrée",
+  "right": "droite",
+  "up": "haut",
+  "keyboard": "clavier"
 }
