@@ -6,7 +6,7 @@ define(['jquery', 'TObject', 'TUI', 'TLink', 'SynchronousManager', 'TError'], fu
      */
     var Arduino = function() {
         TObject.call(this);
-
+console.log(ArduinoCreateAgentDaemon, 'loaded!!')
 
         if (Arduino.boardSelector === undefined) Arduino.boardSelector = this._initBoardSelector();
         if (Arduino.syncMan === undefined) Arduino.syncMan = new SyncMan();
@@ -468,7 +468,7 @@ define(['jquery', 'TObject', 'TUI', 'TLink', 'SynchronousManager', 'TError'], fu
                 }
 
                 if (Arduino.daemon === undefined) {
-                    Arduino.daemon = new ArdCreAgtDaemon('/builder');
+                    Arduino.daemon = new ArduinoCreateAgentDaemon('/builder');
                     Arduino.prototype._setupArdCreAgtDaemon();
                 }
                 

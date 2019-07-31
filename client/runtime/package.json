@@ -12,6 +12,7 @@
   },
   "dependencies": {
     "ace-builds": "^1.2.2",
+    "arduino-create-agent-js-client": "^2.3.0",
     "babylonjs": "~2.0.1",
     "intro.js": "^2.2.0",
     "jquery": "1.11.1",

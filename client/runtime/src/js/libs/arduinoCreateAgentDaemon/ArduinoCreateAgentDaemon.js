@@ -10640,10 +10640,10 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 /* WEBPACK VAR INJECTION */(function(global) {/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__src__ = __webpack_require__(110);
 
 
-//global.ArdCreAgtDeamon = new Daemon('https://builder.arduino.cc/v3/boards');
+//global.ArduinoCreateAgentDeamon = new Daemon('https://builder.arduino.cc/v3/boards');
 
 
-global.ArdCreAgtDaemon = __WEBPACK_IMPORTED_MODULE_0__src__["a" /* default */];
+global.ArduinoCreateAgentDaemon = __WEBPACK_IMPORTED_MODULE_0__src__["a" /* default */];
 /* WEBPACK VAR INJECTION */}.call(__webpack_exports__, __webpack_require__(44)))
 
 /***/ }),
