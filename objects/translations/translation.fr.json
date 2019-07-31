@@ -58,7 +58,7 @@
   "getSize": "récupérerTaille",
   "getSize_help": "récupérerTaille()",
   "void": "viderListe",
-  "void_help":"viderListe()",
+  "void_help": "viderListe()",
   " ": "espace",
   "capslock": "majuscules",
   "down": "bas",
@@ -68,6 +68,6 @@
   "return": "entrée",
   "right": "droite",
   "up": "haut",
-  "keyboard": "clavier"
+  "keyboard": "clavier",
+  "Robot": "Robot"
 }
-
