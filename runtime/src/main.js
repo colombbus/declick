@@ -53,7 +53,7 @@ export default {
   },
 
   suspend() {
-    _scheduler.clear()
+    _scheduler.suspend()
   },
 
   resume() {
