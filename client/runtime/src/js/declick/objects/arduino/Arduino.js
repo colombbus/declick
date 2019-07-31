@@ -48,6 +48,14 @@ define(['jquery', 'TObject', 'TUI', 'TLink', 'SynchronousManager', 'TError'], fu
         switch (node.type){
             case 'Program':
                 arduinoCode = "#line 1 \""+node.loc.source+"\"\n";
+
+                for (var n in node.body){
+                    if(node.body[n].type == 'FunctionDeclaration' && (node.body[n].id.name === Arduino.prototype.getMessage('setupFunction')) || node.body[n].id.name === Arduino.prototype.getMessage('loopFunction')){
+                        node.body.push(node.body[n]);
+                        node.body.splice(n, 1);
+                    }
+                }
+
                 for (var statement of node.body){
                     arduinoCode += "#line "+statement.loc.start.line+"\n";
                     arduinoCode += this._declickToArduino(statement, vars, parentFonction);
@@ -115,6 +123,7 @@ define(['jquery', 'TObject', 'TUI', 'TLink', 'SynchronousManager', 'TError'], fu
                 }
                 for (var statement of node.consequent){
                     arduinoCode += this._declickToArduino(statement, vars, parentFonction);
+                    arduinoCode += ";\n";
                 }
                 break;
 
@@ -298,7 +307,15 @@ define(['jquery', 'TObject', 'TUI', 'TLink', 'SynchronousManager', 'TError'], fu
                 break;
             
             case 'Literal':
-                arduinoCode = String(node.value);
+                console.log(node.value);
+                if (typeof node.value == "string"){
+                    arduinoCode = "\"";
+                    arduinoCode += String(node.value);
+                    arduinoCode += "\"";
+                }
+                else{
+                    arduinoCode = String(node.value);
+                }
                 break;
 
             case 'VariableDeclaration':
@@ -344,22 +361,30 @@ define(['jquery', 'TObject', 'TUI', 'TLink', 'SynchronousManager', 'TError'], fu
                     arduinoCode += "(";
                 }
                 else{
-                    arduinoCode = "template<class myTypeReturn";
+                    do{
+                        var rand = 'myType_'+Math.random().toString(36).replace('0.', '');
+                    }while (node.raw.indexOf(rand)!=-1);
+
                     for (var param in node.params) {
-                        arduinoCode += ", ";
-                        arduinoCode += "class myType";
+                        if (param != 0){
+                            arduinoCode += ", ";
+                        }
+                        else{
+                            arduinoCode = "template<";
+                        }
+                        arduinoCode += "class "+rand;
                         arduinoCode += param;
                     }
-                    arduinoCode += ">\n";
+                    if (param !== undefined) arduinoCode += ">\n";
                     arduinoCode += "#line "+node.id.loc.start.line+"\n";
-                    arduinoCode += "myTypeReturn ";
+                    arduinoCode += "auto ";
                     arduinoCode += this._declickToArduino(node.id, vars, parentFonction);
                     arduinoCode += " (";
                     for (var param in node.params) {
                         if (param !== '0'){
                             arduinoCode += ", ";
                         }
-                        arduinoCode += "myType";
+                        arduinoCode += rand;
                         arduinoCode += param;
                         arduinoCode += " ";
                         arduinoCode += this._declickToArduino(node.params[param], vars, parentFonction);
@@ -542,6 +567,7 @@ define(['jquery', 'TObject', 'TUI', 'TLink', 'SynchronousManager', 'TError'], fu
             return;
         }
 
+        console.log(this.data);
 
         var xhr = new XMLHttpRequest();
         
@@ -691,7 +717,7 @@ define(['jquery', 'TObject', 'TUI', 'TLink', 'SynchronousManager', 'TError'], fu
     Arduino.prototype._import = function(name){
         Arduino.syncMan.begin();
         TLink.getProgramCode(name, (data) => {
-            this.data = data;
+            this.data = "#line 1 \""+name+"\"\n"+data;
             Arduino.syncMan.end();
         });
     }
@@ -719,7 +745,7 @@ define(['jquery', 'TObject', 'TUI', 'TLink', 'SynchronousManager', 'TError'], fu
             var includes = "";
 
             this.modules.forEach(m=>{
-                includes += '#include "'+m+'"\n';
+                includes += "#include <"+m+">\n";
             })
 
             console.log(includes+declareVars+a);
