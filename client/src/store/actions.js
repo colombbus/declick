@@ -4,9 +4,11 @@ import Api from '@/api'
 const LOCAL_STORAGE_PREFIX = 'ui'
 const LOCAL_STORAGE_VERSION = 5
 
-
-export const setCurrentCode = async ({ commit }, { content }) => {
-  commit(mutations.CURRENT_CODE_UPDATE, { result: content })
+export const setCurrentProgram = async ({ commit }, { name }) => {
+  commit(mutations.CURRENT_PROGRAM, { name })
+}
+export const setCurrentCode = async ({ commit }, { id, content }) => {
+  commit(mutations.CURRENT_CODE_UPDATE, { id, content })
 }
 
 export const loadExecuteProject = async ({ state, commit }, { id }) => {

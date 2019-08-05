@@ -1,9 +1,17 @@
 import Vue from 'vue'
 import Vuex from 'vuex'
+// import getters from './getters'
 import mutations from './mutations'
 import * as actions from './actions'
 
 Vue.use(Vuex)
+
+const programs = new Map()
+programs.set('nouveau 1', 'contenu 1')
+programs.set('nouveau 2', 'contenu 2')
+programs.set('nouveau 3', 'contenu 3')
+programs.set('nouveau 4', 'contenu 4')
+programs.set('nouveau 5', 'contenu 5')
 
 export default new Vuex.Store({
   state: {
@@ -14,10 +22,13 @@ export default new Vuex.Store({
     currentCourseResults: null,
     currentAssessment: null,
     currentCode: null,
+    currentProgram: null,
     executeProject: null,
+    programs,
   },
   mutations,
   actions,
+  getters,
 })
 
 /*

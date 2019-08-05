@@ -6,7 +6,7 @@
 
 <script>
 import * as ace from 'brace'
-import { mapActions } from 'vuex'
+import { mapActions, mapState, mapGetters } from 'vuex'
 import { debounce } from 'underscore'
 
 import 'brace/mode/javascript'
@@ -31,7 +31,7 @@ répéter() {
 }`
 
 export default {
-  props: ['programId'],
+  props: { programId: String },
   created() {
     this.$nextTick(() => this.createEditor())
   },
@@ -53,17 +53,30 @@ export default {
       this.editSession.on(
         'change',
         debounce(() => {
-          const content = this.editSession.getValue()
-          this.setCurrentCode({ content })
+          this.setCurrentCode({
+            id: this.currentProgram,
+            content: this.editSession.getValue(),
+          })
         }, 300),
       )
-      this.setCurrentCode({ content })
+      this.setCurrentCode({
+        id: this.currentProgram,
+        content: this.editSession.getValue(),
+      })
     },
     ...mapActions(['setCurrentCode']),
+    ...mapGetters(['getProgramByName']),
+    ...mapState(['currentProgram']),
   },
   computed: {
     enabled() {
       return this.programId
+    },
+  },
+  watch: {
+    programId() {
+      this.editSession.setValue(this.$store.state.programs.get(this.programId))
+      // this.editSession.setValue(this.getProgramByName(this.programId))
     },
   },
 }

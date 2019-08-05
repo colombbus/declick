@@ -20,6 +20,7 @@
 import range from 'lodash.range'
 
 import ProgramItem from './ProgramItem.vue'
+import { mapActions } from 'vuex'
 
 export default {
   data() {
@@ -34,7 +35,11 @@ export default {
   methods: {
     select(id) {
       this.selectedId = id
-      this.$emit('select', id)
+      const name = this.programs.find(program => program.id === id).name
+      this.setCurrentProgram({
+        name,
+      })
+      this.$emit('select', name)
     },
     renameProgram(id, newName) {
       this.programs.find(program => program.id === id).name = newName
@@ -69,11 +74,11 @@ export default {
       }
       return i
     },
+    ...mapActions(['setCurrentProgram']),
   },
   computed: {
     orderedPrograms() {
-      const self = this
-      return self.programs.sort((a, b) => a.name.localeCompare(b.name))
+      return this.programs.sort((a, b) => a.name.localeCompare(b.name))
     },
   },
   components: {
