@@ -71,7 +71,7 @@ import Api from '@/api'
 
 export default {
   props: ['params'],
-  data () {
+  data() {
     return {
       name: '',
       isPublic: false,
@@ -80,10 +80,10 @@ export default {
       description: '',
       instructions: '',
       mainProgramId: null,
-      resources: null
+      resources: null,
     }
   },
-  async created () {
+  async created() {
     this.name = this.params.project.name
     this.isPublic = this.params.project.isPublic
     this.sceneWidth = this.params.project.sceneWidth
@@ -95,12 +95,12 @@ export default {
     resources.unshift({
       file_name: '<aucun>',
       id: null,
-      media_type: 'text/vnd.colombbus.declick.script'
+      media_type: 'text/vnd.colombbus.declick.script',
     })
     this.resources = resources
   },
   methods: {
-    async updateProject () {
+    async updateProject() {
       let data = {
         name: this.name,
         isPublic: this.isPublic,
@@ -108,13 +108,13 @@ export default {
         sceneHeight: this.sceneHeight,
         description: this.description,
         instructions: this.instructions,
-        mainProgramId: this.mainProgramId
+        mainProgramId: this.mainProgramId,
       }
-      let truc = await this.$store.dispatch('updateProject', {
+      let storeUpProject = await this.$store.dispatch('updateProject', {
         id: this.params.project.id,
-        data
+        data,
       })
-      // console.debug(truc)
+      console.debug(storeUpProject)
       this.params.project.name = this.name
       this.params.project.isPublic = this.isPublic
       this.params.project.sceneWidth = this.sceneWidth
@@ -124,12 +124,12 @@ export default {
       this.params.project.mainProgramId = this.mainProgramId
       this.showProjectDetails()
     },
-    showProjectDetails () {
+    showProjectDetails() {
       this.$emit('showView', {
         view: 'ProjectDetails',
-        params: {project: this.params.project}
+        params: { project: this.params.project },
       })
-    }
-  }
+    },
+  },
 }
 </script>

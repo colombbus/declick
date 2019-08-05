@@ -23,7 +23,7 @@ export default {
   },
   data() {
     return {
-      programId: 1,
+      programId: 'nouveau 1',
     }
   },
 }

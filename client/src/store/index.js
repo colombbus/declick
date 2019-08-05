@@ -1,13 +1,27 @@
 import Vue from 'vue'
 import Vuex from 'vuex'
-// import getters from './getters'
+import getters from './getters'
 import mutations from './mutations'
 import * as actions from './actions'
 
 Vue.use(Vuex)
-
+const content = `s = new Sprite();
+répéter() {
+    if (clavier.droite) {
+        s.avancer(10)
+    }
+    if (clavier.gauche) {
+        s.reculer(10)
+    }
+    if (clavier.haut) {
+        s.monter(10)
+    }
+    if (clavier.bas) {
+        s.descendre(10)
+    }
+}`
 const programs = new Map()
-programs.set('nouveau 1', 'contenu 1')
+programs.set('nouveau 1', content)
 programs.set('nouveau 2', 'contenu 2')
 programs.set('nouveau 3', 'contenu 3')
 programs.set('nouveau 4', 'contenu 4')

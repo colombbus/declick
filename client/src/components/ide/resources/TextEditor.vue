@@ -14,22 +14,6 @@ import 'brace/ext/modelist'
 import 'brace/ext/themelist'
 import 'brace/theme/twilight'
 
-const content = `s = new Sprite();
-répéter() {
-    if (clavier.droite) {
-        s.avancer(10)
-    }
-    if (clavier.gauche) {
-        s.reculer(10)
-    }
-    if (clavier.haut) {
-        s.monter(10)
-    }
-    if (clavier.bas) {
-        s.descendre(10)
-    }
-}`
-
 export default {
   props: { programId: String },
   created() {
@@ -48,7 +32,8 @@ export default {
       // editor session
       this.editSession = this.editor.getSession()
       this.editSession.setMode('ace/mode/javascript')
-      this.editSession.setValue(content)
+      // this.editSession.setValue(content)
+      this.editSession.setValue(this.$store.state.programs.get(this.programId))
 
       this.editSession.on(
         'change',
