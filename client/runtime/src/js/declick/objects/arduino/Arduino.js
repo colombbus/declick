@@ -6,7 +6,7 @@ define(['jquery', 'TObject', 'TUI', 'TLink', 'SynchronousManager', 'TError'], fu
      */
     var Arduino = function() {
         TObject.call(this);
-console.log(ArduinoCreateAgentDaemon, 'loaded!!')
+        console.log(ArduinoCreateAgentDaemon, 'loaded!!')
 
         if (Arduino.boardSelector === undefined) Arduino.boardSelector = this._initBoardSelector();
         if (Arduino.syncMan === undefined) Arduino.syncMan = new SyncMan();
@@ -753,6 +753,34 @@ console.log(ArduinoCreateAgentDaemon, 'loaded!!')
 
             Arduino.syncMan.end();
         });
+    }
+
+    /**
+     * get Declick code and convert it to arduino code
+     * 
+     * @param {string} name name of the file
+     */
+    Arduino.prototype._importDataDeclick = function(data){
+        var vars = new Map();
+        var a = this._declickToArduino(data, vars);
+
+        var declareVars = "";
+        vars.forEach((val, key)=>{
+            declareVars += "auto ";
+            declareVars += key;
+            declareVars += " = ";
+            declareVars += this._declickToArduino(val);
+            declareVars += ";\n";
+        });
+
+        var includes = "";
+
+        this.modules.forEach(m=>{
+            includes += "#include <"+m+">\n";
+        })
+
+        console.log(includes+declareVars+a);
+        this.data=includes+declareVars+a;
     }
 
     /**

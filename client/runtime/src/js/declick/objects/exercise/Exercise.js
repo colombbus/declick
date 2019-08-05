@@ -48,6 +48,28 @@ define(['TRuntime', 'SynchronousManager', 'TObject'], function(TRuntime, Synchro
     };
 
     /**
+     * Remove loc, right, left and raw in statement
+     * @param {String[]} value
+     */
+    Exercise.prototype.cleanStatements = function (value){
+        delete value.loc;
+        delete value.right;
+        delete value.left;
+        delete value.raw;
+    
+        for (i in value){
+            if (typeof value[i] === 'object') this.cleanStatements(value[i]);
+        }
+    }
+
+    /**
+     * Print Statements in debug without loc, right, left, raw
+     */
+    Exercise.prototype.dumpCleanedStatements = function(){
+        console.debug(this.cleanStatements(JSON.parse(JSON.stringify(this.statements))));
+    }
+
+    /**
      * Set frame to "value".
      * @param {Boolean} value
      */

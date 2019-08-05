@@ -1,0 +1,8 @@
+{
+    "fr": {
+        "methods":[
+            {"name":"_on","translated":"allumer","displayed":"allumer()"},
+            {"name":"_off","translated":"eteindrer","displayed":"eteindre()"}
+        ]
+    }
+}

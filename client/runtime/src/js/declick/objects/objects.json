@@ -323,12 +323,30 @@
         },
         "parents": true
     },
-        "Arduino": {
+    "Arduino": {
         "path": "arduino",
         "translations": {
             "fr": "Arduino",
             "es": "Arduino",
             "en": "Arduino"
+        },
+        "parents": true
+    },
+    "ROSA": {
+        "path": "rosa",
+        "translations": {
+            "fr": "ROSA",
+            "es": "ROSA",
+            "en": "ROSA"
+        },
+        "parents": true
+    },
+    "LED": {
+        "path": "led",
+        "translations": {
+            "fr": "DEL",
+            "es": "Led",
+            "en": "LED"
         },
         "parents": true
     },
