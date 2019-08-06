@@ -13,6 +13,7 @@ define([
    */
   var Arduino = function() {
     TObject.call(this);
+
     console.log(ArduinoCreateAgentDaemon, "loaded!!");
 
     if (typeof Arduino.boardSelector === "undefined") {
@@ -599,24 +600,27 @@ define([
       }
     });
 
-    Arduino.daemon.devicesList.subscribe(function (boards) {
+    Arduino.daemon.devicesList.subscribe(function(boards) {
       var serial = boards.serial;
       var network = boards.network;
-    
+
       Arduino.boardSelector.children("#arduinoSelectBoard").empty();
 
-    for (var i in serial) {
-      var boardInfo = self._getBoardInfo(serial[i].ProductID, serial[i].VendorID);
-      Arduino.boardSelector
-        .children("#arduinoSelectBoard")
-        .append(
-          "<option value='" +
-            JSON.stringify({ board: boardInfo.fqbn, port: serial[i].Name }) +
-            "' >" +
-            self.getMessage("boardPort", boardInfo.name, serial[i].Name) +
-            "</option>"
+      for (var i in serial) {
+        var boardInfo = self._getBoardInfo(
+          serial[i].ProductID,
+          serial[i].VendorID
         );
-    }
+        Arduino.boardSelector
+          .children("#arduinoSelectBoard")
+          .append(
+            "<option value='" +
+              JSON.stringify({ board: boardInfo.fqbn, port: serial[i].Name }) +
+              "' >" +
+              self.getMessage("boardPort", boardInfo.name, serial[i].Name) +
+              "</option>"
+          );
+      }
 
       Arduino.boardSelector
         .children("#arduinoSelectBoard")
