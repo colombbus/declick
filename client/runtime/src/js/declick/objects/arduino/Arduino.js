@@ -46,489 +46,491 @@ define([
    *
    * @todo replace declaration with var by declaration with let when it will aviable
    */
-  //   Arduino.prototype._declickToArduino = function(
-  //     node,
-  //     vars = new Map(),
-  //     parentFonction = null
-  //   ) {
-  //     var arduinoCode = "";
+  Arduino.prototype._declickToArduino = function(node, vars, parentFonction) {
+    if (typeof vars === "undefined") {
+      vars = new Map();
+    }
+    if (typeof parentFonction === "undefined") {
+      parentFonction = null;
+    }
+    var arduinoCode = "";
 
-  //     if (node === null) {
-  //       return "";
-  //     }
+    if (node === null) {
+      return "";
+    }
 
-  //     switch (node.type) {
-  //       case "Program":
-  //         arduinoCode = '#line 1 "' + node.loc.source + '"\n';
+    // switch (node.type) {
+    //   case "Program":
+    //     arduinoCode = '#line 1 "' + node.loc.source + '"\n';
 
-  //         for (var n in node.body) {
-  //           if (
-  //             (node.body[n].type == "FunctionDeclaration" &&
-  //               node.body[n].id.name ===
-  //                 Arduino.prototype.getMessage("setupFunction")) ||
-  //             node.body[n].id.name ===
-  //               Arduino.prototype.getMessage("loopFunction")
-  //           ) {
-  //             node.body.push(node.body[n]);
-  //             node.body.splice(n, 1);
-  //           }
-  //         }
+    //     for (var n in node.body) {
+    //       if (
+    //         (node.body[n].type == "FunctionDeclaration" &&
+    //           node.body[n].id.name ===
+    //             Arduino.prototype.getMessage("setupFunction")) ||
+    //         node.body[n].id.name ===
+    //           Arduino.prototype.getMessage("loopFunction")
+    //       ) {
+    //         node.body.push(node.body[n]);
+    //         node.body.splice(n, 1);
+    //       }
+    //     }
 
-  //         for (var statement of node.body) {
-  //           arduinoCode += "#line " + statement.loc.start.line + "\n";
-  //           arduinoCode += this._declickToArduino(
-  //             statement,
-  //             vars,
-  //             parentFonction
-  //           );
-  //           arduinoCode += ";\n";
-  //         }
-  //         break;
+    //     for (var statement of node.body) {
+    //       arduinoCode += "#line " + statement.loc.start.line + "\n";
+    //       arduinoCode += this._declickToArduino(
+    //         statement,
+    //         vars,
+    //         parentFonction
+    //       );
+    //       arduinoCode += ";\n";
+    //     }
+    //     break;
 
-  //       case "BreakStatement":
-  //         arduinoCode = "break";
-  //         break;
+    //   case "BreakStatement":
+    //     arduinoCode = "break";
+    //     break;
 
-  //       case "ContinueStatement":
-  //         arduinoCode = "continue";
-  //         break;
+    //   case "ContinueStatement":
+    //     arduinoCode = "continue";
+    //     break;
 
-  //       case "DoWhileStatement":
-  //         arduinoCode = "do\n";
-  //         arduinoCode += "#line " + node.body.loc.start.line + "\n";
-  //         arduinoCode += this._declickToArduino(node.body, vars, parentFonction);
-  //         arduinoCode += "#line " + node.test.loc.start.line + "\n";
-  //         arduinoCode += "while(";
-  //         arduinoCode += this._declickToArduino(node.test, vars, parentFonction);
-  //         arduinoCode += ")";
-  //         break;
+    //   case "DoWhileStatement":
+    //     arduinoCode = "do\n";
+    //     arduinoCode += "#line " + node.body.loc.start.line + "\n";
+    //     arduinoCode += this._declickToArduino(node.body, vars, parentFonction);
+    //     arduinoCode += "#line " + node.test.loc.start.line + "\n";
+    //     arduinoCode += "while(";
+    //     arduinoCode += this._declickToArduino(node.test, vars, parentFonction);
+    //     arduinoCode += ")";
+    //     break;
 
-  //       case "IfStatement":
-  //         arduinoCode = "if(";
-  //         arduinoCode += this._declickToArduino(node.test, vars, parentFonction);
-  //         arduinoCode += ")\n";
-  //         arduinoCode += "#line " + node.consequent.loc.start.line + "\n";
-  //         arduinoCode += this._declickToArduino(
-  //           node.consequent,
-  //           vars,
-  //           parentFonction
-  //         );
-  //         if (node.alternate !== null) {
-  //           arduinoCode += "else\n";
-  //           arduinoCode += "#line " + node.alternate.loc.start.line + "\n";
-  //           arduinoCode += this._declickToArduino(
-  //             node.alternate,
-  //             vars,
-  //             parentFonction
-  //           );
-  //         }
-  //         break;
+    //   case "IfStatement":
+    //     arduinoCode = "if(";
+    //     arduinoCode += this._declickToArduino(node.test, vars, parentFonction);
+    //     arduinoCode += ")\n";
+    //     arduinoCode += "#line " + node.consequent.loc.start.line + "\n";
+    //     arduinoCode += this._declickToArduino(
+    //       node.consequent,
+    //       vars,
+    //       parentFonction
+    //     );
+    //     if (node.alternate !== null) {
+    //       arduinoCode += "else\n";
+    //       arduinoCode += "#line " + node.alternate.loc.start.line + "\n";
+    //       arduinoCode += this._declickToArduino(
+    //         node.alternate,
+    //         vars,
+    //         parentFonction
+    //       );
+    //     }
+    //     break;
 
-  //       case "ReturnStatement":
-  //         arduinoCode = "return(";
-  //         arduinoCode += this._declickToArduino(
-  //           node.argument,
-  //           vars,
-  //           parentFonction
-  //         );
-  //         arduinoCode += ")";
-  //         break;
+    //   case "ReturnStatement":
+    //     arduinoCode = "return(";
+    //     arduinoCode += this._declickToArduino(
+    //       node.argument,
+    //       vars,
+    //       parentFonction
+    //     );
+    //     arduinoCode += ")";
+    //     break;
 
-  //       case "SwitchStatement":
-  //         arduinoCode = "switch(";
-  //         arduinoCode += this._declickToArduino(
-  //           node.discriminant,
-  //           vars,
-  //           parentFonction
-  //         );
-  //         arduinoCode += ") {\n";
-  //         for (var caseStatement of node.cases) {
-  //           arduinoCode += "#line " + caseStatement.loc.start.line + "\n";
-  //           arduinoCode += this._declickToArduino(
-  //             caseStatement,
-  //             vars,
-  //             parentFonction
-  //           );
-  //           arduinoCode += ";\n";
-  //         }
-  //         arduinoCode += "}";
-  //         break;
+    //   case "SwitchStatement":
+    //     arduinoCode = "switch(";
+    //     arduinoCode += this._declickToArduino(
+    //       node.discriminant,
+    //       vars,
+    //       parentFonction
+    //     );
+    //     arduinoCode += ") {\n";
+    //     for (var caseStatement of node.cases) {
+    //       arduinoCode += "#line " + caseStatement.loc.start.line + "\n";
+    //       arduinoCode += this._declickToArduino(
+    //         caseStatement,
+    //         vars,
+    //         parentFonction
+    //       );
+    //       arduinoCode += ";\n";
+    //     }
+    //     arduinoCode += "}";
+    //     break;
 
-  //       case "SwitchCase":
-  //         if (node.test !== null) {
-  //           arduinoCode = "case (";
-  //           arduinoCode += this._declickToArduino(
-  //             node.test,
-  //             vars,
-  //             parentFonction
-  //           );
-  //           arduinoCode += "):\n";
-  //         } else {
-  //           arduinoCode = "default :\n";
-  //         }
-  //         for (var statement of node.consequent) {
-  //           arduinoCode += this._declickToArduino(
-  //             statement,
-  //             vars,
-  //             parentFonction
-  //           );
-  //           arduinoCode += ";\n";
-  //         }
-  //         break;
+    //   case "SwitchCase":
+    //     if (node.test !== null) {
+    //       arduinoCode = "case (";
+    //       arduinoCode += this._declickToArduino(
+    //         node.test,
+    //         vars,
+    //         parentFonction
+    //       );
+    //       arduinoCode += "):\n";
+    //     } else {
+    //       arduinoCode = "default :\n";
+    //     }
+    //     for (var statement of node.consequent) {
+    //       arduinoCode += this._declickToArduino(
+    //         statement,
+    //         vars,
+    //         parentFonction
+    //       );
+    //       arduinoCode += ";\n";
+    //     }
+    //     break;
 
-  //       case "WhileStatement":
-  //         arduinoCode = "while(";
-  //         arduinoCode += this._declickToArduino(node.test, vars, parentFonction);
-  //         arduinoCode += ")\n";
-  //         arduinoCode += "#line " + node.body.loc.start.line + "\n";
-  //         arduinoCode += this._declickToArduino(node.body, vars, parentFonction);
-  //         break;
+    //   case "WhileStatement":
+    //     arduinoCode = "while(";
+    //     arduinoCode += this._declickToArduino(node.test, vars, parentFonction);
+    //     arduinoCode += ")\n";
+    //     arduinoCode += "#line " + node.body.loc.start.line + "\n";
+    //     arduinoCode += this._declickToArduino(node.body, vars, parentFonction);
+    //     break;
 
-  //       case "EmptyStatement":
-  //         arduinoCode = "";
-  //         break;
+    //   case "EmptyStatement":
+    //     arduinoCode = "";
+    //     break;
 
-  //       case "ExpressionStatement":
-  //         arduinoCode = this._declickToArduino(
-  //           node.expression,
-  //           vars,
-  //           parentFonction
-  //         );
-  //         break;
+    //   case "ExpressionStatement":
+    //     arduinoCode = this._declickToArduino(
+    //       node.expression,
+    //       vars,
+    //       parentFonction
+    //     );
+    //     break;
 
-  //       case "BlockStatement":
-  //         arduinoCode = "{\n";
-  //         for (var statement of node.body) {
-  //           arduinoCode += "#line " + statement.loc.start.line + "\n";
-  //           arduinoCode += this._declickToArduino(
-  //             statement,
-  //             vars,
-  //             parentFonction
-  //           );
-  //           arduinoCode += ";\n";
-  //         }
-  //         arduinoCode += "}";
-  //         break;
+    //   case "BlockStatement":
+    //     arduinoCode = "{\n";
+    //     for (var statement of node.body) {
+    //       arduinoCode += "#line " + statement.loc.start.line + "\n";
+    //       arduinoCode += this._declickToArduino(
+    //         statement,
+    //         vars,
+    //         parentFonction
+    //       );
+    //       arduinoCode += ";\n";
+    //     }
+    //     arduinoCode += "}";
+    //     break;
 
-  //       case "ForStatement":
-  //         arduinoCode = "for (";
-  //         arduinoCode += this._declickToArduino(node.init, vars, parentFonction);
-  //         arduinoCode += "; ";
-  //         arduinoCode += this._declickToArduino(node.test, vars, parentFonction);
-  //         arduinoCode += "; ";
-  //         arduinoCode += this._declickToArduino(
-  //           node.update,
-  //           vars,
-  //           parentFonction
-  //         );
-  //         arduinoCode += ")\n";
-  //         arduinoCode += "#line " + node.body.loc.start.line + "\n";
-  //         arduinoCode += this._declickToArduino(node.body, vars, parentFonction);
-  //         break;
+    //   case "ForStatement":
+    //     arduinoCode = "for (";
+    //     arduinoCode += this._declickToArduino(node.init, vars, parentFonction);
+    //     arduinoCode += "; ";
+    //     arduinoCode += this._declickToArduino(node.test, vars, parentFonction);
+    //     arduinoCode += "; ";
+    //     arduinoCode += this._declickToArduino(
+    //       node.update,
+    //       vars,
+    //       parentFonction
+    //     );
+    //     arduinoCode += ")\n";
+    //     arduinoCode += "#line " + node.body.loc.start.line + "\n";
+    //     arduinoCode += this._declickToArduino(node.body, vars, parentFonction);
+    //     break;
 
-  //       case "RepeatStatement":
-  //         if (node.count === null) {
-  //           arduinoCode = "while (true)\n";
-  //         } else {
-  //           do {
-  //             var rand =
-  //               "i_" +
-  //               Math.random()
-  //                 .toString(36)
-  //                 .replace("0.", "");
-  //           } while (node.raw.indexOf(rand) != -1);
+    //   case "RepeatStatement":
+    //     if (node.count === null) {
+    //       arduinoCode = "while (true)\n";
+    //     } else {
+    //       do {
+    //         var rand =
+    //           "i_" +
+    //           Math.random()
+    //             .toString(36)
+    //             .replace("0.", "");
+    //       } while (node.raw.indexOf(rand) != -1);
 
-  //           arduinoCode = "for (int " + rand + "=0; " + rand + "<";
-  //           arduinoCode += this._declickToArduino(
-  //             node.count,
-  //             vars,
-  //             parentFonction
-  //           );
-  //           arduinoCode += "; ++" + rand + ")\n";
-  //         }
-  //         arduinoCode += "#line " + node.body.loc.start.line + "\n";
-  //         arduinoCode += this._declickToArduino(node.body, vars, parentFonction);
-  //         break;
+    //       arduinoCode = "for (int " + rand + "=0; " + rand + "<";
+    //       arduinoCode += this._declickToArduino(
+    //         node.count,
+    //         vars,
+    //         parentFonction
+    //       );
+    //       arduinoCode += "; ++" + rand + ")\n";
+    //     }
+    //     arduinoCode += "#line " + node.body.loc.start.line + "\n";
+    //     arduinoCode += this._declickToArduino(node.body, vars, parentFonction);
+    //     break;
 
-  //       case "AssignmentExpression":
-  //         if (parentFonction == "setup" && node.left.type == "Identifier") {
-  //           vars.set(node.left.name, node.right);
-  //         }
-  //         arduinoCode = this._declickToArduino(node.left, vars, parentFonction);
-  //         arduinoCode += " ";
-  //         arduinoCode += node.operator;
-  //         arduinoCode += " (";
-  //         arduinoCode += this._declickToArduino(node.right, vars, parentFonction);
-  //         arduinoCode += ")";
-  //         break;
+    //   case "AssignmentExpression":
+    //     if (parentFonction == "setup" && node.left.type == "Identifier") {
+    //       vars.set(node.left.name, node.right);
+    //     }
+    //     arduinoCode = this._declickToArduino(node.left, vars, parentFonction);
+    //     arduinoCode += " ";
+    //     arduinoCode += node.operator;
+    //     arduinoCode += " (";
+    //     arduinoCode += this._declickToArduino(node.right, vars, parentFonction);
+    //     arduinoCode += ")";
+    //     break;
 
-  //       case "ConditionalExpression":
-  //         arduinoCode = "(";
-  //         arduinoCode += this._declickToArduino(node.test, vars, parentFonction);
-  //         arduinoCode += ") ? (";
-  //         arduinoCode += this._declickToArduino(
-  //           node.consequent,
-  //           vars,
-  //           parentFonction
-  //         );
-  //         arduinoCode += ") : (";
-  //         arduinoCode += this._declickToArduino(
-  //           node.alternate,
-  //           vars,
-  //           parentFonction
-  //         );
-  //         arduinoCode += ")";
-  //         break;
+    //   case "ConditionalExpression":
+    //     arduinoCode = "(";
+    //     arduinoCode += this._declickToArduino(node.test, vars, parentFonction);
+    //     arduinoCode += ") ? (";
+    //     arduinoCode += this._declickToArduino(
+    //       node.consequent,
+    //       vars,
+    //       parentFonction
+    //     );
+    //     arduinoCode += ") : (";
+    //     arduinoCode += this._declickToArduino(
+    //       node.alternate,
+    //       vars,
+    //       parentFonction
+    //     );
+    //     arduinoCode += ")";
+    //     break;
 
-  //       case "LogicalExpression":
-  //         arduinoCode = "(";
-  //         arduinoCode += this._declickToArduino(node.left, vars, parentFonction);
-  //         arduinoCode += ") ";
-  //         arduinoCode += node.operator;
-  //         arduinoCode += " (";
-  //         arduinoCode += this._declickToArduino(node.right, vars, parentFonction);
-  //         arduinoCode += ")";
-  //         break;
+    //   case "LogicalExpression":
+    //     arduinoCode = "(";
+    //     arduinoCode += this._declickToArduino(node.left, vars, parentFonction);
+    //     arduinoCode += ") ";
+    //     arduinoCode += node.operator;
+    //     arduinoCode += " (";
+    //     arduinoCode += this._declickToArduino(node.right, vars, parentFonction);
+    //     arduinoCode += ")";
+    //     break;
 
-  //       case "BinaryExpression":
-  //         arduinoCode = "(";
-  //         arduinoCode += this._declickToArduino(node.left, vars, parentFonction);
-  //         arduinoCode += ") ";
-  //         arduinoCode += node.operator;
-  //         arduinoCode += " (";
-  //         arduinoCode += this._declickToArduino(node.right, vars, parentFonction);
-  //         arduinoCode += ")";
-  //         break;
+    //   case "BinaryExpression":
+    //     arduinoCode = "(";
+    //     arduinoCode += this._declickToArduino(node.left, vars, parentFonction);
+    //     arduinoCode += ") ";
+    //     arduinoCode += node.operator;
+    //     arduinoCode += " (";
+    //     arduinoCode += this._declickToArduino(node.right, vars, parentFonction);
+    //     arduinoCode += ")";
+    //     break;
 
-  //       case "UpdateExpression":
-  //         vars;
-  //         if (node.prefix) {
-  //           arduinoCode = "(";
-  //           arduinoCode += this._declickToArduino(
-  //             node.argument,
-  //             vars,
-  //             parentFonction
-  //           );
-  //           arduinoCode += ") ";
-  //           arduinoCode += node.operator;
-  //         } else {
-  //           arduinoCode = node.operator;
-  //           arduinoCode += " (";
-  //           arduinoCode += this._declickToArduino(
-  //             node.argument,
-  //             vars,
-  //             parentFonction
-  //           );
-  //           arduinoCode += ")";
-  //         }
-  //         break;
+    //   case "UpdateExpression":
+    //     vars;
+    //     if (node.prefix) {
+    //       arduinoCode = "(";
+    //       arduinoCode += this._declickToArduino(
+    //         node.argument,
+    //         vars,
+    //         parentFonction
+    //       );
+    //       arduinoCode += ") ";
+    //       arduinoCode += node.operator;
+    //     } else {
+    //       arduinoCode = node.operator;
+    //       arduinoCode += " (";
+    //       arduinoCode += this._declickToArduino(
+    //         node.argument,
+    //         vars,
+    //         parentFonction
+    //       );
+    //       arduinoCode += ")";
+    //     }
+    //     break;
 
-  //       case "UnaryExpression":
-  //         if (node.prefix) {
-  //           arduinoCode = "(";
-  //           arduinoCode += this._declickToArduino(
-  //             node.argument,
-  //             vars,
-  //             parentFonction
-  //           );
-  //           arduinoCode += ") ";
-  //           arduinoCode += node.operator;
-  //         } else {
-  //           arduinoCode = node.operator;
-  //           arduinoCode += " (";
-  //           arduinoCode += this._declickToArduino(
-  //             node.argument,
-  //             vars,
-  //             parentFonction
-  //           );
-  //           arduinoCode += ")";
-  //         }
-  //         break;
+    //   case "UnaryExpression":
+    //     if (node.prefix) {
+    //       arduinoCode = "(";
+    //       arduinoCode += this._declickToArduino(
+    //         node.argument,
+    //         vars,
+    //         parentFonction
+    //       );
+    //       arduinoCode += ") ";
+    //       arduinoCode += node.operator;
+    //     } else {
+    //       arduinoCode = node.operator;
+    //       arduinoCode += " (";
+    //       arduinoCode += this._declickToArduino(
+    //         node.argument,
+    //         vars,
+    //         parentFonction
+    //       );
+    //       arduinoCode += ")";
+    //     }
+    //     break;
 
-  //       case "MemberExpression":
-  //         arduinoCode = "(";
-  //         arduinoCode += this._declickToArduino(
-  //           node.object,
-  //           vars,
-  //           parentFonction
-  //         );
-  //         arduinoCode += ")";
-  //         if (node.computed === true) {
-  //           arduinoCode += "[";
-  //           arduinoCode += this._declickToArduino(
-  //             node.property,
-  //             vars,
-  //             parentFonction
-  //           );
-  //           arduinoCode += "]";
-  //         } else {
-  //           arduinoCode += ".";
-  //           arduinoCode += this._declickToArduino(
-  //             node.property,
-  //             vars,
-  //             parentFonction
-  //           );
-  //         }
-  //         break;
+    //   case "MemberExpression":
+    //     arduinoCode = "(";
+    //     arduinoCode += this._declickToArduino(
+    //       node.object,
+    //       vars,
+    //       parentFonction
+    //     );
+    //     arduinoCode += ")";
+    //     if (node.computed === true) {
+    //       arduinoCode += "[";
+    //       arduinoCode += this._declickToArduino(
+    //         node.property,
+    //         vars,
+    //         parentFonction
+    //       );
+    //       arduinoCode += "]";
+    //     } else {
+    //       arduinoCode += ".";
+    //       arduinoCode += this._declickToArduino(
+    //         node.property,
+    //         vars,
+    //         parentFonction
+    //       );
+    //     }
+    //     break;
 
-  //       case "CallExpression":
-  //         arduinoCode = this._declickToArduino(node.callee, vars, parentFonction);
-  //         arduinoCode += "(";
-  //         for (var arg in node.arguments) {
-  //           if (arg !== "0") {
-  //             arduinoCode += ", ";
-  //           }
-  //           arduinoCode += "(";
-  //           arduinoCode += this._declickToArduino(
-  //             node.arguments[arg],
-  //             vars,
-  //             parentFonction
-  //           );
-  //           arduinoCode += ")";
-  //         }
-  //         arduinoCode += ")";
-  //         break;
+    //   case "CallExpression":
+    //     arduinoCode = this._declickToArduino(node.callee, vars, parentFonction);
+    //     arduinoCode += "(";
+    //     for (var arg in node.arguments) {
+    //       if (arg !== "0") {
+    //         arduinoCode += ", ";
+    //       }
+    //       arduinoCode += "(";
+    //       arduinoCode += this._declickToArduino(
+    //         node.arguments[arg],
+    //         vars,
+    //         parentFonction
+    //       );
+    //       arduinoCode += ")";
+    //     }
+    //     arduinoCode += ")";
+    //     break;
 
-  //       case "ThisExpression":
-  //         arduinoCode = "this";
-  //         break;
+    //   case "ThisExpression":
+    //     arduinoCode = "this";
+    //     break;
 
-  //       case "NewExpression":
-  //         arduinoCode = this._declickToArduino(node.callee, vars, parentFonction);
-  //         arduinoCode += "(";
-  //         for (var arg in node.arguments) {
-  //           if (arg !== "0") {
-  //             arduinoCode += ", ";
-  //           }
-  //           arduinoCode += "(";
-  //           arduinoCode += this._declickToArduino(
-  //             node.arguments[arg],
-  //             vars,
-  //             parentFonction
-  //           );
-  //           arduinoCode += ")";
-  //         }
-  //         arduinoCode += ")";
-  //         break;
+    //   case "NewExpression":
+    //     arduinoCode = this._declickToArduino(node.callee, vars, parentFonction);
+    //     arduinoCode += "(";
+    //     for (var arg in node.arguments) {
+    //       if (arg !== "0") {
+    //         arduinoCode += ", ";
+    //       }
+    //       arduinoCode += "(";
+    //       arduinoCode += this._declickToArduino(
+    //         node.arguments[arg],
+    //         vars,
+    //         parentFonction
+    //       );
+    //       arduinoCode += ")";
+    //     }
+    //     arduinoCode += ")";
+    //     break;
 
-  //       case "Identifier":
-  //         arduinoCode = node.name;
-  //         break;
+    //   case "Identifier":
+    //     arduinoCode = node.name;
+    //     break;
 
-  //       case "Literal":
-  //         console.log(node.value);
-  //         if (typeof node.value == "string") {
-  //           arduinoCode = '"';
-  //           arduinoCode += String(node.value);
-  //           arduinoCode += '"';
-  //         } else {
-  //           arduinoCode = String(node.value);
-  //         }
-  //         break;
+    //   case "Literal":
+    //     console.log(node.value);
+    //     if (typeof node.value == "string") {
+    //       arduinoCode = '"';
+    //       arduinoCode += String(node.value);
+    //       arduinoCode += '"';
+    //     } else {
+    //       arduinoCode = String(node.value);
+    //     }
+    //     break;
 
-  //       case "VariableDeclaration":
-  //         arduinoCode = "auto ";
+    //   case "VariableDeclaration":
+    //     arduinoCode = "auto ";
 
-  //         for (var decl in node.declarations) {
-  //           if (decl !== "0") {
-  //             arduinoCode += ", ";
-  //           }
-  //           arduinoCode += this._declickToArduino(
-  //             node.declarations[decl],
-  //             vars,
-  //             parentFonction
-  //           );
-  //         }
+    //     for (var decl in node.declarations) {
+    //       if (decl !== "0") {
+    //         arduinoCode += ", ";
+    //       }
+    //       arduinoCode += this._declickToArduino(
+    //         node.declarations[decl],
+    //         vars,
+    //         parentFonction
+    //       );
+    //     }
 
-  //         break;
+    //     break;
 
-  //       case "VariableDeclarator":
-  //         if (node.init === null) {
-  //           var error = new TError(
-  //             "you must assign a value when you declare a variable in arduino"
-  //           );
+    //   case "VariableDeclarator":
+    //     if (node.init === null) {
+    //       var error = new TError(
+    //         "you must assign a value when you declare a variable in arduino"
+    //       );
 
-  //           error.setLines([node.loc.start.line, node.loc.end.line]);
-  //           error.detectError();
-  //           error.setProgramName(node.loc.source);
+    //       error.setLines([node.loc.start.line, node.loc.end.line]);
+    //       error.detectError();
+    //       error.setProgramName(node.loc.source);
 
-  //           TUI.addLogError(error);
-  //           throw "you must assign a value when you declare a variable in arduino";
-  //         }
+    //       TUI.addLogError(error);
+    //       throw "you must assign a value when you declare a variable in arduino";
+    //     }
 
-  //         arduinoCode = this._declickToArduino(node.id, vars, parentFonction);
-  //         arduinoCode += " = ";
-  //         arduinoCode += this._declickToArduino(node.init, vars, parentFonction);
-  //         break;
+    //     arduinoCode = this._declickToArduino(node.id, vars, parentFonction);
+    //     arduinoCode += " = ";
+    //     arduinoCode += this._declickToArduino(node.init, vars, parentFonction);
+    //     break;
 
-  //       case "FunctionDeclaration":
-  //         parentFonction = node.id.name;
-  //         if (parentFonction === Arduino.prototype.getMessage("setupFunction")) {
-  //           parentFonction = "setup";
-  //         } else if (
-  //           parentFonction === Arduino.prototype.getMessage("loopFunction")
-  //         ) {
-  //           parentFonction = "loop";
-  //         }
-  //         if (parentFonction == "setup" || parentFonction == "loop") {
-  //           arduinoCode = "void ";
-  //           arduinoCode += parentFonction;
-  //           arduinoCode += "(";
-  //         } else {
-  //           do {
-  //             var rand =
-  //               "myType_" +
-  //               Math.random()
-  //                 .toString(36)
-  //                 .replace("0.", "");
-  //           } while (node.raw.indexOf(rand) != -1);
+    //   case "FunctionDeclaration":
+    //     parentFonction = node.id.name;
+    //     if (parentFonction === Arduino.prototype.getMessage("setupFunction")) {
+    //       parentFonction = "setup";
+    //     } else if (
+    //       parentFonction === Arduino.prototype.getMessage("loopFunction")
+    //     ) {
+    //       parentFonction = "loop";
+    //     }
+    //     if (parentFonction == "setup" || parentFonction == "loop") {
+    //       arduinoCode = "void ";
+    //       arduinoCode += parentFonction;
+    //       arduinoCode += "(";
+    //     } else {
+    //       do {
+    //         var rand =
+    //           "myType_" +
+    //           Math.random()
+    //             .toString(36)
+    //             .replace("0.", "");
+    //       } while (node.raw.indexOf(rand) != -1);
 
-  //           for (var param in node.params) {
-  //             if (param != 0) {
-  //               arduinoCode += ", ";
-  //             } else {
-  //               arduinoCode = "template<";
-  //             }
-  //             arduinoCode += "class " + rand;
-  //             arduinoCode += param;
-  //           }
-  //           if (param !== undefined) arduinoCode += ">\n";
-  //           arduinoCode += "#line " + node.id.loc.start.line + "\n";
-  //           arduinoCode += "auto ";
-  //           arduinoCode += this._declickToArduino(node.id, vars, parentFonction);
-  //           arduinoCode += " (";
-  //           for (var param in node.params) {
-  //             if (param !== "0") {
-  //               arduinoCode += ", ";
-  //             }
-  //             arduinoCode += rand;
-  //             arduinoCode += param;
-  //             arduinoCode += " ";
-  //             arduinoCode += this._declickToArduino(
-  //               node.params[param],
-  //               vars,
-  //               parentFonction
-  //             );
-  //           }
-  //         }
-  //         arduinoCode += ")\n";
-  //         arduinoCode += "#line " + node.body.loc.start.line + "\n";
-  //         arduinoCode += this._declickToArduino(node.body, vars, parentFonction);
-  //         break;
+    //       for (var param in node.params) {
+    //         if (param != 0) {
+    //           arduinoCode += ", ";
+    //         } else {
+    //           arduinoCode = "template<";
+    //         }
+    //         arduinoCode += "class " + rand;
+    //         arduinoCode += param;
+    //       }
+    //       if (param !== undefined) arduinoCode += ">\n";
+    //       arduinoCode += "#line " + node.id.loc.start.line + "\n";
+    //       arduinoCode += "auto ";
+    //       arduinoCode += this._declickToArduino(node.id, vars, parentFonction);
+    //       arduinoCode += " (";
+    //       for (var param in node.params) {
+    //         if (param !== "0") {
+    //           arduinoCode += ", ";
+    //         }
+    //         arduinoCode += rand;
+    //         arduinoCode += param;
+    //         arduinoCode += " ";
+    //         arduinoCode += this._declickToArduino(
+    //           node.params[param],
+    //           vars,
+    //           parentFonction
+    //         );
+    //       }
+    //     }
+    //     arduinoCode += ")\n";
+    //     arduinoCode += "#line " + node.body.loc.start.line + "\n";
+    //     arduinoCode += this._declickToArduino(node.body, vars, parentFonction);
+    //     break;
 
-  //       default:
-  //         var error = new TError(node.type + " can't be used with arduino");
+    //   default:
+    //     var error = new TError(node.type + " can't be used with arduino");
 
-  //         error.setLines([node.loc.start.line, node.loc.end.line]);
-  //         error.detectError();
-  //         error.setProgramName(node.loc.source);
+    //     error.setLines([node.loc.start.line, node.loc.end.line]);
+    //     error.detectError();
+    //     error.setProgramName(node.loc.source);
 
-  //         TUI.addLogError(error);
-  //         throw node.type + " can't be used with arduino";
-  //     }
+    //     TUI.addLogError(error);
+    //     throw node.type + " can't be used with arduino";
+    // }
 
-  //     return arduinoCode;
-  //   };
+    return arduinoCode;
+  };
 
   /**
    * get list of supported boards for Arduino.boardSelector
