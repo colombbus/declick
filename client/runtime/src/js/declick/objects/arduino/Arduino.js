@@ -572,68 +572,70 @@ define([
   /**
    * configure daemon's behaviour
    */
-  //   Arduino.prototype._setupArdCreAgtDaemon = function() {
-  //     var self = Arduino.prototype;
+  Arduino.prototype._setupArdCreAgtDaemon = function() {
+    var self = Arduino.prototype;
 
-  //     Arduino.daemon.agentFound.subscribe(status => {
-  //       if (status) {
-  //         TUI.addLogMessage(self.getMessage("agentCo"));
-  //       } else {
-  //         TUI.addLogMessage(self.getMessage("agentNotCo"));
-  //       }
-  //     });
+    Arduino.daemon.agentFound.subscribe(function(status) {
+      if (status) {
+        TUI.addLogMessage(self.getMessage("agentCo"));
+      } else {
+        TUI.addLogMessage(self.getMessage("agentNotCo"));
+      }
+    });
 
-  //     Arduino.daemon.channelOpenStatus.subscribe(status => {
-  //       if (status) {
-  //         TUI.addLogMessage(self.getMessage("channelOpen"));
-  //       } else {
-  //         TUI.addLogMessage(self.getMessage("channelClose"));
-  //       }
-  //     });
+    Arduino.daemon.channelOpenStatus.subscribe(function(status) {
+      if (status) {
+        TUI.addLogMessage(self.getMessage("channelOpen"));
+      } else {
+        TUI.addLogMessage(self.getMessage("channelClose"));
+      }
+    });
 
-  //     Arduino.daemon.error.subscribe(err => {
-  //       if (err !== null) {
-  //         console.log("arduino create agent error :");
-  //         console.log(err);
-  //         TUI.addLogError(Error(err));
-  //       }
-  //     });
+    Arduino.daemon.error.subscribe(function(err) {
+      if (err !== null) {
+        console.log("arduino create agent error :");
+        console.log(err);
+        TUI.addLogError(Error(err));
+      }
+    });
 
-  //     Arduino.daemon.devicesList.subscribe(({ serial, network }) => {
-  //       Arduino.boardSelector.children("#arduinoSelectBoard").empty();
+    // Arduino.daemon.devicesList.subscribe(({ serial, network }) => {
+    //   Arduino.boardSelector.children("#arduinoSelectBoard").empty();
 
-  //       for (var board of serial) {
-  //         var boardInfo = self._getBoardInfo(board.ProductID, board.VendorID);
-  //         Arduino.boardSelector
-  //           .children("#arduinoSelectBoard")
-  //           .append(
-  //             "<option value='" +
-  //               JSON.stringify({ board: boardInfo.fqbn, port: board.Name }) +
-  //               "' >" +
-  //               self.getMessage("boardPort", boardInfo.name, board.Name) +
-  //               "</option>"
-  //           );
-  //       }
+    // for (var board of serial) {
+    //   var boardInfo = self._getBoardInfo(board.ProductID, board.VendorID);
+    //   Arduino.boardSelector
+    //     .children("#arduinoSelectBoard")
+    //     .append(
+    //       "<option value='" +
+    //         JSON.stringify({ board: boardInfo.fqbn, port: board.Name }) +
+    //         "' >" +
+    //         self.getMessage("boardPort", boardInfo.name, board.Name) +
+    //         "</option>"
+    //     );
+    // }
 
-  //       Arduino.boardSelector
-  //         .children("#arduinoSelectBoard")
-  //         .append(
-  //           "<option value='other'>" + self.getMessage("other") + "</option>"
-  //         );
+    //   Arduino.boardSelector
+    //     .children("#arduinoSelectBoard")
+    //     .append(
+    //       "<option value='other'>" + self.getMessage("other") + "</option>"
+    //     );
 
-  //       self._updateSelectBoard();
-  //     });
+    //   self._updateSelectBoard();
+    // });
 
-  //     // Upload progress
-  //     Arduino.daemon.uploading.subscribe(upload => {
-  //       console.log(upload);
-  //       if (upload.status == "UPLOAD_IN_PROGRESS") TUI.addLogMessage(upload.msg);
-  //       else if (upload.status == "UPLOAD_DONE")
-  //         TUI.addLogMessage(self.getMessage("uploadSuccess"));
-  //       else if (upload.status == "UPLOAD_ERROR")
-  //         TUI.addLogError(Error(self.getMessage("uploadFail")));
-  //     });
-  //   };
+    // Upload progress
+    Arduino.daemon.uploading.subscribe(function(upload) {
+      console.log(upload);
+      if (upload.status == "UPLOAD_IN_PROGRESS") {
+        TUI.addLogMessage(upload.msg);
+      } else if (upload.status == "UPLOAD_DONE") {
+        TUI.addLogMessage(self.getMessage("uploadSuccess"));
+      } else if (upload.status == "UPLOAD_ERROR") {
+        TUI.addLogError(Error(self.getMessage("uploadFail")));
+      }
+    });
+  };
 
   /**
    * compile code through an server
@@ -646,70 +648,70 @@ define([
    *
    * @param {boolean} upload
    */
-  //   Arduino.prototype._compileCode = function(upload) {
-  //     if (!this.fqbn || (upload && !this.port)) {
-  //       this._askBoard(upload);
-  //       return;
-  //     }
+  Arduino.prototype._compileCode = function(upload) {
+    if (!this.fqbn || (upload && !this.port)) {
+      this._askBoard(upload);
+      return;
+    }
 
-  //     console.log(this.data);
+    console.log(this.data);
 
-  //     var xhr = new XMLHttpRequest();
+    var xhr = new XMLHttpRequest();
 
-  //     xhr.arduino = this;
+    xhr.arduino = this;
 
-  //     xhr.onreadystatechange = function() {
-  //       if (this.readyState == 4 && this.status == 200) {
-  //         var res = JSON.parse(this.responseText);
+    xhr.onreadystatechange = function() {
+      if (this.readyState == 4 && this.status == 200) {
+        var res = JSON.parse(this.responseText);
 
-  //         if (res["status"]) {
-  //           //compilation succedeed
-  //           TUI.addLogMessage(Arduino.prototype.getMessage("compilationSuccess"));
+        if (res["status"]) {
+          //compilation succedeed
+          TUI.addLogMessage(Arduino.prototype.getMessage("compilationSuccess"));
 
-  //           if (upload) {
-  //             Arduino.daemon.uploadSerial(
-  //               { port: this.arduino.port, board: this.arduino.fqbn },
-  //               "test",
-  //               res,
-  //               true
-  //             );
-  //           }
-  //         } else {
-  //           //compilation failed
-  //           /*res["stderr"].split("\n").forEach(msg => {
-  //                     TUI.addLogError(Error(msg.replace(/ /g, "\u00a0")));
-  //                 });*/
+          if (upload) {
+            Arduino.daemon.uploadSerial(
+              { port: this.arduino.port, board: this.arduino.fqbn },
+              "test",
+              res,
+              true
+            );
+          }
+        } else {
+          //compilation failed
+          /*res["stderr"].split("\n").forEach(msg => {
+                      TUI.addLogError(Error(msg.replace(/ /g, "\u00a0")));
+                  });*/
 
-  //           console.log(res["stderr"]);
+          console.log(res["stderr"]);
 
-  //           var e;
-  //           var error;
-  //           var regex = /^(.*):(\d*):(\d*): error: (.*)$/gm;
+          var e;
+          var error;
+          var regex = /^(.*):(\d*):(\d*): error: (.*)$/gm;
 
-  //           while ((e = regex.exec(res["stderr"]))) {
-  //             console.log("error : " + e[4] + " (line " + e[2] + ")");
-  //             error = new TError(e[1] + " : " + e[4]);
-  //             error.setLines([e[2], e[2]]);
-  //             error.detectError();
-  //             error.setProgramName(e[1]);
+          while ((e = regex.exec(res["stderr"]))) {
+            console.log("error : " + e[4] + " (line " + e[2] + ")");
+            error = new TError(e[1] + " : " + e[4]);
+            error.setLines([e[2], e[2]]);
+            error.detectError();
+            error.setProgramName(e[1]);
 
-  //             TUI.addLogError(error);
-  //           }
+            TUI.addLogError(error);
+          }
 
-  //           TUI.addLogError(Error(this.arduino.getMessage("compilationFail")));
-  //         }
-  //       }
-  //     };
+          TUI.addLogError(Error(this.arduino.getMessage("compilationFail")));
+        }
+      }
+    };
 
-  //     xhr.open("POST", "/builder/compile.php", true);
-  //     xhr.send(
-  //       JSON.stringify({
-  //         data: this.data,
-  //         board: this.fqbn,
-  //         lang: Arduino.prototype.getMessage("lang")
-  //       })
-  //     );
-  //   };
+    xhr.open("POST", "/builder/compile.php", true);
+    xhr.send(
+      JSON.stringify({
+        data: this.data,
+        board: this.fqbn,
+        lang: Arduino.prototype.getMessage("lang")
+      })
+    );
+  };
 
   /**
    * compile the code
@@ -798,93 +800,96 @@ define([
     return this;
   };
 
-  // /**
-  //  * get arduino code in the file
-  //  *
-  //  * @param {string} name name of the file
-  //  */
-  // Arduino.prototype._import = function(name) {
-  //   Arduino.syncMan.begin();
-  //   TLink.getProgramCode(name, data => {
-  //     this.data = '#line 1 "' + name + '"\n' + data;
-  //     Arduino.syncMan.end();
-  //   });
-  // };
+  /**
+   * get arduino code in the file
+   *
+   * @param {string} name name of the file
+   */
+  Arduino.prototype._import = function(name) {
+    Arduino.syncMan.begin();
+    var self = this;
+    TLink.getProgramCode(function(name, data) {
+      self.data = '#line 1 "' + name + '"\n' + data;
+      Arduino.syncMan.end();
+    });
+  };
 
-  //   /**
-  //    * get Declick code in the file and convert it to arduino code
-  //    *
-  //    * @param {string} name name of the file
-  //    */
-  //   Arduino.prototype._importDeclick = function(name) {
-  //     Arduino.syncMan.begin();
-  //     TLink.getProgramStatements(name, e => {
-  //       var vars = new Map();
-  //       var a = this._declickToArduino(e, vars);
+  /**
+   * get Declick code in the file and convert it to arduino code
+   *
+   * @param {string} name name of the file
+   */
+  Arduino.prototype._importDeclick = function(name) {
+    Arduino.syncMan.begin();
+    var self = this;
+    TLink.getProgramStatements(name, function(e) {
+      var vars = new Map();
+      var a = self._declickToArduino(e, vars);
 
-  //       var declareVars = "";
-  //       vars.forEach((val, key) => {
-  //         declareVars += "auto ";
-  //         declareVars += key;
-  //         declareVars += " = ";
-  //         declareVars += this._declickToArduino(val);
-  //         declareVars += ";\n";
-  //       });
+      var declareVars = "";
+      vars.forEach(function(val, key) {
+        declareVars += "auto ";
+        declareVars += key;
+        declareVars += " = ";
+        declareVars += self._declickToArduino(val);
+        declareVars += ";\n";
+      });
 
-  //       var includes = "";
+      var includes = "";
 
-  //       this.modules.forEach(m => {
-  //         includes += "#include <" + m + ">\n";
-  //       });
+      self.modules.forEach(function(m) {
+        includes += "#include <" + m + ">\n";
+      });
 
-  //       console.log(includes + declareVars + a);
-  //       this.data = includes + declareVars + a;
+      console.log(includes + declareVars + a);
+      self.data = includes + declareVars + a;
 
-  //       Arduino.syncMan.end();
-  //     });
-  //   };
+      Arduino.syncMan.end();
+    });
+  };
 
-  //   /**
-  //    * get Declick code and convert it to arduino code
-  //    *
-  //    * @param {string} name name of the file
-  //    */
-  //   Arduino.prototype._importDataDeclick = function(data) {
-  //     var vars = new Map();
-  //     var a = this._declickToArduino(data, vars);
+  /**
+   * get Declick code and convert it to arduino code
+   *
+   * @param {string} name name of the file
+   */
+  Arduino.prototype._importDataDeclick = function(data) {
+    var vars = new Map();
+    var a = this._declickToArduino(data, vars);
 
-  //     var declareVars = "";
-  //     vars.forEach((val, key) => {
-  //       declareVars += "auto ";
-  //       declareVars += key;
-  //       declareVars += " = ";
-  //       declareVars += this._declickToArduino(val);
-  //       declareVars += ";\n";
-  //     });
+    var declareVars = "";
+    var self = this;
+    vars.forEach(function(val, key) {
+      declareVars += "auto ";
+      declareVars += key;
+      declareVars += " = ";
+      declareVars += self._declickToArduino(val);
+      declareVars += ";\n";
+    });
 
-  //     var includes = "";
+    var includes = "";
 
-  //     this.modules.forEach(m => {
-  //       includes += "#include <" + m + ">\n";
-  //     });
+    this.modules.forEach(function(m) {
+      includes += "#include <" + m + ">\n";
+    });
 
-  //     console.log(includes + declareVars + a);
-  //     this.data = includes + declareVars + a;
-  //   };
+    console.log(includes + declareVars + a);
+    this.data = includes + declareVars + a;
+  };
 
-  //   /**
-  //    * show a popup to select arduino's board
-  //    *
-  //    * if upload is true, compile and upload code
-  //    * else just compile
-  //    *
-  //    * Arduino.syncMan must contain a SyncronousManager
-  //    * Arduino.boardSelector must be initialised
-  //    *
-  //    * @see Arduino.prototype._compileCode
-  //    *
-  //    * @param {boolean} upload
-  //    */
+  /**
+   * show a popup to select arduino's board
+   *
+   * if upload is true, compile and upload code
+   * else just compile
+   *
+   * Arduino.syncMan must contain a SyncronousManager
+   * Arduino.boardSelector must be initialised
+   *
+   * @see Arduino.prototype._compileCode
+   *
+   * @param {boolean} upload
+   */
   Arduino.prototype._askBoard = function(upload) {
     Arduino.syncMan.begin();
 
