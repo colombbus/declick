@@ -1,18 +1,62 @@
 {
-    "fr": {
-        "methods":[
-            {"name":"_moveBack", "translated":"reculer","displayed":"reculer()"},
-            {"name":"_turnRight", "translated":"tournerDroite","displayed":"tournerDroite()"},
-            {"name":"_turnLeft", "translated":"tournerGauche","displayed":"tournerGauche()"},
-            {"name":"_rotateRight", "translated":"rotationDroite","displayed":"rotationDroite()"},
-            {"name":"_rotateLeft", "translated":"rotationGauche","displayed":"rotationGauche()"},
-            {"name":"_stop", "translated":"stop","displayed":"stop()"},
-            {"name":"_measureDistance", "translated":"mesurerDistance","displayed":"mesurerDistance()"},
-            {"name":"_setRSpeed", "translated":"modifierVitesseDroite","displayed":"modifierVitesseDroite()"},
-            {"name":"_setLSpeed", "translated":"modifierVitesseGauche","displayed":"modifierVitesseGauche()"},
-            {"name":"_obstacle", "translated":"obstacle","displayed":"obstacle()"},
-            {"name":"_setMaxDist", "translated":"modifierDistanceMax","displayed":"modifierDistanceMax()"},
-            {"name":"_setMinDist", "translated":"modifierDistanceMin","displayed":"modifierDistanceMin()"}
-        ]
-    }
+  "fr": {
+    "methods": [
+      {
+        "name": "_moveBack",
+        "translated": "reculer",
+        "displayed": "reculer()"
+      },
+      {
+        "name": "_turnRight",
+        "translated": "tournerDroite",
+        "displayed": "tournerDroite()"
+      },
+      {
+        "name": "_turnLeft",
+        "translated": "tournerGauche",
+        "displayed": "tournerGauche()"
+      },
+      {
+        "name": "_rotateRight",
+        "translated": "rotationDroite",
+        "displayed": "rotationDroite()"
+      },
+      {
+        "name": "_rotateLeft",
+        "translated": "rotationGauche",
+        "displayed": "rotationGauche()"
+      },
+      { "name": "_stop", "translated": "stop", "displayed": "stop()" },
+      {
+        "name": "_measureDistance",
+        "translated": "mesurerDistance",
+        "displayed": "mesurerDistance()"
+      },
+      {
+        "name": "_setRSpeed",
+        "translated": "modifierVitesseDroite",
+        "displayed": "modifierVitesseDroite()"
+      },
+      {
+        "name": "_setLSpeed",
+        "translated": "modifierVitesseGauche",
+        "displayed": "modifierVitesseGauche()"
+      },
+      {
+        "name": "_obstacle",
+        "translated": "obstacle",
+        "displayed": "obstacle()"
+      },
+      {
+        "name": "_setMaxDist",
+        "translated": "modifierDistanceMax",
+        "displayed": "modifierDistanceMax()"
+      },
+      {
+        "name": "_setMinDist",
+        "translated": "modifierDistanceMin",
+        "displayed": "modifierDistanceMin()"
+      }
+    ]
+  }
 }

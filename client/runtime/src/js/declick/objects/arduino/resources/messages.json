@@ -1,34 +1,34 @@
 {
-    "fr": {
-        "setupFunction":"initialiser",
-        "loopFunction":"boucle",
-        "compilationSuccess":"compilation réussie",
-        "compilationFail":"compilation échouée",
-        "uploadSuccess":"téléversement réussi",
-        "uploadFail":"téléversement échoué",
-        "agentCo":"agent connecté",
-        "agentNotCo":"agent non connecté",
-        "channelOpen":"canal ouvert",
-        "channelClose":"canal fermé",
-        "selectBoard":"sélectionne la carte",
-        "boardPort":"{0} sur {1}",
-        "other":"autre",
-        "lang":"FRENCH"
-    },
-    "en": {
-        "setupFunction":"setup",
-        "loopFunction":"loop",
-        "compilationSuccess":"succeedeed compilation",
-        "compilationFail":"failed compilation",
-        "uploadSuccess":"succeedeed upload",
-        "uploadFail":"failed upload",
-        "agentCo":"connected agent",
-        "agentNotCo":"deconnected agent",
-        "channelOpen":"openned canal",
-        "channelClose":"closed canal",
-        "selectBoard":"select board",
-        "boardPort":"{0} on {1}",
-        "other":"other",
-        "lang":"ENGLISH"
-    }
+  "fr": {
+    "setupFunction": "initialiser",
+    "loopFunction": "boucle",
+    "compilationSuccess": "compilation réussie",
+    "compilationFail": "compilation échouée",
+    "uploadSuccess": "téléversement réussi",
+    "uploadFail": "téléversement échoué",
+    "agentCo": "agent connecté",
+    "agentNotCo": "agent non connecté",
+    "channelOpen": "canal ouvert",
+    "channelClose": "canal fermé",
+    "selectBoard": "sélectionne la carte",
+    "boardPort": "{0} sur {1}",
+    "other": "autre",
+    "lang": "FRENCH"
+  },
+  "en": {
+    "setupFunction": "setup",
+    "loopFunction": "loop",
+    "compilationSuccess": "succeedeed compilation",
+    "compilationFail": "failed compilation",
+    "uploadSuccess": "succeedeed upload",
+    "uploadFail": "failed upload",
+    "agentCo": "connected agent",
+    "agentNotCo": "deconnected agent",
+    "channelOpen": "openned canal",
+    "channelClose": "closed canal",
+    "selectBoard": "select board",
+    "boardPort": "{0} on {1}",
+    "other": "other",
+    "lang": "ENGLISH"
+  }
 }
