@@ -12,24 +12,19 @@ define(["TObject"], function(TObject) {
   ROSA.prototype.constructor = ROSA;
   ROSA.prototype.className = "ROSA";
 
-  // TObject
-
-  for (var i of [
-    "_moveForward",
-    "_moveBack",
-    "_turnRight",
-    "_turnLeft",
-    "_rotateRight",
-    "_rotateLeft",
-    "_stop",
-    "_measureDistance",
-    "_setRSpeed",
-    "_setLSpeed",
-    "_obstacle",
-    "_setMaxDist",
-    "_setMinDist"
-  ])
-    ROSA.prototype[i] = function() {};
+  ROSA.prototype._moveForward = function() {};
+  ROSA.prototype._moveBack = function() {};
+  ROSA.prototype._turnRight = function() {};
+  ROSA.prototype._turnLeft = function() {};
+  ROSA.prototype._rotateRight = function() {};
+  ROSA.prototype._rotateLeft = function() {};
+  ROSA.prototype._stop = function() {};
+  ROSA.prototype._measureDistance = function() {};
+  ROSA.prototype._setRSpeed = function() {};
+  ROSA.prototype._setLSpeed = function() {};
+  ROSA.prototype._obstacle = function() {};
+  ROSA.prototype._setMaxDist = function() {};
+  ROSA.prototype._setMinDis = function() {};
 
   return ROSA;
 });
