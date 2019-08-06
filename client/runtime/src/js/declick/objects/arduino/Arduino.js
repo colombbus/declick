@@ -885,55 +885,55 @@ define([
   //    *
   //    * @param {boolean} upload
   //    */
-  //   Arduino.prototype._askBoard = function(upload) {
-  //     Arduino.syncMan.begin();
+  Arduino.prototype._askBoard = function(upload) {
+    Arduino.syncMan.begin();
 
-  //     var button = $("#tcanvas-popup-button");
-  //     var content = $("#tcanvas-popup-content");
-  //     var popup = $("#tcanvas-popup");
+    var button = $("#tcanvas-popup-button");
+    var content = $("#tcanvas-popup-content");
+    var popup = $("#tcanvas-popup");
 
-  //     Arduino.previousPopup = {
-  //       content: content.html(),
-  //       button: button.clone(true),
-  //       css: {
-  //         width: popup.css("width"),
-  //         "margin-left": popup.css("margin-left"),
-  //         "text-align": popup.css("text-align")
-  //       }
-  //     };
+    Arduino.previousPopup = {
+      content: content.html(),
+      button: button.clone(true),
+      css: {
+        width: popup.css("width"),
+        "margin-left": popup.css("margin-left"),
+        "text-align": popup.css("text-align")
+      }
+    };
 
-  //     popup.css("width", "450px");
-  //     popup.css("margin-left", "-225px");
-  //     popup.css("text-align", "center");
+    popup.css("width", "450px");
+    popup.css("margin-left", "-225px");
+    popup.css("text-align", "center");
+    var self = this;
+    button.click(function() {
+      if ($("#arduinoSelectBoard").val() != "other") {
+        var select = JSON.parse($("#arduinoSelectBoard").val());
+        self.fqbn = select["board"];
+        self.port = select["port"];
+      } else {
+        self.fqbn = $("#arduinoSelectOtherBoard").val();
+      }
 
-  //     button.click(() => {
-  //       if ($("#arduinoSelectBoard").val() != "other") {
-  //         var select = JSON.parse($("#arduinoSelectBoard").val());
-  //         this.fqbn = select["board"];
-  //         this.port = select["port"];
-  //       } else {
-  //         this.fqbn = $("#arduinoSelectOtherBoard").val();
-  //       }
+      var popup = $("#tcanvas-popup");
 
-  //       var popup = $("#tcanvas-popup");
+      for (prop in Arduino.previousPopup.css) {
+        popup.css(prop, Arduino.previousPopup.css[prop]);
+      }
 
-  //       for (prop in Arduino.previousPopup.css) {
-  //         popup.css(prop, Arduino.previousPopup.css[prop]);
-  //       }
+      $("#tcanvas-popup-button").replaceWith(Arduino.previousPopup.button);
+      $("#tcanvas-popup-content").html(Arduino.previousPopup.content);
 
-  //       $("#tcanvas-popup-button").replaceWith(Arduino.previousPopup.button);
-  //       $("#tcanvas-popup-content").html(Arduino.previousPopup.content);
+      delete Arduino.previousPopup;
 
-  //       delete Arduino.previousPopup;
-
-  //       this._compileCode(upload);
-  //       Arduino.syncMan.end();
-  //     });
-  //     content.html(Arduino.boardSelector);
-  //     content.change(Arduino.prototype._updateSelectBoard);
-  //     Arduino.prototype._updateSelectBoard();
-  //     popup.show();
-  //   };
+      self._compileCode(upload);
+      Arduino.syncMan.end();
+    });
+    content.html(Arduino.boardSelector);
+    content.change(Arduino.prototype._updateSelectBoard);
+    Arduino.prototype._updateSelectBoard();
+    popup.show();
+  };
 
   /**
    * return initialised content for Arduino.boardSelector
