@@ -816,7 +816,7 @@ define([
   Arduino.prototype._import = function(name) {
     Arduino.syncMan.begin();
     var self = this;
-    TLink.getProgramCode(function(name, data) {
+    TLink.getProgramCode(name, function(data) {
       self.data = '#line 1 "' + name + '"\n' + data;
       Arduino.syncMan.end();
     });
