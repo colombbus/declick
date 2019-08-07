@@ -4,8 +4,9 @@ define([
   "TUI",
   "TLink",
   "SynchronousManager",
-  "TError"
-], function($, TObject, TUI, TLink, SyncMan, TError) {
+  "TError",
+  "TEnvironment"
+], function($, TObject, TUI, TLink, SyncMan, TError, TEnvironment) {
   /**
    * Defines Arduino, inherited from TObject.
    * It's an object used to communicate and transfert code to an arduino board
@@ -560,13 +561,13 @@ define([
         }
 
         if (Arduino.daemon === undefined) {
-          Arduino.daemon = new ArduinoCreateAgentDaemon("/builder");
+          Arduino.daemon = new ArduinoCreateAgentDaemon(TEnvironment.getConfig("arduino-builder-url"));
           Arduino.prototype._setupArdCreAgtDaemon();
         }
       }
     };
 
-    xhr.open("GET", "/builder/boards.php");
+    xhr.open("GET", TEnvironment.getConfig("arduino-builder-url")+"boards.php");
     xhr.send();
   };
 
@@ -710,7 +711,7 @@ define([
       }
     };
 
-    xhr.open("POST", "/builder/compile.php", true);
+    xhr.open("POST", TEnvironment.getConfig("arduino-builder-url")+"compile.php", true);
     xhr.send(
       JSON.stringify({
         data: this.data,
