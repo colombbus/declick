@@ -3,7 +3,7 @@
     "backend-path": "//declick-serveur.localhost/api/v1/",
     "wpaint-path": "/js/libs/wpaint-2.5.0/",
     "slide-url": "//declick.net/cms/api/1/tables/slides/rows/",
-    "arduino-builder-url": "https://arduino.declick.net/",
+    "arduino-builder-url": "//arduino-server.localhost/",
     "cache": true,
     "log": false,
     "error": true,
