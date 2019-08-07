@@ -4,6 +4,7 @@
             {"name":"_compileOnly","translated":"vérifier","displayed":"vérifier()"},
             {"name":"_upload","translated":"téléverser","displayed":"téléverser()"},
             {"name":"_setData","translated":"modifierCode","displayed":"modifierCode()"},
+            {"name":"_setDataDeclick","translated":"modifierCodeDeclick","displayed":"modifierCodeDeclick()"},
             {"name":"_setPort","translated":"modifierPort","displayed":"modifierPort()"},
             {"name":"_setBoard","translated":"modifierCarte","displayed":"modifierCarte()"},
             {"name":"_import","translated":"importer","displayed":"importer()"},

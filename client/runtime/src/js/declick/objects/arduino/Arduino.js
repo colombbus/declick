@@ -861,7 +861,7 @@ define([
    *
    * @param {string} name name of the file
    */
-  Arduino.prototype._importDataDeclick = function(data) {
+  Arduino.prototype._setDataDeclick = function(data) {
     var vars = new Map();
     var a = this._declickToArduino(data, vars);
 
