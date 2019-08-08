@@ -8,7 +8,12 @@
             {"name":"_setPort","translated":"modifierPort","displayed":"modifierPort()"},
             {"name":"_setBoard","translated":"modifierCarte","displayed":"modifierCarte()"},
             {"name":"_import","translated":"importer","displayed":"importer()"},
-            {"name":"_importDeclick","translated":"importerDeclick","displayed":"importerDeclick()"}
+            {"name":"_importDeclick","translated":"importerDeclick","displayed":"importerDeclick()"},
+            {"name":"_openSerial","translated":"ouvrirPort","displayed":"ouvrirPort()"},
+            {"name":"_sendMessage","translated":"envoyerMessage","displayed":"envoyerMessage()"},
+            {"name":"_receiveMessage","translated":"recevoirMessage","displayed":"recevoirMessage()"},
+            {"name":"_closeSerial","translated":"fermerPort","displayed":"fermerPort()"},
+            {"name":"_clearMessageList","translated":"effacerMessages","displayed":"effacerMessages()"}
         ]
     }
 }

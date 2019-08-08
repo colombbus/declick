@@ -539,6 +539,7 @@ define([
    * and initialise Arduino.daemon
    */
   Arduino.prototype._updateBoardsList = function() {
+    Arduino.syncMan.begin();
     var xhr = new XMLHttpRequest();
 
     xhr.onreadystatechange = function() {
@@ -564,6 +565,8 @@ define([
           Arduino.daemon = new ArduinoCreateAgentDaemon(TEnvironment.getConfig("arduino-builder-url"));
           Arduino.prototype._setupArdCreAgtDaemon();
         }
+
+        Arduino.syncMan.end();
       }
     };
 
@@ -576,6 +579,12 @@ define([
    */
   Arduino.prototype._setupArdCreAgtDaemon = function() {
     var self = Arduino.prototype;
+
+    Arduino.daemon.messageBuffer = "";
+
+    Arduino.daemon.serialMonitorMessages.subscribe(function(message){
+      Arduino.daemon.messageBuffer += message;
+    });
 
     Arduino.daemon.agentFound.subscribe(function(status) {
       if (status) {
@@ -979,6 +988,35 @@ define([
       $("#arduinoSelectOtherBoard").css("display", "none");
     }
   };
+
+
+  Arduino.prototype._openSerial = function(){
+    Arduino.daemon.openSerialMonitor(this.port);
+  }
+
+  Arduino.prototype._sendMessage = function(message){
+    Arduino.daemon.writeSerial(this.port, message);
+  }
+
+  Arduino.prototype._receiveMessage = function(){
+    var res = Arduino.daemon.messageBuffer.match(/([\w\W]*?)\r\n([\w\W]*)/);
+    
+    if (res !== null){
+      Arduino.daemon.messageBuffer = res[2];
+      return res[1];
+    }
+    else{
+      return "";
+    }
+  }
+
+  Arduino.prototype._clearMessageList = function(){
+    Arduino.daemon.messageBuffer = "";
+  }
+
+  Arduino.prototype._closeSerial = function(){
+      Arduino.daemon.closeSerialMonitor(this.port);
+  }
 
   /**
    * delete this
