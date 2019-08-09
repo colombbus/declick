@@ -1,0 +1,14 @@
+{ 
+    "fr": {
+        "methods":[
+            {"name":"_send","translated":"envoyer","displayed":"envoyer()"},
+            {"name":"_receive","translated":"recevoir","displayed":"recevoir()"},
+            {"name":"_receiveFloat","translated":"recevoirFlottant","displayed":"recevoirFlottant()"},
+            {"name":"_receiveInt","translated":"recevoirEntier","displayed":"recevoirEntier()"},
+            {"name":"_setTimeout","translated":"definirDelai","displayed":"definirDelai()"},
+            {"name":"_isConnected","translated":"estConnecte","displayed":"estConnecte()"},
+            {"name":"_start","translated":"demarrer","displayed":"demarrer()"},
+            {"name":"_end","translated":"terminer","displayed":"terminer()"}
+        ]
+    }
+}

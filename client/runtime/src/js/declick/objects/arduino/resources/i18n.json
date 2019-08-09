@@ -13,7 +13,9 @@
             {"name":"_sendMessage","translated":"envoyerMessage","displayed":"envoyerMessage()"},
             {"name":"_receiveMessage","translated":"recevoirMessage","displayed":"recevoirMessage()"},
             {"name":"_closeSerial","translated":"fermerPort","displayed":"fermerPort()"},
-            {"name":"_clearMessageList","translated":"effacerMessages","displayed":"effacerMessages()"}
+            {"name":"_clearMessageList","translated":"effacerMessages","displayed":"effacerMessages()"},
+            {"name":"_getCompileStatus","translated":"statusCompilation","displayed":"statusCompilation()"},
+            {"name":"_getUploadStatus","translated":"statusTéléversement","displayed":"statusTéléversement()"}
         ]
     }
 }

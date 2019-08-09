@@ -26,6 +26,12 @@ define([
     if (typeof Arduino.boardList === "undefined") {
       this._updateBoardsList();
     }
+    if(typeof Arduino.compileStatus === "undefined"){
+      Arduino.compileStatus = false;
+    }
+    if(typeof Arduino.uploadStatus === "undefined"){
+      Arduino.uploadStatus = false;
+    }
 
     this.modules = ["declick.h"]; //modules used for compilation
     this.data = null; //arduino code
@@ -646,10 +652,16 @@ define([
       console.log(upload);
       if (upload.status == "UPLOAD_IN_PROGRESS") {
         TUI.addLogMessage(upload.msg);
+
       } else if (upload.status == "UPLOAD_DONE") {
         TUI.addLogMessage(self.getMessage("uploadSuccess"));
+        Arduino.uploadStatus = true;
+        Arduino.syncMan.end();
+
       } else if (upload.status == "UPLOAD_ERROR") {
         TUI.addLogError(Error(self.getMessage("uploadFail")));
+        Arduino.uploadStatus = false;
+        Arduino.syncMan.end();
       }
     });
   };
@@ -673,6 +685,8 @@ define([
 
     console.log(this.data);
 
+    Arduino.syncMan.begin();
+
     var xhr = new XMLHttpRequest();
 
     xhr.arduino = this;
@@ -684,6 +698,8 @@ define([
         if (res["status"]) {
           //compilation succedeed
           TUI.addLogMessage(Arduino.prototype.getMessage("compilationSuccess"));
+
+          Arduino.compileStatus = true;
 
           if (upload) {
             Arduino.daemon.uploadSerial(
@@ -698,6 +714,8 @@ define([
           /*res["stderr"].split("\n").forEach(msg => {
                       TUI.addLogError(Error(msg.replace(/ /g, "\u00a0")));
                   });*/
+
+          Arduino.compileStatus = false;
 
           console.log(res["stderr"]);
 
@@ -716,6 +734,10 @@ define([
           }
 
           TUI.addLogError(Error(this.arduino.getMessage("compilationFail")));
+        }
+
+        if(!upload){
+          Arduino.syncMan.end();
         }
       }
     };
@@ -989,15 +1011,27 @@ define([
     }
   };
 
-
+  /**
+   * open serial port (this.port) to comunicate with it
+   */
   Arduino.prototype._openSerial = function(){
     Arduino.daemon.openSerialMonitor(this.port);
   }
 
+  /**
+   * send message to serialPort
+   * 
+   * @message {string}
+   */
   Arduino.prototype._sendMessage = function(message){
     Arduino.daemon.writeSerial(this.port, message);
   }
 
+  /**
+   * get first message terminated by "\r\n"
+   * 
+   * @returns {string}
+   */
   Arduino.prototype._receiveMessage = function(){
     var res = Arduino.daemon.messageBuffer.match(/([\w\W]*?)\r\n([\w\W]*)/);
     
@@ -1010,12 +1044,36 @@ define([
     }
   }
 
+  /**
+   * clear messageBuffer
+   */
   Arduino.prototype._clearMessageList = function(){
     Arduino.daemon.messageBuffer = "";
   }
 
+  /**
+   * close serial port
+   */
   Arduino.prototype._closeSerial = function(){
       Arduino.daemon.closeSerialMonitor(this.port);
+  }
+
+  /**
+   * get status of last compilation
+   * 
+   * @returns {boolean}
+   */
+  Arduino.prototype._getCompileStatus = function(){
+    return Arduino.compileStatus;
+  }
+
+  /**
+   * get status of last upload
+   * 
+   * @returns {boolean}
+   */
+  Arduino.prototype._getUploadStatus = function(){
+    return Arduino.uploadStatus;
   }
 
   /**

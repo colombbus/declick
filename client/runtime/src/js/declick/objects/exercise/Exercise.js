@@ -40,6 +40,14 @@ define(['TRuntime', 'SynchronousManager', 'TObject'], function(TRuntime, Synchro
     };
 
     /**
+     * Get the array of statements.
+     * @param {String[]} value
+     */
+    Exercise.prototype.getStatements = function() {
+        return this.statements;
+    };
+
+    /**
      * Print Statements in debug.
      * @param {String} value
      */

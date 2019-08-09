@@ -26,6 +26,16 @@
         "translated": "rotationGauche",
         "displayed": "rotationGauche()"
       },
+      {
+        "name": "_backRight",
+        "translated": "reculerDroite",
+        "displayed": "reculerDroite()"
+      },
+      {
+        "name": "_backLeft",
+        "translated": "reculerGauche",
+        "displayed": "reculerGauche()"
+      },
       { "name": "_stop", "translated": "stop", "displayed": "stop()" },
       {
         "name": "_measureDistance",

@@ -350,6 +350,15 @@
         },
         "parents": true
     },
+    "SerialPort": {
+        "path": "serialport",
+        "translations": {
+            "fr": "PortSerie",
+            "es": "PuertoSerie",
+            "en": "SerialPort"
+        },
+        "parents": true
+    },
     "Platform": {
     	"path": "platform",
     	"translations": {

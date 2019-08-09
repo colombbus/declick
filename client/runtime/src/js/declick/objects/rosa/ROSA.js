@@ -18,6 +18,8 @@ define(["TObject"], function(TObject) {
   ROSA.prototype._turnLeft = function() {};
   ROSA.prototype._rotateRight = function() {};
   ROSA.prototype._rotateLeft = function() {};
+  ROSA.prototype._backRight = function() {};
+  ROSA.prototype._backLeft = function() {};
   ROSA.prototype._stop = function() {};
   ROSA.prototype._measureDistance = function() {};
   ROSA.prototype._setRSpeed = function() {};
