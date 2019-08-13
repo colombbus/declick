@@ -22,6 +22,7 @@ define(["TObject"], function(TObject) {
   SerialPort.prototype._isConnected= function() {};
   SerialPort.prototype._start= function() {};
   SerialPort.prototype._end= function() {};
+  SerialPort.prototype._clearBuffer= function() {};
 
   return SerialPort;
 });

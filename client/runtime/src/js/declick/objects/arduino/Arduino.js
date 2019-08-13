@@ -846,9 +846,10 @@ define([
    */
   Arduino.prototype._import = function(name) {
     Arduino.syncMan.begin();
+    Arduino.programName
     var self = this;
     TLink.getProgramCode(name, function(data) {
-      self.data = '#line 1 "' + name + '"\n' + data;
+      self.data = '#line 1 "' + Arduino.programName + '"\n' + data;
       Arduino.syncMan.end();
     });
   };
@@ -1024,7 +1025,11 @@ define([
    * @message {string}
    */
   Arduino.prototype._sendMessage = function(message){
-    Arduino.daemon.writeSerial(this.port, message);
+    if (!message.endsWith('\n')){
+      message += '\n';
+    }
+    
+    Arduino.daemon.writeSerial(this.port);
   }
 
   /**

@@ -8,7 +8,8 @@
             {"name":"_setTimeout","translated":"definirDelai","displayed":"definirDelai()"},
             {"name":"_isConnected","translated":"estConnecte","displayed":"estConnecte()"},
             {"name":"_start","translated":"demarrer","displayed":"demarrer()"},
-            {"name":"_end","translated":"terminer","displayed":"terminer()"}
+            {"name":"_end","translated":"terminer","displayed":"terminer()"},
+            {"name":"_clearMessageBuffer","translated":"effacerMessages","displayed":"effacerMessages()"}
         ]
     }
 }
