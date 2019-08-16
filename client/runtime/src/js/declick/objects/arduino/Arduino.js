@@ -5,8 +5,9 @@ define([
   "TLink",
   "SynchronousManager",
   "TError",
-  "TEnvironment"
-], function($, TObject, TUI, TLink, SyncMan, TError, TEnvironment) {
+  "TEnvironment",
+  "TParser"
+], function($, TObject, TUI, TLink, SyncMan, TError, TEnvironment, TParser) {
   /**
    * Defines Arduino, inherited from TObject.
    * It's an object used to communicate and transfert code to an arduino board
@@ -14,8 +15,6 @@ define([
    */
   var Arduino = function() {
     TObject.call(this);
-
-    console.log(ArduinoCreateAgentDaemon, "loaded!!");
 
     if (typeof Arduino.boardSelector === "undefined") {
       Arduino.boardSelector = this._initBoardSelector();
@@ -52,7 +51,7 @@ define([
    *
    * @returns {string} arduino code (without vars declarations)
    *
-   * @todo replace declaration with var by declaration with let when it will aviable
+   * @todo replace declaration with var by declaration with let when it will available
    */
   Arduino.prototype._declickToArduino = function(node, vars, parentFonction) {
     if (typeof vars === "undefined") {
@@ -334,7 +333,7 @@ define([
         break;
 
       case "UnaryExpression":
-        if (node.prefix) {
+        if (!node.prefix) {
           arduinoCode = "(";
           arduinoCode += this._declickToArduino(
             node.argument,
@@ -426,7 +425,6 @@ define([
         break;
 
       case "Literal":
-        console.log(node.value);
         if (typeof node.value == "string") {
           arduinoCode = '"';
           arduinoCode += String(node.value);
@@ -840,6 +838,28 @@ define([
   };
 
   /**
+   * if only one board is connected
+   * set connected board's identifier and port
+   * and return true
+   * 
+   * else return false
+   *
+   * @returns {boolean}
+   */
+  Arduino.prototype._autoSetBoard = function(){
+    var serial = Arduino.daemon.devicesList.value.serial;
+
+    if(serial.length == 1){
+        this._setPort(serial[0].Name);
+        this._setBoard(this._getBoardInfo(serial[0].ProductID, serial[0].VendorID).fqbn);
+        return true;
+    }
+    else{
+      return false;
+    }
+  };
+
+  /**
    * get arduino code in the file
    *
    * @param {string} name name of the file
@@ -868,11 +888,21 @@ define([
 
       var declareVars = "";
       vars.forEach(function(val, key) {
-        declareVars += "auto ";
-        declareVars += key;
-        declareVars += " = ";
-        declareVars += self._declickToArduino(val);
-        declareVars += ";\n";
+        if (val.type == "Literal" && typeof val.value == "string"){
+          declareVars += "String ";
+          declareVars += key;
+          declareVars += " = ";
+          declareVars += self._declickToArduino(val);
+          declareVars += ";\n";
+        }
+        else{
+          declareVars += "auto ";
+          declareVars += key;
+          declareVars += " = ";
+          declareVars += self._declickToArduino(val);
+          declareVars += ";\n";
+        }
+        
       });
 
       var includes = "";
@@ -881,7 +911,6 @@ define([
         includes += "#include <" + m + ">\n";
       });
 
-      console.log(includes + declareVars + a);
       self.data = includes + declareVars + a;
 
       Arduino.syncMan.end();
@@ -890,21 +919,32 @@ define([
 
   /**
    * get Declick code and convert it to arduino code
-   *
+   * 
    * @param {string} name name of the file
    */
   Arduino.prototype._setDataDeclick = function(data) {
     var vars = new Map();
-    var a = this._declickToArduino(data, vars);
+    var statements = TParser.parse(data)
+    var a = this._declickToArduino(statements, vars);
 
     var declareVars = "";
     var self = this;
     vars.forEach(function(val, key) {
-      declareVars += "auto ";
-      declareVars += key;
-      declareVars += " = ";
-      declareVars += self._declickToArduino(val);
-      declareVars += ";\n";
+      if (val.type == "Literal" && typeof val.value == "string"){
+        declareVars += "String ";
+        declareVars += key;
+        declareVars += " = ";
+        declareVars += self._declickToArduino(val);
+        declareVars += ";\n";
+      }
+      else{
+        declareVars += "auto ";
+        declareVars += key;
+        declareVars += " = ";
+        declareVars += self._declickToArduino(val);
+        declareVars += ";\n";
+      }
+      
     });
 
     var includes = "";
@@ -913,7 +953,6 @@ define([
       includes += "#include <" + m + ">\n";
     });
 
-    console.log(includes + declareVars + a);
     this.data = includes + declareVars + a;
   };
 

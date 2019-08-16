@@ -7,6 +7,7 @@
             {"name":"_setDataDeclick","translated":"modifierCodeDeclick","displayed":"modifierCodeDeclick()"},
             {"name":"_setPort","translated":"modifierPort","displayed":"modifierPort()"},
             {"name":"_setBoard","translated":"modifierCarte","displayed":"modifierCarte()"},
+            {"name":"_autoSetBoard","translated":"modifierCarteAuto","displayed":"modifierCarteAuto()"},
             {"name":"_import","translated":"importer","displayed":"importer()"},
             {"name":"_importDeclick","translated":"importerDeclick","displayed":"importerDeclick()"},
             {"name":"_openSerial","translated":"ouvrirPort","displayed":"ouvrirPort()"},
@@ -14,8 +15,8 @@
             {"name":"_receiveMessage","translated":"recevoirMessage","displayed":"recevoirMessage()"},
             {"name":"_closeSerial","translated":"fermerPort","displayed":"fermerPort()"},
             {"name":"_clearMessageList","translated":"effacerMessages","displayed":"effacerMessages()"},
-            {"name":"_getCompileStatus","translated":"statusCompilation","displayed":"statusCompilation()"},
-            {"name":"_getUploadStatus","translated":"statusTéléversement","displayed":"statusTéléversement()"}
+            {"name":"_getCompileStatus","translated":"statutCompilation","displayed":"statutCompilation()"},
+            {"name":"_getUploadStatus","translated":"statutTéléversement","displayed":"statutTéléversement()"}
         ]
     }
 }
