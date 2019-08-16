@@ -1068,7 +1068,7 @@ define([
       message += '\n';
     }
     
-    Arduino.daemon.writeSerial(this.port);
+    Arduino.daemon.writeSerial(this.port, message);
   }
 
   /**
