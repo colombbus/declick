@@ -1,12 +1,12 @@
 <template lang="pug">
 .resource-manager
-  text-editor.resource-manager__text-editor(:programId="programId")
+  text-editor.resource-manager__text-editor(:programName="programName")
   main-bar.resource-manager__main-bar(
     @toggle-help="$emit('toggle-help')"
-    @play="$emit('play')"
+    @execute="$emit('execute')"
     :helpVisible='helpVisible'
   )
-  resource-panel.resource-manager__resource-panel(@select="programId = $event")
+  resource-panel.resource-manager__resource-panel(@select="programName = $event")
 </template>
 
 <script>
@@ -23,7 +23,7 @@ export default {
   },
   data() {
     return {
-      programId: 'nouveau 1',
+      programName: null, // has to be setted by $event
     }
   },
 }

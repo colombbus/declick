@@ -17,7 +17,6 @@
 </template>
 
 <script>
-import range from 'lodash.range'
 
 import ProgramItem from './ProgramItem.vue'
 import { mapActions } from 'vuex'
@@ -30,25 +29,27 @@ export default {
     }
   },
   created() {
-    range(0, 5).forEach(() => this.createProgram())
+    this.createProgram()
+  },
+  mounted() {
+    this.select(1)
   },
   methods: {
     select(id) {
-      this.selectedId = id
+      this.$nextTick(() => (this.selectedId = id))
+
       const name = this.programs.find(program => program.id === id).name
-      this.setCurrentProgram({
-        name,
-      })
+      this.setcurrentProgramName({ name })
       this.$emit('select', name)
     },
     renameProgram(id, newName) {
       this.programs.find(program => program.id === id).name = newName
     },
     createProgram() {
-      this.programs.push({
-        id: this.generateId(),
-        name: this.generateName(),
-      })
+      const id = this.generateId()
+      const name = this.generateName()
+      this.programs.push({ id, name })
+      this.setCurrentProgramContent({ id: name, content: '' })
     },
     destroySelectedProgram() {
       this.destroyProgram(this.selectedId)
@@ -74,11 +75,12 @@ export default {
       }
       return i
     },
-    ...mapActions(['setCurrentProgram']),
+    ...mapActions(['setcurrentProgramName', 'setCurrentProgramContent']),
   },
   computed: {
     orderedPrograms() {
-      return this.programs.sort((a, b) => a.name.localeCompare(b.name))
+      const self = this
+      return self.programs.sort((a, b) => a.name.localeCompare(b.name))
     },
   },
   components: {

@@ -59,10 +59,9 @@ export default {
   },
 
   [mutations.CURRENT_CODE_UPDATE](state, { id, content }) {
-    state.currentCode = content
     state.programs.set(id, content)
   },
   [mutations.CURRENT_PROGRAM](state, { name }) {
-    state.currentProgram = name
+    state.currentProgramName = name
   },
 }

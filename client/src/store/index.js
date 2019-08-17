@@ -5,41 +5,21 @@ import mutations from './mutations'
 import * as actions from './actions'
 
 Vue.use(Vuex)
-const content = `s = new Sprite();
-répéter() {
-    if (clavier.droite) {
-        s.avancer(10)
-    }
-    if (clavier.gauche) {
-        s.reculer(10)
-    }
-    if (clavier.haut) {
-        s.monter(10)
-    }
-    if (clavier.bas) {
-        s.descendre(10)
-    }
-}`
-const programs = new Map()
-programs.set('nouveau 1', content)
-programs.set('nouveau 2', 'contenu 2')
-programs.set('nouveau 3', 'contenu 3')
-programs.set('nouveau 4', 'contenu 4')
-programs.set('nouveau 5', 'contenu 5')
+
+const state = {
+  token: null,
+  user: null,
+  currentProject: null,
+  currentCourse: null,
+  currentCourseResults: null,
+  currentAssessment: null,
+  currentProgramName: null,
+  executeProject: null,
+  programs: new Map(),
+}
 
 export default new Vuex.Store({
-  state: {
-    token: null,
-    user: null,
-    currentProject: null,
-    currentCourse: null,
-    currentCourseResults: null,
-    currentAssessment: null,
-    currentCode: null,
-    currentProgram: null,
-    executeProject: null,
-    programs,
-  },
+  state,
   mutations,
   actions,
   getters,

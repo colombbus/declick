@@ -1,5 +1,5 @@
-export default {
-  getProgramByName: state => name => {
-    return state.programs.get(name)
-  },
+const getters = {
+  getCurrentProgramContent: state =>
+    state.programs.get(state.currentProgramName),
 }
+export default getters

@@ -15,7 +15,7 @@ import 'brace/ext/themelist'
 import 'brace/theme/twilight'
 
 export default {
-  props: { programId: String },
+  props: { programName: String },
   created() {
     this.$nextTick(() => this.createEditor())
   },
@@ -32,36 +32,34 @@ export default {
       // editor session
       this.editSession = this.editor.getSession()
       this.editSession.setMode('ace/mode/javascript')
-      // this.editSession.setValue(content)
-      this.editSession.setValue(this.$store.state.programs.get(this.programId))
-
       this.editSession.on(
         'change',
         debounce(() => {
-          this.setCurrentCode({
-            id: this.currentProgram,
+          this.setCurrentProgramContent({
+            id: this.currentProgramName(),
             content: this.editSession.getValue(),
           })
         }, 300),
       )
-      this.setCurrentCode({
-        id: this.currentProgram,
-        content: this.editSession.getValue(),
-      })
     },
-    ...mapActions(['setCurrentCode']),
-    ...mapGetters(['getProgramByName']),
-    ...mapState(['currentProgram']),
+    ...mapActions(['setCurrentProgramContent']),
+    ...mapGetters([
+      'getCurrentProgramName',
+      'getCurrentProgramContent',
+    ]),
+    ...mapState(['currentProgramName']),
   },
   computed: {
     enabled() {
-      return this.programId
+      return this.currentProgramName
     },
   },
   watch: {
-    programId() {
-      this.editSession.setValue(this.$store.state.programs.get(this.programId))
-      // this.editSession.setValue(this.getProgramByName(this.programId))
+    programName() {
+      const content = this.getCurrentProgramContent()
+      if (typeof content !== 'undefined') {
+        this.editSession.setValue(content)
+      }
     },
   },
 }

@@ -11,7 +11,7 @@
     v-show="view === 'resource-manager'"
     @toggle-help='toggleHelp'
     :helpVisible='helpVisible'
-    @play='play'
+    @execute='execute'
   )
 </template>
 
@@ -22,7 +22,7 @@ import Help from './Help.vue'
 import DeclickRuntime from '../../../../runtime/lib/declick-runtime'
 import DeclickObjects from '../../../../objects/lib/declick-objects'
 
-import { mapState } from 'vuex'
+import { mapGetters } from 'vuex'
 
 export default {
   data() {
@@ -52,8 +52,8 @@ export default {
       document.getElementsByClassName('preview__canvas_container')[0],
     )
   },
-  computed: mapState(['currentCode']),
   methods: {
+    ...mapGetters(['getCurrentProgramContent']),
     toggleHelp() {
       this.helpVisible = !this.helpVisible
     },
@@ -61,11 +61,11 @@ export default {
       this.view =
         this.view === 'resource-manager' ? 'preview' : 'resource-manager'
     },
-    play() {
+    execute() {
       // DeclickRuntime.executeCode(`t = new Texte();
       // t.définirTexte('abracadabra');
       // t.récupérerTexte();`)
-      DeclickRuntime.executeCode(this.currentCode)
+      DeclickRuntime.executeCode(this.getCurrentProgramContent())
       this.view = 'preview'
       this.$nextTick(() => {
         DeclickRuntime.resizeDisplay()
