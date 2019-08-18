@@ -1,23 +1,28 @@
 import Vue from 'vue'
 import Vuex from 'vuex'
+import getters from './getters'
 import mutations from './mutations'
 import * as actions from './actions'
 
 Vue.use(Vuex)
 
+const state = {
+  token: null,
+  user: null,
+  currentProject: null,
+  currentCourse: null,
+  currentCourseResults: null,
+  currentAssessment: null,
+  currentProgramName: null,
+  executeProject: null,
+  programs: new Map(),
+}
+
 export default new Vuex.Store({
-  state: {
-    token: null,
-    user: null,
-    currentProject: null,
-    currentCourse: null,
-    currentCourseResults: null,
-    currentAssessment: null,
-    currentCode: null,
-    executeProject: null,
-  },
+  state,
   mutations,
   actions,
+  getters,
 })
 
 /*

@@ -6,7 +6,7 @@
 
 <script>
 import * as ace from 'brace'
-import { mapActions } from 'vuex'
+import { mapActions, mapState, mapGetters } from 'vuex'
 import { debounce } from 'underscore'
 
 import 'brace/mode/javascript'
@@ -14,24 +14,8 @@ import 'brace/ext/modelist'
 import 'brace/ext/themelist'
 import 'brace/theme/twilight'
 
-const content = `s = new Sprite();
-répéter() {
-    if (clavier.droite) {
-        s.avancer(10)
-    }
-    if (clavier.gauche) {
-        s.reculer(10)
-    }
-    if (clavier.haut) {
-        s.monter(10)
-    }
-    if (clavier.bas) {
-        s.descendre(10)
-    }
-}`
-
 export default {
-  props: ['programId'],
+  props: { programName: String },
   created() {
     this.$nextTick(() => this.createEditor())
   },
@@ -48,22 +32,34 @@ export default {
       // editor session
       this.editSession = this.editor.getSession()
       this.editSession.setMode('ace/mode/javascript')
-      this.editSession.setValue(content)
-
       this.editSession.on(
         'change',
         debounce(() => {
-          const content = this.editSession.getValue()
-          this.setCurrentCode({ content })
+          this.setCurrentProgramContent({
+            id: this.currentProgramName(),
+            content: this.editSession.getValue(),
+          })
         }, 300),
       )
-      this.setCurrentCode({ content })
     },
-    ...mapActions(['setCurrentCode']),
+    ...mapActions(['setCurrentProgramContent']),
+    ...mapGetters([
+      'getCurrentProgramName',
+      'getCurrentProgramContent',
+    ]),
+    ...mapState(['currentProgramName']),
   },
   computed: {
     enabled() {
-      return this.programId
+      return this.currentProgramName
+    },
+  },
+  watch: {
+    programName() {
+      const content = this.getCurrentProgramContent()
+      if (typeof content !== 'undefined') {
+        this.editSession.setValue(content)
+      }
     },
   },
 }

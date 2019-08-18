@@ -8,16 +8,14 @@
   button.main-bar__hints(type='button')
   button.main-bar__play(
     type='button'
-    @click="$emit('play')"
+    @click="$emit('execute')"
   )
   button.main-bar__save(type='button')
 </template>
 
 <script>
 export default {
-  props: [
-    'helpVisible'
-  ],
+  props: ['helpVisible'],
 }
 </script>
 
