@@ -283,6 +283,30 @@
 		"write_help": {
 			"type": "string",
 			"minLength": 1
+		},
+		"setPosition": {
+			"type": "string",
+			"minLength": 1
+		},
+		"createMatrix": {
+			"type": "string",
+			"minLength": 1
+		},
+		"addLigne": {
+			"type": "string",
+			"minLength": 1
+		},
+		"createBlock": {
+			"type": "string",
+			"minLength": 1
+		},
+		"Block": {
+			"type": "string",
+			"minLength": 1
+		},
+		"colide": {
+			"type": "string",
+			"minLength": 1
 		}
 	},
 	"required": [
@@ -355,7 +379,14 @@
 		"void",
 		"void_help",
 		"write",
-		"write_help"
+		"write_help",
+		"setPosition",
+		"Platform",
+		"createMatrix",
+		"addLigne",
+		"createBlock",
+		"Block",
+		"colide"
 	],
 	"additionalProperties": false
 }

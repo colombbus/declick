@@ -38,6 +38,30 @@ class Sprite extends GraphicClass {
       this.dispatch('objectReady')
     })
   }
+
+  @Reflect.metadata('translated', i18n`colide`)
+  colide(platforms) {
+    this.platforms = platforms.platforms
+    this.colapse = true
+    for (let i = 0; i < this.platforms.length; i++) {
+      for (let x = 0; x < this.platforms[i].length; x++) {
+        console.log('platform', this.platforms[i][x])
+      }
+    }
+    // for (let ligne in this.platforms) {
+    //   for (let block in this.platforms[ligne]) {
+    //     console.log(this.platforms)
+    //     console.log(this.platforms[0])
+    //     console.log(this.platforms[0][0])
+    //     // console.log(this.platforms[0])
+
+    //     // if (this._object.containsPoint(this.platforms[platform[block]])){
+    //     //   this._move.stop()
+    //     // }
+    //   }
+    // }
+    // console.log(this, platforms)
+  }
 }
 
 export default Sprite
