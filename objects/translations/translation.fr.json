@@ -80,5 +80,8 @@
   "loadStructure": "définirStructure",
   "getTileCount": "compterBriques",
   "compareStructure": "comparerStructure",
-  "removeTile": "supprimerBrique"
+  "removeTile": "supprimerBrique",
+  "throwDice": "jeterDé",
+  "throwDice_help": "jeterDé(6)",
+  "Random": "Hasard"
 }

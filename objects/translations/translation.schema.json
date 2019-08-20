@@ -288,15 +288,7 @@
 			"type": "string",
 			"minLength": 1
 		},
-		"createBlock": {
-			"type": "string",
-			"minLength": 1
-		},
 		"Block": {
-			"type": "string",
-			"minLength": 1
-		},
-		"colide": {
 			"type": "string",
 			"minLength": 1
 		},
@@ -333,6 +325,18 @@
 			"minLength": 1
 		},
 		"getTileCount": {
+			"type": "string",
+			"minLength": 1
+		},
+		"throwDice": {
+			"type": "string",
+			"minLength": 1
+		},
+		"Random": {
+			"type": "string",
+			"minLength": 1
+		},
+		"throwDice_help": {
 			"type": "string",
 			"minLength": 1
 		}
@@ -411,7 +415,6 @@
 		"Platform",
 		"addRow",
 		"addRow_help",
-		"colide",
 		"Block",
 		"build",
 		"addColumn",
@@ -428,7 +431,10 @@
 		"loadStructure_help",
 		"getTileCount_help",
 		"compareStructure_help",
-		"removeTile_help"
+		"removeTile_help",
+		"throwDice",
+		"throwDice_help",
+		"Random"
 	],
 	"additionalProperties": false
 }

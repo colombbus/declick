@@ -80,5 +80,8 @@
   "loadStructure": "loadStructure",
   "getTileCount": "getTileCount",
   "compareStructure": "compareStructure",
-  "removeTile": "removeTile"
+  "removeTile": "removeTile",
+  "throwDice": "throwDice",
+  "throwDice_help": "throwDice_help(6)",
+  "Random": "Random"
 }
