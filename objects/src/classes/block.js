@@ -8,7 +8,7 @@ class Block extends GraphicClass {
   constructor(x, y, block) {
     super()
     let texture = new PIXI.Texture.from(block)
-    this._object = new PIXI.TilingSprite(texture, 40, 40)
+    this._object = new PIXI.Sprite(texture, 40, 40)
     this._object.anchor.set(0)
     this._object.x = x
     this._object.y = y

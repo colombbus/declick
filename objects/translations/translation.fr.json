@@ -69,5 +69,16 @@
   "right": "droite",
   "up": "haut",
   "keyboard": "clavier",
-  "Robot": "Robot"
+  "Robot": "Robot",
+  "Platform": "Plateforme",
+  "addRow": "ajouterLigne",
+  "Block": "Block",
+  "build": "construire",
+  "addColumn": "ajouterColonne",
+  "setTile": "définirBirque",
+  "getStructure": "récupérerStructure",
+  "loadStructure": "définirStructure",
+  "getTileCount": "compterBriques",
+  "compareStructure": "comparerStructure",
+  "removeTile": "supprimerBrique"
 }

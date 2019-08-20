@@ -69,5 +69,16 @@
   "up": "up",
   " ": "space",
   "Robot": "Robot",
-  "keyboard": "keyboard"
+  "keyboard": "keyboard",
+  "Platform": "Platform",
+  "addRow": "addRow",
+  "addColumn": "addColumn",
+  "Block": "Block",
+  "setTile": "setTile",
+  "build": "build",
+  "getStructure": "getStructure",
+  "loadStructure": "loadStructure",
+  "getTileCount": "getTileCount",
+  "compareStructure": "compareStructure",
+  "removeTile": "removeTile"
 }

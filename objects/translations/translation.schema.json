@@ -284,15 +284,7 @@
 			"type": "string",
 			"minLength": 1
 		},
-		"setPosition": {
-			"type": "string",
-			"minLength": 1
-		},
-		"createMatrix": {
-			"type": "string",
-			"minLength": 1
-		},
-		"addLigne": {
+		"addRow": {
 			"type": "string",
 			"minLength": 1
 		},
@@ -305,6 +297,42 @@
 			"minLength": 1
 		},
 		"colide": {
+			"type": "string",
+			"minLength": 1
+		},
+		"Platform": {
+			"type": "string",
+			"minLength": 1
+		},
+		"build": {
+			"type": "string",
+			"minLength": 1
+		},
+		"addColumn": {
+			"type": "string",
+			"minLength": 1
+		},
+		"compareStructure": {
+			"type": "string",
+			"minLength": 1
+		},
+		"removeTile": {
+			"type": "string",
+			"minLength": 1
+		},
+		"setTile": {
+			"type": "string",
+			"minLength": 1
+		},
+		"getStructure": {
+			"type": "string",
+			"minLength": 1
+		},
+		"loadStructure": {
+			"type": "string",
+			"minLength": 1
+		},
+		"getTileCount": {
 			"type": "string",
 			"minLength": 1
 		}
@@ -380,13 +408,27 @@
 		"void_help",
 		"write",
 		"write_help",
-		"setPosition",
 		"Platform",
-		"createMatrix",
-		"addLigne",
-		"createBlock",
+		"addRow",
+		"addRow_help",
+		"colide",
 		"Block",
-		"colide"
+		"build",
+		"addColumn",
+		"addColumn_help",
+		"compareStructure",
+		"removeTile",
+		"setTile",
+		"getStructure",
+		"loadStructure",
+		"getTileCount",
+		"setTile_help",
+		"build_help",
+		"getStructure_help",
+		"loadStructure_help",
+		"getTileCount_help",
+		"compareStructure_help",
+		"removeTile_help"
 	],
 	"additionalProperties": false
 }
