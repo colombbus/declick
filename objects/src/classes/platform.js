@@ -25,13 +25,13 @@ class Platform extends GraphicClass {
   }
 
   @Reflect.metadata('translated', i18n`addRow`)
-  @Reflect.metadata('translated', i18n`addRow_help`)
+  @Reflect.metadata('help', i18n`addRow_help`)
   addRow(ligne) {
     this.matrix.push(ligne)
   }
 
   @Reflect.metadata('translated', i18n`addColumn`)
-  @Reflect.metadata('translated', i18n`addColumn_help`)
+  @Reflect.metadata('help', i18n`addColumn_help`)
   addColumn(tile = 0) {
     for (let row in this.matrix) {
       this.matrix[row].push(tile)
@@ -39,32 +39,32 @@ class Platform extends GraphicClass {
   }
 
   @Reflect.metadata('translated', i18n`setTile`)
-  @Reflect.metadata('translated', i18n`setTile_help`)
+  @Reflect.metadata('help', i18n`setTile_help`)
   setTile(block, x = this.coords.x, y = this.coords.y) {
     return new Block(x, y, this.ress[block])
   }
 
   @Reflect.metadata('translated', i18n`build`)
-  @Reflect.metadata('translated', i18n`build_help`)
+  @Reflect.metadata('help', i18n`build_help`)
   build() {
     this.builded = true
     this.draw()
   }
 
   @Reflect.metadata('translated', i18n`getStructure`)
-  @Reflect.metadata('translated', i18n`getStructure_help`)
+  @Reflect.metadata('help', i18n`getStructure_help`)
   getStructure() {
     return this.matrix
   }
 
   @Reflect.metadata('translated', i18n`loadStructure`)
-  @Reflect.metadata('translated', i18n`loadStructure_help`)
+  @Reflect.metadata('help', i18n`loadStructure_help`)
   loadStructure(structure) {
     this.matrix = structure
   }
 
   @Reflect.metadata('translated', i18n`getTileCount`)
-  @Reflect.metadata('translated', i18n`getTileCount_help`)
+  @Reflect.metadata('help', i18n`getTileCount_help`)
   getTileCount(tile) {
     if (typeof this.countTiles[tile] !== 'undefined') {
       return this.countTiles.filter(a => a == tile).length
@@ -72,7 +72,7 @@ class Platform extends GraphicClass {
   }
 
   @Reflect.metadata('translated', i18n`compareStructure`)
-  @Reflect.metadata('translated', i18n`compareStructure_help`)
+  @Reflect.metadata('help', i18n`compareStructure_help`)
   compareStructure(comparison) {
     let a = comparison
     let b = this.matrix
@@ -97,11 +97,15 @@ class Platform extends GraphicClass {
   }
 
   @Reflect.metadata('translated', i18n`removeTile`)
-  @Reflect.metadata('translated', i18n`removeTile_help`)
+  @Reflect.metadata('help', i18n`removeTile_help`)
   removeTile(x, y) {
     x = parseInt(x)
     y = parseInt(y)
-    this.setTile(x, y, 0)
+    if (!this.builded) {
+      this.matrix[x][y] = 0
+    } else {
+      this._graphics.removeObject(this.platforms[x][y])
+    }
   }
 
   draw() {
@@ -119,6 +123,8 @@ class Platform extends GraphicClass {
       this.coords.x = 0
       this.platforms.push(ligneStore)
     }
+    this.coords.y = 0
+    this.coords.x = 0
   }
 }
 

@@ -28,14 +28,6 @@ class GraphicClass extends BaseClass {
   }
 
   tick(delta) {
-    if (this.colapse) {
-      // for (let i = 0; i < this.platforms.length - 1; i++) {
-      //   console.log('this.platforms[i]', this.platforms[i])
-      //   for (let x = 0; x < this.platforms[i].length - 1; x++) {
-      //     console.log('platform', this.platforms[i][x])
-      //   }
-      // }
-    }
     if (this._movement !== 'stop') {
       this._move(delta)
       this._object.x = this._x
