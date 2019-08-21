@@ -2,7 +2,7 @@
     "fr": {
         "methods":[
             {"name":"_on","translated":"allumer","displayed":"allumer()"},
-            {"name":"_off","translated":"eteindrer","displayed":"eteindre()"}
+            {"name":"_off","translated":"eteindre","displayed":"eteindre()"}
         ]
     }
 }

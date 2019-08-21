@@ -2,6 +2,11 @@
   "fr": {
     "methods": [
       {
+        "name": "_moveForward",
+        "translated": "avancer",
+        "displayed": "avancer()"
+      },
+      {
         "name": "_moveBack",
         "translated": "reculer",
         "displayed": "reculer()"

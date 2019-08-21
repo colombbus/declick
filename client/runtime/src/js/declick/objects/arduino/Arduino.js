@@ -1011,7 +1011,6 @@ define([
       delete Arduino.previousPopup;
 
       self._compileCode(upload);
-      Arduino.syncMan.end();
     });
     content.html(Arduino.boardSelector);
     content.change(Arduino.prototype._updateSelectBoard);
