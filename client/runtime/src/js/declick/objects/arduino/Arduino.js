@@ -587,7 +587,9 @@ define([
     Arduino.daemon.messageBuffer = "";
 
     Arduino.daemon.serialMonitorMessages.subscribe(function(message){
-      Arduino.daemon.messageBuffer += message;
+      if(Arduino.daemon.messageBuffer.length + message.length < 1000000){
+        Arduino.daemon.messageBuffer += message;
+      }
     });
 
     Arduino.daemon.agentFound.subscribe(function(status) {
@@ -661,6 +663,11 @@ define([
         Arduino.uploadStatus = false;
         Arduino.syncMan.end();
       }
+    });
+
+    // Download status
+    Arduino.daemon.downloading.subscribe(function(download) {
+      console.log(download);
     });
   };
 

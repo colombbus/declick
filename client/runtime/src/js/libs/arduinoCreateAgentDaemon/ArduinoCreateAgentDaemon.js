@@ -10900,6 +10900,7 @@ class SocketDaemon extends __WEBPACK_IMPORTED_MODULE_5__daemon__["a" /* default 
         this.downloadTool('windows-drivers', 'latest', 'arduino');
         this.downloadTool('bossac', '1.7.0', 'arduino');
         this.downloadTool('fwupdater', 'latest', 'arduino');
+        this.downloadTool('avrdude', 'latest', 'arduino');
         driversRequested = false;
       }
 
