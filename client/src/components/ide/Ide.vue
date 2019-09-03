@@ -65,7 +65,11 @@ export default {
       // DeclickRuntime.executeCode(`t = new Texte();
       // t.définirTexte('abracadabra');
       // t.récupérerTexte();`)
-      DeclickRuntime.executeCode(this.getCurrentProgramContent())
+      // console.log(this.getCurrentProgramContent());
+      
+      // DeclickRuntime.executeCode(this.getCurrentProgramContent())
+      DeclickRuntime.clear()
+      DeclickRuntime.executeCode(this.$store.state.programs.get(this.$store.state.currentProgramName))
       this.view = 'preview'
       this.$nextTick(() => {
         DeclickRuntime.resizeDisplay()
