@@ -36,6 +36,8 @@ define([
     this.data = null; //arduino code
     this.port = null; //port on which the arduino board is connected
     this.fqbn = null; //board's idenfifier
+    this._createLogger()
+    this._createLoggerToggle()
   };
 
   Arduino.prototype = Object.create(TObject.prototype);
@@ -610,8 +612,8 @@ define([
 
     Arduino.daemon.error.subscribe(function(err) {
       if (err !== null) {
-        console.log("arduino create agent error :");
-        console.log(err);
+        TEnvironment.log(613, "arduino create agent error :");
+        TEnvironment.log(614, err);
         TUI.addLogError(Error(err));
       }
     });
@@ -649,10 +651,11 @@ define([
 
     // Upload progress
     Arduino.daemon.uploading.subscribe(function(upload) {
-      console.log(upload);
+      // TEnvironment.log(652, Arduino);
+      var msg = upload.msg ? upload.status + ' : ' + upload.msg : upload.status;
+      Arduino.prototype._addLogMessage(msg);
       if (upload.status == "UPLOAD_IN_PROGRESS") {
         TUI.addLogMessage(upload.msg);
-
       } else if (upload.status == "UPLOAD_DONE") {
         TUI.addLogMessage(self.getMessage("uploadSuccess"));
         Arduino.uploadStatus = true;
@@ -667,7 +670,9 @@ define([
 
     // Download status
     Arduino.daemon.downloading.subscribe(function(download) {
-      console.log(download);
+      // TEnvironment.log(670, download);
+      var msg = download.msg ? download.status + ' : ' + download.msg : download.status;
+      Arduino.prototype._addLogMessage(msg);
     });
   };
 
@@ -688,7 +693,7 @@ define([
       return;
     }
 
-    console.log(this.data);
+    Arduino.prototype._addLogMessage(this.data);
 
     Arduino.syncMan.begin();
 
@@ -715,21 +720,17 @@ define([
             );
           }
         } else {
-          //compilation failed
-          /*res["stderr"].split("\n").forEach(msg => {
-                      TUI.addLogError(Error(msg.replace(/ /g, "\u00a0")));
-                  });*/
 
           Arduino.compileStatus = false;
 
-          console.log(res["stderr"]);
+          TEnvironment.log(725, res["stderr"]);
 
           var e;
           var error;
           var regex = /^(.*):(\d*):(\d*): error: (.*)$/gm;
 
           while ((e = regex.exec(res["stderr"]))) {
-            console.log("error : " + e[4] + " (line " + e[2] + ")");
+            TEnvironment.log(632, "error : " + e[4] + " (line " + e[2] + ")");
             error = new TError(e[1] + " : " + e[4]);
             error.setLines([e[2], e[2]]);
             error.detectError();
@@ -1144,6 +1145,71 @@ define([
     }
     TObject.prototype.deleteObject.call(this);
   };
+
+  /*
+  * create toggle btn log box
+  *
+  * */
+  Arduino.prototype._createLoggerToggle = function() {
+    var toggleLogButton = document.createElement('div')
+    toggleLogButton.id = 'toggleLogButton'
+
+    tcanvas_container.appendChild(toggleLogButton)
+
+    toggleLogButton.addEventListener('click', function(){
+      arduinoLogger.classList.toggle("hide-log")
+    })
+  }
+
+    // toggleLogButton.addEventListener('click', function(){
+    //   if(arduinoLogger.classList.toggle("display-none")){
+
+    //     arduinoLogger.classList.toggle("display-none")
+    //     arduinoLogger.classList.toggle("hide-log")
+    //   }
+    //   if(arduinoLogger.classList.toggle("hide-log")){
+    //     setTimeout(function() {
+    //       arduinoLogger.classList.toggle("display-none")
+
+    //     },500)
+    //   }
+    // })
+  /*
+  * create log box
+  *
+  * */
+  Arduino.prototype._createLogger = function() {
+    var pre = document.getElementById("arduinoLogger")
+    if(pre == null){
+
+      pre = document.createElement('pre')
+      pre.id = 'arduinoLogger'
+      
+      tcanvas_container.appendChild(pre)
+      arduinoLogger.classList.add("hide-log")
+
+    }
+  }
+
+  /*
+  * handle log message
+  *
+  * */
+  Arduino.prototype._addLogMessage = function(message) {
+
+    console.log(typeof message);
+
+    var samp = document.createElement('samp')
+    samp.innerHTML = message
+    arduinoLogger.scrollTo(0,arduinoLogger.scrollHeight);
+
+    // if(arduinoLogger.childNodes.length > 14){
+    //   arduinoLogger.removeChild(arduinoLogger.getElementsByTagName('samp')[0])
+    // }
+
+    arduinoLogger.appendChild(samp)
+  }
+
 
   return Arduino;
 });

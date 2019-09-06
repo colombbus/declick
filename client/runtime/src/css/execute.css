@@ -63,3 +63,39 @@ body {
     top:0px;
     left:0px;
 }
+
+#arduinoLogger samp {
+    display: block;
+}
+
+#arduinoLogger samp:last-child {
+    margin-bottom: 25px;
+}
+
+#arduinoLogger {
+    position: absolute;
+    top:50px;
+    bottom:50px;
+    right:50px;
+    left:50px;
+    background-color: #00979cc4;
+    color: white;
+    padding: 25px;
+    overflow: auto;
+    transition: opacity 0.4s ease
+}
+
+#toggleLogButton{
+    position: absolute;
+    bottom: 15px;
+    left: 15px;
+    background-image: url(../images/microchip-solid.svg);
+    height: 50px;
+    width: 50px;
+    background-size: contain;
+    transform: rotate(90deg)
+}
+
+.hide-log{
+    opacity: 0
+}
