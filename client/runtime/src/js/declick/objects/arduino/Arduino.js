@@ -1146,6 +1146,14 @@ define([
     TObject.prototype.deleteObject.call(this);
   };
 
+  Arduino.prototype._enableLogs = function(status) {
+    if(status === true){
+      toggleLogButton.style.display = 'initial'
+    } else {
+      toggleLogButton.style.display = 'none'      
+    }
+  };
+
   /*
   * create toggle btn log box
   *
@@ -1153,11 +1161,20 @@ define([
   Arduino.prototype._createLoggerToggle = function() {
     var toggleLogButton = document.createElement('div')
     toggleLogButton.id = 'toggleLogButton'
+    // style change if logs enable
 
     tcanvas_container.appendChild(toggleLogButton)
+    toggleLogButton.style.display = 'none'
 
     toggleLogButton.addEventListener('click', function(){
-      arduinoLogger.classList.toggle("hide-log")
+      
+      var goHiden = arduinoLogger.classList.toggle("hide-log")
+
+      if(goHiden === true) {
+        setTimeout(function() { arduinoLogger.style.display = 'none'},500)
+      } else {
+        arduinoLogger.style.display = 'initial'
+      }
     })
   }
 
@@ -1187,7 +1204,7 @@ define([
       
       tcanvas_container.appendChild(pre)
       arduinoLogger.classList.add("hide-log")
-
+      arduinoLogger.style.display = 'none'
     }
   }
 
@@ -1202,11 +1219,9 @@ define([
     var samp = document.createElement('samp')
     samp.innerHTML = message
     arduinoLogger.scrollTo(0,arduinoLogger.scrollHeight);
-
     // if(arduinoLogger.childNodes.length > 14){
     //   arduinoLogger.removeChild(arduinoLogger.getElementsByTagName('samp')[0])
     // }
-
     arduinoLogger.appendChild(samp)
   }
 
