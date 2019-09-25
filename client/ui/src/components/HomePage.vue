@@ -6,6 +6,7 @@
       En classe, en atelier ou à la maison, il permet d'aborder les bases du
       code informatique et de les appliquer à travers des projets, individuels
       ou collectifs, d'applications ou de jeux vidéo.
+    img.instaBannier(src="../assets/instaBannier.png")
   .home__box
     img.home__robot-train(src='../assets/images/figures/robot-train.svg' alt="robot logo declick")
     h3 les parcours
@@ -132,10 +133,10 @@
         target='_blank'
       ): img(src='../assets/images/logos/Fondation-SNCF.svg')
       a(
-        href='https://group.bnpparibas/decouvrez-le-groupe/fondation-bnp-paribas'
-        title='Fondation BNP Paribas'
+        href='https://www.sap.com/france/index.html'
+        title='SAP'
         target='_blank'
-      ): img(src='../assets/images/logos/Fondation-BNP-Paribas.svg')
+      ): img(src='../assets/images/logos/SAP_grad_R_pref.svg')
 </template>
 
 <script>
@@ -342,7 +343,9 @@ $vertical-gap: 40px
   .home__logo-group
     justify-content: left
 
-
+.instaBannier
+  width: 100%
+  margin: 15px auto
 
 @media only screen and (max-width: 376px)
   .home
