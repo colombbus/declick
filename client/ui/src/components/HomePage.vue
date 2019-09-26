@@ -324,7 +324,7 @@ $vertical-gap: 40px
   .home h3:after
     margin-left: 0
   .home__box .home__robot-train,
-  .home__box .home__robot-idea,
+  .home__box .home__robot-idea
     height: 35px
   .home__box .home__robot-observe
     height: 23px
