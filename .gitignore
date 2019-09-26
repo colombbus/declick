@@ -7,4 +7,5 @@ server/.env
 server/storage/app/projects
 **.htaccess
 client/ui/dist/*
+client/ui/config/index.js
 builder/*
