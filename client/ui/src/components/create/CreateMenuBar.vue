@@ -8,7 +8,8 @@
       li: a(@click="$emit('showView', 'ProjectList')") projets
       template(v-if='user')
         li.divider(role='separator')
-        li: a(@click='importExamplePrograms') importer les programmes d'exemple
+        li: a(@click='importExamplePrograms(402)') importer les programmes d'exemple
+        li: a(@click='importExamplePrograms(5833)') importer Tuto Runner - GothicVania
   span.project-name {{(currentProject && currentProject.name) || 'Projet'}}
   a(
     @click='toggleMode',
@@ -28,8 +29,9 @@ import Api from 'src/api'
 export default {
   props: ['editor'],
   methods: {
-    importExamplePrograms () {
-      Api.importProject(402, this.token)
+    importExamplePrograms (id) {
+      Api.importProject(id, this.token)
+      this.$forceUpdate();
       window.alert('Les programmes ont été importés, veuillez recharger la page.')
     },
     toggleMode () {
