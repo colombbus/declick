@@ -9,7 +9,7 @@ module.exports = {
     assetsSubDirectory: "static",
     // v2.declick
     // assetsPublicPath: "/ui/dist/",
-    assetsPublicPath: "/client/ui/dist/",
+    assetsPublicPath: "/",
     productionSourceMap: true,
     // Gzip off by default as many popular static hosts such as
     // Surge or Netlify already gzip all static assets for you.
