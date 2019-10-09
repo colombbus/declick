@@ -567,7 +567,6 @@ pre[class*="language-"], :not(pre) > code[class*="language-"]{
     position: absolute;
     bottom: 15px;
     left: 15px;
-    background-image: url(../images/microchip-solid.svg);
     height: 50px;
     width: 50px;
     background-size: contain;
@@ -575,7 +574,9 @@ pre[class*="language-"], :not(pre) > code[class*="language-"]{
 }
 
 .hide-log{
-    opacity: 0
+    opacity: 0;
+    transition: opacity 0.4s ease
+
 }
 
 .display-none {

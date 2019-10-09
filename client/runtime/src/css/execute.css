@@ -89,7 +89,6 @@ body {
     position: absolute;
     bottom: 15px;
     left: 15px;
-    background-image: url(../images/microchip-solid.svg);
     height: 50px;
     width: 50px;
     background-size: contain;
@@ -97,5 +96,7 @@ body {
 }
 
 .hide-log{
-    opacity: 0
+    opacity: 0;
+    transition: opacity 0.4s ease
+
 }
