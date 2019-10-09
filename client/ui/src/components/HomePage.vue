@@ -6,7 +6,8 @@
       En classe, en atelier ou à la maison, il permet d'aborder les bases du
       code informatique et de les appliquer à travers des projets, individuels
       ou collectifs, d'applications ou de jeux vidéo.
-    img.instaBannier(src="../assets/instaBannier.png")
+    a(href="https://www.instagram.com/associationcolombbus/" target="_blank")
+      img.instaBannier(src="../assets/instaBannier.png")
   .home__box
     img.home__robot-train(src='../assets/images/figures/robot-train.svg' alt="robot logo declick")
     h3 les parcours
