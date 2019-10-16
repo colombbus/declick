@@ -8,8 +8,27 @@
       li: a(@click="$emit('showView', 'ProjectList')") projets
       template(v-if='user')
         li.divider(role='separator')
-        li: a(@click='importExamplePrograms(402)') importer les programmes d'exemple
-        li: a(@click='importExamplePrograms(5833)') importer Tuto Runner - GothicVania
+        li: a(@click='importExamplePrograms(402)') les programmes de base 
+          span.difficulty.easy
+            i.far.fa-star
+        li: a(@click='importExamplePrograms(5692)') Tuto Plateforme - Level 1 2 3 
+          span.difficulty.medium
+            i.far.fa-star
+            i.far.fa-star
+        li: a(@click='importExamplePrograms(6959)') Tuto DinoRun 
+          span.difficulty.medium 
+            i.far.fa-star
+            i.far.fa-star
+        li: a(@click='importExamplePrograms(6895)') Tuto Pong 
+          span.difficulty.hard
+            i.far.fa-star
+            i.far.fa-star
+            i.far.fa-star
+        li: a(@click='importExamplePrograms(5833)') Tuto Runner - GothicVania 
+          span.difficulty.hard
+            i.far.fa-star
+            i.far.fa-star
+            i.far.fa-star
   span.project-name {{(currentProject && currentProject.name) || 'Projet'}}
   a(
     @click='toggleMode',
@@ -30,9 +49,13 @@ export default {
   props: ['editor'],
   methods: {
     importExamplePrograms (id) {
-      Api.importProject(id, this.token)
-      this.$forceUpdate();
-      window.alert('Les programmes ont été importés, veuillez recharger la page.')
+
+      // TODO: le faire autrement
+
+      if(confirm("Attention, l'import va ajouter plusieurs programmes et médias dans le projet :" + this.currentProject.name)){
+        Api.importProject(id, this.token)
+      }
+      // window.alert('Les programmes ont été importés, veuillez recharger la page.')
     },
     toggleMode () {
       this.$emit('toggleEditor')
@@ -103,5 +126,21 @@ a
   width: 36px
   margin: 5px
   border-radius: 50px
+
+
+span.difficulty
+  // float: right
+
+span.difficulty.easy i
+  color: green
+
+span.difficulty.hard i
+  color: black
+
+
+span.difficulty.medium i
+  color: orange
+
+
 
 </style>: 'show-maze-editor-link'
