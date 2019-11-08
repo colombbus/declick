@@ -8,23 +8,24 @@
       li: a(@click="$emit('showView', 'ProjectList')") projets
       template(v-if='user')
         li.divider(role='separator')
-        li: a(@click='importExamplePrograms(402)') les programmes de base 
+        li.styleLikeLink Importer des exemples de programmes :
+        li: a(@click='importExamplePrograms(402)') Les bases - inspirées de Bob&Max 
           span.difficulty.easy
             i.far.fa-star
-        li: a(@click='importExamplePrograms(5692)') Tuto Plateforme - Level 1 2 3 
+        li: a(@click='importExamplePrograms(5692)') Plateforme - Level 1 2 3 
           span.difficulty.medium
             i.far.fa-star
             i.far.fa-star
-        li: a(@click='importExamplePrograms(6959)') Tuto DinoRun 
+        li: a(@click='importExamplePrograms(6959)') DinoRun 
           span.difficulty.medium 
             i.far.fa-star
             i.far.fa-star
-        li: a(@click='importExamplePrograms(6895)') Tuto Pong 
+        li: a(@click='importExamplePrograms(6895)') Pong 
           span.difficulty.hard
             i.far.fa-star
             i.far.fa-star
             i.far.fa-star
-        li: a(@click='importExamplePrograms(5833)') Tuto Runner - GothicVania 
+        li: a(@click='importExamplePrograms(5833)') Runner - GothicVania 
           span.difficulty.hard
             i.far.fa-star
             i.far.fa-star
@@ -129,7 +130,7 @@ a
 
 
 span.difficulty
-  // float: right
+  float: right
 
 span.difficulty.easy i
   color: green
@@ -142,5 +143,13 @@ span.difficulty.medium i
   color: orange
 
 
+.styleLikeLink  
+  display: block;
+  padding: 5px 20px;
+  clear: both;
+  font-weight: 400;
+  line-height: 1.42857143;
+  color: #333;
+  white-space: nowrap;
 
 </style>: 'show-maze-editor-link'
