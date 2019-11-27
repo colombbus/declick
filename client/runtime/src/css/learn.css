@@ -568,6 +568,7 @@ pre[class*="language-"], :not(pre) > code[class*="language-"]{
     position: absolute;
     bottom: 15px;
     left: 15px;
+    background-image: url(../images/microchip-solid.svg);
     height: 50px;
     width: 50px;
     background-size: contain;
