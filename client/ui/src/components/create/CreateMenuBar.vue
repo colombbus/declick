@@ -16,7 +16,7 @@
           span.difficulty.medium
             i.far.fa-star
             i.far.fa-star
-        li: a(@click='importExamplePrograms(6959)') DinoRun 
+        li: a(@click='importExamplePrograms(7327)') DinoRun 
           span.difficulty.medium 
             i.far.fa-star
             i.far.fa-star
