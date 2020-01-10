@@ -3,7 +3,6 @@ import { assert } from 'chai'
 import EventInterface from '../src/events-interface'
 
 describe('When EventInterface is instantiated', () => {
-
   it('should trigger a custom listener when dispatch is called', () => {
     const anObject = new EventInterface()
     let called = false
@@ -27,7 +26,19 @@ describe('When EventInterface is instantiated', () => {
     assert.equal(receivedParameter2, 5678)
   })
 
-  it('should not trigger a listener when removed', () => {
+  it('should not trigger a listener when listener removed', () => {
+    const anObject = new EventInterface()
+    let called = false
+    const listener = function() {
+      called = true
+    }
+    anObject.addListener('customEvent', listener)
+    anObject.removeListener('customEvent', listener)
+    anObject.dispatch('customEvent')
+    assert.equal(called, false)
+  })
+
+  it('should not trigger a listener when all listeners removed', () => {
     const anObject = new EventInterface()
     let called = false
     anObject.addListener('customEvent', () => {
@@ -37,6 +48,4 @@ describe('When EventInterface is instantiated', () => {
     anObject.dispatch('customEvent')
     assert.equal(called, false)
   })
-
-
 })

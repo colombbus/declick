@@ -10,11 +10,15 @@ class EventsInterface {
 
   removeListener(name, callback) {
     if (this._listeners.has(name)) {
-      let listeners = this._listeners.get(name)
-      listeners = listeners.filter(listener => {
-        listener !== callback
-      })
-      this._listeners.set(name, listeners)
+      if (callback) {
+        let listeners = this._listeners.get(name)
+        listeners = listeners.filter(listener => {
+          return listener !== callback
+        })
+        this._listeners.set(name, listeners)
+      } else {
+        this._listeners.delete(name)
+      }
     }
   }
 
