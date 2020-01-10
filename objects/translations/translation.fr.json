@@ -83,5 +83,10 @@
   "removeTile": "supprimerBrique",
   "throwDice": "jeterDé",
   "throwDice_help": "jeterDé(6)",
-  "Random": "Hasard"
+  "Random": "Hasard",
+  "Turtle": "Tortue",
+  "traceOff": "nePasTracer",
+  "traceOn": "tracer",
+  "setLocation": "définirPosition",
+  "setLocation_help": "définirPosition(100,100)"
 }
