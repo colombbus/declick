@@ -47,6 +47,12 @@ class Robot extends Sprite {
     super.moveDownward(steps * this._distance)
     this._runtime.suspend()
   }
+
+  setLocation(x, y) {
+    this._whenReady(() => {
+      super.setLocation(x * this._distance, y * this._distance)
+    })
+  }
 }
 
 export default Robot
