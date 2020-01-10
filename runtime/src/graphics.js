@@ -50,4 +50,10 @@ export default {
   getRenderedImage() {
     return _engine.renderer.plugins.extract.image(_renderer)
   },
+  getRenderedPixels() {
+    return _engine.renderer.plugins.extract.pixels(_renderer)
+  },
+  getRenderedCanvas() {
+    return _engine.renderer.plugins.extract.canvas(_renderer)
+  },
 }
