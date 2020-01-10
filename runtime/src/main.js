@@ -92,6 +92,7 @@ export default {
   reset() {
     _scheduler.clear()
     _data.reset()
+    _graphics.clear()
   },
 
   addObject(object) {

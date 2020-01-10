@@ -1,6 +1,7 @@
 import * as PIXI from 'pixi.js'
 
 let _engine = null
+let _renderer = null
 const _graphicalObjects = []
 
 let _initialize = function(canvas, container) {
@@ -9,6 +10,8 @@ let _initialize = function(canvas, container) {
     resizeTo: container,
     transparent: true,
   })
+  _renderer = new PIXI.Graphics()
+  _engine.stage.addChild(_renderer)
   _graphicalObjects.forEach(object => {
     _engine.stage.addChild(object)
   })
@@ -37,5 +40,11 @@ export default {
     if (_engine != null) {
       _engine.stage.removeChild(object._object)
     }
+  },
+  getRenderer() {
+    return _renderer
+  },
+  clear() {
+    _renderer.clear()
   },
 }
