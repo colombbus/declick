@@ -43,18 +43,20 @@ let _nextStep = function() {
     let state, error
     let interpreter = _priorityStep ? _priorityInterpreter : _interpreter
     if (!(err instanceof DeclickError)) {
-      error = new DeclickError(err)
+      error = new DeclickError(err, interpreter.stateStack)
+      /*error.detectError()
       if (interpreter.stateStack.length > 0) {
         state = interpreter.stateStack[0]
+        console.debug(interpreter)
+        console.debug(state)
         if (state.node.loc) {
           error.setLines([state.node.loc.start.line, state.node.loc.end.line])
         }
-      }
-      error.detectError()
+      }*/
     } else {
       error = err
     }
-    if (interpreter.stateStack.length > 0) {
+    /*if (interpreter.stateStack.length > 0) {
       state = interpreter.stateStack[0]
       if (!state.node.loc || !state.node.loc.source) {
         // no program associated: remove lines if any
@@ -62,7 +64,7 @@ let _nextStep = function() {
       } else {
         error.setProgramName(state.node.loc.source)
       }
-    }
+    }*/
     _stop(interpreter.getGlobalScope())
 
     if (_errorHandler != null) {
