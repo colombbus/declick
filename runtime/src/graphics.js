@@ -47,4 +47,7 @@ export default {
   clear() {
     _renderer.clear()
   },
+  getRenderedImage() {
+    return _engine.renderer.plugins.extract.image(_renderer)
+  },
 }
