@@ -65,12 +65,12 @@ export default {
     _scheduler.clear()
   },
 
-  executeCode(code) {
-    _scheduler.addStatements(_parser.parse(code))
+  executeCode(code, callback) {
+    _scheduler.addStatements(_parser.parse(code), null, callback)
   },
 
-  executeStatements(statements) {
-    _scheduler.addStatements(statements)
+  executeStatements(statements, callback) {
+    _scheduler.addStatements(statements, null, callback)
   },
 
   executePriorityCode(code) {
@@ -121,5 +121,9 @@ export default {
 
   exposeProperties(object, properties) {
     _data.exposeProperties(object, properties)
+  },
+
+  parse(code) {
+    return _parser.parse(code)
   },
 }
