@@ -9,9 +9,13 @@ import robotTexture from '../../resources/robot.png'
 class Sprite extends GraphicClass {
   constructor() {
     super()
-    let texture = new PIXI.BaseTexture(robotTexture)
-    texture.on('loaded', () => {
-      this._spriteSheet = new PIXI.Spritesheet(texture, robotData)
+    const loader = new PIXI.Loader()
+    loader.add('robot', robotTexture)
+    loader.load((loader, resources) => {
+      this._spriteSheet = new PIXI.Spritesheet(
+        resources.robot.texture,
+        robotData,
+      )
       this._spriteSheet.parse(() => {
         this._object = new PIXI.AnimatedSprite(
           this._spriteSheet.animations['robot_face'],
