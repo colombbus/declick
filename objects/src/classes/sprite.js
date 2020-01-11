@@ -19,7 +19,6 @@ class Sprite extends GraphicClass {
         robotData,
       )
       this.constructor._spriteSheet.parse(() => {
-        this._spriteSheet = this.constructor._spriteSheet
         if (callback) {
           callback.apply(this)
         }
@@ -28,6 +27,7 @@ class Sprite extends GraphicClass {
   }
 
   _createObject() {
+    this._spriteSheet = this.constructor._spriteSheet
     this._object = new PIXI.AnimatedSprite(
       this._spriteSheet.animations['robot_face'],
     )
