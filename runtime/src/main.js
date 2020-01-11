@@ -63,6 +63,7 @@ export default {
   clear() {
     _data.clear()
     _scheduler.clear()
+    _graphics.clear()
   },
 
   executeCode(code, callback) {
