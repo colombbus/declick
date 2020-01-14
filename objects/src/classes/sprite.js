@@ -8,22 +8,30 @@ import robotTexture from '../../resources/robot.png'
 @Reflect.metadata('translated', i18n`Sprite`)
 class Sprite extends GraphicClass {
   static _spriteSheet = null
+  static _loadingSprite = false
+  static _whenLoaded = []
 
-  // TODO: handle case where several sprites are created at the same time
   _loadSpriteSheet(callback) {
-    const loader = PIXI.Loader.shared
-    loader.add('robot', robotTexture)
-    loader.load((loader, resources) => {
-      this.constructor._spriteSheet = new PIXI.Spritesheet(
-        resources.robot.texture,
-        robotData,
-      )
-      this.constructor._spriteSheet.parse(() => {
-        if (callback) {
-          callback.apply(this)
-        }
+    if (callback) {
+      this.constructor._whenLoaded.push(callback)
+    }
+    if (!this.constructor._loadingSprite) {
+      this.constructor._loadingSprite = true
+      const loader = new PIXI.Loader()
+      loader.add('robot', robotTexture)
+      loader.load((loader, resources) => {
+        this.constructor._spriteSheet = new PIXI.Spritesheet(
+          resources.robot.texture,
+          robotData,
+        )
+        this.constructor._loadingSprite = false
+        this.constructor._spriteSheet.parse(() => {
+          this.constructor._whenLoaded.forEach(callback => {
+            callback.apply(this)
+          })
+        })
       })
-    })
+    }
   }
 
   _createObject() {
