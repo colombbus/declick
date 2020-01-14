@@ -9,14 +9,12 @@ class Turtle extends Robot {
     this._trace = false
     this._previousX = 0
     this._previousY = 0
-    this._centerX = 0
-    this._centerY = 0
     this._renderer = this._graphics.getRenderer()
   }
   _onReady() {
-    super._onReady()
     this._centerX = Math.round(this._object.width / 2)
     this._centerY = Math.round(this._object.height / 2)
+    super._onReady()
   }
 
   @Reflect.metadata('translated', i18n`traceOn`)
