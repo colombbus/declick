@@ -1,7 +1,19 @@
 {
   "name": "root",
-  "private": true,
+  "version": "1.0.0",
+  "license": "GPL-3.0",
+  "description": "",
+  "scripts": {
+    "unit:watch": "lerna run --parallel test:watch --scope={@declick/runtime,@declick/objects}",
+    "serve": "lerna run --parallel start",
+    "build": "lerna run build"
+  },
   "devDependencies": {
     "lerna": "^3.20.2"
-  }
+  },
+  "workspaces": [
+    "packages/client",
+    "packages/objects",
+    "packages/runtime"
+  ]
 }

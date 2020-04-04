@@ -1,0 +1,11 @@
+{
+  "i18nTag.src": "./src",
+  "i18nTag.schema": "./translations/translation.schema.json",
+  "i18nTag.filter": "\\.js$",
+  "json.schemas": [
+    {
+      "fileMatch": ["/translations/*.json"],
+      "url": "./translations/translation.schema.json"
+    }
+  ]
+}

@@ -1,2 +1,0 @@
-**Declick offline**
-
