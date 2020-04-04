@@ -1,6 +1,6 @@
 {
   "name": "@declick/client",
-  "version": "1.0.0",
+  "version": "1.1.0",
   "license": "GPL-3.0",
   "description": "Declick user interface",
   "author": "Colombbus <contact@colombbus.org>",
@@ -62,6 +62,5 @@
     "parserOptions": {
       "parser": "babel-eslint"
     }
-  },
-  "peerDependencies": {}
+  }
 }
