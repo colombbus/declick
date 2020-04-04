@@ -2,6 +2,7 @@
   "name": "@declick/offline",
   "version": "1.0.0",
   "description": "Declick offline (declick.net)",
+  "private": true,
   "main": "main.js",
   "scripts": {
     "start": "electron .",

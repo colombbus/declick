@@ -1,6 +1,7 @@
 {
   "name": "@declick/runtime",
   "version": "0.1.0",
+  "private": true,
   "description": "Declick Runtime",
   "main": "lib/declick-runtime.js",
   "scripts": {

@@ -2,6 +2,7 @@
   "name": "@declick/objects",
   "version": "0.1.0",
   "description": "Declick Objects",
+  "private": true,
   "main": "lib/declick-objects.js",
   "scripts": {
     "build": "webpack --env dev && webpack --env build",

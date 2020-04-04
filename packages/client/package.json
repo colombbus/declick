@@ -3,6 +3,7 @@
   "version": "1.1.0",
   "license": "GPL-3.0",
   "description": "Declick user interface",
+  "private": true,
   "author": "Colombbus <contact@colombbus.org>",
   "scripts": {
     "start": "yarn serve",

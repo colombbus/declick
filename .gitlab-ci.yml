@@ -12,8 +12,8 @@ variables:
   DB_PASSWORD: ""
 
 before_script:
-  - npm install
-  - npm install -g lerna
+  - yarn
+  - yarn add -g lerna
   - lerna bootstrap
   # - "which ssh-agent || ( apt-get update -y && apt-get install openssh-client -y )"
   # - eval $(ssh-agent -s)

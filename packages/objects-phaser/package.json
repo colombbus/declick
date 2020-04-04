@@ -2,6 +2,7 @@
   "name": "declick",
   "version": "1.3.0",
   "description": "an educational lib to write game with Phaser 3 written in TypeScript",
+  "private": true,
   "keywords": [
     "Phaser",
     "Phaser 3",
