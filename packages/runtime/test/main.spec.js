@@ -1,8 +1,11 @@
 /*eslint-env mocha */
-import { assert } from 'chai'
+
 import './setup.canvas.js'
-//TODO: make this work (canvas...)
+
+import { assert } from 'chai'
 import runtime from '../src/main'
+
+//TODO: make this work (canvas...)
 
 describe('When runtime is initialized', () => {
   let classResult = false
@@ -41,7 +44,7 @@ describe('When runtime is initialized', () => {
   })
 
   beforeEach(() => {
-    runtime.clear()
+    // runtime.clear()
     classResult = false
     instanceResult = false
   })
@@ -80,6 +83,6 @@ describe('When runtime is initialized', () => {
   })
 
   after(() => {
-    runtime.reset()
+    // runtime.reset()
   })
 })

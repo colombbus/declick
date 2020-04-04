@@ -23,6 +23,7 @@ before_script:
 
 cache:
   paths:
+    - node_modules/
     - packages/client/node_modules/
     - packages/objects/node_modules/
     - packages/objects-phaser/node_modules/
@@ -39,8 +40,8 @@ unit_test:
   except:
     - deploy
   script:
-    - composer start
-    - npm start
+    - yarn run unit
+    # - composer start
 
 deploy_production:
   stage: deploy
