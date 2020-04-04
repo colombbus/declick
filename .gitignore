@@ -1,8 +1,8 @@
-client/src/assets/config/declick.js
+**.htaccess
 **/node_modules
 **/yarn-error.log
-server/vendor
-server/.env
-server/storage/app/projects
-**.htaccess
-client/dist/*
+packages/client/src/assets/config/declick.js
+packages/client/dist/
+packages/server/vendor
+packages/server/.env
+packages/server/storage/app/projects
