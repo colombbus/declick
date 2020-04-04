@@ -57,4 +57,4 @@ deploy_production:
     # - chmod +x ./build/deploy.sh
     # - ./build/deploy.sh
     # Run Envoy via composer to pull the changes on the deploy server
-    # - composer run deploy
+    - composer run deploy
