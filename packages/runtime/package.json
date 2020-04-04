@@ -7,8 +7,8 @@
   "scripts": {
     "build": "webpack --env dev && webpack --env build",
     "start": "webpack --progress --colors --watch --env dev",
-    "test": "mocha --require @babel/register --colors ./test/*.spec.js",
-    "test:watch": "mocha --require @babel/register --colors -w ./test/*.spec.js",
+    "unit": "mocha --require @babel/register --colors ./test/*.spec.js",
+    "unit:watch": "mocha --require @babel/register --colors -w ./test/*.spec.js",
     "lint": "eslint --fix --ext .js --ignore-path .gitignore ."
   },
   "repository": {

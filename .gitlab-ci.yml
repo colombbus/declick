@@ -13,7 +13,7 @@ variables:
 
 before_script:
   - yarn
-  - yarn add -g lerna
+  - yarn global add lerna
   - lerna bootstrap
   # - "which ssh-agent || ( apt-get update -y && apt-get install openssh-client -y )"
   # - eval $(ssh-agent -s)
@@ -21,42 +21,41 @@ before_script:
   # - mkdir -p ~/.ssh
   # - '[[ -f /.dockerenv ]] && echo -e "Host *\n\tStrictHostKeyChecking no\n\n" > ~/.ssh/config'
 
-cache:
-  paths:
-    - node_modules/
-    - packages/client/node_modules/
-    - packages/objects/node_modules/
-    - packages/objects-phaser/node_modules/
-    - packages/offline/node_modules/
-    - packages/runtime/node_modules/
-    - packages/server/vendor/
+# cache:
+#   paths:
+#     - node_modules/
+#     - packages/client/node_modules/
+#     - packages/objects/node_modules/
+#     - packages/objects-phaser/node_modules/
+#     - packages/offline/node_modules/
+#     - packages/runtime/node_modules/
+#     - packages/server/vendor/
 
 stages:
   - test
-  - deploy
+  # - deploy
 
 unit_test:
   stage: test
-  except:
-    - deploy
+  # except:
+  #   - deploy
   script:
     - yarn run unit
     # - composer start
-
-deploy_production:
-  stage: deploy
-  environment:
-    name: production
-    url: $PRODUCTION_URL
-  only:
-    - master
-  script:
-    # Comment the following two lines if you can
-    # compile front-end stuff on your webserver,
-    # otherwise it will compile on GitLab CI and
-    # push it to a deploy branch, also remove the
-    # deploy branch on the Envoy.blade.php file
-    # - chmod +x ./build/deploy.sh
-    # - ./build/deploy.sh
-    # Run Envoy via composer to pull the changes on the deploy server
-    - composer run deploy
+# deploy_production:
+#   stage: deploy
+#   environment:
+#     name: production
+#     url: $PRODUCTION_URL
+#   only:
+#     - master
+#   script:
+#     # Comment the following two lines if you can
+#     # compile front-end stuff on your webserver,
+#     # otherwise it will compile on GitLab CI and
+#     # push it to a deploy branch, also remove the
+#     # deploy branch on the Envoy.blade.php file
+#     # - chmod +x ./build/deploy.sh
+#     # - ./build/deploy.sh
+#     # Run Envoy via composer to pull the changes on the deploy server
+#     - composer run deploy

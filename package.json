@@ -4,8 +4,8 @@
   "license": "GPL-3.0",
   "description": "",
   "scripts": {
-    "unit": "lerna run --parallel test --scope={@declick/runtime,@declick/objects}",
-    "unit:watch": "lerna run --parallel test:watch --scope={@declick/runtime,@declick/objects}",
+    "unit": "lerna run unit --scope={@declick/runtime,@declick/objects}",
+    "unit:watch": "lerna run --parallel unit:watch --scope={@declick/runtime,@declick/objects}",
     "serve": "lerna run --parallel start",
     "build": "lerna run build"
   },
