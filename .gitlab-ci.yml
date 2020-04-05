@@ -13,8 +13,8 @@ variables:
 
 before_script:
   - yarn
-  - yarn global add lerna
-  - lerna bootstrap
+  # - yarn global add lerna
+  # - lerna bootstrap
   # - "which ssh-agent || ( apt-get update -y && apt-get install openssh-client -y )"
   # - eval $(ssh-agent -s)
   # - ssh-add <(echo "$SSH_PRIVATE_KEY")
@@ -39,6 +39,8 @@ unit_test:
   stage: test
   # except:
   #   - deploy
+  before_script:
+    - yarn
   script:
     - yarn run unit
     # - composer start
