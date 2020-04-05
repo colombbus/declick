@@ -21,15 +21,15 @@ before_script:
   # - mkdir -p ~/.ssh
   # - '[[ -f /.dockerenv ]] && echo -e "Host *\n\tStrictHostKeyChecking no\n\n" > ~/.ssh/config'
 
-# cache:
-#   paths:
-#     - node_modules/
-#     - packages/client/node_modules/
-#     - packages/objects/node_modules/
-#     - packages/objects-phaser/node_modules/
-#     - packages/offline/node_modules/
-#     - packages/runtime/node_modules/
-#     - packages/server/vendor/
+cache:
+  paths:
+    - node_modules/
+    - packages/client/node_modules/
+    - packages/objects/node_modules/
+    - packages/objects-phaser/node_modules/
+    - packages/offline/node_modules/
+    - packages/runtime/node_modules/
+    - packages/server/vendor/
 
 stages:
   - test
