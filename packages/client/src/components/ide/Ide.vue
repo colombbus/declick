@@ -19,8 +19,8 @@
 import Preview from '@/components/ide/preview/Preview.vue'
 import ResourceManager from '@/components/ide/resources/ResourceManager.vue'
 import Help from './Help.vue'
-import DeclickRuntime from '../../../../runtime/lib/declick-runtime'
-import DeclickObjects from '../../../../objects/lib/declick-objects'
+import DeclickRuntime from '@declick/runtime/lib/declick-runtime'
+import DeclickObjects from '@declick/objects/lib/declick-objects'
 
 import { mapGetters } from 'vuex'
 
@@ -66,10 +66,12 @@ export default {
       // t.définirTexte('abracadabra');
       // t.récupérerTexte();`)
       // console.log(this.getCurrentProgramContent());
-      
+
       // DeclickRuntime.executeCode(this.getCurrentProgramContent())
       DeclickRuntime.clear()
-      DeclickRuntime.executeCode(this.$store.state.programs.get(this.$store.state.currentProgramName))
+      DeclickRuntime.executeCode(
+        this.$store.state.programs.get(this.$store.state.currentProgramName),
+      )
       this.view = 'preview'
       this.$nextTick(() => {
         DeclickRuntime.resizeDisplay()
