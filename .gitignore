@@ -2,7 +2,7 @@
 **/node_modules
 **/yarn-error.log
 packages/client/src/assets/config/declick.js
-packages/client/dist/
+packages/client/dist/*
 packages/server/vendor
 packages/server/.env
 packages/server/storage/app/projects
