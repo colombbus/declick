@@ -4,7 +4,7 @@
 
 ## Usage
 
-[![pipeline status](https://gitlab.com/colombbus/declick/badges/master/pipeline.svg)](https://gitlab.com/colombbus/declick/-/commits/master)
+[![pipeline status](https://gitlab.com/colombbus/declick/badges/phaser/pipeline.svg)](https://gitlab.com/colombbus/declick/-/commits/phaser)
 
 This project is a monorepo and uses `lerna` to manage dependencies, dev tools, etc.
 
