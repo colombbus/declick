@@ -25,10 +25,9 @@ let _update = function(time, delta) {
   })
 }
 
-let _initialize = function(canvas, container) {
-  _game = new Phaser.Game({
-    type:Phaser.CANVAS,
-    parent:container,
+let _initialize = function(canvas, callback, options) {
+  let config = {
+    type:Phaser.AUTO,
     canvas:canvas,
     scene: {
       key:'main',
@@ -37,12 +36,24 @@ let _initialize = function(canvas, container) {
       create: _create,
       update: _update
     }
-  })
+  }
+  if (options) {
+    config = Object.assign(config, options)
+  }
+
+  if (callback) {
+    if (! config.callbacks) {
+      config.callbacks = {}
+    }
+    config.callbacks.postBoot = callback
+  }
+
+  _game = new Phaser.Game(config)
 }
 
 export default {
-  initialize(canvas, container) {
-    _initialize(canvas, container)
+  initialize(canvas, callback, options) {
+    _initialize(canvas, callback, options)
   },
   resize() {
     _engine.resize()
@@ -66,13 +77,13 @@ export default {
       object.destroy()
     }
   },
-  getRenderer() {
-    return _renderer
+  getController() {
+    return _game
   },
   clear() {
-    if (_scene) {
-      _scene.scene.remove('main');
-      _scene.scene.add('main', {
+    if (_game) {
+      _game.scene.remove('main');
+      _game.scene.add('main', {
         active:false,
         preload: _preload,
         create: _create,
