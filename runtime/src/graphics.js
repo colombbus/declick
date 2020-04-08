@@ -8,7 +8,7 @@ const _graphicalResources = []
 
 let _preload = function() {
   _graphicalResources.forEach(resource => {
-    this.load[resource.type](resoure.data);
+    this.load[resource.type](resource.data);
   })
 }
 
@@ -25,27 +25,32 @@ let _update = function(time, delta) {
   })
 }
 
+let _initializeScene = function() {
+  _game.scene.add('main',{
+    key:'main',
+    active:false,
+    preload: _preload,
+    create: _create,
+    update: _update
+  }, false)
+}
+
 let _initialize = function(canvas, callback, options) {
   let config = {
     type:Phaser.AUTO,
     canvas:canvas,
-    scene: {
-      key:'main',
-      active:false,
-      preload: _preload,
-      create: _create,
-      update: _update
+    scene: null,
+    callbacks: {
+      postBoot() {
+        _initializeScene()
+        if (callback) {
+          callback()
+        }
+      }
     }
   }
   if (options) {
     config = Object.assign(config, options)
-  }
-
-  if (callback) {
-    if (! config.callbacks) {
-      config.callbacks = {}
-    }
-    config.callbacks.postBoot = callback
   }
 
   _game = new Phaser.Game(config)
@@ -82,13 +87,8 @@ export default {
   },
   clear() {
     if (_game) {
-      _game.scene.remove('main');
-      _game.scene.add('main', {
-        active:false,
-        preload: _preload,
-        create: _create,
-        update: _update
-      })
+      _game.scene.remove('main')
+      _initializeScene()
     }
   },
   getRenderedImage() {
@@ -101,13 +101,13 @@ export default {
     return _engine.renderer.plugins.extract.canvas(_renderer)
   },
   start() {
-    if (_scene) {
-      _scene.scene.start('main')
+    if (_game) {
+      _game.scene.start('main')
     }
   },
   stop() {
-    if (_scene) {
-      _scene.scene.stop('main')
+    if (_game) {
+      _game.scene.stop('main')
     }
   }
 }
