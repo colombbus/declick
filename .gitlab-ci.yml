@@ -27,7 +27,7 @@ cache:
 
 stages:
   - test
-  # - build
+  - build
   - deploy
 
 # build_:
@@ -43,23 +43,28 @@ unit_test:
     - yarn run unit
     # - composer start
 
-deploy_QA:
-  stage: deploy
-  environment:
-    name: staging
-    url: "$QA_URL"
-  before_script:
-    - yarn build
-    - "which ssh-agent || ( apt-get update -y && apt-get install openssh-client -y )"
-    - eval $(ssh-agent -s)
-    - mkdir -p ~/.ssh
-    - '[[ -f /.dockerenv ]] && echo -e "Host *\n\tStrictHostKeyChecking no\n\n" > ~/.ssh/config'
+build_runtime:
+  stage: build
   script:
-    - ssh-add <(echo "$SSH_PRIVATE_KEY")
-    - ssh -o StrictHostKeyChecking=no user@"$QA_SERVER" rm -rf "$INSTALL_DIRECTORY"/*
-    - scp -P22 -r packages/ "$QA_USER"@"$QA_SERVER":"$INSTALL_DIRECTORY"
-  only:
-    - phaser
+    - yarn build
+
+# deploy_QA:
+#   stage: deploy
+#   environment:
+#     name: staging
+#     url: "$QA_URL"
+#   before_script:
+#     - yarn build
+#     - "which ssh-agent || ( apt-get update -y && apt-get install openssh-client -y )"
+#     - eval $(ssh-agent -s)
+#     - mkdir -p ~/.ssh
+#     - '[[ -f /.dockerenv ]] && echo -e "Host *\n\tStrictHostKeyChecking no\n\n" > ~/.ssh/config'
+#   script:
+#     - ssh-add <(echo "$SSH_PRIVATE_KEY")
+#     - ssh -o StrictHostKeyChecking=no user@"$QA_SERVER" rm -rf "$INSTALL_DIRECTORY"/*
+#     - scp -P22 -r packages/ "$QA_USER"@"$QA_SERVER":"$INSTALL_DIRECTORY"
+#   only:
+#     - phaser
 #
 # deploy_production:
 #   stage: deploy
