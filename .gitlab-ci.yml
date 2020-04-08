@@ -42,6 +42,8 @@ unit_test:
 
 build_runtime:
   stage: build
+  before_script:
+    - lerna run npm install
   script:
     - cd packages/runtime
     - yarn build
