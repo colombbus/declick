@@ -43,6 +43,7 @@ stages:
 build_runtime:
   stage: build
   before_script:
+    - yarn global add lerna
     - lerna run npm install
 
   script:
