@@ -1,24 +1,42 @@
-import * as PIXI from 'pixi.js'
+import * as Phaser from 'phaser'
 
-let _engine = null
+let _scene = null
+let _game = null
 let _renderer = null
 const _graphicalObjects = []
+const _graphicalResources = []
+
+let _preload = function() {
+  _graphicalResources.forEach(resource => {
+    this.load[resource.type](resoure.data);
+  })
+}
+
+let _create = function() {
+  _graphicalObjects.forEach(object => {
+    object.addToScene(this);
+  })
+  _scene = this;
+}
+
+let _update = function(time, delta) {
+  _graphicalObjects.forEach(object => {
+    object.tick(delta)
+  })
+}
 
 let _initialize = function(canvas, container) {
-  _engine = new PIXI.Application({
-    view: canvas,
-    resizeTo: container,
-    transparent: true,
-  })
-  _renderer = new PIXI.Graphics()
-  _engine.stage.addChild(_renderer)
-  _graphicalObjects.forEach(object => {
-    _engine.stage.addChild(object)
-  })
-  _engine.ticker.add(delta => {
-    _graphicalObjects.forEach(object => {
-      object.tick(delta)
-    })
+  _game = new Phaser.Game({
+    type:Phaser.CANVAS,
+    parent:container,
+    canvas:canvas,
+    scene: {
+      key:'main',
+      active:false,
+      preload: _preload,
+      create: _create,
+      update: _update
+    }
   })
 }
 
@@ -29,23 +47,38 @@ export default {
   resize() {
     _engine.resize()
   },
+  addResource(type, resource) {
+    _graphicalResources.push({type:type, data:resource})
+    if (_scene !== null) {
+      _scene.load[type](resource)
+      _scene.load.start()
+    }
+  },
   addObject(object) {
     _graphicalObjects.push(object)
-    if (_engine != null) {
-      _engine.stage.addChild(object._object)
+    if (_scene != null) {
+      object.addToScene(_scene)
     }
   },
   removeObject(object) {
     _graphicalObjects.splice(_graphicalObjects.indexOf(object), 1)
-    if (_engine != null) {
-      _engine.stage.removeChild(object._object)
+    if (_scene != null) {
+      object.destroy()
     }
   },
   getRenderer() {
     return _renderer
   },
   clear() {
-    _renderer.clear()
+    if (_scene) {
+      _scene.scene.remove('main');
+      _scene.scene.add('main', {
+        active:false,
+        preload: _preload,
+        create: _create,
+        update: _update
+      })
+    }
   },
   getRenderedImage() {
     return _engine.renderer.plugins.extract.image(_renderer)
@@ -56,4 +89,14 @@ export default {
   getRenderedCanvas() {
     return _engine.renderer.plugins.extract.canvas(_renderer)
   },
+  start() {
+    if (_scene) {
+      _scene.scene.start('main')
+    }
+  },
+  stop() {
+    if (_scene) {
+      _scene.scene.stop('main')
+    }
+  }
 }
