@@ -11,9 +11,7 @@ variables:
   DB_PASSWORD: ""
 
 before_script:
-  - yarn
-  - yarn global add lerna
-  # - lerna bootstrap
+  - npm i -g npm@latest
 
 cache:
   paths:
@@ -40,16 +38,33 @@ stages:
 #     - yarn run unit
 #     # - composer start
 
+# build_client:
+#   stage: build
+#   before_script:
+#     - yarn global add lerna @vue/cli
+#     - lerna exec "npm install"
+#     - cd packages/objects
+#     - npm install
+#   script:
+#     - cd packages/runtime
+#     - yarn build
+
 build_runtime:
   stage: build
   before_script:
-    - yarn global add lerna
-    - lerna exec "npm install"
-    - cd packages/objects
-    - npm install
+    - npm i -g npm@latest
+    - npm i -g yarn lerna
+    - lerna bootstrap --use-workspaces
+    # - lerna exec "npm install"
+    # - cd packages/objects
+    # - npm install
   script:
     - cd packages/runtime
     - yarn build
+  artifacts:
+    paths:
+    - public
+
 
 # deploy_QA:
 #   stage: deploy
