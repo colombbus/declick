@@ -30,20 +30,21 @@ stages:
   - build
   - deploy
 
-unit_test:
-  stage: test
-  except:
-    - deploy
-  before_script:
-    - yarn
-  script:
-    - yarn run unit
-    # - composer start
+# unit_test:
+#   stage: test
+#   except:
+#     - deploy
+#   before_script:
+#     - yarn
+#   script:
+#     - yarn run unit
+#     # - composer start
 
 build_runtime:
   stage: build
   before_script:
     - lerna run npm install
+
   script:
     - cd packages/runtime
     - yarn build
