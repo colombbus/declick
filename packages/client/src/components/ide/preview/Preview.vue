@@ -17,6 +17,7 @@ export default {
     PreviewBar,
   },
   mounted() {
+    // eslint-disable-next-line no-unused-vars
     let el = document.getElementsByClassName('preview__canvas')[0]
   }
 }

@@ -18,6 +18,7 @@
 </template>
 
 <script>
+// eslint-disable-next-line no-unused-vars
 /* global $ */
 
 import config from '@/assets/config/declick'
@@ -27,7 +28,7 @@ export default {
   data(){
     return {
       interval:null
-    } 
+    }
   },
   async created () {
 
@@ -56,14 +57,14 @@ export default {
   methods:{
     fadeOut(){
       let target = document.querySelector('#onLoadGif')
-      
+
       target.style.opacity = 1
 
       this.interval = setInterval(()=>{
         if (target.style.opacity > 0) {
           target.style.opacity -= 0.1;
         } else if (target.style.opacity == 0) {
-          
+
           console.log("END fadeOut");
           target.setAttribute('style','display:none')
 
@@ -85,7 +86,7 @@ export default {
             counter += 0.1;
 
             target.style.opacity = counter
-            
+
           } if (counter == 1 ) {
 
             console.log("END fadeIn");
@@ -93,7 +94,7 @@ export default {
             clearInterval(this.interval)
           }
         },40)
-      
+
     }
   }
 }

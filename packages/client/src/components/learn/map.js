@@ -1,5 +1,9 @@
+/* eslint-disable no-undef */
+/* eslint-disable no-redeclare */
+
 import paper from 'paper'
 
+// eslint-disable-next-line no-unused-vars
 const fs = require('fs')
 
 function DeclickMap() {
@@ -10,13 +14,13 @@ function DeclickMap() {
   // main path
   var path
 
-  var $canvas
+  // var $canvas
   var everything
 
   // chapters
   var chapters = []
   var sChapter, sChapterValidated
-  var currentChapterLabels
+  // var currentChapterLabels
   var chapterPaths = []
   var chapterLabels = []
   var chapterOpen = false
@@ -45,7 +49,7 @@ function DeclickMap() {
     changeCurrent = false
   var movementSpeed, zoomSpeed, currentSpeed
 
-  var clickCaptured = false
+  // var clickCaptured = false
 
   /*
    * CONSTANTS
@@ -70,7 +74,7 @@ function DeclickMap() {
    */
 
   // Reset size and position
-  var reset = function() {
+  var reset = function () {
     // intialize zoom and center position
     initCenter = new paper.Point(paper.view.center)
     targetCenter = new paper.Point(initCenter)
@@ -78,7 +82,7 @@ function DeclickMap() {
   }
 
   // Init view
-  var initView = function(canvasId) {
+  var initView = function (canvasId) {
     // Get a reference to the canvas object
     var canvas = document.getElementById(canvasId)
 
@@ -97,7 +101,7 @@ function DeclickMap() {
     reset()
 
     // view resizing
-    paper.view.onResize = function(event) {
+    paper.view.onResize = function () {
       reset()
       if (stepsDisplayed) {
         resize()
@@ -110,7 +114,7 @@ function DeclickMap() {
     var scrollAmount = 0
     var scrollPoint = false
 
-    var handleScroll = function() {
+    var handleScroll = function () {
       var newZoom = targetZoom + scrollAmount / zoomFactor
       newZoom = Math.min(newZoom, maxZoom)
       if (newZoom < 1) {
@@ -124,7 +128,7 @@ function DeclickMap() {
       scrollAmount = 0
     }
 
-    canvas.addEventListener('wheel', function(event) {
+    canvas.addEventListener('wheel', function (event) {
       // event.preventDefault();
 
       if (scrollPoint === false) {
@@ -141,12 +145,12 @@ function DeclickMap() {
         !(targetZoom == maxZoom && scrollAmount > 0)
       ) {
         handleScroll()
-        scrollTimeout = setTimeout(function() {
+        scrollTimeout = setTimeout(function () {
           handleScroll()
           scrollTimeout = -1
         }, 200)
       }
-      endScrollTimeout = setTimeout(function() {
+      endScrollTimeout = setTimeout(function () {
         if (targetZoom < 1) {
           setTarget(initCenter, 1, true)
           endScrollTimeout = -1
@@ -157,7 +161,7 @@ function DeclickMap() {
 
     // handling of space key
     var tool = new paper.Tool()
-    tool.onKeyDown = function(event) {
+    tool.onKeyDown = function (event) {
       if (event.key === 'space') {
         setTarget(initCenter, 1)
       }
@@ -166,18 +170,18 @@ function DeclickMap() {
     // mouse dragging management
     var dragStartPoint
 
-    paper.view.onMouseDown = function(e) {
+    paper.view.onMouseDown = function (e) {
       dragStartPoint = e.point
     }
 
-    paper.view.onMouseDrag = function(e) {
+    paper.view.onMouseDrag = function (e) {
       var delta = e.point.subtract(dragStartPoint)
       paper.view.center = paper.view.center.subtract(delta)
       targetCenter = paper.view.center
     }
 
     // Map animation
-    paper.view.onFrame = function(event) {
+    paper.view.onFrame = function (event) {
       var vector, step
       var view = paper.view
       var center = view.center
@@ -222,7 +226,7 @@ function DeclickMap() {
   }
 
   // Define symbols used for chapters and steps
-  var initSymbols = function(currentSVG, callback) {
+  var initSymbols = function (currentSVG, callback) {
     // chapter
     var pChapter = new paper.Path.Circle(new paper.Point(0, 0), 12)
     pChapter.strokeColor = '#E01980'
@@ -268,9 +272,10 @@ function DeclickMap() {
     sStepVisited = new paper.Symbol(pStepVisited)
     // load current image in a upper layer
     var activeLayer = paper.project.activeLayer
+    // eslint-disable-next-line no-unused-vars
     var currentLayer = new paper.Layer()
     // current step
-    paper.project.importSVG(currentSVG, function(item) {
+    paper.project.importSVG(currentSVG, function (item) {
       current = item
       current.visible = false
       activeLayer.activate()
@@ -280,7 +285,7 @@ function DeclickMap() {
     })
   }
 
-  var checkLabelsVisibility = function() {
+  var checkLabelsVisibility = function () {
     // check if texts have to be displayed or hidden
     if (labelsVisible) {
       if (paper.view.zoom < zoomDisplayLabels) {
@@ -299,13 +304,13 @@ function DeclickMap() {
     }
   }
 
-  var centerEverything = function() {
+  var centerEverything = function () {
     everything.position = new paper.Point(paper.view.center)
   }
 
-  var initSteps = function(data) {
+  var initSteps = function (data) {
     steps = []
-    let currentPosition = 0
+    // let currentPosition = 0
 
     function getObject(value, chapter) {
       var [parent] = steps.filter(step => step.id === value.parentId)
@@ -338,12 +343,13 @@ function DeclickMap() {
       }
     }
 
+    // eslint-disable-next-line no-unused-vars
     for (let [key, val] of entries(data)) {
       steps.push(getObject(val))
     }
   }
 
-  var openChapter = function(index, animate) {
+  var openChapter = function (index, animate) {
     if (typeof animate === 'undefined') {
       animate = false
     }
@@ -380,7 +386,7 @@ function DeclickMap() {
     }
   }
 
-  var setTargetZoom = function(zoom, fast) {
+  var setTargetZoom = function (zoom, fast) {
     targetZoom = zoom
     changeZoom = true
     zoomSpeed = Math.abs(zoom - paper.view.zoom) / animationDuration
@@ -389,7 +395,7 @@ function DeclickMap() {
     }
   }
 
-  var setTargetCenter = function(center, fast) {
+  var setTargetCenter = function (center, fast) {
     targetCenter = new paper.Point(center)
     changeCenter = true
     movementSpeed =
@@ -399,22 +405,22 @@ function DeclickMap() {
     }
   }
 
-  var setTargetCurrent = function(position, factor) {
+  var setTargetCurrent = function (position, factor) {
     targetCurrent = new paper.Point(position)
     changeCurrent = true
     currentSpeed =
       (current.position.getDistance(targetCurrent) * factor) / animationDuration
   }
 
-  var setTarget = function(center, zoom, fast) {
+  var setTarget = function (center, zoom, fast) {
     setTargetZoom(zoom, fast)
     setTargetCenter(center, fast)
   }
 
-  var wordwrap = function(txt, max) {
+  var wordwrap = function (txt, max) {
     var lines = []
     var space = -1
-    var times = 0
+    // var times = 0
 
     function cut() {
       for (var i = 0; i < txt.length; i++) {
@@ -449,7 +455,7 @@ function DeclickMap() {
     return lines.join('\n')
   }
 
-  var getSymbol = function(step) {
+  var getSymbol = function (step) {
     if (step.chapter) {
       if (step.passed) {
         return sChapterValidated
@@ -467,7 +473,7 @@ function DeclickMap() {
     }
   }
 
-  var removeSteps = function() {
+  var removeSteps = function () {
     // remove everything
     paper.project.activeLayer.removeChildren()
     // initialize data
@@ -502,7 +508,7 @@ function DeclickMap() {
     }
   }
 
-  var resize = function() {
+  var resize = function () {
     var savedCurrentIndex = currentIndex
     var savedChapterOpen = chapterOpen
     removeSteps()
@@ -515,7 +521,7 @@ function DeclickMap() {
   }
 
   // Position steps on the path
-  var displaySteps = function() {
+  var displaySteps = function () {
     var previousChapter = false
     var previousLabel
     var currentLabels
@@ -524,7 +530,7 @@ function DeclickMap() {
     }
     var basePath = path.clone()
 
-    var placeSymbol = function(index, curve, length, last) {
+    var placeSymbol = function (index, curve, length, last) {
       var chapter = steps[index].chapter
       var symbol = getSymbol(steps[index])
       var point = curve.getPointAt(length, false)
@@ -668,9 +674,9 @@ function DeclickMap() {
     targetCurrent = current.position
     current.fitBounds(displayedSteps[startIndex].bounds)
     current.scale(1.5)
-    current.onMouseDown = function(event) {
+    current.onMouseDown = function (event) {
       event.preventDefault()
-      setCurrentStep(steps[currentIndex].position, false, true, function() {
+      setCurrentStep(steps[currentIndex].position, false, true, function () {
         if (stepCallback) {
           stepCallback(steps[currentIndex])
         }
@@ -682,10 +688,10 @@ function DeclickMap() {
   }
 
   // Mouse handlers
-  var getStepMouseHandler = function(i) {
-    return function(event) {
+  var getStepMouseHandler = function (i) {
+    return function (event) {
       event.preventDefault()
-      setCurrentStep(steps[i].position, true, true, function() {
+      setCurrentStep(steps[i].position, true, true, function () {
         if (stepCallback) {
           stepCallback(steps[i])
         }
@@ -693,14 +699,14 @@ function DeclickMap() {
     }
   }
 
-  var getChapterMouseHandler = function(i) {
-    return function(event) {
+  var getChapterMouseHandler = function (i) {
+    return function (event) {
       event.preventDefault()
       openChapter(i, true)
     }
   }
 
-  var setCurrentStep = function(position, animate, skipChapter, callback) {
+  var setCurrentStep = function (position, animate, skipChapter, callback) {
     var stepIndex = -1,
       chapterIndex = -1
     // look for stepIndex
@@ -739,7 +745,7 @@ function DeclickMap() {
           delta = +1
           factor = stepIndex - currentIndex
         }
-        currentCallback = function() {
+        currentCallback = function () {
           currentIndex += delta
           if (currentIndex === stepIndex) {
             if (callback) {
@@ -794,7 +800,7 @@ function DeclickMap() {
    */
 
   // Init map
-  this.init = function(canvasId, currentImage, newStepCallback, callback) {
+  this.init = function (canvasId, currentImage, newStepCallback, callback) {
     initView(canvasId)
     if (newStepCallback) {
       stepCallback = newStepCallback
@@ -803,7 +809,7 @@ function DeclickMap() {
   }
 
   // load Path
-  this.loadPath = function(data) {
+  this.loadPath = function (data) {
     // create path from SVG data
     path = new paper.Path(data.data)
     path.fitBounds(paper.view.bounds.expand(-margin))
@@ -824,21 +830,21 @@ function DeclickMap() {
   }
 
   // load Path from json file
-  this.loadPathFromJSON = function(file, callback) {
+  this.loadPathFromJSON = function (file, callback) {
     var self = this
 
-    $.getJSON(file, function(pathData) {
+    $.getJSON(file, function (pathData) {
       self.loadPath(pathData)
       if (callback) {
         callback()
       }
-    }).fail(function() {
+    }).fail(function () {
       console.error('Could not load JSON file: ' + file)
     })
   }
 
   // load steps
-  this.loadSteps = function(data) {
+  this.loadSteps = function (data) {
     if (stepsDisplayed) {
       removeSteps()
     }
@@ -848,7 +854,7 @@ function DeclickMap() {
   }
 
   // load Path from json file
-  this.loadPathFromUI = function(file, callback) {
+  this.loadPathFromUI = function (file, callback) {
     this.loadPath(file)
     if (callback) {
       callback()
@@ -856,7 +862,7 @@ function DeclickMap() {
   }
 
   // load steps from JSON file
-  this.loadStepsFromUI = function(file, callback) {
+  this.loadStepsFromUI = function (file, callback) {
     this.loadSteps(file)
     if (callback) {
       callback()
@@ -864,19 +870,19 @@ function DeclickMap() {
   }
 
   // load steps from JSON file
-  this.loadStepsFromJSON = function(file, callback) {
+  this.loadStepsFromJSON = function (file, callback) {
     var self = this
-    $.getJSON(file, function(stepsData) {
+    $.getJSON(file, function (stepsData) {
       self.loadSteps(stepsData)
       if (callback) {
         callback()
       }
-    }).fail(function() {
+    }).fail(function () {
       console.error('Could not load JSON file: ' + file)
     })
   }
 
-  this.setResults = function(results) {
+  this.setResults = function (results) {
     console.log('results received:')
     console.log(results)
 
@@ -910,7 +916,7 @@ function DeclickMap() {
   }
 
   // Set current step
-  this.setCurrentStep = function(id, animate) {
+  this.setCurrentStep = function (id, animate) {
     if (typeof animate === 'undefined') {
       animate = false
     }
@@ -921,12 +927,12 @@ function DeclickMap() {
   }
 
   // Remove all steps
-  this.removeSteps = function() {
+  this.removeSteps = function () {
     removeSteps()
   }
 
   // Update size
-  this.update = function() {
+  this.update = function () {
     // check size
     var cSize = new paper.Size(canvas.width, canvas.height)
     if (!cSize.equals(paper.view.size)) {

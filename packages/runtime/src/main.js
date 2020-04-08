@@ -1,8 +1,9 @@
-import _data from './data'
-import _scheduler from './scheduler'
-import _parser from './parser'
-import _graphics from './graphics'
 import i18n, { i18nConfig } from 'es2015-i18n-tag'
+
+import _data from './data'
+import _graphics from './graphics'
+import _parser from './parser'
+import _scheduler from './scheduler'
 
 let _interpreter = null
 

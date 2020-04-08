@@ -12,7 +12,7 @@ variables:
 
 before_script:
   - yarn
-  # - yarn global add lerna
+  - yarn global add lerna
   # - lerna bootstrap
 
 cache:
@@ -55,9 +55,9 @@ deploy_QA:
     - mkdir -p ~/.ssh
     - '[[ -f /.dockerenv ]] && echo -e "Host *\n\tStrictHostKeyChecking no\n\n" > ~/.ssh/config'
   script:
-    - ssh-add <(echo "$DEDICATED_SSH_PRIVATE_KEY")
-    - ssh -o StrictHostKeyChecking=no user@"$QA_SERVER" rm -rf "$DECLICK_INSTALL_DIRECTORY"/*
-    - scp -P22 -r . "$QA_USER"@"$QA_SERVER":"$DECLICK_INSTALL_DIRECTORY"
+    - ssh-add <(echo "$SSH_PRIVATE_KEY")
+    - ssh -o StrictHostKeyChecking=no user@"$QA_SERVER" rm -rf "$INSTALL_DIRECTORY"/*
+    - scp -P22 -r packages/ "$QA_USER"@"$QA_SERVER":"$INSTALL_DIRECTORY"
   only:
     - phaser
 #

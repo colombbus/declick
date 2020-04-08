@@ -9,6 +9,7 @@
 </template>
 
 <script>
+// eslint-disable-next-line no-unused-vars
 /* global __webpack_public_path__ */
 
 import Map from './map.js'
@@ -22,6 +23,7 @@ var map = new Map()
 
 export default {
   components: {
+    // eslint-disable-next-line vue/no-unused-components
     courseRunfrom,
   },
   data() {
