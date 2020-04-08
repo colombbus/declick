@@ -45,7 +45,8 @@ build_runtime:
   before_script:
     - yarn global add lerna
     - lerna exec "npm install"
-
+    - cd packages/objects
+    - npm install
   script:
     - cd packages/runtime
     - yarn build
