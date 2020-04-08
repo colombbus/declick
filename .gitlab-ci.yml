@@ -30,9 +30,6 @@ stages:
   - build
   - deploy
 
-# build_:
-#   stage: build
-
 unit_test:
   stage: test
   except:
@@ -46,6 +43,7 @@ unit_test:
 build_runtime:
   stage: build
   script:
+    - cd packages/runtime
     - yarn build
 
 # deploy_QA:
