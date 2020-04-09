@@ -4,19 +4,19 @@ let _scene = null
 let _game = null
 let _renderer = null
 const _graphicalObjects = []
-const _graphicalResources = []
+const _graphicalResources = new Map()
 
 let _preload = function() {
-  _graphicalResources.forEach(resource => {
-    this.load[resource.type](resource.data);
+  _graphicalResources.forEach((resource, key) => {
+    this.load[resource.type](key, ...resource.data)
   })
 }
 
 let _create = function() {
   _graphicalObjects.forEach(object => {
-    object.addToScene(this);
+    object.addToScene(this)
   })
-  _scene = this;
+  _scene = this
 }
 
 let _update = function(time, delta) {
@@ -58,15 +58,22 @@ let _initialize = function(canvas, callback, options) {
 
 export default {
   initialize(canvas, callback, options) {
+    this.reset()
     _initialize(canvas, callback, options)
   },
   resize() {
     _engine.resize()
   },
-  addResource(type, resource) {
-    _graphicalResources.push({type:type, data:resource})
+  addResource(type, key, ...data) {
+    if (_graphicalResources.has(key)) {
+      const existingResource = _graphicalResources.get(key)
+      if (type !== existingResource.type || !data.every((value, index) => value ===existingResource.data[index])) {
+        throw new Error(`existing resource: ${key}`)
+      }
+    }
+    _graphicalResources.set(key, {type:type, data:data})
     if (_scene !== null) {
-      _scene.load[type](resource)
+      _scene.load[type](key, ...data)
       _scene.load.start()
     }
   },
@@ -78,9 +85,7 @@ export default {
   },
   removeObject(object) {
     _graphicalObjects.splice(_graphicalObjects.indexOf(object), 1)
-    if (_scene != null) {
-      object.destroy()
-    }
+    object.destroy()
   },
   getController() {
     return _game
@@ -109,5 +114,15 @@ export default {
     if (_game) {
       _game.scene.stop('main')
     }
+  },
+  reset() {
+    _graphicalResources.clear()
+    _graphicalObjects.length = 0
+    if (_game) {
+      _game.scene.remove('main')
+      _game.destroy(false, false)
+      _game = null
+    }
+    _scene = null
   }
 }
