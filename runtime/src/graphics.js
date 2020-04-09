@@ -17,7 +17,7 @@ const _localResourceLoaded = function(key) {
     _loadingLocalResources.delete(key)
     if (_loadingLocalResources.size === 0) {
       _scene.textures.off('addtexture', _localResourceLoaded)
-      _whenLoadedActions.forEach((action) => action())
+      _whenLoadedActions.forEach(action => action())
       _whenLoadedActions.length = 0
     }
   }
@@ -32,12 +32,21 @@ const _loadingLocalResource = function(key, callback) {
 
 const _loadLocalImage = function(key, data) {
   const imageData = data[0]
-  const callback  = (data.length>1)?data[1]:false
+  const callback = data.length > 1 ? data[1] : false
   _loadingLocalResource(key, callback)
   _scene.textures.addBase64(key, imageData)
 }
 
-const _loadLocalSpritesheet = function(key, data) {
+const _loadLocalAtlas = function(key, data) {
+  const imageData = data[0]
+  const jsonData = data[1]
+  const callback = data.length > 2 ? data[2] : false
+  _loadingLocalResource(key, callback)
+  const atlasImage = new Image()
+  atlasImage.onload = () => {
+    _scene.textures.addAtlas(key, atlasImage, jsonData)
+  }
+  atlasImage.src = imageData
 }
 
 const _whenLoaded = function(action) {
@@ -53,8 +62,8 @@ const _preload = function() {
   _graphicalResources.forEach((resource, key) => {
     if (resource.type === 'local_image') {
       _loadLocalImage(key, resource.data)
-    } else if (resource.type === 'local_spritesheet') {
-      _loadLocalSpritesheet(key, resource.data)
+    } else if (resource.type === 'local_atlas') {
+      _loadLocalAtlas(key, resource.data)
     } else {
       this.load[resource.type](key, ...resource.data)
     }
@@ -119,7 +128,7 @@ export default {
     //_engine.resize()
   },
   addLocalResource(type, key, ...data) {
-    this.addResource(`local_${type}`, key, data)
+    this.addResource(`local_${type}`, key, ...data)
   },
   addResource(type, key, ...data) {
     if (_graphicalResources.has(key)) {
@@ -157,18 +166,18 @@ export default {
     }
   },
   getRenderedImage() {
-    return null//_engine.renderer.plugins.extract.image(_renderer)
+    return null //_engine.renderer.plugins.extract.image(_renderer)
   },
   getRenderedPixels() {
-    return null//_engine.renderer.plugins.extract.pixels(_renderer)
+    return null //_engine.renderer.plugins.extract.pixels(_renderer)
   },
   getRenderedCanvas() {
-    return null//_engine.renderer.plugins.extract.canvas(_renderer)
+    return null //_engine.renderer.plugins.extract.canvas(_renderer)
   },
   start(callback) {
     if (_game) {
       if (callback) {
-        _scene.events.once('create',() => {
+        _scene.events.once('create', () => {
           _whenLoaded(callback)
         })
       }
