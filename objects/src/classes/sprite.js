@@ -1,17 +1,16 @@
 import i18n from 'es2015-i18n-tag'
 import GraphicClass from '../graphic-class'
 import 'reflect-metadata'
-import * as PIXI from 'pixi.js'
 import robotData from '../../resources/robot.json'
 import robotTexture from '../../resources/robot.png'
 
 @Reflect.metadata('translated', i18n`Sprite`)
 class Sprite extends GraphicClass {
-  static _spriteSheet = null
+  static _texture = 'sprite_default_animation'
   static _loadingSprite = false
   static _whenLoaded = []
 
-  _loadSpriteSheet(callback) {
+  /*_loadSpriteSheet(callback) {
     if (callback) {
       this.constructor._whenLoaded.push(callback)
     }
@@ -32,13 +31,10 @@ class Sprite extends GraphicClass {
         })
       })
     }
-  }
+  }*/
 
-  _createObject() {
-    this._spriteSheet = this.constructor._spriteSheet
-    this._object = new PIXI.AnimatedSprite(
-      this._spriteSheet.animations['robot_face'],
-    )
+  addToScene(scene) {
+    this._object = scene.add.sprite(this._x, this._y, this._texture)
     this._object.animationSpeed = 0.1
     this._object.play()
     this.dispatch('objectReady')
@@ -46,6 +42,12 @@ class Sprite extends GraphicClass {
 
   constructor() {
     super()
+    this._graphics.addLocalResource(
+      'atlas',
+      'sprite_default_animation',
+      robotTexture,
+      robotData,
+    )
     this.addListener('movementChange', () => {
       let animation
       if (this._movement === 'target') {
@@ -60,18 +62,9 @@ class Sprite extends GraphicClass {
         }
         animation = animations[this._movement]
       }
-      this._object.stop()
-      this._object.textures = this._spriteSheet.animations[animation]
-      this._object.play()
+      this._object.play(animation)
     })
-
-    if (this.constructor._spriteSheet === null) {
-      this._loadSpriteSheet(() => {
-        this._createObject()
-      })
-    } else {
-      this._createObject()
-    }
+    this._graphics.start()
   }
 }
 

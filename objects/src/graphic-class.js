@@ -22,7 +22,6 @@ class GraphicClass extends BaseClass {
     })
     this.addListener('delete', () => {
       this._graphics.removeObject(this)
-      this._object = null
     })
   }
 
@@ -42,10 +41,6 @@ class GraphicClass extends BaseClass {
     }
   }
 
-  _getLoader() {
-    return this._graphics.getLoader()
-  }
-
   tick(delta) {
     if (this._ready && this._movement !== 'stop') {
       this._move(delta)
@@ -53,6 +48,15 @@ class GraphicClass extends BaseClass {
       this._object.y = this._y
       this.dispatch('move', this._x, this._y)
     }
+  }
+
+  addToScene() {
+    // to be implemented by children classes
+  }
+
+  destroy() {
+    this._object.destroy()
+    this._object = null
   }
 
   _move(delta) {
