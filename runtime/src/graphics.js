@@ -101,6 +101,7 @@ const _initializeScene = function() {
 const _initialize = function(canvas, callback, options) {
   let config = {
     type: Phaser.AUTO,
+    customEnvironment: false,
     canvas: canvas,
     scene: null,
     callbacks: {
