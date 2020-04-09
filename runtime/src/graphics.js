@@ -26,19 +26,23 @@ let _update = function(time, delta) {
 }
 
 let _initializeScene = function() {
-  _game.scene.add('main',{
-    key:'main',
-    active:false,
-    preload: _preload,
-    create: _create,
-    update: _update
-  }, false)
+  _game.scene.add(
+    'main',
+    {
+      key: 'main',
+      active: false,
+      preload: _preload,
+      create: _create,
+      update: _update,
+    },
+    false,
+  )
 }
 
 let _initialize = function(canvas, callback, options) {
   let config = {
-    type:Phaser.AUTO,
-    canvas:canvas,
+    type: Phaser.AUTO,
+    canvas: canvas,
     scene: null,
     callbacks: {
       postBoot() {
@@ -46,8 +50,8 @@ let _initialize = function(canvas, callback, options) {
         if (callback) {
           callback()
         }
-      }
-    }
+      },
+    },
   }
   if (options) {
     config = Object.assign(config, options)
@@ -67,11 +71,14 @@ export default {
   addResource(type, key, ...data) {
     if (_graphicalResources.has(key)) {
       const existingResource = _graphicalResources.get(key)
-      if (type !== existingResource.type || !data.every((value, index) => value ===existingResource.data[index])) {
+      if (
+        type !== existingResource.type ||
+        !data.every((value, index) => value === existingResource.data[index])
+      ) {
         throw new Error(`existing resource: ${key}`)
       }
     }
-    _graphicalResources.set(key, {type:type, data:data})
+    _graphicalResources.set(key, { type: type, data: data })
     if (_scene !== null) {
       _scene.load[type](key, ...data)
       _scene.load.start()
@@ -124,5 +131,5 @@ export default {
       _game = null
     }
     _scene = null
-  }
+  },
 }
