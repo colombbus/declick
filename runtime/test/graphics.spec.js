@@ -73,15 +73,15 @@ describe('When graphics is initialized', () => {
     graphics.initialize(document.getElementById('canvas'), whenReady,{type:Phaser.HEADLESS})
   })
   it('should load a resource after start', (done) => {
+    function whenCreated() {
+      graphics.addResource('image', 'anImage', `file://${__dirname}/dk.png`)
+    }
     function whenReady() {
       const loader = graphics.getController().scene.getScene('main').load
       loader.once('complete', () => {
         done()
       })
-      graphics.getController().scene.getScene('main').events.once('ready', () => {
-        graphics.addResource('image', 'anImage', `file://${__dirname}/dk.png`)
-      })
-      graphics.start()
+      graphics.start(whenCreated)
     }
     graphics.initialize(document.getElementById('canvas'), whenReady,{type:Phaser.HEADLESS})
   })
@@ -132,14 +132,14 @@ describe('When graphics is initialized', () => {
         receivedScene = aScene
       }
     }
+    function whenCreated() {
+      assert.equal(objectAdded, true)
+      assert.equal(receivedScene, graphics.getController().scene.getScene('main'))
+      done()
+    }
     function whenReady() {
       graphics.addObject(myObject)
-      graphics.getController().scene.getScene('main').events.once('create', () => {
-        assert.equal(objectAdded, true)
-        assert.equal(receivedScene, graphics.getController().scene.getScene('main'))
-        done()
-      })
-      graphics.start()
+      graphics.start(whenCreated)
     }
     graphics.initialize(document.getElementById('canvas'), whenReady,{type:Phaser.HEADLESS})
   })
@@ -154,15 +154,15 @@ describe('When graphics is initialized', () => {
         destroyCalled = true
       }
     }
+    function whenCreated() {
+      assert.equal(objectAdded, false)
+      assert.equal(destroyCalled, true)
+      done()
+    }
     function whenReady() {
       graphics.addObject(myObject)
       graphics.removeObject(myObject)
-      graphics.getController().scene.getScene('main').events.once('create', () => {
-        assert.equal(objectAdded, false)
-        assert.equal(destroyCalled, true)
-        done()
-      })
-      graphics.start()
+      graphics.start(whenCreated)
     }
     graphics.initialize(document.getElementById('canvas'), whenReady,{type:Phaser.HEADLESS})
   })
@@ -183,10 +183,20 @@ describe('When graphics is initialized', () => {
 
     function whenReady() {
       graphics.addObject(myObject)
-      graphics.getController().scene.getScene('main').events.once('create', () => {
-        removeObject()
-      })
-      graphics.start()
+      graphics.start(removeObject)
+    }
+    graphics.initialize(document.getElementById('canvas'), whenReady,{type:Phaser.HEADLESS})
+  })
+  it('should be able to load a local resource', (done) => {
+    const data = 'data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAACAAAAAgAQMAAABJtOi3AAAAA1BMVEX///+nxBvIAAAAAXRSTlMAQObYZgAAABVJREFUeF7NwIEAAAAAgKD9qdeocAMAoAABm3DkcAAAAABJRU5ErkJggg=='
+
+    function whenCreated() {
+      graphics.getController().scene.getScene('main').add.image('anImage', 10, 10)
+      done()
+    }
+    function whenReady() {
+      graphics.addLocalResource('image', 'anImage', data)
+      graphics.start(whenCreated)
     }
     graphics.initialize(document.getElementById('canvas'), whenReady,{type:Phaser.HEADLESS})
   })

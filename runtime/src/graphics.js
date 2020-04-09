@@ -1,35 +1,85 @@
 import * as Phaser from 'phaser'
 
+let _sceneActive = false
 let _scene = null
 let _game = null
-let _renderer = null
 const _graphicalObjects = []
 const _graphicalResources = new Map()
+const _loadingLocalResources = new Map()
+const _whenLoadedActions = []
 
-let _preload = function() {
+const _localResourceLoaded = function(key) {
+  if (_loadingLocalResources.has(key)) {
+    const callback = _loadingLocalResources.get(key)
+    if (callback) {
+      callback()
+    }
+    _loadingLocalResources.delete(key)
+    if (_loadingLocalResources.size === 0) {
+      _scene.textures.off('addtexture', _localResourceLoaded)
+      _whenLoadedActions.forEach((action) => action())
+      _whenLoadedActions.length = 0
+    }
+  }
+}
+
+const _loadingLocalResource = function(key, callback) {
+  if (_loadingLocalResources.size === 0) {
+    _scene.textures.on('addtexture', _localResourceLoaded)
+  }
+  _loadingLocalResources.set(key, callback)
+}
+
+const _loadLocalImage = function(key, data) {
+  const imageData = data[0]
+  const callback  = (data.length>1)?data[1]:false
+  _loadingLocalResource(key, callback)
+  _scene.textures.addBase64(key, imageData)
+}
+
+const _loadLocalSpritesheet = function(key, data) {
+}
+
+const _whenLoaded = function(action) {
+  if (_loadingLocalResources.size === 0) {
+    action()
+  } else {
+    _whenLoadedActions.push(action)
+  }
+}
+
+const _preload = function() {
+  _sceneActive = true
   _graphicalResources.forEach((resource, key) => {
-    this.load[resource.type](key, ...resource.data)
+    if (resource.type === 'local_image') {
+      _loadLocalImage(key, resource.data)
+    } else if (resource.type === 'local_spritesheet') {
+      _loadLocalSpritesheet(key, resource.data)
+    } else {
+      this.load[resource.type](key, ...resource.data)
+    }
   })
 }
 
-let _create = function() {
-  _graphicalObjects.forEach(object => {
-    object.addToScene(this)
+const _create = function() {
+  _whenLoaded(() => {
+    _graphicalObjects.forEach(object => {
+      object.addToScene(this)
+    })
   })
-  _scene = this
 }
 
-let _update = function(time, delta) {
+const _update = function(time, delta) {
   _graphicalObjects.forEach(object => {
     object.tick(delta)
   })
 }
 
-let _initializeScene = function() {
-  _game.scene.add(
+const _initializeScene = function() {
+  _sceneActive = false
+  _scene = _game.scene.add(
     'main',
     {
-      key: 'main',
       active: false,
       preload: _preload,
       create: _create,
@@ -39,7 +89,7 @@ let _initializeScene = function() {
   )
 }
 
-let _initialize = function(canvas, callback, options) {
+const _initialize = function(canvas, callback, options) {
   let config = {
     type: Phaser.AUTO,
     canvas: canvas,
@@ -66,7 +116,10 @@ export default {
     _initialize(canvas, callback, options)
   },
   resize() {
-    _engine.resize()
+    //_engine.resize()
+  },
+  addLocalResource(type, key, ...data) {
+    this.addResource(`local_${type}`, key, data)
   },
   addResource(type, key, ...data) {
     if (_graphicalResources.has(key)) {
@@ -79,14 +132,14 @@ export default {
       }
     }
     _graphicalResources.set(key, { type: type, data: data })
-    if (_scene !== null) {
+    if (_sceneActive) {
       _scene.load[type](key, ...data)
       _scene.load.start()
     }
   },
   addObject(object) {
     _graphicalObjects.push(object)
-    if (_scene != null) {
+    if (_sceneActive) {
       object.addToScene(_scene)
     }
   },
@@ -104,16 +157,21 @@ export default {
     }
   },
   getRenderedImage() {
-    return _engine.renderer.plugins.extract.image(_renderer)
+    return null//_engine.renderer.plugins.extract.image(_renderer)
   },
   getRenderedPixels() {
-    return _engine.renderer.plugins.extract.pixels(_renderer)
+    return null//_engine.renderer.plugins.extract.pixels(_renderer)
   },
   getRenderedCanvas() {
-    return _engine.renderer.plugins.extract.canvas(_renderer)
+    return null//_engine.renderer.plugins.extract.canvas(_renderer)
   },
-  start() {
+  start(callback) {
     if (_game) {
+      if (callback) {
+        _scene.events.once('create',() => {
+          _whenLoaded(callback)
+        })
+      }
       _game.scene.start('main')
     }
   },
@@ -125,11 +183,14 @@ export default {
   reset() {
     _graphicalResources.clear()
     _graphicalObjects.length = 0
+    _loadingLocalResources.clear()
+    _whenLoadedActions.length = 0
     if (_game) {
       _game.scene.remove('main')
       _game.destroy(false, false)
       _game = null
     }
+    _sceneActive = false
     _scene = null
   },
 }
