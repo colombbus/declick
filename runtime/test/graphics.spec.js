@@ -12,138 +12,147 @@ describe('When graphics is initialized', () => {
   after(() => {
     window.close()
   })
-  it('should have a scene named main', done => {
-    function whenReady() {
-      const scenes = graphics.getController().scene.getScenes(false)
-      assert.equal(scenes.length, 1)
-      const scene = graphics.getController().scene.getScene('main')
-      assert.isNotNull(scene)
-      done()
-    }
-    graphics.initialize(document.getElementById('canvas'), whenReady, {
-      type: Phaser.HEADLESS,
-    })
+  it('should have a scene named main', () => {
+    return graphics
+      .initialize(document.getElementById('canvas'), {
+        type: Phaser.HEADLESS,
+      })
+      .then(() => {
+        const scenes = graphics.getController().scene.getScenes(false)
+        assert.equal(scenes.length, 1)
+        const scene = graphics.getController().scene.getScene('main')
+        assert.isNotNull(scene)
+      })
   })
-  it('should not set scene active before start is called', done => {
-    function whenReady() {
-      assert.equal(graphics.getController().scene.isActive('main'), false)
-      done()
-    }
-    graphics.initialize(document.getElementById('canvas'), whenReady, {
-      type: Phaser.HEADLESS,
-    })
+  it('should not set scene active before start is called', () => {
+    return graphics
+      .initialize(document.getElementById('canvas'), {
+        type: Phaser.HEADLESS,
+      })
+      .then(() => {
+        assert.equal(graphics.getController().scene.isActive('main'), false)
+      })
   })
-  it('should set scene active when start is called', done => {
-    function whenReady() {
-      graphics.start()
-      assert.equal(graphics.getController().scene.isActive('main'), true)
-      done()
-    }
-    graphics.initialize(document.getElementById('canvas'), whenReady, {
-      type: Phaser.HEADLESS,
-    })
+  it('should set scene active when start is called', () => {
+    return graphics
+      .initialize(document.getElementById('canvas'), {
+        type: Phaser.HEADLESS,
+      })
+      .then(() => {
+        graphics.start()
+        assert.equal(graphics.getController().scene.isActive('main'), true)
+      })
   })
-  it('should set scene inactive when stop is called', done => {
-    function whenReady() {
-      graphics.start()
-      graphics.stop()
-      assert.equal(graphics.getController().scene.isActive('main'), false)
-      done()
-    }
-    graphics.initialize(document.getElementById('canvas'), whenReady, {
-      type: Phaser.HEADLESS,
-    })
+  it('should set scene inactive when stop is called', () => {
+    return graphics
+      .initialize(document.getElementById('canvas'), {
+        type: Phaser.HEADLESS,
+      })
+      .then(() => {
+        graphics.start()
+        graphics.stop()
+        assert.equal(graphics.getController().scene.isActive('main'), false)
+      })
   })
   it('should not load a resource before start', done => {
-    function whenReady() {
-      const loader = graphics.getController().scene.getScene('main').load
-      let loadStart = false
-      loader.once('start', () => {
-        loadStart = true
+    graphics
+      .initialize(document.getElementById('canvas'), {
+        type: Phaser.HEADLESS,
       })
-      graphics.addResource('image', 'anImage', `file://${__dirname}/dk.png`)
-      window.setTimeout(() => {
-        assert.equal(loadStart, false)
-        done()
-      }, 500)
-    }
-    graphics.initialize(document.getElementById('canvas'), whenReady, {
-      type: Phaser.HEADLESS,
-    })
+      .then(() => {
+        const loader = graphics.getController().scene.getScene('main').load
+        let loadStart = false
+        loader.once('start', () => {
+          loadStart = true
+        })
+        graphics.addResource('image', 'anImage', `file://${__dirname}/dk.png`)
+        window.setTimeout(() => {
+          assert.equal(loadStart, false)
+          done()
+        }, 500)
+      })
   })
   it('should load a resource when started', done => {
-    function whenReady() {
-      const loader = graphics.getController().scene.getScene('main').load
-      loader.once('complete', () => {
-        done()
+    graphics
+      .initialize(document.getElementById('canvas'), {
+        type: Phaser.HEADLESS,
       })
-      graphics.addResource('image', 'anImage', `file://${__dirname}/dk.png`)
-      graphics.start()
-    }
-    graphics.initialize(document.getElementById('canvas'), whenReady, {
-      type: Phaser.HEADLESS,
-    })
+      .then(() => {
+        const loader = graphics.getController().scene.getScene('main').load
+        loader.once('complete', () => {
+          done()
+        })
+        graphics.addResource('image', 'anImage', `file://${__dirname}/dk.png`)
+        graphics.start()
+      })
   })
   it('should load a resource after start', done => {
-    function whenCreated() {
-      graphics.addResource('image', 'anImage', `file://${__dirname}/dk.png`)
-    }
-    function whenReady() {
-      const loader = graphics.getController().scene.getScene('main').load
-      loader.once('complete', () => {
-        done()
+    graphics
+      .initialize(document.getElementById('canvas'), {
+        type: Phaser.HEADLESS,
       })
-      graphics.start(whenCreated)
-    }
-    graphics.initialize(document.getElementById('canvas'), whenReady, {
-      type: Phaser.HEADLESS,
-    })
+      .then(() => {
+        const loader = graphics.getController().scene.getScene('main').load
+        loader.once('complete', () => {
+          done()
+        })
+        return graphics.start()
+      })
+      .then(() => {
+        graphics.addResource('image', 'anImage', `file://${__dirname}/dk.png`)
+      })
   })
   it('should support loading a resource twice', done => {
-    function whenReady() {
-      const loader = graphics.getController().scene.getScene('main').load
-      loader.once('complete', () => {
-        done()
+    graphics
+      .initialize(document.getElementById('canvas'), {
+        type: Phaser.HEADLESS,
       })
-      graphics.addResource('image', 'anImage', `file://${__dirname}/dk.png`)
-      graphics.addResource('image', 'anImage', `file://${__dirname}/dk.png`)
-      graphics.start()
-    }
-    graphics.initialize(document.getElementById('canvas'), whenReady, {
-      type: Phaser.HEADLESS,
-    })
+      .then(() => {
+        const loader = graphics.getController().scene.getScene('main').load
+        loader.once('complete', () => {
+          done()
+        })
+        graphics.addResource('image', 'anImage', `file://${__dirname}/dk.png`)
+        graphics.addResource('image', 'anImage', `file://${__dirname}/dk.png`)
+        graphics.start()
+      })
   })
-  it('should not load two different resources with same key', done => {
-    function whenReady() {
-      graphics.addResource('image', 'anImage', `file://${__dirname}/dk.png`)
-      try {
-        graphics.addResource('image', 'anImage', `file://${__dirname}/dk2.png`)
-      } catch (e) {
-        assert.equal(e.message, 'existing resource: anImage')
-        done()
-      }
-    }
-    graphics.initialize(document.getElementById('canvas'), whenReady, {
-      type: Phaser.HEADLESS,
-    })
+  it('should not load two different resources with same key', () => {
+    return graphics
+      .initialize(document.getElementById('canvas'), {
+        type: Phaser.HEADLESS,
+      })
+      .then(() => {
+        graphics.addResource('image', 'anImage', `file://${__dirname}/dk.png`)
+        try {
+          graphics.addResource(
+            'image',
+            'anImage',
+            `file://${__dirname}/dk2.png`,
+          )
+          assert.fail('loaded two different resources with same key')
+        } catch (e) {
+          assert.equal(e.message, 'existing resource: anImage')
+        }
+      })
   })
-  it('should not add an object when scene is not started', done => {
+  it('should not add an object when scene is not started', () => {
     let objectAdded = false
     const myObject = {
-      addToScene(aScene) {
+      addToScene() {
         objectAdded = true
       },
     }
-    function whenReady() {
-      graphics.addObject(myObject)
-      assert.equal(objectAdded, false)
-      done()
-    }
-    graphics.initialize(document.getElementById('canvas'), whenReady, {
-      type: Phaser.HEADLESS,
-    })
+    return graphics
+      .initialize(document.getElementById('canvas'), {
+        type: Phaser.HEADLESS,
+      })
+      .then(() => {
+        graphics.addObject(myObject)
+        assert.equal(objectAdded, false)
+      })
   })
-  it('should add an object to the scene when started', done => {
+  it('should add an object to the scene when started', () => {
     let objectAdded = false
     let receivedScene = null
     const myObject = {
@@ -152,23 +161,23 @@ describe('When graphics is initialized', () => {
         receivedScene = aScene
       },
     }
-    function whenCreated() {
-      assert.equal(objectAdded, true)
-      assert.equal(
-        receivedScene,
-        graphics.getController().scene.getScene('main'),
-      )
-      done()
-    }
-    function whenReady() {
-      graphics.addObject(myObject)
-      graphics.start(whenCreated)
-    }
-    graphics.initialize(document.getElementById('canvas'), whenReady, {
-      type: Phaser.HEADLESS,
-    })
+    return graphics
+      .initialize(document.getElementById('canvas'), {
+        type: Phaser.HEADLESS,
+      })
+      .then(() => {
+        graphics.addObject(myObject)
+        return graphics.start()
+      })
+      .then(() => {
+        assert.equal(objectAdded, true)
+        assert.equal(
+          receivedScene,
+          graphics.getController().scene.getScene('main'),
+        )
+      })
   })
-  it('should not add a removed object to the scene when started', done => {
+  it('should not add a removed object to the scene when started', () => {
     let objectAdded = false
     let destroyCalled = false
     const myObject = {
@@ -179,19 +188,19 @@ describe('When graphics is initialized', () => {
         destroyCalled = true
       },
     }
-    function whenCreated() {
-      assert.equal(objectAdded, false)
-      assert.equal(destroyCalled, true)
-      done()
-    }
-    function whenReady() {
-      graphics.addObject(myObject)
-      graphics.removeObject(myObject)
-      graphics.start(whenCreated)
-    }
-    graphics.initialize(document.getElementById('canvas'), whenReady, {
-      type: Phaser.HEADLESS,
-    })
+    return graphics
+      .initialize(document.getElementById('canvas'), {
+        type: Phaser.HEADLESS,
+      })
+      .then(() => {
+        graphics.addObject(myObject)
+        graphics.removeObject(myObject)
+        return graphics.start()
+      })
+      .then(() => {
+        assert.equal(objectAdded, false)
+        assert.equal(destroyCalled, true)
+      })
   })
   it('should call destroy on an object when removed', done => {
     let objectAdded = false
@@ -204,38 +213,43 @@ describe('When graphics is initialized', () => {
         done()
       },
     }
-    function removeObject() {
-      graphics.removeObject(myObject)
-    }
-
-    function whenReady() {
-      graphics.addObject(myObject)
-      graphics.start(removeObject)
-    }
-    graphics.initialize(document.getElementById('canvas'), whenReady, {
-      type: Phaser.HEADLESS,
-    })
+    graphics
+      .initialize(document.getElementById('canvas'), {
+        type: Phaser.HEADLESS,
+      })
+      .then(() => {
+        graphics.addObject(myObject)
+        return graphics.start()
+      })
+      .then(() => {
+        graphics.removeObject(myObject)
+      })
   })
-  it('should be able to load a local image', done => {
+  it('should be able to load a local image', () => {
     const data =
       'data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAACAAAAAgAQMAAABJtOi3AAAAA1BMVEX///+nxBvIAAAAAXRSTlMAQObYZgAAABVJREFUeF7NwIEAAAAAgKD9qdeocAMAoAABm3DkcAAAAABJRU5ErkJggg=='
 
-    function whenCreated() {
-      graphics
-        .getController()
-        .scene.getScene('main')
-        .add.image(10, 10, 'anImage')
-      done()
-    }
-    function whenReady() {
-      graphics.addLocalResource('image', 'anImage', data)
-      graphics.start(whenCreated)
-    }
-    graphics.initialize(document.getElementById('canvas'), whenReady, {
-      type: Phaser.HEADLESS,
-    })
+    return graphics
+      .initialize(document.getElementById('canvas'), {
+        type: Phaser.HEADLESS,
+      })
+      .then(() => {
+        graphics.addLocalResource('image', 'anImage', data)
+        return graphics.start()
+      })
+      .then(() => {
+        try {
+          graphics
+            .getController()
+            .scene.getScene('main')
+            .add.image(10, 10, 'anImage')
+          assert.isOk(true)
+        } catch (e) {
+          assert.fail(e)
+        }
+      })
   })
-  it('should be able to load a local atlas', done => {
+  it('should be able to load a local atlas', () => {
     const data =
       'data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAACAAAAAgAQMAAABJtOi3AAAAA1BMVEX///+nxBvIAAAAAXRSTlMAQObYZgAAABVJREFUeF7NwIEAAAAAgKD9qdeocAMAoAABm3DkcAAAAABJRU5ErkJggg=='
     const jsonData = {
@@ -273,9 +287,6 @@ describe('When graphics is initialized', () => {
           anchor: { x: 0, y: 0 },
         },
       },
-      animations: {
-        face: ['frame_1', 'frame_2', 'frame_3', 'frame_4'],
-      },
       meta: {
         app: 'test',
         version: '1.0',
@@ -286,19 +297,24 @@ describe('When graphics is initialized', () => {
       },
     }
 
-    function whenCreated() {
-      graphics
-        .getController()
-        .scene.getScene('main')
-        .add.sprite(10, 10, 'anImage')
-      done()
-    }
-    function whenReady() {
-      graphics.addLocalResource('atlas', 'anAtlas', data, jsonData)
-      graphics.start(whenCreated)
-    }
-    graphics.initialize(document.getElementById('canvas'), whenReady, {
-      type: Phaser.HEADLESS,
-    })
+    return graphics
+      .initialize(document.getElementById('canvas'), {
+        type: Phaser.HEADLESS,
+      })
+      .then(() => {
+        graphics.addLocalResource('atlas', 'anAtlas', data, jsonData)
+        return graphics.start()
+      })
+      .then(() => {
+        try {
+          graphics
+            .getController()
+            .scene.getScene('main')
+            .add.sprite(10, 10, 'anImage')
+          assert.isOk(true)
+        } catch (e) {
+          assert.fail(e)
+        }
+      })
   })
 })

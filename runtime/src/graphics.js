@@ -8,7 +8,7 @@ const _graphicalResources = new Map()
 const _loadingLocalResources = new Map()
 const _whenLoadedActions = []
 
-const _localResourceLoaded = function(key) {
+const _textureAdded = function(key) {
   if (_loadingLocalResources.has(key)) {
     const callback = _loadingLocalResources.get(key)
     if (callback) {
@@ -16,7 +16,7 @@ const _localResourceLoaded = function(key) {
     }
     _loadingLocalResources.delete(key)
     if (_loadingLocalResources.size === 0) {
-      _scene.textures.off('addtexture', _localResourceLoaded)
+      _scene.textures.off('addtexture', _textureAdded)
       _whenLoadedActions.forEach(action => action())
       _whenLoadedActions.length = 0
     }
@@ -25,7 +25,7 @@ const _localResourceLoaded = function(key) {
 
 const _loadingLocalResource = function(key, callback) {
   if (_loadingLocalResources.size === 0) {
-    _scene.textures.on('addtexture', _localResourceLoaded)
+    _scene.textures.on('addtexture', _textureAdded)
   }
   _loadingLocalResources.set(key, callback)
 }
@@ -49,6 +49,16 @@ const _loadLocalAtlas = function(key, data) {
   atlasImage.src = imageData
 }
 
+const _loadResource = function(key, type, data) {
+  if (type === 'local_image') {
+    _loadLocalImage(key, data)
+  } else if (type === 'local_atlas') {
+    _loadLocalAtlas(key, data)
+  } else {
+    _scene.load[type](key, ...data)
+  }
+}
+
 const _whenLoaded = function(action) {
   if (_loadingLocalResources.size === 0) {
     action()
@@ -60,13 +70,7 @@ const _whenLoaded = function(action) {
 const _preload = function() {
   _sceneActive = true
   _graphicalResources.forEach((resource, key) => {
-    if (resource.type === 'local_image') {
-      _loadLocalImage(key, resource.data)
-    } else if (resource.type === 'local_atlas') {
-      _loadLocalAtlas(key, resource.data)
-    } else {
-      this.load[resource.type](key, ...resource.data)
-    }
+    _loadResource(key, resource.type, resource.data)
   })
 }
 
@@ -98,32 +102,45 @@ const _initializeScene = function() {
   )
 }
 
-const _initialize = function(canvas, callback, options) {
-  let config = {
-    type: Phaser.AUTO,
-    customEnvironment: false,
-    canvas: canvas,
-    scene: null,
-    callbacks: {
-      postBoot() {
-        _initializeScene()
-        if (callback) {
-          callback()
-        }
+const _initialize = function(canvas, options) {
+  return new Promise((resolve, reject) => {
+    let config = {
+      type: Phaser.CANVAS,
+      customEnvironment: false,
+      canvas: canvas,
+      transparent: true,
+      scene: null,
+      scale: {
+        expandParent: false,
+        mode: Phaser.Scale.RESIZE,
+        autoCenter: Phaser.Scale.Center.NO_CENTER,
       },
-    },
-  }
-  if (options) {
-    config = Object.assign(config, options)
-  }
-
-  _game = new Phaser.Game(config)
+      callbacks: {
+        postBoot() {
+          try {
+            _initializeScene()
+          } catch (e) {
+            reject(e)
+          }
+          resolve()
+        },
+      },
+    }
+    if (options) {
+      config = Object.assign(config, options)
+    }
+    try {
+      _game = new Phaser.Game(config)
+    } catch (e) {
+      reject(e)
+    }
+  })
 }
 
 export default {
-  initialize(canvas, callback, options) {
+  initialize(canvas, options) {
     this.reset()
-    _initialize(canvas, callback, options)
+    return _initialize(canvas, options)
   },
   resize() {
     //_engine.resize()
@@ -143,7 +160,7 @@ export default {
     }
     _graphicalResources.set(key, { type: type, data: data })
     if (_sceneActive) {
-      _scene.load[type](key, ...data)
+      _loadResource(key, type, data)
       _scene.load.start()
     }
   },
@@ -164,6 +181,10 @@ export default {
     if (_game) {
       _game.scene.remove('main')
       _initializeScene()
+      _graphicalResources.clear()
+      _graphicalObjects.length = 0
+      _loadingLocalResources.clear()
+      _whenLoadedActions.length = 0
     }
   },
   getRenderedImage() {
@@ -175,14 +196,22 @@ export default {
   getRenderedCanvas() {
     return null //_engine.renderer.plugins.extract.canvas(_renderer)
   },
-  start(callback) {
+  start() {
     if (_game) {
-      if (callback) {
+      return new Promise((resolve, reject) => {
         _scene.events.once('create', () => {
-          _whenLoaded(callback)
+          try {
+            _whenLoaded(resolve)
+          } catch (e) {
+            reject(e)
+          }
         })
-      }
-      _game.scene.start('main')
+        try {
+          _game.scene.start('main')
+        } catch (e) {
+          reject(e)
+        }
+      })
     }
   },
   stop() {
