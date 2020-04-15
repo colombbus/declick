@@ -79,14 +79,6 @@ const _preload = function() {
   })
 }
 
-const _create = function() {
-  _whenLoaded(() => {
-    _graphicalObjects.forEach(object => {
-      object.addToScene(this)
-    })
-  })
-}
-
 const _update = function(time, delta) {
   _graphicalObjects.forEach(object => {
     object.tick(delta)
@@ -100,7 +92,6 @@ const _initializeScene = function() {
     {
       active: false,
       preload: _preload,
-      create: _create,
       update: _update,
     },
     false,
@@ -172,13 +163,13 @@ export default {
   },
   addObject(object) {
     _graphicalObjects.push(object)
-    if (_sceneActive) {
-      object.addToScene(_scene)
-    }
   },
   removeObject(object) {
     _graphicalObjects.splice(_graphicalObjects.indexOf(object), 1)
     object.destroy()
+  },
+  getScene() {
+    return _scene
   },
   getController() {
     return _game

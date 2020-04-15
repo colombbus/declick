@@ -139,80 +139,9 @@ describe('When graphics is initialized', () => {
         }
       })
   })
-  it('should not add an object when scene is not started', () => {
-    let objectAdded = false
-    const myObject = {
-      addToScene() {
-        objectAdded = true
-      },
-    }
-    return graphics
-      .initialize(document.getElementById('canvas'), {
-        type: Phaser.HEADLESS,
-      })
-      .then(() => {
-        graphics.addObject(myObject)
-        assert.equal(objectAdded, false)
-      })
-  })
-  it('should add an object to the scene when started', () => {
-    let objectAdded = false
-    let receivedScene = null
-    const myObject = {
-      addToScene(aScene) {
-        objectAdded = true
-        receivedScene = aScene
-      },
-    }
-    return graphics
-      .initialize(document.getElementById('canvas'), {
-        type: Phaser.HEADLESS,
-      })
-      .then(() => {
-        graphics.addObject(myObject)
-        return graphics.start()
-      })
-      .then(() => {
-        assert.equal(objectAdded, true)
-        assert.equal(
-          receivedScene,
-          graphics.getController().scene.getScene('main'),
-        )
-      })
-  })
-  it('should not add a removed object to the scene when started', () => {
-    let objectAdded = false
-    let destroyCalled = false
-    const myObject = {
-      addToScene() {
-        objectAdded = true
-      },
-      destroy() {
-        destroyCalled = true
-      },
-    }
-    return graphics
-      .initialize(document.getElementById('canvas'), {
-        type: Phaser.HEADLESS,
-      })
-      .then(() => {
-        graphics.addObject(myObject)
-        graphics.removeObject(myObject)
-        return graphics.start()
-      })
-      .then(() => {
-        assert.equal(objectAdded, false)
-        assert.equal(destroyCalled, true)
-      })
-  })
   it('should call destroy on an object when removed', done => {
-    let objectAdded = false
     const myObject = {
-      addToScene() {
-        objectAdded = true
-      },
       destroy() {
-        assert.equal(objectAdded, true)
         done()
       },
     }
