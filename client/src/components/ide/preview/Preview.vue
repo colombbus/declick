@@ -37,4 +37,9 @@ export default {
   align-self: stretch;
   background-color: white;
 }
+
+.preview__canvas {
+  height:100%;
+  width:100%;
+}
 </style>
