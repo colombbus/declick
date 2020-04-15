@@ -7,47 +7,25 @@ import robotTexture from '../../resources/robot.png'
 @Reflect.metadata('translated', i18n`Sprite`)
 class Sprite extends GraphicClass {
   static _texture = 'sprite_default_animation'
-  static _loadingSprite = false
-  static _whenLoaded = []
 
-  /*_loadSpriteSheet(callback) {
-    if (callback) {
-      this.constructor._whenLoaded.push(callback)
-    }
-    if (!this.constructor._loadingSprite) {
-      this.constructor._loadingSprite = true
-      const loader = new PIXI.Loader()
-      loader.add('robot', robotTexture)
-      loader.load((loader, resources) => {
-        this.constructor._spriteSheet = new PIXI.Spritesheet(
-          resources.robot.texture,
-          robotData,
-        )
-        this.constructor._loadingSprite = false
-        this.constructor._spriteSheet.parse(() => {
-          this.constructor._whenLoaded.forEach(callback => {
-            callback.apply(this)
-          })
-        })
-      })
-    }
-  }*/
+  static setupDone = false
 
-  addToScene(scene) {
-    this._object = scene.add.sprite(this._x, this._y, this._texture)
-    this._object.animationSpeed = 0.1
-    this._object.play()
-    this.dispatch('objectReady')
+  static setup() {
+    if (!this.setupDone) {
+      super.setup()
+      this._graphics.addLocalResource(
+        'atlas',
+        'sprite_default_animation',
+        robotTexture,
+        robotData,
+      )
+      this.setupDone = true
+    }
   }
 
   constructor() {
     super()
-    this._graphics.addLocalResource(
-      'atlas',
-      'sprite_default_animation',
-      robotTexture,
-      robotData,
-    )
+    this._texture = this.constructor._texture
     this.addListener('movementChange', () => {
       let animation
       if (this._movement === 'target') {
@@ -64,7 +42,44 @@ class Sprite extends GraphicClass {
       }
       this._object.play(animation)
     })
-    this._graphics.start()
+    const scene = this._graphics.getScene()
+    this._object = scene.add.sprite(this._x, this._y, 'bidule')
+    this._object.setOrigin(0)
+    scene.anims.create({
+      key: 'robot_face',
+      frames: scene.anims.generateFrameNames(this._texture, {
+        prefix: 'robot_face_',
+        suffix: '.png',
+        start: 1,
+        end: 6,
+      }),
+      repeat: -1,
+      duration: 1500,
+    })
+    scene.anims.create({
+      key: 'robot_right',
+      frames: scene.anims.generateFrameNames(this._texture, {
+        prefix: 'robot_right_',
+        suffix: '.png',
+        start: 1,
+        end: 4,
+      }),
+      repeat: -1,
+      duration: 1500,
+    })
+    scene.anims.create({
+      key: 'robot_left',
+      frames: scene.anims.generateFrameNames(this._texture, {
+        prefix: 'robot_left_',
+        suffix: '.png',
+        start: 1,
+        end: 4,
+      }),
+      repeat: -1,
+      duration: 1500,
+    })
+
+    this._object.play('robot_face')
   }
 }
 

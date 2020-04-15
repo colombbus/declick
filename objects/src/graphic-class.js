@@ -5,44 +5,32 @@ import 'reflect-metadata'
 class GraphicClass extends BaseClass {
   constructor() {
     super()
-    this._graphics = this._runtime.getGraphics()
+    this._graphics = this.constructor._graphics
     this._x = 0
     this._y = 0
-    this._vX = 5
-    this._vY = 5
+    this._vX = 10
+    this._vY = 10
     this._targetX = 0
     this._targetY = 0
     this._movement = 'stop'
     this._object = null
-    this._ready = false
-    this._onReadyOperations = []
-    this.addListener('objectReady', () => {
-      this._graphics.addObject(this)
-      this._onReady()
-    })
+    this._graphics.addObject(this)
     this.addListener('delete', () => {
       this._graphics.removeObject(this)
     })
   }
 
-  _onReady() {
-    this._ready = true
-    this._onReadyOperations.forEach(operation => {
-      operation.apply(this)
-    })
-    this._onReadyOperations = []
+  static setRuntime(runtime) {
+    super.setRuntime(runtime)
+    this._graphics = this._runtime.getGraphics()
   }
 
-  _whenReady(operation) {
-    if (this._ready) {
-      operation.apply(this)
-    } else {
-      this._onReadyOperations.push(operation)
-    }
+  static setup() {
+    // to be implemented by children classes
   }
 
   tick(delta) {
-    if (this._ready && this._movement !== 'stop') {
+    if (this._movement !== 'stop') {
       this._move(delta)
       this._object.x = this._x
       this._object.y = this._y
@@ -55,12 +43,15 @@ class GraphicClass extends BaseClass {
   }
 
   destroy() {
-    this._object.destroy()
-    this._object = null
+    if (this._object !== null) {
+      this._object.destroy()
+      this._object = null
+    }
   }
 
   _move(delta) {
     const that = this
+    delta = delta / 100
     const computeMove = {
       stop: function() {},
       target: function() {
@@ -115,97 +106,77 @@ class GraphicClass extends BaseClass {
   @Reflect.metadata('translated', i18n`moveForward`)
   @Reflect.metadata('help', i18n`moveForward_help`)
   moveForward(distance) {
-    this._whenReady(() => {
-      this._initTargetMovement()
-      this._targetX = this._x + distance
-      this._setMovement('target')
-    })
+    this._initTargetMovement()
+    this._targetX = this._x + distance
+    this._setMovement('target')
   }
 
   @Reflect.metadata('translated', i18n`moveBackward`)
   @Reflect.metadata('help', i18n`moveBackward_help`)
   moveBackward(distance) {
-    this._whenReady(() => {
-      this._initTargetMovement()
-      this._targetX = this._x - distance
-      this._setMovement('target')
-    })
+    this._initTargetMovement()
+    this._targetX = this._x - distance
+    this._setMovement('target')
   }
 
   @Reflect.metadata('translated', i18n`moveUpward`)
   @Reflect.metadata('help', i18n`moveUpward_help`)
   moveUpward(distance) {
-    this._whenReady(() => {
-      this._initTargetMovement()
-      this._targetY = this._y - distance
-      this._setMovement('target')
-    })
+    this._initTargetMovement()
+    this._targetY = this._y - distance
+    this._setMovement('target')
   }
 
   @Reflect.metadata('translated', i18n`moveDownward`)
   @Reflect.metadata('help', i18n`moveDownward_help`)
   moveDownward(distance) {
-    this._whenReady(() => {
-      this._initTargetMovement()
-      this._targetY = this._y + distance
-      this._setMovement('target')
-    })
+    this._initTargetMovement()
+    this._targetY = this._y + distance
+    this._setMovement('target')
   }
 
   @Reflect.metadata('translated', i18n`stop`)
   @Reflect.metadata('help', i18n`stop_help`)
   stop() {
-    this._whenReady(() => {
-      this._setMovement('stop')
-      this._targetX = this._x
-      this._targetY = this._y
-    })
+    this._setMovement('stop')
+    this._targetX = this._x
+    this._targetY = this._y
   }
 
   @Reflect.metadata('translated', i18n`moveAlwaysForward`)
   @Reflect.metadata('help', i18n`moveAlwaysForward_help`)
   moveAlwaysForward() {
-    this._whenReady(() => {
-      this._setMovement('forward')
-    })
+    this._setMovement('forward')
   }
 
   @Reflect.metadata('translated', i18n`moveAlwaysBackward`)
   @Reflect.metadata('help', i18n`moveAlwaysBackward_help`)
   moveAlwaysBackward() {
-    this._whenReady(() => {
-      this._setMovement('backward')
-    })
+    this._setMovement('backward')
   }
 
   @Reflect.metadata('translated', i18n`moveAlwaysUpward`)
   @Reflect.metadata('help', i18n`moveAlwaysUpward_help`)
   moveAlwaysUpward() {
-    this._whenReady(() => {
-      this._setMovement('upward')
-    })
+    this._setMovement('upward')
   }
 
   @Reflect.metadata('translated', i18n`moveAlwaysDownward`)
   @Reflect.metadata('help', i18n`moveAlwaysDownward_help`)
   moveAlwaysDownward() {
-    this._whenReady(() => {
-      this._setMovement('downward')
-    })
+    this._setMovement('downward')
   }
 
   @Reflect.metadata('translated', i18n`setLocation`)
   @Reflect.metadata('help', i18n`setLocation_help`)
   setLocation(x, y) {
-    this._whenReady(() => {
-      this._x = x
-      this._y = y
-      this._targetX = x
-      this._targetY = y
-      this._object.x = x
-      this._object.y = y
-      this.dispatch('move', x, y)
-    })
+    this._x = x
+    this._y = y
+    this._targetX = x
+    this._targetY = y
+    this._object.x = x
+    this._object.y = y
+    this.dispatch('move', x, y)
   }
 }
 
