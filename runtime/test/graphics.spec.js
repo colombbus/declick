@@ -2,6 +2,9 @@
 import { assert } from 'chai'
 import graphics from '../src/graphics'
 
+const localResource =
+  'data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAACAAAAAgAQMAAABJtOi3AAAAA1BMVEX///+nxBvIAAAAAXRSTlMAQObYZgAAABVJREFUeF7NwIEAAAAAgKD9qdeocAMAoAABm3DkcAAAAABJRU5ErkJggg=='
+
 describe('When graphics is initialized', () => {
   before(() => {
     document.body.innerHTML = `<div id='container'><canvas id='canvas'></canvas></div>`
@@ -226,15 +229,12 @@ describe('When graphics is initialized', () => {
       })
   })
   it('should be able to load a local image', () => {
-    const data =
-      'data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAACAAAAAgAQMAAABJtOi3AAAAA1BMVEX///+nxBvIAAAAAXRSTlMAQObYZgAAABVJREFUeF7NwIEAAAAAgKD9qdeocAMAoAABm3DkcAAAAABJRU5ErkJggg=='
-
     return graphics
       .initialize(document.getElementById('canvas'), {
         type: Phaser.HEADLESS,
       })
       .then(() => {
-        graphics.addLocalResource('image', 'anImage', data)
+        graphics.addLocalResource('image', 'anImage', localResource)
         return graphics.start()
       })
       .then(() => {
@@ -250,8 +250,6 @@ describe('When graphics is initialized', () => {
       })
   })
   it('should be able to load a local atlas', () => {
-    const data =
-      'data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAACAAAAAgAQMAAABJtOi3AAAAA1BMVEX///+nxBvIAAAAAXRSTlMAQObYZgAAABVJREFUeF7NwIEAAAAAgKD9qdeocAMAoAABm3DkcAAAAABJRU5ErkJggg=='
     const jsonData = {
       frames: {
         frame_1: {
@@ -302,7 +300,7 @@ describe('When graphics is initialized', () => {
         type: Phaser.HEADLESS,
       })
       .then(() => {
-        graphics.addLocalResource('atlas', 'anAtlas', data, jsonData)
+        graphics.addLocalResource('atlas', 'anAtlas', localResource, jsonData)
         return graphics.start()
       })
       .then(() => {
@@ -315,6 +313,42 @@ describe('When graphics is initialized', () => {
         } catch (e) {
           assert.fail(e)
         }
+      })
+  })
+  it('should clear graphical resources when cleared', () => {
+    return graphics
+      .initialize(document.getElementById('canvas'), {
+        type: Phaser.HEADLESS,
+      })
+      .then(() => {
+        graphics.addResource('image', 'anImage', `file://${__dirname}/dk.png`)
+        return graphics.start()
+      })
+      .then(() => {
+        graphics.clear()
+        const test = graphics
+          .getController()
+          .scene.getScene('main')
+          .textures.exists('anImage')
+        assert.isFalse(test)
+      })
+  })
+  it('should not clear local graphical resources when cleared', () => {
+    return graphics
+      .initialize(document.getElementById('canvas'), {
+        type: Phaser.HEADLESS,
+      })
+      .then(() => {
+        graphics.addLocalResource('image', 'anImage', localResource)
+        return graphics.start()
+      })
+      .then(() => {
+        graphics.clear()
+        const test = graphics
+          .getController()
+          .scene.getScene('main')
+          .textures.exists('anImage')
+        assert.isTrue(test)
       })
   })
 })

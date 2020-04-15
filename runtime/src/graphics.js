@@ -49,11 +49,16 @@ const _loadLocalAtlas = function(key, data) {
   atlasImage.src = imageData
 }
 
-const _loadResource = function(key, type, data) {
-  if (type === 'local_image') {
-    _loadLocalImage(key, data)
-  } else if (type === 'local_atlas') {
-    _loadLocalAtlas(key, data)
+const _loadResource = function(key, type, data, local) {
+  if (local) {
+    switch (type) {
+      case 'image':
+        _loadLocalImage(key, data)
+        break
+      case 'atlas':
+        _loadLocalAtlas(key, data)
+        break
+    }
   } else {
     _scene.load[type](key, ...data)
   }
@@ -70,7 +75,7 @@ const _whenLoaded = function(action) {
 const _preload = function() {
   _sceneActive = true
   _graphicalResources.forEach((resource, key) => {
-    _loadResource(key, resource.type, resource.data)
+    _loadResource(key, resource.type, resource.data, resource.local)
   })
 }
 
@@ -137,32 +142,33 @@ const _initialize = function(canvas, options) {
   })
 }
 
+const _addResource = function(type, key, data, local) {
+  if (_graphicalResources.has(key)) {
+    const existingResource = _graphicalResources.get(key)
+    if (
+      type !== existingResource.type ||
+      !data.every((value, index) => value === existingResource.data[index])
+    ) {
+      throw new Error(`existing resource: ${key}`)
+    }
+  }
+  _graphicalResources.set(key, { type: type, local: local, data: data })
+  if (_sceneActive) {
+    _loadResource(key, type, data, local)
+    _scene.load.start()
+  }
+}
+
 export default {
   initialize(canvas, options) {
     this.reset()
     return _initialize(canvas, options)
   },
-  resize() {
-    //_engine.resize()
-  },
   addLocalResource(type, key, ...data) {
-    this.addResource(`local_${type}`, key, ...data)
+    _addResource(type, key, data, true)
   },
   addResource(type, key, ...data) {
-    if (_graphicalResources.has(key)) {
-      const existingResource = _graphicalResources.get(key)
-      if (
-        type !== existingResource.type ||
-        !data.every((value, index) => value === existingResource.data[index])
-      ) {
-        throw new Error(`existing resource: ${key}`)
-      }
-    }
-    _graphicalResources.set(key, { type: type, data: data })
-    if (_sceneActive) {
-      _loadResource(key, type, data)
-      _scene.load.start()
-    }
+    _addResource(type, key, data, false)
   },
   addObject(object) {
     _graphicalObjects.push(object)
@@ -178,12 +184,16 @@ export default {
     return _game
   },
   clear() {
-    if (_game) {
-      _game.scene.remove('main')
-      _initializeScene()
-      _graphicalResources.clear()
+    if (_scene) {
+      _scene.children.removeAll()
+      const textures = _scene.textures
+      _graphicalResources.forEach((resource, key) => {
+        if (!resource.local) {
+          textures.remove(key)
+          _graphicalResources.delete(key)
+        }
+      })
       _graphicalObjects.length = 0
-      _loadingLocalResources.clear()
       _whenLoadedActions.length = 0
     }
   },
@@ -212,7 +222,7 @@ export default {
           reject(e)
         }
       })
-    }
+    } else return Promise.reject('graphics not initialized')
   },
   stop() {
     if (_game) {
