@@ -28,13 +28,31 @@ describe('When runtime is initialized', () => {
       static setRuntime() {}
     }
 
+    let MyClass3 = class {
+      getResult() {
+        return this.constructor.setupCalled ? true : false
+      }
+      static setRuntime() {}
+
+      static setup() {
+        this.setupCalled = true
+      }
+    }
+
     const methods2 = new Map([['exposedSetResult', 'setResult']])
+    const methods3 = new Map([['exposedGetResult', 'getResult']])
 
     MyClass2.prototype.className = 'MyClass2'
 
     return runtime.initialize('fr', [
       { instance: true, name: 'anInstance', object: MyClass, methods: methods },
       { instance: false, name: 'aClass', object: MyClass2, methods: methods2 },
+      {
+        instance: false,
+        name: 'anotherClass',
+        object: MyClass3,
+        methods: methods3,
+      },
     ])
   })
 
@@ -75,6 +93,12 @@ describe('When runtime is initialized', () => {
     yo = new aClass(a)
     yo.exposedSetResult()`)
     assert.equal(classResult, 3)
+  })
+
+  it('should call static setup method if present', () => {
+    runtime.executeCode(`a = new anotherClass()
+    a.exposedGetResult()`)
+    assert.equal(runtime.getLastValue(), true)
   })
 
   after(() => {

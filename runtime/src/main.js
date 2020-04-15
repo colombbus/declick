@@ -27,6 +27,9 @@ export default {
             instances.push(instance)
           } else {
             objectData.object.setRuntime(this)
+            if (typeof objectData.object.setup === 'function') {
+              objectData.object.setup()
+            }
             _data.addClass(
               objectData.name,
               objectData.object,
