@@ -6,7 +6,10 @@ import DeclickError from './error'
 
 const MAX_STEP = 100
 
-let _errorHandler = null
+let _errorHandler = error => {
+  console.log(error.getMessage())
+  console.error(error.getError())
+}
 let _stepCount = 0
 let _running = false
 let _priorityStatementsAllowed = true
