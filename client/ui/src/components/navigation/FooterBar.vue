@@ -1,6 +1,6 @@
 <template lang="pug">
 .footer-bar
-  | © Colombbus 2018 -&nbsp;
+  | © Colombbus {{ ( new Date()).getUTCFullYear() }} -&nbsp;
   a(target='_blank' href='mailto:declick@colombbus.org') contact
 </template>
 

@@ -1,5 +1,35 @@
 <template lang="pug">
 .home
+  .covid-wrapper(v-show="isPopupShown" @click="isPopupShown = false")
+    .covid-container
+      input(type='button', value='ok !')
+  .home__presentation.home__covid
+    a(href="https://declick.net/ressource/challenge-gestes.html" target="_blank")
+      img.instaBannier(src="../assets/images/covid/covid-banniere.png")
+    .home__covid-wrapper
+      a(href="https://www.sap.com/france/about/social-responsibility.html" target="_blank")
+        img.instaBannier(src="../assets/images/covid/fondation_sap.jpg")
+      a(href="https://colombbus.org" target="_blank")
+        img.instaBannier(src="../assets/images/covid/colombbus.png")
+    p La Fondation SAP France et l'association Colombbus sont heureuses de vous convier à leur challenge 
+    | « Codez pour faire la différence #GestesBarrières ! »
+    p 
+      | Devenez acteur de 
+      b la lutte contre le Covid-19 à travers les gestes barrières 
+      | en créant un jeu grâce à 
+      a(href="//declick.net") declick.net 
+      | autour de ce thème fort.
+    p 
+      a(href="//www.croix-rouge.fr/" style="float: left" target="_blank")
+        img(src="../assets/images/covid/croix_rouge.png" height="90")
+      | Pas de palmarès de meilleurs projets, mais pour 
+      b chaque projet reçu, la Fondation SAP France réalisera un don de 20€ à la Croix Rouge Française. Un certificat de participation et de don à votre nom vous sera envoyé, comme remerciement.
+    p Vous souhaitez relever le Challenge ? Ci-dessous les grandes étapes !
+    a(href="https://declick.net/ressource/challenge-gestes.html" target="_blank")
+      img.instaBannier(src="../assets/images/covid/covid-etape-sap.png")
+    a(class="covid-action" href="https://declick.net/ressource/challenge-gestes.html" target="_blank")
+      | cliquer ici pour participer
+  hr.home__separation
   .home__presentation
     h1 Declick est un outil clé en main !
     p.
@@ -157,6 +187,13 @@
 //     ]
 //   }
 // }
+export default {
+  data() {
+    return {
+      isPopupShown: true
+    };
+  }
+};
 </script>
 
 <style lang="sass">
@@ -167,6 +204,7 @@ $cab-sav: #480a2a
 $red-violet: #de1580
 $white: #fff
 $wine-berry: #531937
+$robot-skin: #cf2730
 
 $vertical-gap: 40px
 
@@ -197,6 +235,7 @@ $vertical-gap: 40px
 .home__box
   position: relative
   grid-column: span 4
+  z-index: -1
 
 .home h2,
 .home h3
@@ -229,7 +268,35 @@ $vertical-gap: 40px
   margin-right: auto
   &, h4, h1
     font-size: 14pt
-
+.home__covid
+  font-size: 10pt
+  text-align: left
+  &-wrapper
+    display: flex
+    justify-content: center
+    img
+      width: 120px
+      margin-right: 30px
+  a
+    color: $robot-skin
+  .covid-action
+    display: block
+    background-color: $cab-sav
+    color: white
+    padding: 7px
+    font-size: 14pt
+    border-radius: 4px
+    margin: 0 auto
+    width: 220px
+    text-decoration: none
+    &:hover
+    &:focus
+      color: white
+hr.home__separation
+  width: 100px
+  background-color: $robot-skin
+  height: 1px
+  margin: 0 auto
 .home__box > img
   height: 50px
 
@@ -300,6 +367,36 @@ $vertical-gap: 40px
 .home__logo-group img
   height: 75px
   width: 90px
+
+.covid-wrapper
+  position: fixed
+  top: 0
+  right: 0
+  bottom: 0
+  left: 0
+  background-color: #000000aa
+  margin-bottom: 0
+
+.covid-container
+  width: 560px
+  height: 320px
+  background-image: url(../assets/images/covid/popup.png)
+  position: relative
+  margin-right: auto
+  margin-left: auto
+  transform: translateY(50%)
+  input
+    background-color: #00000000
+    border: 1px solid white
+    color: white
+    position: absolute
+    bottom: 17px
+    right: 20px
+    width: 104px
+    height: 50px
+    font-size: 40px
+    text-transform: uppercase
+
 
 // small devices
 
