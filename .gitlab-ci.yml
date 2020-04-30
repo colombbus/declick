@@ -16,11 +16,11 @@ before_script:
 cache:
   paths:
     - node_modules/
-    - packages/client/node_modules/
-    - packages/objects/node_modules/
+    # - packages/client/node_modules/
+    # - packages/objects/node_modules/
     # - packages/objects-phaser/node_modules/
     # - packages/offline/node_modules/
-    - packages/runtime/node_modules/
+    # - packages/runtime/node_modules/
     # - packages/server/vendor/
 
 stages:
@@ -53,14 +53,15 @@ build_runtime:
   stage: build
   before_script:
     - npm i -g npm@latest
-    - npm i -g yarn lerna
-    - lerna bootstrap --use-workspaces
+    - npm i -g lerna
+    - lerna bootstrap 
+    # - lerna bootstrap --use-workspaces
     # - lerna exec "npm install"
     # - cd packages/objects
     # - npm install
   script:
     - cd packages/runtime
-    - yarn build
+    - npm run build
   artifacts:
     paths:
     - public
