@@ -6,3 +6,4 @@ packages/client/dist/*
 packages/server/vendor
 packages/server/.env
 packages/server/storage/app/projects
+.vscode/launch.json
