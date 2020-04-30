@@ -26,6 +26,7 @@ cache:
 stages:
   - test
   - pre-build
+  - build
   - deploy
 
 # unit_test:
