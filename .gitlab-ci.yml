@@ -55,8 +55,6 @@ build_runtime:
     - npm i -g npm@latest
     - npm i -g lerna
     - lerna bootstrap 
-    # - lerna bootstrap --use-workspaces
-    # - lerna exec "npm install"
     # - cd packages/objects
     # - npm install
   script:
@@ -64,8 +62,28 @@ build_runtime:
     - npm run build
   artifacts:
     paths:
-    - public
+    - lib/@declick/runtime.js
+    - lib/@declick/runtime.js.map
+    - lib/@declick/runtime.min.js
+    - lib/@declick/runtime.min.js.map
 
+build_objects:
+  stage: build
+  before_script:
+    - npm i -g npm@latest
+    - npm i -g lerna
+    - lerna bootstrap 
+    # - cd packages/objects
+    # - npm install
+  script:
+    - cd packages/objects
+    - npm run build
+  artifacts:
+    paths:
+    - lib/@declick/objects.js
+    - lib/@declick/objects.js.map
+    - lib/@declick/objects.min.js
+    - lib/@declick/objects.min.js.map
 
 # deploy_QA:
 #   stage: deploy
