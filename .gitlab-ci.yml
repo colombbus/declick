@@ -13,7 +13,7 @@ variables:
 before_script:
   - npm i -g npm@latest
   - npm i -g lerna
-  - lerna bootstrap 
+  - lerna bootstrap --use-workspaces
 
 cache:
   paths:
@@ -73,23 +73,23 @@ build_client:
     paths:
     - packages/client/dist
 
-# deploy_QA:
-#   stage: deploy
-#   environment:
-#     name: staging
-#     url: '$QA_URL'
-#   before_script:
-#     - yarn build
-#     - 'which ssh-agent || ( apt-get update -y && apt-get install openssh-client -y )'
-#     - eval $(ssh-agent -s)
-#     - mkdir -p ~/.ssh
-#     - '[[ -f /.dockerenv ]] && echo -e "Host *\n\tStrictHostKeyChecking no\n\n" > ~/.ssh/config'
-#   script:
-#     - ssh-add <(echo "$SSH_PRIVATE_KEY")
-#     - ssh -o StrictHostKeyChecking=no "$QA_USER"@"$QA_SERVER" rm -rf "$INSTALL_DIRECTORY"/*
-#     - scp -P22 -r dist/* "$QA_USER"@"$QA_SERVER":"$INSTALL_DIRECTORY"
-#   only:
-#     - master
+deploy_QA:
+  stage: deploy
+  environment:
+    name: staging
+    url: '$QA_URL'
+  before_script:
+    - yarn build
+    - 'which ssh-agent || ( apt-get update -y && apt-get install openssh-client -y )'
+    - eval $(ssh-agent -s)
+    - mkdir -p ~/.ssh
+    - '[[ -f /.dockerenv ]] && echo -e "Host *\n\tStrictHostKeyChecking no\n\n" > ~/.ssh/config'
+  script:
+    - ssh-add <(echo "$SSH_PRIVATE_KEY")
+    - ssh -o StrictHostKeyChecking=no "$QA_USER"@"$QA_SERVER" rm -rf "$INSTALL_DIRECTORY"/*
+    - scp -P22 -r packages/client/dist/* "$QA_USER"@"$QA_SERVER":"$INSTALL_DIRECTORY"
+  only:
+    - master
 
 # deploy_production:
 #   stage: deploy
