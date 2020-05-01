@@ -64,14 +64,14 @@ stages:
 #     - packages/objects/lib/@declick/objects.min.js
 #     - packages/objects/lib/@declick/objects.min.js.map
 
-build_client:
-  stage: build
-  script:
-    - cd packages/client
-    - npm run build
-  artifacts:
-    paths:
-    - packages/client/dist
+# build_client:
+#   stage: build
+#   script:
+#     - cd packages/client
+#     - npm run build
+#   artifacts:
+#     paths:
+#     - packages/client/dist
 
 deploy_QA:
   stage: deploy
