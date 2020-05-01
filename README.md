@@ -17,11 +17,29 @@ yarn
 - install all dependencies in all projects :
 
 ```bash
-lerna bootstrap
+yarn run install-all
+```
+
+OR
+
+```bash
+lerna bootstrap --use-workspaces
 ```
 
 - run & watch all projects :
 
 ```bash
-yarn start
+yarn serve
+```
+
+- run unit in all projects :
+
+```bash
+yarn run unit
+```
+
+- run & watch unit in all projects :
+
+```bash
+yarn run unit:watch
 ```

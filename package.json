@@ -5,6 +5,7 @@
   "private": true,
   "description": "",
   "scripts": {
+    "install-all": "lerna bootstrap --use-workspaces",
     "unit": "lerna run unit --scope={@declick/runtime,@declick/objects}",
     "unit:watch": "lerna run --parallel unit:watch --scope={@declick/runtime,@declick/objects}",
     "serve": "lerna run --parallel start",
