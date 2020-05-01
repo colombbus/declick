@@ -88,8 +88,8 @@ deploy_QA:
     - ssh-add <(echo "$SSH_PRIVATE_KEY")
     - ssh -o StrictHostKeyChecking=no "$QA_USER"@"$QA_SERVER" rm -rf "$INSTALL_DIRECTORY"/*
     - scp -P22 -r packages/client/dist/* "$QA_USER"@"$QA_SERVER":"$INSTALL_DIRECTORY"
-  only:
-    - master
+  # only:
+  #   - master
 
 # deploy_production:
 #   stage: deploy
