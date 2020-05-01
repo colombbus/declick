@@ -14,7 +14,7 @@ tokTypes.repeat = keywordTypes.repeat = new TokenType('repeat', {
 })
 
 // acorn plugin to handle repeat keyword and add additional info
-plugins.declick = function(instance) {
+plugins.declick = function (instance) {
   // add repeat keyword
   let keywordRegex = instance.keywords.toString()
   instance.keywords = new RegExp(
@@ -28,7 +28,7 @@ plugins.declick = function(instance) {
   instance.extend(
     'parseStatement',
     superFunction =>
-      function(declaration, topLevel, exports) {
+      function (declaration, topLevel, exports) {
         if (this.type === tokTypes.repeat) {
           return this.parseRepeatStatement(this.startNode())
         }
@@ -40,7 +40,7 @@ plugins.declick = function(instance) {
   instance.extend(
     'parseRepeatStatement',
     superFunction =>
-      function(node) {
+      function (node) {
         this.next()
         this.expect(tokTypes.parenL)
         if (this.type === tokTypes.parenR) {
@@ -60,7 +60,7 @@ plugins.declick = function(instance) {
   instance.extend(
     'finishNode',
     superFunction =>
-      function(node, type) {
+      function (node, type) {
         node = superFunction.call(this, node, type)
         node.raw = this.input.slice(node.start, node.end)
         return node

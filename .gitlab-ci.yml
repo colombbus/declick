@@ -63,10 +63,10 @@ build_runtime:
     - npm run build
   artifacts:
     paths:
-    - lib/@declick/runtime.js
-    - lib/@declick/runtime.js.map
-    - lib/@declick/runtime.min.js
-    - lib/@declick/runtime.min.js.map
+    - packages/runtime/lib/@declick/runtime.js
+    - packages/runtime/lib/@declick/runtime.js.map
+    - packages/runtime/lib/@declick/runtime.min.js
+    - packages/runtime/lib/@declick/runtime.min.js.map
 
 build_objects:
   stage: pre-build
@@ -81,19 +81,19 @@ build_objects:
     - npm run build
   artifacts:
     paths:
-    - lib/@declick/objects.js
-    - lib/@declick/objects.js.map
-    - lib/@declick/objects.min.js
-    - lib/@declick/objects.min.js.map
+    - packages/objects/lib/@declick/objects.js
+    - packages/objects/lib/@declick/objects.js.map
+    - packages/objects/lib/@declick/objects.min.js
+    - packages/objects/lib/@declick/objects.min.js.map
 
-build:
-  stage: build
-  before_script:
-    - npm i -g npm@latest
-    - npm i -g lerna
-    - lerna bootstrap
-  script:
-    - npm run build
+# build:
+#   stage: build
+#   before_script:
+#     - npm i -g npm@latest
+#     - npm i -g lerna
+#     - lerna bootstrap
+#   script:
+#     - npm run build
   # artifacts:
   #   paths:
   #   - lib/@declick/objects.js
