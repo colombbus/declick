@@ -21,51 +21,39 @@ cache:
 
 stages:
   - test
-  - pre-build
   - build
   - deploy
 
-# unit_test:
-#   stage: test
-#   except:
-#     - deploy
-#   before_script:
-#     - yarn
-#   script:
-#     - yarn run unit
-#     # - composer start
+unit_test_objects:
+  stage: test
+  script:
+    - cd packages/objects
+    - npm run unit
 
-# build_client:
-#   stage: build
-#   before_script:
-#     - yarn global add lerna @vue/cli
-#     - lerna exec "npm install"
-#     - cd packages/objects
-#     - npm install
-#   script:
-#     - cd packages/runtime
-#     - yarn build
-
-build_runtime:
-  stage: pre-build
+unit_test_runtime:
+  stage: test
   script:
     - cd packages/runtime
-    - npm run build
-  artifacts:
-    paths:
-    - packages/runtime/lib/@declick/runtime.js
-    - packages/runtime/lib/@declick/runtime.js.map
-    - packages/runtime/lib/@declick/runtime.min.js
-    - packages/runtime/lib/@declick/runtime.min.js.map
+    - npm run unit
+
+# build_runtime:
+#   stage: build
+#   script:
+#     - cd packages/runtime
+#     - npm run build
+#   artifacts:
+#     paths:
+#     - packages/runtime/lib/@declick/runtime.js
+#     - packages/runtime/lib/@declick/runtime.js.map
+#     - packages/runtime/lib/@declick/runtime.min.js
+#     - packages/runtime/lib/@declick/runtime.min.js.map
 
 # build_objects:
-#   stage: pre-build
+#   stage: build
 #   before_script:
 #     - npm i -g npm@latest
 #     - npm i -g lerna
 #     - lerna bootstrap 
-#     # - cd packages/objects
-#     # - npm install
 #   script:
 #     - cd packages/objects
 #     - npm run build
