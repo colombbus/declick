@@ -69,12 +69,11 @@ export default {
 
       // DeclickRuntime.executeCode(this.getCurrentProgramContent())
       DeclickRuntime.clear()
-      DeclickRuntime.executeCode(
-        this.$store.state.programs.get(this.$store.state.currentProgramName),
-      )
-      this.view = 'preview'
-      this.$nextTick(() => {
-        DeclickRuntime.resizeDisplay()
+      DeclickRuntime.startGraphics().then(() => {
+        DeclickRuntime.executeCode(
+          this.$store.state.programs.get(this.$store.state.currentProgramName),
+        )
+        this.view = 'preview'
       })
     },
   },

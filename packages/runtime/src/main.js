@@ -28,6 +28,9 @@ export default {
             instances.push(instance)
           } else {
             objectData.object.setRuntime(this)
+            if (typeof objectData.object.setup === 'function') {
+              objectData.object.setup()
+            }
             _data.addClass(
               objectData.name,
               objectData.object,
@@ -90,13 +93,11 @@ export default {
   getLastValue() {
     return _scheduler.getLastValue()
   },
-
   reset() {
     _scheduler.clear()
     _data.reset()
-    _graphics.clear()
+    _graphics.reset()
   },
-
   addObject(object) {
     _data.registerObject(object)
   },
@@ -109,8 +110,8 @@ export default {
     _data.registerInstance(object)
   },
 
-  initDisplay(canvas, container) {
-    _graphics.initialize(canvas, container)
+  initDisplay(canvas) {
+    return _graphics.initialize(canvas)
   },
 
   resizeDisplay() {
@@ -127,5 +128,9 @@ export default {
 
   parse(code) {
     return _parser.parse(code)
+  },
+
+  startGraphics() {
+    return _graphics.start()
   },
 }

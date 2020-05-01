@@ -49,9 +49,7 @@ class Robot extends Sprite {
   }
 
   setLocation(x, y) {
-    this._whenReady(() => {
-      super.setLocation(x * this._distance, y * this._distance)
-    })
+    super.setLocation(x * this._distance, y * this._distance)
   }
 }
 

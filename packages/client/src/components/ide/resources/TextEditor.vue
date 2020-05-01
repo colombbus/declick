@@ -43,10 +43,7 @@ export default {
       )
     },
     ...mapActions(['setCurrentProgramContent']),
-    ...mapGetters([
-      'getCurrentProgramName',
-      'getCurrentProgramContent',
-    ]),
+    ...mapGetters(['getCurrentProgramName', 'getCurrentProgramContent']),
     ...mapState(['currentProgramName']),
   },
   computed: {
@@ -57,7 +54,10 @@ export default {
   watch: {
     programName() {
       const content = this.getCurrentProgramContent()
-      if (typeof content !== 'undefined') {
+      if (
+        typeof content !== 'undefined' &&
+        typeof this.editSession !== 'undefined'
+      ) {
         this.editSession.setValue(content)
       }
     },
