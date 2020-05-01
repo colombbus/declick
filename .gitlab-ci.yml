@@ -24,45 +24,45 @@ stages:
   - build
   - deploy
 
-unit_test_objects:
-  stage: test
-  script:
-    - cd packages/objects
-    - npm run unit
+# unit_test_objects:
+#   stage: test
+#   script:
+#     - cd packages/objects
+#     - npm run unit
 
-unit_test_runtime:
-  stage: test
-  script:
-    - cd packages/runtime
-    - npm run unit
+# unit_test_runtime:
+#   stage: test
+#   script:
+#     - cd packages/runtime
+#     - npm run unit
 
-build_runtime:
-  stage: build
-  script:
-    - cd packages/runtime
-    - npm run build
-  artifacts:
-    paths:
-    - packages/runtime/lib/@declick/runtime.js
-    - packages/runtime/lib/@declick/runtime.js.map
-    - packages/runtime/lib/@declick/runtime.min.js
-    - packages/runtime/lib/@declick/runtime.min.js.map
+# build_runtime:
+#   stage: build
+#   script:
+#     - cd packages/runtime
+#     - npm run build
+#   artifacts:
+#     paths:
+#     - packages/runtime/lib/@declick/runtime.js
+#     - packages/runtime/lib/@declick/runtime.js.map
+#     - packages/runtime/lib/@declick/runtime.min.js
+#     - packages/runtime/lib/@declick/runtime.min.js.map
 
-build_objects:
-  stage: build
-  before_script:
-    - npm i -g npm@latest
-    - npm i -g lerna
-    - lerna bootstrap 
-  script:
-    - cd packages/objects
-    - npm run build
-  artifacts:
-    paths:
-    - packages/objects/lib/@declick/objects.js
-    - packages/objects/lib/@declick/objects.js.map
-    - packages/objects/lib/@declick/objects.min.js
-    - packages/objects/lib/@declick/objects.min.js.map
+# build_objects:
+#   stage: build
+#   before_script:
+#     - npm i -g npm@latest
+#     - npm i -g lerna
+#     - lerna bootstrap 
+#   script:
+#     - cd packages/objects
+#     - npm run build
+#   artifacts:
+#     paths:
+#     - packages/objects/lib/@declick/objects.js
+#     - packages/objects/lib/@declick/objects.js.map
+#     - packages/objects/lib/@declick/objects.min.js
+#     - packages/objects/lib/@declick/objects.min.js.map
 
 build_client:
   stage: build
