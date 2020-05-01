@@ -12,16 +12,12 @@ variables:
 
 before_script:
   - npm i -g npm@latest
+  - npm i -g lerna
+  - lerna bootstrap 
 
 cache:
   paths:
     - node_modules/
-    # - packages/client/node_modules/
-    # - packages/objects/node_modules/
-    # - packages/objects-phaser/node_modules/
-    # - packages/offline/node_modules/
-    # - packages/runtime/node_modules/
-    # - packages/server/vendor/
 
 stages:
   - test
@@ -52,12 +48,6 @@ stages:
 
 build_runtime:
   stage: pre-build
-  before_script:
-    - npm i -g npm@latest
-    - npm i -g lerna
-    - lerna bootstrap 
-    # - cd packages/objects
-    # - npm install
   script:
     - cd packages/runtime
     - npm run build
@@ -68,38 +58,23 @@ build_runtime:
     - packages/runtime/lib/@declick/runtime.min.js
     - packages/runtime/lib/@declick/runtime.min.js.map
 
-build_objects:
-  stage: pre-build
-  before_script:
-    - npm i -g npm@latest
-    - npm i -g lerna
-    - lerna bootstrap 
-    # - cd packages/objects
-    # - npm install
-  script:
-    - cd packages/objects
-    - npm run build
-  artifacts:
-    paths:
-    - packages/objects/lib/@declick/objects.js
-    - packages/objects/lib/@declick/objects.js.map
-    - packages/objects/lib/@declick/objects.min.js
-    - packages/objects/lib/@declick/objects.min.js.map
-
-# build:
-#   stage: build
+# build_objects:
+#   stage: pre-build
 #   before_script:
 #     - npm i -g npm@latest
 #     - npm i -g lerna
-#     - lerna bootstrap
+#     - lerna bootstrap 
+#     # - cd packages/objects
+#     # - npm install
 #   script:
+#     - cd packages/objects
 #     - npm run build
-  # artifacts:
-  #   paths:
-  #   - lib/@declick/objects.js
-  #   - lib/@declick/objects.js.map
-  #   - lib/@declick/objects.min.js
-  #   - lib/@declick/objects.min.js.map
+#   artifacts:
+#     paths:
+#     - packages/objects/lib/@declick/objects.js
+#     - packages/objects/lib/@declick/objects.js.map
+#     - packages/objects/lib/@declick/objects.min.js
+#     - packages/objects/lib/@declick/objects.min.js.map
 
 # deploy_QA:
 #   stage: deploy
