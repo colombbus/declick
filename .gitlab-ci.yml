@@ -24,17 +24,17 @@ stages:
   - build
   - deploy
 
-# unit_test_objects:
-#   stage: test
-#   script:
-#     - cd packages/objects
-#     - npm run unit
+unit_test_objects:
+  stage: test
+  script:
+    - cd packages/objects
+    - npm run unit
 
-# unit_test_runtime:
-#   stage: test
-#   script:
-#     - cd packages/runtime
-#     - npm run unit
+unit_test_runtime:
+  stage: test
+  script:
+    - cd packages/runtime
+    - npm run unit
 
 # build_runtime:
 #   stage: build
