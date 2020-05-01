@@ -19,8 +19,8 @@
 import Preview from '@/components/ide/preview/Preview.vue'
 import ResourceManager from '@/components/ide/resources/ResourceManager.vue'
 import Help from './Help.vue'
-import DeclickRuntime from '../../../../runtime/lib/@declick/runtime'
-import DeclickObjects from '../../../../objects/lib/@declick/objects'
+import DeclickRuntime from '../../../../runtime/lib/@declick/runtime.min.js'
+import DeclickObjects from '../../../../objects/lib/@declick/objects.min.js'
 
 import { mapGetters } from 'vuex'
 

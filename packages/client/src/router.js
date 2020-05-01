@@ -22,14 +22,14 @@ import courseRunfrom from '@/components/learn/CourseRun_new'
 
 import HomePage from '@/components/HomePage.vue'
 import ResourcesPage from '@/components/ResourcesPage.vue'
-import Ide from '@/components/ide/Ide.vue'
+// import Ide from '@/components/ide/Ide.vue'
 
 var routes = [
-  {
-    path: '/ide',
-    name: 'ide',
-    component: Ide,
-  },
+  // {
+  //   path: '/ide',
+  //   name: 'ide',
+  //   component: Ide,
+  // },
   {
     path: '/',
     name: 'home',
