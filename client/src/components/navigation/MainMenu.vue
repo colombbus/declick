@@ -6,6 +6,7 @@ div.main-menu(:class='stateClass' ref='menu')
     li.main-menu__item: router-link.main-menu__link.main-menu__home(to='/') ACCUEIL
     li.main-menu__item: router-link.main-menu__link(to='/progress') APPRENDRE
     li.main-menu__item: router-link.main-menu__link(to='/ide') CRÉER
+    li.main-menu__item: router-link.main-menu__link(to='/block') BLOC
     li.main-menu__item: router-link.main-menu__link(to='/explore') JOUER
     //- li.main-menu__item: router-link.main-menu__link(to='/resources') RESSOURCES
     //- li.main-menu__item: router-link.main-menu__link(to='/contact') CONTACT
@@ -27,10 +28,6 @@ div.main-menu(:class='stateClass' ref='menu')
     @close='isAuthenticationModalVisible = false'
     v-if='isAuthenticationModalVisible'
   )
-
-
-
-
 
 // .self
 //   ul
@@ -153,12 +150,13 @@ export default {
 
 .main-menu__item
   display: inline-block
-  padding: 7px
   cursor: pointer
 
-
-.main-menu__item + .main-menu__item
-  margin-left: 25px
+.main-menu__link
+  padding: 7px 20px
+  display: inline-block
+  &:hover
+    background-color: #FFF1;
 
 .main-menu__contact,
 .main-menu__home
