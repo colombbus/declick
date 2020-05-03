@@ -1,10 +1,15 @@
 <template lang="pug">
 .self
-  | © Colombbus 2018 - &nbsp;
+  | © 
+  a(href="//colombbus.org") Colombbus 
+  | {{ ( new Date()).getUTCFullYear() }} -&nbsp;
   a(target='_blank' href='mailto:declick@colombbus.org') contact
 </template>
 
 <style lang="scss" scoped>
+a:hover {
+  color: var(--main-light-color);
+}
 a {
   color: #fff;
   text-decoration: none;
