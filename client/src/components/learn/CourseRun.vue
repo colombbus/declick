@@ -1,8 +1,7 @@
-<template>
-  <div id="courseContainer">
-    <progress-header-bar></progress-header-bar>
-    <iframe :src="urlLearn" id="declick-client-learn" class="fullscreen-iframe2"></iframe>
-  </div>
+<template lang="pug">
+#courseContainer
+  progress-header-bar
+  iframe#declick-client-learn.fullscreen-iframe2(:src="urlLearn")
 </template>
 
 <script>

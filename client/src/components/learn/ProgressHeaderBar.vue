@@ -1,13 +1,11 @@
-<template>
-  <div id="navigation-bar-small">
-    <router-link to="/" id="home-control-small"></router-link>
-    <div id="page-title">{{this.assessmentName}}</div>
-    <router-link :to="'/progress/course/'+this.$route.params.id" id="map-control-small"></router-link>
-    <div id="mapController">
-      <div id="leftLink" @click="previous()"></div>
-      <div id="rightLink" @click="next()"></div>
-    </div>
-  </div>
+<template lang="pug">
+#navigation-bar-small
+  router-link#home-control-small(to="/")
+  #page-title {{this.assessmentName}}
+  router-link#map-control-small(:to="'/progress/course/' + $route.params.id")
+  #mapController
+    #leftLink(@click='previous()')
+    #rightLink(@click='next()')
 </template>
 
 <script>

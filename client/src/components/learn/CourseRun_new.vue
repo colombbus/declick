@@ -1,24 +1,17 @@
-<template>
-  <div id="courseContainer">
-    <progress-header-bar></progress-header-bar>
-
-    <!-- <iframe :src="urlLearn" id="declick-client-learn" class="fullscreen-iframe2"></iframe> -->
-    <div class="fullscreen-iframe2">
-      <div id="instruction" v-html="content[0]"></div>
-      <div id="exercice">
-        <div id="themeEditor">
-          <select v-model="themeStyle">
-            <option>monokai</option>
-            <option>dracula</option>
-            <option>chrome</option>
-            <option>github</option>
-          </select>
-        </div>
-
-        <editor @init="editorInit" lang="javscript" :theme="themeStyle"></editor>
-      </div>
-    </div>
-  </div>
+<template lang="pug">
+#courseContainer
+  progress-header-bar
+  //-  <iframe :src="urlLearn" id="declick-client-learn" class="fullscreen-iframe2"></iframe> 
+  .fullscreen-iframe2
+    #instruction(v-html="content[0]")
+    #exercice
+      #themeEditor
+        select(v-model="themeStyle")
+          option monokai
+          option dracula
+          option chrome
+          option github
+      editor(@init="editorInit", lang="javascript", :theme="themeStyle")
 </template>
 
 <script>

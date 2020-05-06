@@ -1,23 +1,19 @@
-<template>
-<!-- Uncomment when ready to clean-up.
-  <div>
-    <div class="cms-document-loading-message">
-      <img src="assets/images/spinner.gif">
-      <p>Chargement...</p>
-    </div>
-    <div class="cms-document-content"></div>
-  </div>
--->
-  <div id="contentContainerHome">
-    <div id="onLoadGif">
-      <img src="../assets/images/spinner.gif">
-      <p>Chargement...</p>
-    </div>
-    <div id="content"></div>
-  </div>
+<template lang="pug">
+//- Uncomment when ready to clean-up.
+//- div
+//-   .cms-document-loading-message
+//-     img(src="assets/images/spinner.gif")
+//-     p Chargement...
+//-   .cms-document-content
+#contentContainerHome
+  #onLoadGif
+    img(src="../assets/images/spinner.gif")
+    p Chargement...
+  #content
 </template>
 
 <script>
+/* eslint-disable */
 /* global $ */
 
 import config from '@/assets/config/declick'
