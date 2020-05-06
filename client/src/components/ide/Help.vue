@@ -5,8 +5,9 @@ iframe.help(
 )
 </template>
 
-<style lang="sass">
-.help
-  height: 100%
-  border: none
+<style lang="scss">
+.help {
+  height: 100%;
+  border: none;
+}
 </style>

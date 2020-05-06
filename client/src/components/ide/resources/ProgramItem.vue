@@ -106,31 +106,38 @@ export default {
 }
 </script>
 
-<style lang="sass">
-@import '~@/assets/styles/mixins'
+<style lang="scss">
+@import "~@/assets/styles/mixins";
 
-.program-item
-  color: #480a2a
-  padding: 10px 20px
-  cursor: pointer
-  &--selected-passive
-    background: #ddd6dd
-  &--selected-active, &:hover
-    background: #f0f0f0
+.program-item {
+  color: #480a2a;
+  padding: 10px 20px;
+  cursor: pointer;
 
-.program-item > span
-  display: inline-block
-  padding-bottom: 2px
-  user-select: none
+  &--selected-passive {
+    background: #ddd6dd;
+  }
 
-.program-item > input
-  margin-bottom: -1px
-  padding: 0
-  padding-bottom: 2px
-  border: none
-  border-bottom: 1px solid #a3a3a3
-  font-size: inherit
-  color: inherit
-  background: transparent
-  outline: 0
+  &--selected-active, &:hover {
+    background: #f0f0f0;
+  }
+}
+
+.program-item > span {
+  display: inline-block;
+  padding-bottom: 2px;
+  user-select: none;
+}
+
+.program-item > input {
+  margin-bottom: -1px;
+  padding: 0;
+  padding-bottom: 2px;
+  border: none;
+  border-bottom: 1px solid #a3a3a3;
+  font-size: inherit;
+  color: inherit;
+  background: transparent;
+  outline: 0;
+}
 </style>

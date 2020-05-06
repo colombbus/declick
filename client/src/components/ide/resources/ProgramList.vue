@@ -17,7 +17,6 @@
 </template>
 
 <script>
-
 import ProgramItem from './ProgramItem.vue'
 import { mapActions } from 'vuex'
 
@@ -89,33 +88,42 @@ export default {
 }
 </script>
 
-<style lang="sass">
-@import '~@/assets/styles/mixins'
+<style lang="scss">
+@import '~@/assets/styles/mixins';
 
-.program-list
-  width: 230px
-  display: grid
-  height: 100%
-  grid-template-rows: 1fr auto
+.program-list {
+  width: 230px;
+  display: grid;
+  height: 100%;
+  grid-template-rows: 1fr auto;
+}
 
-.program-list__content
-  overflow: auto
+.program-list__content {
+  overflow: auto;
+}
 
-.program-list__controls
-  +items-hgap(9px)
-  display: flex
-  height: 36px
-  padding: 9px
-  flex-direction: row
-  justify-content: flex-end
+.program-list__controls {
+  @include items-hgap(9px);
 
-.program-list__controls > *
-  height: 36px
-  width: 36px
+  display: flex;
+  height: 36px;
+  padding: 9px;
+  flex-direction: row;
+  justify-content: flex-end;
+}
 
-.program-list
-  &__new
-    +image-button('~@/assets/images/controls/new.png')
-  &__delete
-    +image-button('~@/assets/images/controls/delete.png')
+.program-list__controls > * {
+  height: 36px;
+  width: 36px;
+}
+
+.program-list {
+  &__new {
+    @include image-button('~@/assets/images/controls/new.png');
+  }
+
+  &__delete {
+    @include image-button('~@/assets/images/controls/delete.png');
+  }
+}
 </style>

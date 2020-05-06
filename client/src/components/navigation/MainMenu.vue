@@ -132,106 +132,139 @@ export default {
 }
 </script>
 
-<style lang="sass">
-@import '../../styles/global'
+<style lang="scss">
+@import "../../styles/global";
 
-.main-menu__list
-  position: relative
-  width: 100%
-  z-index: 500
-  display: flex
-  margin: 0
-  padding: 0
-  border-top: 7px solid #6e3a51
-  justify-content: center
-  background-color: #652e46
-  background-image: url(../../assets/images/waves.png)
-  box-shadow: 0 2px 6px 0 rgba(0, 0, 0, .25)
+.main-menu__list {
+  position: relative;
+  width: 100%;
+  z-index: 500;
+  display: flex;
+  margin: 0;
+  padding: 0;
+  border-top: 7px solid #6e3a51;
+  justify-content: center;
+  background-color: #652e46;
+  background-image: url(../../assets/images/waves.png);
+  box-shadow: 0 2px 6px 0 rgba(0, 0, 0, 0.25);
+}
 
-.main-menu__item
-  display: inline-block
-  cursor: pointer
+.main-menu__item {
+  display: inline-block;
+  cursor: pointer;
+}
 
-.main-menu__link
-  padding: 7px 20px
-  display: inline-block
-  &:hover
+.main-menu__link {
+  padding: 7px 20px;
+  display: inline-block;
+
+  &:hover {
     background-color: #FFF1;
+  }
+}
 
 .main-menu__contact,
-.main-menu__home
-  display: none
+.main-menu__home {
+  display: none;
+}
 
-.main-menu .main-menu__link
-  font-size: 11pt
-  font-weight: bold
-  color: #fff
-  text-decoration: none
+.main-menu .main-menu__link {
+  font-size: 11pt;
+  font-weight: bold;
+  color: #fff;
+  text-decoration: none;
+}
 
 .main-menu__open,
-.main-menu__close
-  display: none
+.main-menu__close {
+  display: none;
+}
 
-.main-menu__close
-  @extend .fa
-  @extend .fa-2x
-  @extend .fa-times
-  position: absolute
-  top: 10px
-  left: 0
-  padding: 13px
-  border: none
-  border-radius: 0 10px 10px 0
-  background: transparent
-  color: white
-  z-index: 2
-  outline: 0
+.main-menu__close {
+  @extend .fa;
 
-.main-menu__open
-  @extend .fa
-  @extend .fa-2x
-  @extend .fa-bars
-  position: absolute
-  top: 10px
-  left: 0
-  padding: 13px
-  border: none
-  border-radius: 0 10px 10px 0
-  color: white
-  background-color: #652E46
-  z-index: 2
-  outline: 0
+  @extend .fa-2x;
 
-.main-menu--sticky
-  position: absolute
-  top: 0
-  width: 100%
+  @extend .fa-times;
+
+  position: absolute;
+  top: 10px;
+  left: 0;
+  padding: 13px;
+  border: none;
+  border-radius: 0 10px 10px 0;
+  background: transparent;
+  color: white;
+  z-index: 2;
+  outline: 0;
+}
+
+.main-menu__open {
+  @extend .fa;
+
+  @extend .fa-2x;
+
+  @extend .fa-bars;
+
+  position: absolute;
+  top: 10px;
+  left: 0;
+  padding: 13px;
+  border: none;
+  border-radius: 0 10px 10px 0;
+  color: white;
+  background-color: #652E46;
+  z-index: 2;
+  outline: 0;
+}
+
+.main-menu--sticky {
+  position: absolute;
+  top: 0;
+  width: 100%;
+}
 
 // small devices
 
-@media only screen and (max-width: 576px)
-  .main-menu
-    position: absolute
-    top: 0
-    left: 0
-  .main-menu--closed .main-menu__list,
-    display: none
-  .main-menu--closed .main-menu__open
-    display: block
-  .main-menu--opened .main-menu__close
-    display: block
-  .main-menu__list
-    padding: 10px
-    padding-top: 55px
-    flex-direction: column
-    background-image: none
-    align-items: left
-    z-index: 1
-  .main-menu .main-menu__item
-    margin-left: 0
-    &:not(:last-child)
-      border-bottom: 1px solid white
+@media only screen and (max-width: 576px) {
+  .main-menu {
+    position: absolute;
+    top: 0;
+    left: 0;
+  }
+
+  .main-menu--closed .main-menu__list {
+    display: none;
+  }
+
+  .main-menu--closed .main-menu__open {
+    display: block;
+  }
+
+  .main-menu--opened .main-menu__close {
+    display: block;
+  }
+
+  .main-menu__list {
+    padding: 10px;
+    padding-top: 55px;
+    flex-direction: column;
+    background-image: none;
+    align-items: left;
+    z-index: 1;
+  }
+
+  .main-menu .main-menu__item {
+    margin-left: 0;
+
+    &:not(:last-child) {
+      border-bottom: 1px solid white;
+    }
+  }
+
   .main-menu__contact,
-  .main-menu__home,
-    display: block
+  .main-menu__home {
+    display: block;
+  }
+}
 </style>

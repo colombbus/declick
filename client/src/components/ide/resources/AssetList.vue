@@ -80,36 +80,45 @@ export default {
 }
 </script>
 
-<style lang="sass">
-@import '~@/assets/styles/mixins'
+<style lang="scss">
+@import "~@/assets/styles/mixins";
 
-.asset-list
-	width: 375px
-	display: grid
-	height: 100%
-	grid-template-rows: 1fr auto
+.asset-list {
+  width: 375px;
+  display: grid;
+  height: 100%;
+  grid-template-rows: 1fr auto;
+}
 
-.asset-list__content
-	overflow: auto
-	display: flex
-	flex-wrap: wrap
-	align-content: flex-start
+.asset-list__content {
+  overflow: auto;
+  display: flex;
+  flex-wrap: wrap;
+  align-content: flex-start;
+}
 
-.asset-list__controls
-  +items-hgap(9px)
-  display: flex
-  height: 36px
-  padding: 9px
-  flex-direction: row
-  justify-content: flex-end
+.asset-list__controls {
+  @include items-hgap(9px);
 
-.asset-list__controls > *
-  height: 36px
-  width: 36px
+  display: flex;
+  height: 36px;
+  padding: 9px;
+  flex-direction: row;
+  justify-content: flex-end;
+}
 
-.asset-list
-  &__new
-    +image-button('~@/assets/images/controls/new.png')
-  &__delete
-    +image-button('~@/assets/images/controls/delete.png')
+.asset-list__controls > * {
+  height: 36px;
+  width: 36px;
+}
+
+.asset-list {
+  &__new {
+    @include image-button("~@/assets/images/controls/new.png");
+  }
+
+  &__delete {
+    @include image-button("~@/assets/images/controls/delete.png");
+  }
+}
 </style>

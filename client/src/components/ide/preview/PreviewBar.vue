@@ -12,39 +12,51 @@
 
 <script>
 export default {
-  props: [
-    'helpVisible'
-  ],
+  props: ['helpVisible'],
 }
 </script>
 
-<style lang="sass">
-@import '~@/assets/styles/mixins'
+<style lang="scss">
+@import '~@/assets/styles/mixins';
 
-.preview-bar
-  +items-hgap(9px)
-  display: flex
-  padding: 9px
-  align-items: center
-  justify-items: center
-  background: #ddd6dd
+.preview-bar {
+  @include items-hgap(9px);
 
-.preview-bar > *
-  height: 36px
-  width: 36px
+  display: flex;
+  padding: 9px;
+  align-items: center;
+  justify-items: center;
+  background: #ddd6dd;
+}
 
-.preview-bar
-  &__help
-    +image-button('~@/assets/images/controls/buoy.png')
-  &__hints
-    +image-button('~@/assets/images/controls/help.png')
-    margin-right: auto
-  &__design-mode
-    +image-button('~@/assets/images/controls/crane.png')
-    margin-left: auto
-  &__floating-controller
-    +image-button('~@/assets/images/controls/floating_controller.png')
+.preview-bar > * {
+  height: 36px;
+  width: 36px;
+}
 
-.preview-bar__help--active
-  background-image: url('~@/assets/images/controls/buoy-active.png')
+.preview-bar {
+  &__help {
+    @include image-button('~@/assets/images/controls/buoy.png');
+  }
+
+  &__hints {
+    @include image-button('~@/assets/images/controls/help.png');
+
+    margin-right: auto;
+  }
+
+  &__design-mode {
+    @include image-button('~@/assets/images/controls/crane.png');
+
+    margin-left: auto;
+  }
+
+  &__floating-controller {
+    @include image-button('~@/assets/images/controls/floating_controller.png');
+  }
+}
+
+.preview-bar__help--active {
+  background-image: url('~@/assets/images/controls/buoy-active.png');
+}
 </style>

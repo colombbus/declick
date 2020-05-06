@@ -24,40 +24,51 @@ export default {
 }
 </script>
 
-<style lang="sass">
-@import '~@/assets/styles/mixins'
+<style lang="scss">
+@import '~@/assets/styles/mixins';
 
-.resource-panel
-  display: grid
-  height: 100%
-  grid-template-columns: auto auto
-  grid-template-rows: 100%
-  background: #a6a1a6
+.resource-panel {
+  display: grid;
+  height: 100%;
+  grid-template-columns: auto auto;
+  grid-template-rows: 100%;
+  background: #a6a1a6;
+}
 
-.resource-panel__tabs
-  display: flex
-  flex-direction: column
-  background: #ddd6dd
+.resource-panel__tabs {
+  display: flex;
+  flex-direction: column;
+  background: #ddd6dd;
+}
 
-.resource-panel__tabs > *
-  height: 45px
-  width: 65px
+.resource-panel__tabs > * {
+  height: 45px;
+  width: 65px;
+}
 
 // TODO: Find a better solution to handle buttons active state.
 
-.resource-panel
-  &__switch-programs
-    +image-button('~@/assets/images/controls/programs.png')
-  &__switch-assets
-    +image-button('~@/assets/images/controls/assets.png')
+.resource-panel {
+  &__switch-programs {
+    @include image-button('~@/assets/images/controls/programs.png');
+  }
 
-.resource-panel--programs
-  .resource-panel__switch-programs
-    background-color: #a6a1a6
-    background-image: url('~@/assets/images/controls/programs-active.png')
+  &__switch-assets {
+    @include image-button('~@/assets/images/controls/assets.png');
+  }
+}
 
-.resource-panel--assets
-  .resource-panel__switch-assets
-    background-color: #a6a1a6
-    background-image: url('~@/assets/images/controls/assets-active.png')
+.resource-panel--programs {
+  .resource-panel__switch-programs {
+    background-color: #a6a1a6;
+    background-image: url('~@/assets/images/controls/programs-active.png');
+  }
+}
+
+.resource-panel--assets {
+  .resource-panel__switch-assets {
+    background-color: #a6a1a6;
+    background-image: url('~@/assets/images/controls/assets-active.png');
+  }
+}
 </style>

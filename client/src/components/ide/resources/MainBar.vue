@@ -19,20 +19,23 @@ export default {
 }
 </script>
 
-<style lang="sass">
-@import '~@/assets/styles/mixins'
+<style lang="scss">
+@import '~@/assets/styles/mixins';
 
-.main-bar
-  +items-hgap(9px)
-  display: flex
-  padding: 9px
-  align-items: center
-  justify-items: center
-  background: #ddd6dd
+.main-bar {
+  @include items-hgap(9px);
 
-.main-bar > *
-  height: 36px
-  width: 36px
+  display: flex;
+  padding: 9px;
+  align-items: center;
+  justify-items: center;
+  background: #ddd6dd;
+}
+
+.main-bar > * {
+  height: 36px;
+  width: 36px;
+}
 
 //         ,~,
 //         )))Y
@@ -43,18 +46,29 @@ export default {
 //         (| (\ |   |     |
 //  ejm    q`_ q`_  _|_   _|_
 
-.main-bar
-  &__help
-    +image-button('~@/assets/images/controls/buoy.png')
-  &__hints
-    +image-button('~@/assets/images/controls/help.png')
-    margin-right: auto
-  &__play
-    +image-button('~@/assets/images/controls/play.png')
-  &__save
-    +image-button('~@/assets/images/controls/save.png')
-    margin-left: auto
+.main-bar {
+  &__help {
+    @include image-button('~@/assets/images/controls/buoy.png');
+  }
 
-.main-bar__help--active
-  background-image: url('~@/assets/images/controls/buoy-active.png')
+  &__hints {
+    @include image-button('~@/assets/images/controls/help.png');
+
+    margin-right: auto;
+  }
+
+  &__play {
+    @include image-button('~@/assets/images/controls/play.png');
+  }
+
+  &__save {
+    @include image-button('~@/assets/images/controls/save.png');
+
+    margin-left: auto;
+  }
+}
+
+.main-bar__help--active {
+  background-image: url('~@/assets/images/controls/buoy-active.png');
+}
 </style>

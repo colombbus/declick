@@ -137,191 +137,255 @@
       ): img(src='~@/assets/images/logos/Fondation-BNP-Paribas.svg')
 </template>
 
-<style lang="sass">
-@import '~@/styles/mixins'
+<style lang="scss">
+@import "~@/styles/mixins";
 
-$crimson: #e32c20
-$cab-sav: #480a2a
-$red-violet: #de1580
-$white: #fff
-$wine-berry: #531937
+$crimson: #e32c20;
+$cab-sav: #480a2a;
+$red-violet: #de1580;
+$white: #fff;
+$wine-berry: #531937;
 
-$vertical-gap: 40px
+$vertical-gap: 40px;
 
-@mixin postline($color)
-  &:after
-    content: ''
-    display: block
-    width: 100px
-    margin: auto
-    margin-top: 7px
-    margin-bottom: 12px
-    border-bottom: 1px solid #{$color}
+@mixin postline($color) {
+  &:after {
+    content: "";
+    display: block;
+    width: 100px;
+    margin: auto;
+    margin-top: 7px;
+    margin-bottom: 12px;
+    border-bottom: 1px solid #{$color};
+  }
+}
 
-@mixin preline($color)
-  &:before
-    content: ''
-    display: block
-    width: 100px
-    margin: auto
-    margin-bottom: 12px
-    border-bottom: 1px solid #{$color}
+@mixin preline($color) {
+  &:before {
+    content: "";
+    display: block;
+    width: 100px;
+    margin: auto;
+    margin-bottom: 12px;
+    border-bottom: 1px solid #{$color};
+  }
+}
 
-.home
-  display: grid
-  max-width: 992px
-  margin: auto
-  padding: #{$vertical-gap} 15px 0 15px
-  grid-template-columns: repeat(12, 1fr)
-  grid-column-gap: 30px
-  text-align: center
-  color: $wine-berry
+.home {
+  display: grid;
+  max-width: 992px;
+  margin: auto;
+  padding: #{$vertical-gap} 15px 0 15px;
+  grid-template-columns: repeat(12, 1fr);
+  grid-column-gap: 30px;
+  text-align: center;
+  color: $wine-berry;
+}
 
-.home > *
-  grid-column: 1 / -1
-  margin-bottom: $vertical-gap
+.home > * {
+  grid-column: 1 / -1;
+  margin-bottom: $vertical-gap;
+}
 
-.home__box
-  position: relative
-  grid-column: span 4
+.home__box {
+  position: relative;
+  grid-column: span 4;
+}
 
 .home h2,
-.home h3
-  text-transform: uppercase
-  letter-spacing: 2px
+.home h3 {
+  text-transform: uppercase;
+  letter-spacing: 2px;
+}
 
-.home h2
-  @include postline($crimson)
-  font-size: 16pt
-  font-weight: bold
-  margin-bottom: 25px
+.home h2 {
+  @include postline($crimson);
 
-.home__box > h3
-  @include postline($crimson)
-  font-weight: bold
-  color: $crimson
+  font-size: 16pt;
+  font-weight: bold;
+  margin-bottom: 25px;
+}
 
-.home h3
-  font-size: 12pt
+.home__box > h3 {
+  @include postline($crimson);
 
-.home h4
-  margin-bottom: 5px
-  font-size: 12pt
-  font-weight: bold
+  font-weight: bold;
+  color: $crimson;
+}
 
-.home__presentation
-  width: 66%
-  margin-left: auto
-  margin-right: auto
+.home h3 {
+  font-size: 12pt;
+}
 
-.home__box > img
-  height: 50px
+.home h4 {
+  margin-bottom: 5px;
+  font-size: 12pt;
+  font-weight: bold;
+}
+
+.home__presentation {
+  width: 66%;
+  margin-left: auto;
+  margin-right: auto;
+}
+
+.home__box > img {
+  height: 50px;
+}
 
 .home__box .home__robot-train,
-.home__box .home__robot-idea
-  height: 80px
+.home__box .home__robot-idea {
+  height: 80px;
+}
 
-.home__box .home__robot-observe
-  margin-top: 30px
+.home__box .home__robot-observe {
+  margin-top: 30px;
+}
 
-.home__tag
-  position: absolute
-  bottom: 0
-  right: 0
-  display: block
+.home__tag {
+  position: absolute;
+  bottom: 0;
+  right: 0;
+  display: block;
+}
 
-.home__video
-  +ratio-container(16, 9)
+.home__video {
+  @include ratio-container(16, 9);
+}
 
-.home__about-us
-  +full-width-background($red-violet)
-  width: 66%
-  margin-left: auto
-  margin-right: auto
-  margin-bottom: 0
-  padding: #{$vertical-gap} 0
-  color: $white
-  & > :first-child
-    margin-top: 0
-  h3
-    @include postline($white)
-    font-weight: inherit
-  p
-    margin-bottom: 20px
-  & > a
-    padding: 5px
-    border: 1px solid $white
-    font-size: 8pt
-    color: inherit
-    text-decoration: none
-    text-transform: uppercase
+.home__about-us {
+  @include full-width-background($red-violet);
 
-.home__partners
-  +full-width-background($cab-sav)
-  display: grid
-  margin-bottom: 0
-  padding: #{$vertical-gap} 0
-  grid-template-columns: repeat(3, 1fr)
-  grid-template-rows: auto 1fr
-  grid-auto-flow: column
-  grid-row-gap: 20px
-  color: $white
+  width: 66%;
+  margin-left: auto;
+  margin-right: auto;
+  margin-bottom: 0;
+  padding: #{$vertical-gap} 0;
+  color: $white;
 
-.home__partners > *:nth-child(2n + 4)
-  border-left: 1px solid white
+  & > :first-child {
+    margin-top: 0;
+  }
 
-.home__logo-group
-  display: flex
-  flex-wrap: wrap
-  justify-content: center
-  align-items: center
+  h3 {
+    @include postline($white);
 
-.home__logo-group a
-  margin: 5px
+    font-weight: inherit;
+  }
 
-.home__logo-group img
-  height: 75px
-  width: 90px
+  p {
+    margin-bottom: 20px;
+  }
+
+  & > a {
+    padding: 5px;
+    border: 1px solid $white;
+    font-size: 8pt;
+    color: inherit;
+    text-decoration: none;
+    text-transform: uppercase;
+  }
+}
+
+.home__partners {
+  @include full-width-background($cab-sav);
+
+  display: grid;
+  margin-bottom: 0;
+  padding: #{$vertical-gap} 0;
+  grid-template-columns: repeat(3, 1fr);
+  grid-template-rows: auto 1fr;
+  grid-auto-flow: column;
+  grid-row-gap: 20px;
+  color: $white;
+}
+
+.home__partners > *:nth-child(2n + 4) {
+  border-left: 1px solid white;
+}
+
+.home__logo-group {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  align-items: center;
+}
+
+.home__logo-group a {
+  margin: 5px;
+}
+
+.home__logo-group img {
+  height: 75px;
+  width: 90px;
+}
 
 // small devices
 
-@media only screen and (max-width: 576px)
-  .home
-    text-align: justify
-    text-align-last: center
+@media only screen and (max-width: 576px) {
+  .home {
+    text-align: justify;
+    text-align-last: center;
+  }
+
   .home__presentation,
-  .home__about-us
-    width: 100%
-  .home__box
-    grid-column: span 12
+  .home__about-us {
+    width: 100%;
+  }
+
+  .home__box {
+    grid-column: span 12;
+
     & > img,
-    & > h3
-      display: inline-block
-      margin: 0
-      vertical-align: baseline
-      line-height: 30px
-    & > img
-      position: relative
-      top: 4px
-      height: 20px
-      margin-right: 11px
-    & > p
-      @include preline($crimson)
-  .home__box > h3:after
-    display: none
+    & > h3 {
+      display: inline-block;
+      margin: 0;
+      vertical-align: baseline;
+      line-height: 30px;
+    }
+
+    & > img {
+      position: relative;
+      top: 4px;
+      height: 20px;
+      margin-right: 11px;
+    }
+
+    & > p {
+      @include preline($crimson);
+    }
+  }
+
+  .home__box > h3:after {
+    display: none;
+  }
+
   .home__box .home__robot-train,
-  .home__box .home__robot-idea,
-    height: 35px
-  .home__box .home__robot-observe
-    height: 23px
-    margin-top: 0
-  .home__box .home__tag
-    display: none
-  .home__partners
-    grid-template-columns: 1fr
-    grid-template-rows: repeat(6, auto)
-  .home__partners > *:nth-child(2n + 4)
-    border-left: 0
-  .home__partners h3
-    margin-top: 20px
+  .home__box .home__robot-idea {
+    height: 35px;
+  }
+
+  .home__box .home__robot-observe {
+    height: 23px;
+    margin-top: 0;
+  }
+
+  .home__box .home__tag {
+    display: none;
+  }
+
+  .home__partners {
+    grid-template-columns: 1fr;
+    grid-template-rows: repeat(6, auto);
+  }
+
+  .home__partners > *:nth-child(2n + 4) {
+    border-left: 0;
+  }
+
+  .home__partners h3 {
+    margin-top: 20px;
+  }
+}
+
 </style>

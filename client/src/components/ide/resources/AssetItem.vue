@@ -110,51 +110,64 @@ export default {
 }
 </script>
 
-<style lang="sass">
-@import '~@/assets/styles/mixins'
+<style lang="scss">
+@import "~@/assets/styles/mixins";
 
-.asset-item
-  margin: 8px
-  padding: 4px
-  width: 90px
-  height: 90px
-  border: 1px solid transparent
-  overflow: hidden
-  font-size: 0.8em
-  background-color: #FFFFFF
-  word-wrap: break-word
-  cursor: pointer
-  text-align: center
-  position: relative
-  &--selected-passive
-    background: #ddd6dd
-  &--selected-active
-    color: #FFFFFF
-    background-color: #E47637
-  &:hover
+.asset-item {
+  margin: 8px;
+  padding: 4px;
+  width: 90px;
+  height: 90px;
+  border: 1px solid transparent;
+  overflow: hidden;
+  font-size: 0.8em;
+  background-color: #FFFFFF;
+  word-wrap: break-word;
+  cursor: pointer;
+  text-align: center;
+  position: relative;
 
-.asset-item > div
-  padding-bottom: 2px
-  margin-bottom: 5px
-  user-select: none
+  &--selected-passive {
+    background: #ddd6dd;
+  }
 
-.asset-item > input
-  margin-bottom: 4px
-  padding: 0
-  padding-bottom: 2px
-  border: none
-  border-bottom: 1px solid #a3a3a3
-  font-size: inherit
-  color: inherit
-  background: transparent
-  outline: 0
+  &--selected-active {
+    color: #FFFFFF;
+    background-color: #E47637;
+  }
 
-.asset-item > img
-  width: 65px
-  opacity: .6
-  &:hover
-    opacity: 1
+  &:hover {}
+}
 
-.asset-item--selected-active> img
-    opacity: 1
+.asset-item > div {
+  padding-bottom: 2px;
+  margin-bottom: 5px;
+  user-select: none;
+}
+
+.asset-item > input {
+  margin-bottom: 4px;
+  padding: 0;
+  padding-bottom: 2px;
+  border: none;
+  border-bottom: 1px solid #a3a3a3;
+  font-size: inherit;
+  color: inherit;
+  background: transparent;
+  outline: 0;
+}
+
+.asset-item > img {
+  width: 65px;
+  opacity: 0.6;
+
+  &:hover {
+    opacity: 1;
+  }
+}
+
+.asset-item--selected-active > img {
+  opacity: 1;
+}
+
 </style>
