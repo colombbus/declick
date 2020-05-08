@@ -4,7 +4,7 @@ import Api from '@/api'
 const LOCAL_STORAGE_PREFIX = 'ui'
 const LOCAL_STORAGE_VERSION = 5
 
-export const setcurrentProgramName = async ({ commit }, { name }) => {
+export const setCurrentProgramName = async ({ commit }, { name }) => {
   commit(mutations.CURRENT_PROGRAM, { name })
 }
 export const setCurrentProgramContent = async ({ commit }, { id, content }) => {

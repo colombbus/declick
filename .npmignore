@@ -1,0 +1,8 @@
+client/src/assets/config/declick.js
+**/node_modules
+**/yarn-error.log
+server/*
+offline/*
+.vscode/*
+**.htaccess
+client/*

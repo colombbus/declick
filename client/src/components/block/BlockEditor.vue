@@ -1,11 +1,9 @@
 <template lang="pug">
   #block-editor
     v-blockly(
-      workspace="workspace.xml"
-      toolbox="toolbox.xml"
+      workspace="block/workspace.xml"
+      toolbox="block/toolbox.xml"
       :options="bOptions"
-      blocks="turtle.json"
-      stubs="turtle.js"
     )
     text-editor
     vertical-bar
@@ -62,7 +60,7 @@ export default {
 </script>
 
 <style lang="scss">
-.editor{
+#block-editor .editor{
   margin-left: 1%;
   z-index: 0;
 }

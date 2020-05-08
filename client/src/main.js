@@ -1,5 +1,3 @@
-import '@/styles/global.sass'
-
 import Vue from 'vue'
 import {mapActions} from 'vuex'
 import router from '@/router'
@@ -8,10 +6,6 @@ import config from '@/config'
 import Application from '@/Application'
 import VueAnalytics from 'vue-analytics'
 import i18n from './i18n'
-
-import VueKonva from 'vue-konva'
- 
-Vue.use(VueKonva)
 // document.domain = config.domain
 
 if (config.googleId) {

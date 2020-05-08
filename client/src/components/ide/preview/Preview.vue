@@ -9,6 +9,7 @@
 </template>
 
 <script>
+/* eslint-disable */
 import PreviewBar from './PreviewBar.vue'
 
 export default {

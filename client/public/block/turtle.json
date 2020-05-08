@@ -1,0 +1,44 @@
+{
+    "turtle_toward": {
+        "message0": "avancer",
+        "nextStatement": null,
+        "previousStatement": null,
+        "colour": 160,
+        "tooltip": "Faire avancer la tortue"
+    },
+    "turtle_backward": {
+        "message0": "reculer",
+        "nextStatement": null,
+        "previousStatement": null,
+        "colour": 160,
+        "tooltip": "Faire reculer la tortue"
+    },
+    "turtle_upward": {
+        "message0": "monter",
+        "nextStatement": null,
+        "previousStatement": null,
+        "colour": 160,
+        "tooltip": "Faire monter la tortue"
+    },
+    "turtle_downward": {
+        "message0": "descendre",
+        "nextStatement": null,
+        "previousStatement": null,
+        "colour": 160,
+        "tooltip": "Faire descendre la tortue"
+    },
+    "turtle_trace": {
+        "message0": "tracer",
+        "nextStatement": null,
+        "previousStatement": null,
+        "colour": 298,
+        "tooltip": "Faire tracer la tortue"
+    },
+    "turtle_untrace": {
+        "message0": "ne pas tracer",
+        "nextStatement": null,
+        "previousStatement": null,
+        "colour": 298,
+        "tooltip": "Ne pas faire tracer la tortue"
+    }
+}

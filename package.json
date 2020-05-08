@@ -1,0 +1,26 @@
+{
+  "name": "declick",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "dependencies": {},
+  "devDependencies": {
+    "mocha": "^6.2.3"
+  },
+  "scripts": {
+    "test": "mocha"
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://gitlab.com/colombbus/declick.git"
+  },
+  "keywords": [
+    "educational"
+  ],
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://gitlab.com/colombbus/declick/issues"
+  },
+  "homepage": "https://gitlab.com/colombbus/declick#readme"
+}

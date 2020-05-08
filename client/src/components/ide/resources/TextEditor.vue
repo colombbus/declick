@@ -8,7 +8,7 @@
 import * as ace from 'brace'
 import { mapActions, mapState, mapGetters } from 'vuex'
 import { debounce } from 'underscore'
-
+import   Favico from 'favico.js'
 import 'brace/mode/javascript'
 import 'brace/ext/modelist'
 import 'brace/ext/themelist'
@@ -18,6 +18,12 @@ export default {
   props: { programName: String },
   created() {
     this.$nextTick(() => this.createEditor())
+  },
+  mounted() {
+    var favicon = new Favico({
+      animation: 'slide',
+    })
+    favicon.badge('hl')
   },
   methods: {
     createEditor() {

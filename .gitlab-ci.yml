@@ -1,0 +1,108 @@
+image: alefesouza/php7-laravel-node-yarn
+
+services:
+  - mysql
+
+variables:
+  MYSQL_DATABASE: homestead
+  MYSQL_ALLOW_EMPTY_PASSWORD: "true"
+  DB_HOST: mysql
+  DB_USERNAME: root
+  DB_PASSWORD: ""
+
+before_script:
+  - npm i -g npm@latest
+
+cache:
+  paths:
+    - client/node_modules/
+    - objects/node_modules/
+    - runtime/node_modules/
+
+stages:
+  - test
+  - build
+  - deploy
+
+unit_test_objects:
+  stage: test
+  script:
+    - cd objects
+    - npm run unit
+
+unit_test_runtime:
+  stage: test
+  script:
+    - cd runtime
+    - npm run unit
+
+# build_runtime:
+#   stage: build
+#   script:
+#     - cd runtime
+#     - npm run build
+#   artifacts:
+#     paths:
+#     - runtime/lib/@declick/runtime.js
+#     - runtime/lib/@declick/runtime.js.map
+#     - runtime/lib/@declick/runtime.min.js
+#     - runtime/lib/@declick/runtime.min.js.map
+
+# build_objects:
+#   stage: build
+#   before_script:
+#     - npm i -g npm@latest
+#   script:
+#     - cd objects
+#     - npm run build
+#   artifacts:
+#     paths:
+#     - objects/lib/@declick/objects.js
+#     - objects/lib/@declick/objects.js.map
+#     - objects/lib/@declick/objects.min.js
+#     - objects/lib/@declick/objects.min.js.map
+
+# build_client:
+#   stage: build
+#   script:
+#     - cd client
+#     - npm run build
+#   artifacts:
+#     paths:
+#     - client/dist
+
+deploy_QA:
+  stage: deploy
+  environment:
+    name: staging
+    url: '$QA_URL'
+  before_script:
+    - yarn build
+    - 'which ssh-agent || ( apt-get update -y && apt-get install openssh-client -y )'
+    - eval $(ssh-agent -s)
+    - mkdir -p ~/.ssh
+    - '[[ -f /.dockerenv ]] && echo -e "Host *\n\tStrictHostKeyChecking no\n\n" > ~/.ssh/config'
+  script:
+    - ssh-add <(echo "$SSH_PRIVATE_KEY")
+    - ssh -o StrictHostKeyChecking=no "$QA_USER"@"$QA_SERVER" rm -rf "$INSTALL_DIRECTORY"/*
+    - scp -P22 -r packages/client/dist/* "$QA_USER"@"$QA_SERVER":"$INSTALL_DIRECTORY"
+  # only:
+  #   - master
+
+# deploy_production:
+#   stage: deploy
+#   environment:
+#     name: production
+#     url: $PRODUCTION_URL
+#   only:
+#     - master
+#   script:
+#     # Comment the following two lines if you can
+#     # compile front-end stuff on your webserver,
+#     # otherwise it will compile on GitLab CI and
+#     # push it to a deploy branch, also remove the
+#     # deploy branch on the Envoy.blade.php file
+#     # - chmod +x ./build/deploy.sh
+#     # - ./build/deploy.sh
+#     # Run Envoy via composer to pull the changes on the deploy server
+#     - composer run deploy

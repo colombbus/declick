@@ -38,7 +38,7 @@ export default {
       this.$nextTick(() => (this.selectedId = id))
 
       const name = this.programs.find(program => program.id === id).name
-      this.setcurrentProgramName({ name })
+      this.setCurrentProgramName({ name })
       this.$emit('select', name)
     },
     renameProgram(id, newName) {
@@ -74,7 +74,7 @@ export default {
       }
       return i
     },
-    ...mapActions(['setcurrentProgramName', 'setCurrentProgramContent']),
+    ...mapActions(['setCurrentProgramName', 'setCurrentProgramContent']),
   },
   computed: {
     orderedPrograms() {

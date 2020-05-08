@@ -68,7 +68,7 @@ export default {
   },
   created() {
     this.courseId = this.$route.params.id
-    this.retrieveCourse()
+    // this.retrieveCourse()
   },
   computed: {},
   methods: {

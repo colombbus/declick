@@ -7,6 +7,8 @@ import CmsDocument from '@/components/CmsDocument'
 import Administration from '@/components/Administration'
 import Course from '@/components/learn/Course'
 import CourseList from '@/components/learn/CourseList'
+import BlockEditor from '@/components/block/BlockEditor'
+
 import Progress from '@/components/learn/Progress'
 import DeclickMap from '@/components/learn/DeclickMap'
 
@@ -120,6 +122,11 @@ var routes = [
       title: 'Créer',
       useFullscreen: true,
     },
+  },
+  {
+    path: '/block',
+    name: 'block',
+    component: BlockEditor,
   },
   {
     path: '/resources',

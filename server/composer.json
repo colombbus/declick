@@ -1,5 +1,5 @@
 {
-    "name": "Colombbus/Declick server v-2",
+    "name": "declick/server",
     "description": "Declick v2 platform - server part",
     "keywords": ["framework", "laravel", "lumen"],
     "license": "GPL-3.0",
