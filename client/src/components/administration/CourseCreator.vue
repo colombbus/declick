@@ -15,7 +15,7 @@
 </template>
 
 <script>
-import config from '@/assets/config/declick'
+import config from '@/assets/js/config'
 import axios from 'axios'
 
 export default {

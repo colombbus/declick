@@ -5,7 +5,7 @@
 </template>
 
 <script>
-import config from '@/assets/config/declick.js'
+import config from '@/assets/js/config.js'
 // import Channel from 'exports-loader?Channel!jschannel/src/jschannel.js'
 import { mapState, mapActions } from 'vuex'
 // import Api from '@/api'

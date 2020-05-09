@@ -4,7 +4,7 @@ import VueRouter from 'vue-router'
 Vue.use(VueRouter)
 
 import CmsDocument from '@/components/CmsDocument'
-import Administration from '@/components/Administration'
+// import Administration from '@/components/Administration'
 import Course from '@/components/learn/Course'
 import CourseList from '@/components/learn/CourseList'
 import BlockEditor from '@/components/block/BlockEditor'
@@ -14,13 +14,13 @@ import DeclickMap from '@/components/learn/DeclickMap'
 
 import config from '@/config'
 
-import AdministrationCourseList from '@/components/administration/CourseList'
-import CourseEditor from '@/components/administration/CourseEditor'
-import UserList from '@/components/user/UserList'
+// import AdministrationCourseList from '@/components/administration/CourseList'
+// import CourseEditor from '@/components/administration/CourseEditor'
+// import UserList from "@/components/user/UserList";
 import UserProfile from '@/components/user/UserProfile'
 import UserEditor from '@/components/user/UserEditor'
 
-import courseRunfrom from '@/components/learn/CourseRun_new'
+// import courseRunfrom from '@/components/learn/CourseRun_new'
 
 import HomePage from '@/components/HomePage.vue'
 import ResourcesPage from '@/components/ResourcesPage.vue'
@@ -40,7 +40,9 @@ const routes = [
     path: '/ide',
     name: 'ide',
     component: Ide,
-    useFullscreen: true,
+    meta: {
+      useFullscreen: true,
+    },
   },
   {
     path: '/users/:id',
@@ -100,17 +102,17 @@ const routes = [
             meta: {
               title: 'Parcours',
             },
-            children: [
-              {
-                component: courseRunfrom,
-                name: 'step',
-                path: 'run/:assessmentId',
-                meta: {
-                  title: 'Étape',
-                  useFullscreen: true,
-                },
-              },
-            ],
+            // children: [
+            //   {
+            //     component: courseRunfrom,
+            //     name: "step",
+            //     path: "run/:assessmentId",
+            //     meta: {
+            //       title: "Étape",
+            //       useFullscreen: true
+            //     }
+            //   }
+            // ]
           },
         ],
       },
@@ -124,11 +126,11 @@ const routes = [
       useFullscreen: true,
     },
   },
-  {
-    path: '/block',
-    name: 'block',
-    component: BlockEditor,
-  },
+  // {
+  //   path: '/block',
+  //   name: 'block',
+  //   component: BlockEditor,
+  // },
   {
     path: '/resources',
     component: ResourcesPage,
@@ -136,36 +138,36 @@ const routes = [
       title: 'Ressources',
     },
   },
-  {
-    path: '/administration',
-    component: Administration,
-    meta: {
-      title: 'Administration',
-    },
-    children: [
-      {
-        path: 'users',
-        component: UserList,
-        meta: {
-          title: 'Liste des utilisateurs',
-        },
-      },
-      {
-        path: 'courses',
-        component: AdministrationCourseList,
-        meta: {
-          title: 'Liste des parcours',
-        },
-      },
-      {
-        path: 'courses/:id',
-        component: CourseEditor,
-        meta: {
-          title: 'Modification de parcours',
-        },
-      },
-    ],
-  },
+  // {
+  //   path: "/administration",
+  //   component: Administration,
+  //   meta: {
+  //     title: "Administration"
+  //   },
+  //   children: [
+  //     {
+  //       path: "users",
+  //       component: UserList,
+  //       meta: {
+  //         title: "Liste des utilisateurs"
+  //       }
+  //     },
+  //     {
+  //       path: "courses",
+  //       component: AdministrationCourseList,
+  //       meta: {
+  //         title: "Liste des parcours"
+  //       }
+  //     },
+  //     {
+  //       path: "courses/:id",
+  //       component: CourseEditor,
+  //       meta: {
+  //         title: "Modification de parcours"
+  //       }
+  //     }
+  //   ]
+  // }
 ]
 
 export default new VueRouter({

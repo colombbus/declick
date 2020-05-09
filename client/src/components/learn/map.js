@@ -1,6 +1,6 @@
 import paper from 'paper'
 
-const fs = require('fs')
+// const fs = require('fs')
 
 function DeclickMap() {
   /*
@@ -355,14 +355,14 @@ function DeclickMap() {
       var zWidth = paper.view.bounds.width / bounds.width
       var newZoom = paper.view.zoom * Math.min(zHeight, zWidth)
       var newCenter = bounds.center
-      console.debug(newCenter)
+      // console.debug(newCenter)
       if (newZoom < zoomDisplayLabels) {
         var cPosition = chapters[index].bounds.point.subtract(margin)
         var delta = cPosition
           .subtract(newCenter)
           .normalize(((1 - newZoom / zoomDisplayLabels) * bounds.width) / 2)
         newCenter = newCenter.add(delta)
-        console.debug(newCenter)
+        // console.debug(newCenter)
         newZoom = zoomDisplayLabels
       }
       if (animate) {
@@ -877,8 +877,8 @@ function DeclickMap() {
   }
 
   this.setResults = function(results) {
-    console.log('results received:')
-    console.log(results)
+    // console.log('results received:')
+    // console.log(results)
 
     results.forEach(result => {
       for (var i = 0; i < steps.length; i++) {

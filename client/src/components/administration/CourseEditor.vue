@@ -30,7 +30,7 @@ div(v-if='rootNode')
 <script>
 import StepEditor from './StepEditor'
 import TreeView from './TreeView'
-import config from '@/assets/config/declick'
+import config from '@/assets/js/config'
 
 import axios from 'axios'
 
