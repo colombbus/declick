@@ -1,16 +1,13 @@
 import axios from 'axios'
 
-// TODO: Update this file to use axios.
-import config from '@/assets/config/declick'
+import config from '@/assets/js/config'
 
 export default {
   // tokens methods
   async createToken(username, password) {
-    let url = `${config.apiUrl}login`
+    const url = `${config.apiUrl}login`
 
-    let {
-      data: { token },
-    } = await axios({
+    const { data: { token } } = await axios({
       method: 'post',
       url,
       data: {
@@ -22,7 +19,7 @@ export default {
     return token
   },
   async destroyToken(token) {
-    let url = `${config.apiUrl}logout`
+    const url = `${config.apiUrl}logout`
 
     await axios({
       url,
@@ -34,7 +31,7 @@ export default {
 
   // users methods
   async createUser({ username, email, password }) {
-    let url = `${config.apiUrl}users`
+    const url = `${config.apiUrl}users`
 
     await axios({
       url,
@@ -46,15 +43,15 @@ export default {
     })
   },
   async updateUser(id, user, token) {
-    let url = `${config.apiUrl}users/${id}`
-    let body = {
+    const url = `${config.apiUrl}users/${id}`
+    const body = {
       email: user.email,
       id_admin: user.isAdmin,
       default_project_id: user.defaultProjectId,
       current_project_id: user.currentProjectId,
     }
 
-    let { data } = await axios({
+    const { data } = await axios({
       method: 'patch',
       url,
       data: body,
@@ -73,18 +70,18 @@ export default {
     }
   },
   async getUsersByPage(page, filter) {
-    let url = `${config.apiUrl}users?page=${page}`
+    const url = `${config.apiUrl}users?page=${page}`
 
     if (filter && filter !== '') {
       url += `&search=${filter}`
     }
 
-    let { data } = await axios({
+    const { data } = await axios({
       method: 'get',
       url,
     })
 
-    let users = data.data.map(user => {
+    const users = data.data.map(user => {
       return {
         id: user.id,
         username: user.username,
@@ -102,8 +99,8 @@ export default {
     }
   },
   async getUser(id) {
-    let url = `${config.apiUrl}users/${id}`
-    let { data } = await axios({
+    const url = `${config.apiUrl}users/${id}`
+    const { data } = await axios({
       url,
     })
     return {
@@ -116,10 +113,10 @@ export default {
     }
   },
   async getUserByToken(token) {
-    let url = `${config.apiUrl}users/me`
+    const url = `${config.apiUrl}users/me`
     // headersToken = 'Authorization: Token ' + token;
 
-    let { data } = await axios({
+    const { data } = await axios({
       method: 'get',
       url,
       headers: {
@@ -139,8 +136,8 @@ export default {
 
   // projects methods
   async createProject(user, token) {
-    let url = `${config.apiUrl}projects`
-    let body = {
+    const url = `${config.apiUrl}projects`
+    const body = {
       name: user.name,
       is_public: user.isPublic,
       scene_width: user.sceneWidth,
@@ -148,7 +145,7 @@ export default {
       description: user.description,
       instructions: user.instructions,
     }
-    let { data } = await axios({
+    const { data } = await axios({
       method: 'post',
       url,
       data: body,
@@ -170,8 +167,8 @@ export default {
     }
   },
   async updateProject(id, project, token) {
-    let url = `${config.apiUrl}projects/${id}`
-    let body = {
+    const url = `${config.apiUrl}projects/${id}`
+    const body = {
       name: project.name,
       is_public: project.isPublic,
       scene_width: project.sceneWidth,
@@ -180,7 +177,7 @@ export default {
       instructions: project.instructions,
       main_program_id: project.mainProgramId,
     }
-    let { data } = await axios({
+    const { data } = await axios({
       method: 'patch',
       url,
       data: body,
@@ -201,9 +198,9 @@ export default {
     }
   },
   async getProject(id, token) {
-    let url = `${config.apiUrl}projects/${id}`
+    const url = `${config.apiUrl}projects/${id}`
 
-    let { data } = await axios({
+    const { data } = await axios({
       method: 'get',
       url,
       headers: {
@@ -224,9 +221,9 @@ export default {
     }
   },
   async getAllUserProjects(id, token) {
-    let url = `${config.apiUrl}users/${id}/projects`
+    const url = `${config.apiUrl}users/${id}/projects`
 
-    let { data } = await axios({
+    const { data } = await axios({
       method: 'get',
       url,
       headers: {
@@ -250,7 +247,7 @@ export default {
     })
   },
   async deleteProject(id, token) {
-    let url = `${config.apiUrl}projects/${id}`
+    const url = `${config.apiUrl}projects/${id}`
     await axios({
       method: 'delete',
       url,
@@ -272,7 +269,6 @@ export default {
     })
     return data
   },
-
   async getExerciceResourceContent(id, token) {
     const url = `${config.apiUrl}projects/${id}/exercicesContent`
     const { data } = await axios({
@@ -287,8 +283,8 @@ export default {
 
   // courses methods
   async getAllCourses() {
-    let url = `${config.apiUrl}circuits`
-    let { data } = await axios({
+    const url = `${config.apiUrl}circuits`
+    const { data } = await axios({
       method: 'get',
       url,
     })
@@ -305,12 +301,12 @@ export default {
 
   // assessments methods
   async getAllCourseAssessments(id) {
-    let url = `${config.apiUrl}circuits/${id}/nodes`
-    let { data } = await axios({
+    const url = `${config.apiUrl}circuits/${id}/nodes`
+    const { data } = await axios({
       method: 'get',
       url,
     })
-    let assessments = data.map(assessment => {
+    const assessments = data.map(assessment => {
       return {
         id: assessment.id,
         name: assessment.name,
@@ -320,17 +316,17 @@ export default {
         position: assessment.position,
       }
     })
-    let root = assessments.filter(
+    const root = assessments.filter(
       assessments => assessments.parentId === null,
     )[0]
-    let result = orderAssessments(assessments, root)
+    const result = orderAssessments(assessments, root)
     return result
   },
 
   // results methods
   async registerUserResult(userId, assessmentId, data, token) {
-    let url = `${config.apiUrl}users/${userId}/results`
-    let body = {
+    const url = `${config.apiUrl}users/${userId}/results`
+    const body = {
       step_id: assessmentId,
       passed: data.passed,
       solution: data.solution,
@@ -347,15 +343,15 @@ export default {
     })
   },
   async getAllUserResults(id, token) {
-    let url = `${config.apiUrl}users/${id}/results`
-    let { data } = await axios({
+    const url = `${config.apiUrl}users/${id}/results`
+    const { data } = await axios({
       method: 'get',
       url,
       headers: {
         Authorization: 'Token ' + token,
       },
     })
-    let results = data.map(result => {
+    const results = data.map(result => {
       return {
         id: result.id,
         userId: result.user_id,
@@ -368,7 +364,7 @@ export default {
   },
 
   async importProject(id, token) {
-    let url = `${config.apiUrl}projects/import/${id}`
+    const url = `${config.apiUrl}projects/import/${id}`
     await axios({
       method: 'post',
       url,
