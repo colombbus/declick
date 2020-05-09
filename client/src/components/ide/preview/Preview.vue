@@ -19,14 +19,15 @@ export default {
   },
   mounted() {
     let el = document.getElementsByClassName('preview__canvas')[0]
-  }
+  },
 }
 </script>
 
 <style lang="scss">
 .preview {
-  display: grid;
-  height: 100%;
+  position: relative;
+  // display: grid;
+  // height: 100%;
   width: 100%;
   padding: 9px;
   box-sizing: border-box;
@@ -34,13 +35,21 @@ export default {
 }
 
 .preview__canvas_container {
-  justify-self: stretch;
-  align-self: stretch;
   background-color: white;
+  position: absolute;
+  top: 0;
+  bottom: 54px;
+  left: 0;
 }
 
 .preview__canvas {
-  height:100%;
-  width:100%;
+  height: 100%;
+  width: 100%;
+}
+.preview-bar {
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  right: 0;
 }
 </style>

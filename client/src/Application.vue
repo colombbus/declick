@@ -58,14 +58,6 @@ export default {
 </script>
 
 <style lang="scss">
-:root {
-  --main-dark-color: #480a2a;
-    --main-light-color: #e22c20;
-    --main-line-color: #c8ce17;
-    --main-dark-variant-color: #6e3a51;
-    --main-light-variant-color: #f4b39b;
-}
-
 .application {
   display: grid;
   height: 100%;
@@ -74,8 +66,8 @@ export default {
   grid-template-rows: auto auto 1fr auto;
 }
 .application--fullscreen {
-  &__header-bar,
-  &__footer-bar {
+  .application__header,
+  .application__footer {
     display: none;
   }
 }

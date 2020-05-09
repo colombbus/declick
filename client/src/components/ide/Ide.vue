@@ -84,11 +84,12 @@ export default {
 
 <style lang="scss">
 .ide {
-  height: 100%;
+  height: 100vh;
   width: 100%;
   display: grid;
   grid-template-areas: 'help content';
   grid-template-columns: auto 1fr;
+  grid-template-rows: 95%;
   // grid-template-rows: 1fr;
 }
 
@@ -100,5 +101,10 @@ export default {
 .ide__preview,
 .ide__resource-manager {
   grid-area: content;
+}
+
+// TODO fix overflow hidden with IDE component
+.application {
+  overflow: hidden;
 }
 </style>

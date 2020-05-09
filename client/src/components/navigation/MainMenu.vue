@@ -6,7 +6,7 @@ div.main-menu(:class='stateClass' ref='menu')
     li.main-menu__item: router-link.main-menu__link.main-menu__home(to='/') ACCUEIL
     li.main-menu__item: router-link.main-menu__link(to='/progress') APPRENDRE
     li.main-menu__item: router-link.main-menu__link(to='/ide') CRÉER
-    li.main-menu__item: router-link.main-menu__link(to='/block') BLOC
+    //- li.main-menu__item: router-link.main-menu__link(to='/block') BLOC
     li.main-menu__item: router-link.main-menu__link(to='/explore') JOUER
     //- li.main-menu__item: router-link.main-menu__link(to='/resources') RESSOURCES
     //- li.main-menu__item: router-link.main-menu__link(to='/contact') CONTACT
@@ -28,46 +28,45 @@ div.main-menu(:class='stateClass' ref='menu')
     @close='isAuthenticationModalVisible = false'
     v-if='isAuthenticationModalVisible'
   )
-
-// .self
-//   ul
-//     li
-//       router-link(
-//         to='/explore'
-//         class='illustrated-link explore-link'
-//       ) Découvrir
-//     li
-//       router-link(
-//         to='/progress'
-//         class='illustrated-link progress-link'
-//       ) Progresser
-//     li
-//       router-link(
-//         to='/create'
-//         class='illustrated-link create-link'
-//       ) Créer
-//     //- li
-//     //-   router-link(
-//     //-     to='/resources'
-//     //-   ) Ressources
-//     //- TO REMOVE WHEN FORUM READY
-//     //-li
-//       a(
-//         :href='forumLink'
-//         class='illustrated-link discuss-link'
-//         target='forum'
-//       ) Discuter
-//     li(v-if='!user')
-//       a(
-//         @click='isAuthenticationModalVisible = true'
-//         class="illustrated-link log-in-link"
-//       ) Se connecter
-//     li(v-else)
-//       a(@click='logOut') Se déconnecter
-//   authentication-modal(
-//     @close='isAuthenticationModalVisible = false'
-//     v-if='isAuthenticationModalVisible'
-//   )
+//- .self
+//-   ul
+//-     li
+//-       router-link(
+//-         to='/explore'
+//-         class='illustrated-link explore-link'
+//-       ) Découvrir
+//-     li
+//-       router-link(
+//-         to='/progress'
+//-         class='illustrated-link progress-link'
+//-       ) Progresser
+//-     li
+//-       router-link(
+//-         to='/create'
+//-         class='illustrated-link create-link'
+//-       ) Créer
+//-     //- li
+//-     //-   router-link(
+//-     //-     to='/resources'
+//-     //-   ) Ressources
+//-     //- TO REMOVE WHEN FORUM READY
+//-     //-li
+//-       a(
+//-         :href='forumLink'
+//-         class='illustrated-link discuss-link'
+//-         target='forum'
+//-       ) Discuter
+//-     li(v-if='!user')
+//-       a(
+//-         @click='isAuthenticationModalVisible = true'
+//-         class="illustrated-link log-in-link"
+//-       ) Se connecter
+//-     li(v-else)
+//-       a(@click='logOut') Se déconnecter
+//-   authentication-modal(
+//-     @close='isAuthenticationModalVisible = false'
+//-     v-if='isAuthenticationModalVisible'
+//-   )
 </template>
 
 <script>
@@ -133,8 +132,7 @@ export default {
 </script>
 
 <style lang="scss">
-@import "../../styles/global";
-
+@import '../../styles/global';
 .main-menu__list {
   position: relative;
   width: 100%;
@@ -159,7 +157,7 @@ export default {
   display: inline-block;
 
   &:hover {
-    background-color: #FFF1;
+    background-color: #fff1;
   }
 }
 
@@ -213,7 +211,7 @@ export default {
   border: none;
   border-radius: 0 10px 10px 0;
   color: white;
-  background-color: #652E46;
+  background-color: #652e46;
   z-index: 2;
   outline: 0;
 }

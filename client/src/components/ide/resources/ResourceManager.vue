@@ -35,7 +35,7 @@ export default {
   width: 100%;
   display: grid;
   box-sizing: border-box;
-  padding: 9px;
+  // padding: 9px;
   grid-template-areas: 'text-editor resource-panel' 'main-bar resource-panel';
   grid-template-columns: 1fr auto;
   grid-template-rows: 1fr auto;
