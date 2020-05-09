@@ -32,7 +32,7 @@ export default {
     }
   },
   async created() {
-    let courses = await this.getAllCourses()
+    const courses = await this.getAllCourses()
     courses.forEach(course => {
       course.showDetails = false
     })

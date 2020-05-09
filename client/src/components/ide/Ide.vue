@@ -62,9 +62,6 @@ export default {
         this.view === 'resource-manager' ? 'preview' : 'resource-manager'
     },
     execute() {
-      // DeclickRuntime.executeCode(`t = new Texte();
-      // t.définirTexte('abracadabra');
-      // t.récupérerTexte();`)
       // console.log(this.getCurrentProgramContent());
 
       // DeclickRuntime.executeCode(this.getCurrentProgramContent())

@@ -18,7 +18,7 @@
 
 <script>
 import ProgramItem from './ProgramItem.vue'
-import { mapActions } from 'vuex'
+import { mapState, mapActions } from 'vuex'
 
 export default {
   data() {
@@ -78,8 +78,7 @@ export default {
   },
   computed: {
     orderedPrograms() {
-      const self = this
-      return self.programs.sort((a, b) => a.name.localeCompare(b.name))
+      return this.programs.sort((a, b) => a.name.localeCompare(b.name))
     },
   },
   components: {

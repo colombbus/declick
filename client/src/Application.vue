@@ -18,7 +18,8 @@
     //-   :id='viewId'
     //- )
   router-view
-  footer-bar.application__footer(v-show='!viewUseFullscreen')
+  footer-bar.application__footer(v-show='!fullscreenMode')
+
 </template>
 
 <script>
@@ -42,9 +43,6 @@ export default {
       return null
     },
     fullscreenMode() {
-      return this.$route.matched.some(match => match.meta.useFullscreen)
-    },
-    viewUseFullscreen() {
       return this.$route.matched.some(match => match.meta.useFullscreen)
     },
   },

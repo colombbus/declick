@@ -26,12 +26,7 @@ import HomePage from '@/components/HomePage.vue'
 import ResourcesPage from '@/components/ResourcesPage.vue'
 import Ide from '@/components/ide/Ide.vue'
 
-var routes = [
-  {
-    path: '/ide',
-    name: 'ide',
-    component: Ide,
-  },
+const routes = [
   {
     path: '/',
     name: 'home',
@@ -40,6 +35,12 @@ var routes = [
       id: 4,
       title: 'Accueil',
     },
+  },
+  {
+    path: '/ide',
+    name: 'ide',
+    component: Ide,
+    useFullscreen: true,
   },
   {
     path: '/users/:id',

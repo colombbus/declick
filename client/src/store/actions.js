@@ -7,6 +7,7 @@ const LOCAL_STORAGE_VERSION = 5
 export const setCurrentProgramName = async ({ commit }, { name }) => {
   commit(mutations.CURRENT_PROGRAM, { name })
 }
+
 export const setCurrentProgramContent = async ({ commit }, { id, content }) => {
   commit(mutations.CURRENT_CODE_UPDATE, { id, content })
 }
@@ -52,12 +53,12 @@ export const logIn = async (
   if (!token) {
     token = await Api.createToken(username, password)
   }
-  let user = await Api.getUserByToken(token)
+  const user = await Api.getUserByToken(token)
   commit(mutations.LOG_IN, { token, user })
   setLocalItem('version', LOCAL_STORAGE_VERSION)
   setLocalItem('token', token)
-  let projectId = user.currentProjectId || user.defaultProjectId
-  let project = await Api.getProject(projectId, token)
+  const projectId = user.currentProjectId || user.defaultProjectId
+  const project = await Api.getProject(projectId, token)
   commit(mutations.PROJECT_SELECTION, { project })
   dispatch('loadCurrentCourseResults')
 }

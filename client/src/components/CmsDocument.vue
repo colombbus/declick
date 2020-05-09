@@ -40,10 +40,10 @@ export default {
       id +
       '?access_token=jWNoVhWCng6odNLK';
 
-    let {data:{content}} = await axios({
-      method:"get",
-      url
-    })
+    // let {data:{content}} = await axios({
+    //   method:"get",
+    //   url
+    // })
 
     document.querySelector('#content').setAttribute('style','display:none');
     document.querySelector('#content').innerHTML += content;
