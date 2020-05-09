@@ -7,7 +7,9 @@ export default {
   async createToken(username, password) {
     const url = `${config.apiUrl}login`
 
-    const { data: { token } } = await axios({
+    const {
+      data: { token },
+    } = await axios({
       method: 'post',
       url,
       data: {
