@@ -1,16 +1,16 @@
 import Vue from 'vue'
-import {mapActions} from 'vuex'
+import { mapActions } from 'vuex'
 import router from '@/router'
 import store from '@/store'
 import config from '@/config'
 import Application from '@/Application'
-import VueAnalytics from 'vue-analytics'
+import VueSEO from 'vue-analytics'
 import i18n from './i18n'
 // document.domain = config.domain
 
-if (config.googleId) {
-  Vue.use(VueAnalytics, {
-    id: config.googleId,
+if (config.seoId) {
+  Vue.use(VueSEO, {
+    id: config.seoId,
     router
   })
 }
@@ -25,7 +25,7 @@ new Vue({
   components: {
     Application
   },
-  created () {
+  created() {
     this.autoLogIn()
   },
   methods: mapActions(['autoLogIn'])
