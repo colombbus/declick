@@ -3,42 +3,56 @@
 This component is part of [Declick platform](https://gitlab.com/colombbus/declick).
 
 It is built on [Vue.js](https://vuejs.org).
-
-## Installation
-
-1. Install [node.js](https://nodejs.org/)
-2. Run `npm install -g yarn` to install `yarn`
-3. Run `yarn` to install dependencies
-
 ## Configuration
 
-1. copy src/assets/config/declick.example.js into src/assets/config/declick.js and set parameters according to your configuration:
+1. copy `src/assets/js/example.config.js` into `src/assets/js/config.js` and set parameters according to your configuration:
     * domain: you can specify a domain in order to be able to load content from a cms located on another domain (CSRF protection)
     * basePath: base path following your server address. For instance if access url is 'http://localhost/declick-ui/dist', basePath should be set to '/declick-client/dist'
     * apiUrl: URL to server endpoint, e.g. 'http://localhost/declick-server/api/',
     * clientUrl: URL to declick-client, e.g. 'http://localhost/declick-client/dist/',
     * cmsUrl: URL to CMS storing static pages, e.g. 'http://localhost/cms/'
+2. At the application root copy htaccess.example into .htaccess and set parameter RewriteBase according to your configuration. For instance if access url is `http://localhost/declick-client/dist`, RewriteBase should be `/declick-client/dist/`
 
-3. copy src/assets/config/social-services-example.js into src/assets/config/social-service.js. If you want to use social services (FB, Google), you have to set the corresponding ids.
+## Project setup
+```
+yarn install
+```
 
-4. At the application root copy htaccess.example into .htaccess and set parameter RewriteBase according to your configuration. For instance if access url is 'http://localhost/declick-ui/dist', RewriteBase should be '/declick-ui/dist/'
+### Compiles and hot-reloads for development
+```
+yarn serve
+```
+To test development version, hot reload should be access in your browser in most case at `http://localhost:8080`
 
-## Development
-To test development version, you may serve files with hot reload at localhost:8080, run `yarn serve`
+### Compiles and minifies for production
+```
+yarn build
+```
 
-# Build
-To build in `dist/` default folder, run `yarn build`
+### Run your tests
+```
+yarn run test
+```
 
-For detailed explanation on how things work, checkout the [guide](http://vuejs-templates.github.io/webpack/) and [docs for vue-loader](http://vuejs.github.io/vue-loader).
+### Lints and fixes files
+```
+yarn run lint
+```
+
+### Run your end-to-end tests
+```
+yarn run test:e2e
+```
+
+### Run your unit tests
+```
+yarn run test:unit
+```
+
+### Customize configuration
+See [Configuration Reference](https://cli.vuejs.org/config/).
 
 # Credits
 - [VBlockly](https://github.com/abbychau/v-blockly)
 - [vue-spinner](https://github.com/greyby/vue-spinner)
 
-# TODO
-- translate
-- remove sass
-- bootstrap
-- translate og
-- html lang local
-- MDR: learn/setResults without user 
