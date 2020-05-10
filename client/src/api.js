@@ -58,7 +58,7 @@ export default {
       url,
       data: body,
       headers: {
-        Authorization: 'Token ' + token,
+        Authorization: `Token ${token}`,
       },
     })
 
@@ -266,7 +266,7 @@ export default {
       method: 'get',
       url,
       headers: {
-        Authorization: 'Token ' + token,
+        Authorization: `Token ${token}`,
       },
     })
     return data
