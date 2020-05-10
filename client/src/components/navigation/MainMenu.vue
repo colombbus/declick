@@ -3,25 +3,23 @@ div.main-menu(:class='stateClass' ref='menu')
   button.main-menu__open(type='button' @click='open')
   button.main-menu__close(type='button' @click='close')
   ul.main-menu__list
-    li.main-menu__item: router-link.main-menu__link.main-menu__home(to='/') ACCUEIL
-    li.main-menu__item: router-link.main-menu__link(to='/progress') APPRENDRE
-    li.main-menu__item: router-link.main-menu__link(to='/ide') CRÉER
-    //- li.main-menu__item: router-link.main-menu__link(to='/block') BLOC
-    li.main-menu__item: router-link.main-menu__link(to='/explore') JOUER
-    //- li.main-menu__item: router-link.main-menu__link(to='/resources') RESSOURCES
-    //- li.main-menu__item: router-link.main-menu__link(to='/contact') CONTACT
+    li.main-menu__item: router-link.main-menu__link.main-menu__home(to='/') {{ $t('menu.homepage') }}
+    li.main-menu__item: router-link.main-menu__link(to='/progress') {{ $t('menu.learn') }}
+    li.main-menu__item: router-link.main-menu__link(to='/ide') {{ $t('menu.create') }}
+    //- li.main-menu__item: router-link.main-menu__link(to='/block') {{ $t('menu.block') }}
+    li.main-menu__item: router-link.main-menu__link(to='/explore') {{ $t('menu.play') }}
+    //- li.main-menu__item: router-link.main-menu__link(to='/resources') {{ $t('menu.resources') }}
+    //- li.main-menu__item: router-link.main-menu__link(to='/contact') {{ $t('menu.contact') }}
     li.main-menu__item
       a.main-menu__link.connectionLink(
         v-if="!user"
         @click='isAuthenticationModalVisible = true'
-        class="illustrated-link log-in-link"
-      ) SE CONNECTER
+        class='illustrated-link log-in-link') {{ $t('menu.login') }}
       a.main-menu__link.connectionLink(
         v-else
-        @click='logOut'
-      ) SE DÉCONNECTER
-    li.main-menu__item(v-if="user && user.isAdmin"): router-link.main-menu__link(to='/administration') ADMINISTRATION
-    li.main-menu__item(v-if="user"): router-link.main-menu__link(:to="getUserIDLink") MON COMPTE
+        @click='logOut') {{ $t('menu.logout') }}
+    li.main-menu__item(v-if="user && user.isAdmin"): router-link.main-menu__link(to='/administration') {{ $t('menu.administration') }}
+    li.main-menu__item(v-if="user"): router-link.main-menu__link(:to='getUserIDLink') {{ $t('menu.my-account') }}
 
 
   authentication-modal(
@@ -145,6 +143,7 @@ export default {
   background-color: #652e46;
   background-image: url(../../assets/images/waves.png);
   box-shadow: 0 2px 6px 0 rgba(0, 0, 0, 0.25);
+  text-transform: uppercase;
 }
 
 .main-menu__item {

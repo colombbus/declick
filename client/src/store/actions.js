@@ -1,4 +1,5 @@
 import * as mutations from './mutation-types'
+
 import Api from '@/api'
 
 const LOCAL_STORAGE_PREFIX = 'ui'
@@ -17,7 +18,6 @@ export const loadExecuteProject = async ({ state, commit }, { id }) => {
   const resources = await Api.getAllProjectResources(project.id)
   let program = null
   if (project.mainProgramId) {
-    /*eslint-disable no-extra-semi */
     ;[{ file_name: program }] = resources.filter(
       resource => resource.id === project.mainProgramId,
     )
@@ -37,11 +37,11 @@ export const register = async ({ dispatch }, { username, email, password }) => {
 }
 
 export const autoLogIn = async ({ dispatch }) => {
-  let version = getLocalItem('version')
+  const version = getLocalItem('version')
   if (version === null || parseInt(version) !== LOCAL_STORAGE_VERSION) {
     clearLocalItems()
   } else {
-    let token = getLocalItem('token')
+    const token = getLocalItem('token')
     dispatch('logIn', { token })
   }
 }
@@ -62,7 +62,7 @@ export const logIn = async (
   commit(mutations.PROJECT_SELECTION, { project })
   dispatch('loadCurrentCourseResults')
 }
-/*eslint-disable no-unused-vars */
+
 export const logOut = async ({ commit, dispatch, state }, { token }) => {
   clearLocalItems()
   Api.destroyToken(state.token)
@@ -88,11 +88,11 @@ export const registerCurrentAssessmentResult = async (
 }
 
 export const selectCourse = async ({ commit, dispatch, state }, { id }) => {
-  let token = state.token
+  const token = state.token
   if (state.currentCourseId === parseInt(id)) {
     return
   }
-  let assessments = await Api.getAllCourseAssessments(id)
+  const assessments = await Api.getAllCourseAssessments(id)
   if (state.currentCourseId !== parseInt(id)) {
     commit(mutations.COURSE_SELECTION, {
       id: parseInt(id),
@@ -105,14 +105,14 @@ export const selectCourse = async ({ commit, dispatch, state }, { id }) => {
 }
 
 export const loadCurrentCourseResults = async ({ commit, state }) => {
-  let { user, token } = state
+  const { user, token } = state
   if (state.currentCourse) {
     if (user) {
-      let results = await Api.getAllUserResults(user.id, token)
+      const results = await Api.getAllUserResults(user.id, token)
       if (token === state.token) {
-        let filteredResults = []
+        const filteredResults = []
         state.currentCourse.forEach(assessment => {
-          let result = results.reduce((selectedResult, currentResult) => {
+          const result = results.reduce((selectedResult, currentResult) => {
             if (currentResult.assessmentId === assessment.id) {
               if (!selectedResult) {
                 return currentResult
@@ -135,7 +135,7 @@ export const loadCurrentCourseResults = async ({ commit, state }) => {
     }
   }
 }
-/*eslint-disable no-unused-vars */
+
 export const selectAssessment = async ({ dispatch, commit, state }, { id }) => {
   commit(mutations.ASSESSMENT_SELECTION, { id })
   await dispatch('registerCurrentAssessmentResult', {})
@@ -174,7 +174,7 @@ export const selectNextAssessment = ({ dispatch, state }) => {
 }
 
 export const createProject = async ({ commit, state }, { data }) => {
-  let project = await Api.createProject(data, state.token)
+  const project = await Api.createProject(data, state.token)
   await Api.updateUser(
     state.user.id,
     {
@@ -193,7 +193,7 @@ export const selectProject = async ({ commit, state }, { id }) => {
     },
     state.token,
   )
-  let project = await Api.getProject(id, state.token)
+  const project = await Api.getProject(id, state.token)
   commit(mutations.PROJECT_SELECTION, { project })
 }
 
@@ -205,6 +205,14 @@ export const getAllUserProjects = async ({ state }) => {
   return await Api.getAllUserProjects(state.user.id, state.token)
 }
 
+export const getAllProjectResources = async ({ state }) => {
+  return await Api.getAllProjectResources(
+    // state.user.currentProjectId,
+    4629,
+    state.user.token,
+  )
+}
+
 function getLocalItem(key) {
   return localStorage.getItem(`${LOCAL_STORAGE_PREFIX}.${key}`)
 }
@@ -214,7 +222,7 @@ function setLocalItem(key, value) {
 }
 
 function clearLocalItems() {
-  let keys = []
+  const keys = []
   for (let index = 0; index < localStorage.length; index++) {
     keys.push(localStorage.key(index))
   }

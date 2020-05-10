@@ -1,0 +1,28 @@
+{
+  "message": {
+    "editor": {
+      "no-program-opened": "Open or create a program to start editing."
+    }
+  },
+  "pattern": {
+    "program": {
+      "name": "new {index}"
+    },
+    "asset": {
+      "name": "image {index}"
+    }
+  },
+  "menu": {
+    "homepage": "homepage",
+    "learn": "learn",
+    "create": "create",
+    "block": "block",
+    "play": "play",
+    "resources": "resources",
+    "contact": "contact",
+    "login": "login",
+    "logout": "logout",
+    "administration": "administration",
+    "my-account": "my account"
+  }
+}
