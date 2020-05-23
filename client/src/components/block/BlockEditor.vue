@@ -13,7 +13,7 @@
 /* eslint-disable */
 // pacman-loader(color="#e22c20" v-if="loading")
 import PacmanLoader from '@/components/navigation/PacmanLoader.vue'
-import TextEditor from '@/components/ide/resources/TextEditor.vue'
+import TextEditor from '@/components/create/ide/resources/TextEditor.vue'
 import VBlockly from './VBlockly.vue'
 import VerticalBar from './VerticalBar.vue'
 
