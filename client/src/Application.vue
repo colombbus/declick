@@ -1,25 +1,23 @@
 <template lang="pug">
 .application(:class="fullscreenMode ? 'application--fullscreen': null")
   header-bar.application__header
-  main-menu
-  //- .content
-  //-   course-run(v-show="this.$route.name === 'step'")
-  //-   create-view(v-show="this.$route.name === 'create'")
-  //-   execute(v-show="this.$route.name === 'execute'")
-  //-   keep-alive
-    //-   router-view(
-    //-     v-if='$route.meta.keepAlive === undefined || $route.meta.keepAlive',
-    //-     :key='viewId',
-    //-     :id='viewId'
-    //-   )
-    //- router-view(
-    //-   v-if='$route.meta.keepAlive !== undefined && !$route.meta.keepAlive',
-    //-   :key='viewId',
-    //-   :id='viewId'
-    //- )
-  router-view
+  main-menu(v-show="!$route.meta.menuLess")
+  .content
+    course-run(v-show="this.$route.name === 'step'")
+    create-view(v-show="this.$route.name === 'create'")
+    execute(v-show="this.$route.name === 'execute'")
+    keep-alive
+      router-view(
+        v-if='$route.meta.keepAlive === undefined || $route.meta.keepAlive',
+        :key='viewId',
+        :id='viewId'
+      )
+      router-view(
+        v-if='$route.meta.keepAlive !== undefined && !$route.meta.keepAlive',
+        :key='viewId',
+        :id='viewId'
+      )
   footer-bar.application__footer(v-show='!fullscreenMode')
-
 </template>
 
 <script>
@@ -34,8 +32,7 @@ export default {
   computed: {
     viewId() {
       if (this.$route.matched) {
-        /*eslint-disable no-undef */
-        var last = R.last(this.$route.matched)
+        const last = this.$route.matched[this.$route.matched.length - 1]
         if (last && last.meta && last.meta.id) {
           return last.meta.id
         }
@@ -59,11 +56,14 @@ export default {
 
 <style lang="scss">
 .application {
-  display: grid;
+  // display: grid;
   height: 100%;
   margin: 0;
   padding: 0;
   grid-template-rows: auto auto 1fr auto;
+  .content {
+    height: 100%;
+  }
 }
 .application--fullscreen {
   .application__header,
