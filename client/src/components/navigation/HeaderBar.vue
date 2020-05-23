@@ -13,7 +13,7 @@
   display: block;
   height: 90px;
   width: 157px;
-  margin: 5px auto;
+  margin: 0 auto;
   padding: 0;
   border: 0;
   background-color: transparent;
