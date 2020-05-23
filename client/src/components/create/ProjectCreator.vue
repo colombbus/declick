@@ -3,7 +3,7 @@
   form
     label(for='project-creation-project-name')
       | nom du projet
-    close-right
+    project-name
     input#project-creation-project-name.form-control(
       v-model='name'
       type='text'
@@ -11,49 +11,57 @@
 
     label(for="is-public")
       | rendre le projet public
-    close-right
+    project-share
     input#is-public(v-model='isPublic' type='checkbox')
     
     label(for='project-creation-scene-width')
-      | largeur de la scène (pixels)
-    close-right
+      | largeur de la scène en pixels
+    project-size
     input#project-creation-scene-width.form-control(
       v-model='sceneWidth'
       type='text'
     )
     label(for='project-creation-scene-height')
-      | hauteur de la scène (pixels)
-    close-right
+      | hauteur de la scène en pixels
+    project-size.scene-height
     input#project-creation-scene-height.form-control(
       v-model='sceneHeight'
       type='text'
     )
     label(for='project-creation-description')
       | description
-    close-right
+    project-description
     textarea#project-creation-description.form-control(
       v-model='description'
       rows='3'
     )
     label(for='project-creation-instructions')
       | instructions
-    close-right
+    project-instruction
     textarea#project-creation-instructions.form-control(
       v-model='instructions'
       rows='3'
     )
-    
-    button.btn.btn-default(
-      @click="$emit('showView', 'ProjectList')"
-      type='button'
-    )
-      | annuler
-    button.btn.btn-primary(@click='createProject' type='button')
-      | créer
+    .separator
+    .form-action
+      button.btn.btn-default(
+        @click="$emit('showView', 'ProjectList')"
+        type='button'
+      )
+        | annuler
+      button.btn.btn-primary(@click='createProject' type='button')
+        | créer
 </template>
 
 <script>
 import CloseRight from '@/assets/images/controls/close.svg?inline'
+import ProjectName from '@/assets/images/controls/project-name.svg?inline'
+import ProjectShare from '@/assets/images/controls/project-share.svg?inline'
+import ProjectSize from '@/assets/images/controls/project-size.svg?inline'
+import ProjectLink from '@/assets/images/controls/link.svg?inline'
+import ProjectDescription from '@/assets/images/controls/project-description.svg?inline'
+import ProjectInstruction from '@/assets/images/controls/project-instruction.svg?inline'
+
 export default {
   data() {
     return {
@@ -81,6 +89,12 @@ export default {
   },
   components: {
     CloseRight,
+    ProjectName,
+    ProjectShare,
+    ProjectSize,
+    ProjectLink,
+    ProjectDescription,
+    ProjectInstruction,
   },
 }
 </script>
@@ -92,15 +106,22 @@ export default {
   max-width: 1048px;
   margin-right: auto;
   margin-left: auto;
+  .scene-height {
+    transform: rotate(90deg);
+  }
   form {
     display: grid;
-    grid-template-columns: 1fr 30px 1fr;
+    grid-template-columns: 1fr 36px 1fr;
+    gap: $size-2;
+    align-items: center;
     margin-bottom: $size-2;
-
+    .separator,
+    .form-action {
+      grid-column: 1/4;
+    }
     label {
       font-weight: bold;
       text-align: right;
-      padding-right: $size-2;
     }
   }
 }

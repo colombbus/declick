@@ -1,7 +1,5 @@
 <template lang="pug">
 .project-list
-  h3
-    | Mes projets
   button.btn.btn-default(@click="$emit('showView', 'ProjectCreator')")
     i.fa.fa-plus
     | démarrer un nouveau projet

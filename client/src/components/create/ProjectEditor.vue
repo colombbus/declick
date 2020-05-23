@@ -1,66 +1,72 @@
 <template lang="pug">
 .project-editor
-  h3
-    | modification du projet
   form
-    fieldset
-      .form-group
-        label(for='project-edition-project-name')
-          | nom du projet
-        input#project-edition-project-name.form-control(
-          v-model='name'
-          type='text'
+    .form-group
+      label(for='project-edition-project-name')
+        | nom du projet
+      project-name
+      input#project-edition-project-name.form-control(
+        v-model='name'
+        type='text'
+      )
+    .checkbox
+      label(for='project-edition-is-public')
+        | rendre le projet public
+      project-share
+      input#project-edition-is-public(v-model='isPublic' type='checkbox')
+    
+    .form-group
+      label(for='project-edition-scene-width')
+        | largeur de la scène (pixels)
+      project-size
+      input#project-edition-scene-width.form-control(
+        v-model='sceneWidth'
+        min="0"
+        max="20000"
+        type='number'
+      )
+    .form-group
+      label(for='project-edition-scene-height')
+        | hauteur de la scène (pixels)
+      project-size.scene-height
+      input#project-edition-scene-height.form-control(
+        v-model='sceneHeight'
+        min="0"
+        max="20000"
+        type='number'
+      )
+    .form-group
+      label(for='project-edition-description')
+        | description
+      project-description
+      textarea#project-edition-description.form-control(
+        v-model='description'
+        rows='3'
+      )
+    .form-group
+      label(for='project-edition-instructions')
+        | instructions
+      project-instruction
+      textarea#project-edition-instructions.form-control(
+        v-model='instructions'
+        rows='3'
+      )
+    .form-group
+      label(for='project-edition-main-program-id')
+        | programme principal
+      project-mainfile
+      select#project-edition-main-program-id.form-control(
+        v-if='resources'
+        v-model='mainProgramId'
+      )
+        option(
+          v-for='resource in resources'
+          v-if="resource.media_type === 'text/vnd.colombbus.declick.script'",
+          :value='resource.id',
+          :class='{selected: mainProgramId === resource.id}'
         )
-      .checkbox
-        label(for='project-edition-is-public')
-          | rendre le projet public
-        input#project-edition-is-public(v-model='isPublic' type='checkbox')
-      .form-group
-        label(for='project-edition-scene-width')
-          | largeur de la scène (pixels)
-        input#project-edition-scene-width.form-control(
-          v-model='sceneWidth'
-          min="0"
-          max="20000"
-          type='number'
-        )
-      .form-group
-        label(for='project-edition-scene-height')
-          | hauteur de la scène (pixels)
-        input#project-edition-scene-height.form-control(
-          v-model='sceneHeight'
-          min="0"
-          max="20000"
-          type='number'
-        )
-      .form-group
-        label(for='project-edition-description')
-          | description
-        textarea#project-edition-description.form-control(
-          v-model='description'
-          rows='3'
-        )
-      .form-group
-        label(for='project-edition-instructions')
-          | instructions
-        textarea#project-edition-instructions.form-control(
-          v-model='instructions'
-          rows='3'
-        )
-      .form-group
-        label(for='project-edition-main-program-id')
-          | programme principal
-        select#project-edition-main-program-id.form-control(
-          v-if='resources'
-          v-model='mainProgramId'
-        )
-          option(
-            v-for='resource in resources'
-            v-if="resource.media_type === 'text/vnd.colombbus.declick.script'",
-            :value='resource.id',
-            :class='{selected: mainProgramId === resource.id}'
-          )
-            | {{resource.file_name}}
+          | {{resource.file_name}}
+    .separator
     .form-action
       button.btn.btn-default(
         @click='showProjectDetails'
@@ -74,7 +80,13 @@
 
 <script>
 import Api from '@/api'
-
+import ProjectName from '@/assets/images/controls/project-name.svg?inline'
+import ProjectShare from '@/assets/images/controls/project-share.svg?inline'
+import ProjectSize from '@/assets/images/controls/project-size.svg?inline'
+import ProjectLink from '@/assets/images/controls/link.svg?inline'
+import ProjectDescription from '@/assets/images/controls/project-description.svg?inline'
+import ProjectInstruction from '@/assets/images/controls/project-instruction.svg?inline'
+import ProjectMainfile from '@/assets/images/controls/project-mainfile.svg?inline'
 export default {
   props: ['params'],
   data() {
@@ -137,6 +149,15 @@ export default {
       })
     },
   },
+  components: {
+    ProjectName,
+    ProjectShare,
+    ProjectSize,
+    ProjectLink,
+    ProjectDescription,
+    ProjectInstruction,
+    ProjectMainfile,
+  },
 }
 </script>
 
@@ -148,17 +169,10 @@ export default {
   margin-left: auto;
   margin-right: auto;
 
-  fieldset {
-    border: 1px solid $border-color;
-    padding: $size-3;
-    margin-bottom: $size-3;
-  }
-
-  .form-action,
   .form-group,
   .checkbox {
     display: grid;
-    grid-template-columns: 1fr 1fr 1fr;
+    grid-template-columns: 1fr 36px 1fr;
     gap: 8px;
     align-items: center;
     margin-bottom: $size-2;
