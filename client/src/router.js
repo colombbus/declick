@@ -8,6 +8,7 @@ import CmsDocument from '@/components/CmsDocument'
 import Course from '@/components/learn/Course'
 import CourseList from '@/components/learn/CourseList'
 import BlockEditor from '@/components/block/BlockEditor'
+import CreateView from '@/components/create/CreateView'
 
 import Progress from '@/components/learn/Progress'
 import DeclickMap from '@/components/learn/DeclickMap'
@@ -17,14 +18,19 @@ import config from '@/config'
 // import AdministrationCourseList from '@/components/administration/CourseList'
 // import CourseEditor from '@/components/administration/CourseEditor'
 // import UserList from "@/components/user/UserList";
-import UserProfile from '@/components/user/UserProfile'
-import UserEditor from '@/components/user/UserEditor'
+// import UserProfile from '@/components/user/UserProfile'
+// import UserEditor from '@/components/user/UserEditor'
+import UserShow from '@/components/user/UserShow'
+import UserEdit from '@/components/user/UserEdit'
+
+import ProjectsShow from '@/components/project/ProjectsShow'
+import ProjectShow from '@/components/project/ProjectShow'
+import ProjectNew from '@/components/project/ProjectNew'
 
 // import courseRunfrom from '@/components/learn/CourseRun_new'
 
 import HomePage from '@/components/HomePage.vue'
 import ResourcesPage from '@/components/ResourcesPage.vue'
-import Ide from '@/components/ide/Ide.vue'
 
 const routes = [
   {
@@ -36,17 +42,17 @@ const routes = [
       title: 'Accueil',
     },
   },
-  {
-    path: '/ide',
-    name: 'ide',
-    component: Ide,
-    meta: {
-      useFullscreen: true,
-    },
-  },
+  // {
+  //   path: '/ide',
+  //   name: 'ide',
+  //   component: Ide,
+  //   meta: {
+  //     useFullscreen: true,
+  //   },
+  // },
   {
     path: '/users/:id',
-    component: UserProfile,
+    component: UserShow,
     meta: {
       title: 'Utilisateurs',
       keepAlive: false,
@@ -55,13 +61,44 @@ const routes = [
   },
   {
     path: '/users/:id/edit',
-    component: UserEditor,
+    component: UserEdit,
     meta: {
       title: 'Modification de profil utilisateur',
       keepAlive: false,
     },
     props: true,
   },
+  {
+    name: 'Create View',
+    path: '/create',
+    component: CreateView,
+    meta: {
+      useFullscreen: true,
+      menuLess: true,
+    },
+  },
+  // {
+  //   name: 'Projects list',
+  //   path: '/users/:id/projects',
+  //   component: ProjectsShow,
+  //   meta: {
+  //     title: 'Projects list',
+  //   },
+  // },
+  // {
+  //   path: '/users/:id/projects/new',
+  //   component: ProjectNew,
+  //   meta: {
+  //     title: 'new project',
+  //   },
+  // },
+  // {
+  //   path: '/users/:id/projects/:pid',
+  //   component: ProjectShow,
+  //   meta: {
+  //     title: 'Project show',
+  //   },
+  // },
   {
     name: 'execute',
     path: '/execute/:projectId',
