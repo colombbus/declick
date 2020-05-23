@@ -1,69 +1,75 @@
 <template lang="pug">
-div
+.project-editor
   h3
-    | Nouveau projet
+    | modification du projet
   form
-    .form-group
-      label(for='project-edition-project-name')
-        | nom du projet
-      input#project-edition-project-name.form-control(
-        v-model='name'
-        type='text'
-      )
-    .checkbox
-      label
-        input(v-model='isPublic' type='checkbox')
-        | rendre le projet public
-    .form-group
-      label(for='project-edition-scene-width')
-        | largeur de la scène (pixels)
-      input#project-edition-scene-width.form-control(
-        v-model='sceneWidth'
-        type='text'
-      )
-    .form-group
-      label(for='project-edition-scene-height')
-        | hauteur de la scène (pixels)
-      input#project-edition-scene-height.form-control(
-        v-model='sceneHeight'
-        type='text'
-      )
-    .form-group
-      label(for='project-edition-description')
-        | description
-      textarea#project-edition-description.form-control(
-        v-model='description'
-        rows='3'
-      )
-    .form-group
-      label(for='project-edition-instructions')
-        | instructions
-      textarea#project-edition-instructions.form-control(
-        v-model='instructions'
-        rows='3'
-      )
-    .form-group
-      label(for='project-edition-main-program-id')
-        | programme principal
-      select#project-edition-main-program-id.form-control(
-        v-if='resources'
-        v-model='mainProgramId'
-      )
-        option(
-          v-for='resource in resources'
-          v-if="resource.media_type === 'text/vnd.colombbus.declick.script'",
-          :value='resource.id',
-          :class='{selected: mainProgramId === resource.id}'
+    fieldset
+      .form-group
+        label(for='project-edition-project-name')
+          | nom du projet
+        input#project-edition-project-name.form-control(
+          v-model='name'
+          type='text'
         )
-          | {{resource.file_name}}
-    button.btn.btn-default(
-      @click='showProjectDetails'
-      type='button'
-    )
-      | annuler
-    | &nbsp;
-    button.btn.btn-primary(@click='updateProject' type='button')
-      | enregistrer les modifications
+      .checkbox
+        label(for='project-edition-is-public')
+          | rendre le projet public
+        input#project-edition-is-public(v-model='isPublic' type='checkbox')
+      .form-group
+        label(for='project-edition-scene-width')
+          | largeur de la scène (pixels)
+        input#project-edition-scene-width.form-control(
+          v-model='sceneWidth'
+          min="0"
+          max="20000"
+          type='number'
+        )
+      .form-group
+        label(for='project-edition-scene-height')
+          | hauteur de la scène (pixels)
+        input#project-edition-scene-height.form-control(
+          v-model='sceneHeight'
+          min="0"
+          max="20000"
+          type='number'
+        )
+      .form-group
+        label(for='project-edition-description')
+          | description
+        textarea#project-edition-description.form-control(
+          v-model='description'
+          rows='3'
+        )
+      .form-group
+        label(for='project-edition-instructions')
+          | instructions
+        textarea#project-edition-instructions.form-control(
+          v-model='instructions'
+          rows='3'
+        )
+      .form-group
+        label(for='project-edition-main-program-id')
+          | programme principal
+        select#project-edition-main-program-id.form-control(
+          v-if='resources'
+          v-model='mainProgramId'
+        )
+          option(
+            v-for='resource in resources'
+            v-if="resource.media_type === 'text/vnd.colombbus.declick.script'",
+            :value='resource.id',
+            :class='{selected: mainProgramId === resource.id}'
+          )
+            | {{resource.file_name}}
+    .form-action
+      button.btn.btn-default(
+        @click='showProjectDetails'
+        type='button'
+      )
+        | annuler
+      | &nbsp;
+      button.btn.btn-primary(@click='updateProject' type='button')
+        | enregistrer les modifications
 </template>
 
 <script>
@@ -101,7 +107,7 @@ export default {
   },
   methods: {
     async updateProject() {
-      let data = {
+      const data = {
         name: this.name,
         isPublic: this.isPublic,
         sceneWidth: this.sceneWidth,
@@ -110,11 +116,11 @@ export default {
         instructions: this.instructions,
         mainProgramId: this.mainProgramId,
       }
-      let storeUpProject = await this.$store.dispatch('updateProject', {
+      const storeUpProject = await this.$store.dispatch('updateProject', {
         id: this.params.project.id,
         data,
       })
-      console.debug(storeUpProject)
+      // console.debug(storeUpProject)
       this.params.project.name = this.name
       this.params.project.isPublic = this.isPublic
       this.params.project.sceneWidth = this.sceneWidth
@@ -133,3 +139,42 @@ export default {
   },
 }
 </script>
+
+<style lang="scss">
+@import '~@/assets/styles/globals';
+
+.project-editor {
+  max-width: 1048px;
+  margin-left: auto;
+  margin-right: auto;
+
+  fieldset {
+    border: 1px solid $border-color;
+    padding: $size-3;
+    margin-bottom: $size-3;
+  }
+
+  .form-action,
+  .form-group,
+  .checkbox {
+    display: grid;
+    grid-template-columns: 1fr 1fr 1fr;
+    gap: 8px;
+    align-items: center;
+    margin-bottom: $size-2;
+    label {
+      font-weight: bold;
+      text-align: right;
+    }
+  }
+  .checkbox input {
+    justify-self: start;
+  }
+
+  textarea {
+    padding: $size-2;
+    border-radius: $size-1;
+    border: 1px solid $border-color;
+  }
+}
+</style>

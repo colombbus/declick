@@ -4,37 +4,46 @@
   create-menu-bar(
     @showView='showView'
     @toggleEditor='editor = !editor'
-    v-bind:editor='editor'
+    :editor='editor'
   )
   transition(
-    v-on:before-enter='beforeEnter'
-    v-on:enter='onEnter'
-    v-on:leave='onLeave'
-    v-bind:css='false'
+    @before-enter='beforeEnter'
+    @enter='onEnter'
+    @leave='onLeave'
+    :css='false'
   )
     .slider(v-if='view')
-      button.close-button(@click='view = null')
-      component(
-        @showView='showView',
-        @close='view = null',
-        :is='view',
-        :params='params'
-        v-if='view'
-      )
-  iframe.wikiFrame(:src='wikiUrl', ref='wikiFrame')
-  iframe.frame(:src='frameUrl' ref='createFrame')
+      .container
+        .slider-header
+          h3
+            | Mes projets 
+            chevron-right.breadcrumb-chevron
+            | Nouveau projet
+          declick-logo(class="declick-logo")
+          button.close-button(@click='view = null')
+        component(
+          @showView='showView',
+          @close='view = null',
+          :is='view',
+          :params='params'
+          v-if='view'
+        )
+    ide(v-else)
 </template>
 
 <script>
 import { mapState } from 'vuex'
 import CreateHeaderBar from './CreateHeaderBar'
 import CreateMenuBar from './CreateMenuBar'
+import Ide from './ide/Ide'
 import ProjectCreator from './ProjectCreator'
 import ProjectDetails from './ProjectDetails'
 import ProjectEditor from './ProjectEditor'
 import ProjectList from './ProjectList'
 import config from '@/config'
 import { EventBus } from '@/eventBus'
+import DeclickLogo from '@/assets/images/declick.svg?inline'
+import ChevronRight from '@/assets/images/chevron.svg?inline'
 
 export default {
   data() {
@@ -76,7 +85,7 @@ export default {
       },
       false,
     )
-    let createFrame = this.$refs.createFrame
+    const createFrame = this.$refs.createFrame
     EventBus.$on('initCreate', () => {
       createFrame.contentWindow.postMessage('init', '*')
     })
@@ -91,16 +100,15 @@ export default {
       }
     },
     beforeEnter(element) {
-      /*eslint-disable no-undef */
-      $(element).hide()
+      // $(element).hide()
     },
     onEnter(element, done) {
-      /*eslint-disable no-undef */
-      $(element).slideDown(1000, done)
+      // $(element).slideDown(1000, done)
+      done()
     },
     onLeave(element, done) {
-      /*eslint-disable no-undef */
-      $(element).slideUp(1000, done)
+      done()
+      // $(element).slideUp(1000, done)
     },
     toggleWiki() {
       // Disabled in favor of new interface components.
@@ -123,6 +131,9 @@ export default {
   components: {
     CreateHeaderBar,
     CreateMenuBar,
+    DeclickLogo,
+    ChevronRight,
+    Ide,
     ProjectCreator,
     ProjectDetails,
     ProjectEditor,
@@ -131,42 +142,93 @@ export default {
 }
 </script>
 
-<style lang="scss" scoped>
+<style lang="scss">
+@import '~@/assets/styles/globals';
+
 .create-view {
   position: relative;
-}
+  height: 100%;
 
-.slider {
-  position: absolute;
-  height: calc(100vh - 112px);
-  width: 100%;
-  padding: 10px;
-  background-color: #fff;
-  overflow: auto;
-}
-.close-button {
-  float: right;
-  width: 26px;
-  height: 26px;
-  margin-top: 20px;
-  background-color: transparent;
-  background-image: url(~@/assets/images/close-small.png);
-  border: none;
-}
+  .slider {
+    position: absolute;
+    top: 112px;
+    right: 0;
+    bottom: 0;
+    left: 0;
+    padding: $size-3;
+    background-color: #fff;
+    overflow: auto;
+    .slider-header {
+      display: grid;
+      grid-template-columns: 1fr 1fr 1fr;
+      justify-content: space-between;
+      align-items: center;
+      .declick-logo {
+        justify-self: center;
+        width: 100px;
+        .triangle-1,
+        .triangle-2 {
+          fill: $cab-sav;
+        }
+        .letter-d,
+        .letter-k {
+          fill: $crimson;
+        }
+        .letter-e,
+        .letter-c1,
+        .letter-l,
+        .letter-i,
+        .letter-c2 {
+          fill: $white;
+        }
+        .robot-eyes {
+          fill: $crimson;
+        }
+        .robot-head {
+          fill: $robot-face;
+        }
+        .robot-body {
+          fill: $crimson;
+        }
+      }
+      .breadcrumb-chevron {
+        vertical-align: middle;
+        fill: $crimson;
+        margin: 0 $size-1;
+      }
+    }
+    .close-button {
+      justify-self: end;
+      float: right;
+      width: 26px;
+      height: 26px;
+      background-color: transparent;
+      background-image: url(~@/assets/images/controls/close.svg);
+      border: none;
+    }
+  }
 
-.frame {
-  height: calc(100vh - 112px);
-  width: 100%;
-  padding: 0 8px 8px 8px;
-  border: none;
-  overflow: hidden;
-}
+  .frame {
+    height: calc(100vh - 112px);
+    width: 100%;
+    padding: 0 8px 8px 8px;
+    border: none;
+    overflow: hidden;
+  }
 
-.wikiFrame {
-  position: absolute;
-  height: calc(100vh - 112px);
-  width: 365px;
-  display: none;
-  border: none;
+  .wikiFrame {
+    position: absolute;
+    height: calc(100vh - 112px);
+    width: 365px;
+    display: none;
+    border: none;
+  }
+  .ide {
+    height: calc(100% - 100px);
+  }
+  .dropdown {
+    position: absolute;
+    z-index: 10;
+  }
 }
 </style>

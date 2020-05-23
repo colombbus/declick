@@ -1,24 +1,36 @@
 <template lang="pug">
-div
+.project-details
   h3
-    | Mes projets > {{project.name}}
+    | Mes projets 
+    i.fa.fa-angle-right.breadcrumb
+    | {{ project.name }}
   .panel.panel-default
-    dl
-      dt nom du projet
-      dd {{project.name}}
-      dt lien vers l'application
-      dd: router-link(:to="{name: 'execute', params: {projectId: project.id}}")
-        | {{project.name}}
-      dt public
-      dd {{project.isPublic ? 'oui' : 'non'}}
-      dt largeur de la scène
-      dd {{project.sceneWidth}}
-      dt hauteur de la scène
-      dd {{project.sceneHeight}}
-      dt description
-      dd {{project.description}}
-      dt instructions
-      dd {{project.instructions}}
+    table
+      tr
+        th nom du projet
+        td {{ project.name }}
+      tr
+        th lien vers l'application
+        td: router-link(:to="{name: 'execute', params: { projectId: project.id }}")
+          | {{ project.name }}
+      tr
+        th public
+        td {{ project.isPublic ? 'oui' : 'non' }}
+      tr
+        th largeur de la scène
+        td {{ project.sceneWidth }}
+      tr
+        th hauteur de la scène
+        td {{ project.sceneHeight }}
+      tr
+        th description
+        td {{ project.description }}
+      tr
+        th instructions
+        td {{ project.instructions }}
+      tr
+        th programme principal
+        td {{ mainProgramName }}
   button.btn.btn-default(
     @click="$emit('showView', {view: 'ProjectEditor', params: {project}})"
     type='button'
@@ -44,6 +56,14 @@ import Api from '@/api'
 
 export default {
   props: ['params'],
+  data() {
+    return {
+      mainProgramName: null,
+    }
+  },
+  mounted() {
+    this.getMainProgramName(this.params.project.mainProgramId)
+  },
   computed: {
     project() {
       return this.params.project
@@ -51,6 +71,11 @@ export default {
     ...mapState(['currentProject', 'user']),
   },
   methods: {
+    async getMainProgramName(id) {
+      const resources = await this.getAllProjectResources()
+      const [{ file_name }] = resources.filter(r => r.id === id)
+      this.mainProgramName = file_name
+    },
     async selectAsCurrentProject() {
       await this.selectProject({ id: this.project.id })
       this.$emit('close')
@@ -62,25 +87,36 @@ export default {
       }
       this.$emit('showView', { view: 'ProjectList' })
     },
-    ...mapActions(['selectProject']),
+    ...mapActions(['selectProject', 'getAllProjectResources']),
   },
 }
 </script>
 
-<style lang="scss" scoped>
-.panel {
-  padding-top: 20px;
-}
-dt {
-  display: inline-block;
-  padding: 5px;
-  width: 25%;
-  font-weight: bold;
-  text-align: right;
-}
-dd {
-  display: inline-block;
-  width: 75%;
-  padding: 5px;
+<style lang="scss">
+@import '~@/assets/styles/globals';
+
+.project-details {
+  max-width: 1048px;
+  margin-left: auto;
+  margin-right: auto;
+
+  table {
+    display: block;
+    border: 1px solid $border-color;
+    padding: $size-3;
+    margin-bottom: $size-3;
+
+    tr {
+      display: grid;
+      grid-template-columns: 1fr 1fr 1fr;
+      gap: 8px;
+
+      padding: $size-2;
+      height: 34px;
+      th {
+        text-align: right;
+      }
+    }
+  }
 }
 </style>
