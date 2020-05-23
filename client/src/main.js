@@ -1,12 +1,14 @@
+import './registerServiceWorker'
+
 import Vue from 'vue'
 import { mapActions } from 'vuex'
+import VueSEO from 'vue-analytics'
+
+import Application from '@/Application'
+import config from '@/config'
 import router from '@/router'
 import store from '@/store'
-import config from '@/config'
-import Application from '@/Application'
-import VueSEO from 'vue-analytics'
-import i18n from './i18n'
-import './registerServiceWorker'
+import i18n from './translations'
 
 // document.domain = config.domain
 
