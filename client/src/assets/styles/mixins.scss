@@ -16,7 +16,67 @@
     cursor: pointer;
     outline: 0;
 
-    &:hover {
-        background-image: url(add-file-modifier($image, "-active"));
+    // &:hover {
+    //     background-image: url(add-file-modifier($image, "-active"));
+    // }
+}
+
+@mixin table-column-hover($color) {
+    table {
+        border-spacing: 0;
+        border-collapse: collapse;
+        overflow: hidden;
+        z-index: 1;
+    }
+
+    td,
+    th,
+    .ff-fix {
+        cursor: pointer;
+        padding: 10px;
+        position: relative;
+    }
+
+    td:hover::after,
+    .ff-fix:hover::after {
+        background-color: $color;
+        content: '\00a0';
+        height: 10000px;
+        left: 0;
+        position: absolute;
+        top: -5000px;
+        width: 100%;
+        z-index: -1;
     }
 }
+
+@mixin ratio-container($width, $height) {
+    position: relative;
+    height: 0;
+    padding-bottom: $height / $width * 100%;
+  
+    & > * {
+      position: absolute;
+      top: 0;
+      left: 0;
+      height: 100%;
+      width: 100%;
+    }
+  }
+  
+  @mixin full-width-background($background) {
+    position: relative;
+  
+    &:before {
+      content: "";
+      position: absolute;
+      top: 0;
+      left: -9999px;
+      right: -9999px;
+      display: block;
+      height: 100%;
+      background: $background;
+      z-index: -1;
+    }
+  }
+  
