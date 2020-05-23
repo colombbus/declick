@@ -6,3 +6,5 @@ server/.env
 server/storage/app/projects
 **.htaccess
 client/dist/*
+client/public/regis/
+client/src/assets/js/config.js
