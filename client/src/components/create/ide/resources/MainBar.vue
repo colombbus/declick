@@ -48,7 +48,7 @@ export default {
 
 .main-bar {
   &__help {
-    @include image-button('~@/assets/images/controls/buoy.png');
+    @include image-button('~@/assets/images/controls/buoy.svg');
   }
 
   &__hints {

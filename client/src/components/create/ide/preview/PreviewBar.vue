@@ -36,7 +36,7 @@ export default {
 
 .preview-bar {
   &__help {
-    @include image-button('~@/assets/images/controls/buoy.png');
+    @include image-button('~@/assets/images/controls/buoy.svg');
   }
 
   &__hints {
@@ -46,7 +46,7 @@ export default {
   }
 
   &__design-mode {
-    @include image-button('~@/assets/images/controls/crane.png');
+    @include image-button('~@/assets/images/controls/crane.svg');
 
     margin-left: auto;
   }

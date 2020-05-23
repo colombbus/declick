@@ -1,7 +1,14 @@
 <template lang="pug">
 .resource-panel(:class='`resource-panel--${view}`')
-  program-list(v-show="view === 'programs'" @select="$emit('select',$event)")
-  asset-list(v-show="view === 'assets'")
+  program-list(
+    v-show="view === 'programs'" 
+    @select="$emit('select', $event)"
+    :programs="programs"
+  )
+  asset-list(
+    v-show="view === 'assets'"
+    :assets="assets"
+  )
   .resource-panel__tabs
     button.resource-panel__switch-programs(@click="view = 'programs'" type='button')
     button.resource-panel__switch-assets(@click="view = 'assets'" type='button')
@@ -10,12 +17,38 @@
 <script>
 import AssetList from './AssetList.vue'
 import ProgramList from './ProgramList.vue'
+import { mapActions } from 'vuex'
 
 export default {
   data() {
     return {
       view: 'programs',
+      programs: null,
+      assets: null,
     }
+  },
+  mounted() {
+    if (this.$store.state.user) {
+      this.getResources()
+    }
+  },
+  methods: {
+    async getResources() {
+      const currentProjectId = this.$store.state.user.currentProjectId
+      const resources = await this.getAllProjectResources(currentProjectId)
+      this.programs = resources.filter(
+        r => r.media_type === 'text/vnd.colombbus.declick.script',
+      )
+      this.assets = resources.filter(r => r.media_type.includes('image'))
+      // console.log(currentProjectId, resources, this.programs, this.assets)
+    },
+    ...mapActions(['getAllProjectResources']),
+  },
+  watch: {
+    '$store.state.user': function(user) {
+      console.log('user updated /current from state ::! need save ??')
+      this.getResources()
+    },
   },
   components: {
     AssetList,

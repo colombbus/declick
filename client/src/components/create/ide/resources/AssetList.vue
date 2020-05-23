@@ -7,8 +7,9 @@
       @rename='name => renameAsset(asset.id, name)'
       @destroy='destroyAsset(asset.id)'
       :key='asset.id'
-      :name='asset.name'
+      :name='asset.file_name'
       :selected='selectedId === asset.id'
+      :url='generateUrl(asset)'
     )
   .asset-list__controls
     button.asset-list__new(@click='createAsset' type='button')
@@ -17,18 +18,25 @@
 
 <script>
 import range from 'lodash.range'
+import config from '@/assets/js/config'
 
 import AssetItem from './AssetItem.vue'
 
 export default {
   data() {
     return {
-      assets: [],
+      // assets: [],
       selectedId: null,
     }
   },
+  props: {
+    assets: {
+      type: Array,
+      default: () => [],
+    },
+  },
   created() {
-    range(0, 5).forEach(() => this.createAsset())
+    // range(0, 5).forEach(() => this.createAsset())
   },
   methods: {
     select(id) {
@@ -67,11 +75,19 @@ export default {
       }
       return i
     },
+    generateUrl(asset) {
+      const mimeType = asset.media_type.split('/')[1]
+      return `${config.apiUrl}projects/${asset.project_id}/resources/${asset.id}/content.${mimeType}`
+    },
   },
   computed: {
     orderedAssets() {
       const self = this
-      return self.assets.sort((a, b) => a.name.localeCompare(b.name))
+      if (self.assets !== null) {
+        return self.assets.sort((a, b) =>
+          a.file_name.localeCompare(b.file_name),
+        )
+      } else return []
     },
   },
   components: {
@@ -81,7 +97,7 @@ export default {
 </script>
 
 <style lang="scss">
-@import "~@/assets/styles/mixins";
+@import '~@/assets/styles/mixins';
 
 .asset-list {
   width: 375px;
@@ -114,11 +130,11 @@ export default {
 
 .asset-list {
   &__new {
-    @include image-button("~@/assets/images/controls/new.png");
+    @include image-button('~@/assets/images/controls/new.png');
   }
 
   &__delete {
-    @include image-button("~@/assets/images/controls/delete.png");
+    @include image-button('~@/assets/images/controls/delete.png');
   }
 }
 </style>

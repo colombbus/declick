@@ -8,7 +8,7 @@
 import * as ace from 'brace'
 import { mapActions, mapState, mapGetters } from 'vuex'
 import { debounce } from 'underscore'
-import   Favico from 'favico.js'
+import Favico from 'favico.js'
 import 'brace/mode/javascript'
 import 'brace/ext/modelist'
 import 'brace/ext/themelist'
@@ -23,7 +23,7 @@ export default {
     var favicon = new Favico({
       animation: 'slide',
     })
-    favicon.badge('hl')
+    // favicon.badge('hl')
   },
   methods: {
     createEditor() {
@@ -48,8 +48,8 @@ export default {
         }, 300),
       )
     },
-    ...mapActions(['setCurrentProgramContent']),
-    ...mapGetters(['getCurrentProgramName', 'getCurrentProgramContent']),
+    ...mapActions(['setCurrentProgramContent', 'getCurrentProgramContent']),
+    ...mapGetters(['getCurrentProgramName']),
     ...mapState(['currentProgramName']),
   },
   computed: {
@@ -58,8 +58,8 @@ export default {
     },
   },
   watch: {
-    programName() {
-      const content = this.getCurrentProgramContent()
+    async programName() {
+      const content = await this.getCurrentProgramContent()
       if (
         typeof content !== 'undefined' &&
         typeof this.editSession !== 'undefined'

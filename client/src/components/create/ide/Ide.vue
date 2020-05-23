@@ -16,11 +16,11 @@
 </template>
 
 <script>
-import Preview from '@/components/ide/preview/Preview.vue'
-import ResourceManager from '@/components/ide/resources/ResourceManager.vue'
+import Preview from './preview/Preview.vue'
+import ResourceManager from './resources/ResourceManager.vue'
 import Help from './Help.vue'
-import DeclickRuntime from '../../../../runtime/lib/declick-runtime'
-import DeclickObjects from '../../../../objects/lib/declick-objects'
+// import DeclickRuntime from '../../../../runtime/lib/declick-runtime'
+// import DeclickObjects from '../../../../objects/lib/declick-objects'
 
 import { mapGetters } from 'vuex'
 
@@ -32,25 +32,25 @@ export default {
       onKeyUp: null,
     }
   },
-  created() {
+  async created() {
     this.onKeyUp = event => {
       if (event.ctrlKey && event.keyCode === 13) {
         this.toggleView()
       }
     }
     document.addEventListener('keyup', this.onKeyUp)
-    DeclickObjects.load('fr').then(objects => {
-      DeclickRuntime.initialize('fr', objects)
-    })
+    // DeclickObjects.load('fr').then(objects => {
+    //   DeclickRuntime.initialize('fr', objects)
+    // })
   },
   destroyed() {
     document.removeEventListener('keyup', this.onKeyUp)
   },
   mounted() {
-    DeclickRuntime.initDisplay(
-      document.getElementsByClassName('preview__canvas')[0],
-      document.getElementsByClassName('preview__canvas_container')[0],
-    )
+    // DeclickRuntime.initDisplay(
+    //   document.getElementsByClassName('preview__canvas')[0],
+    //   document.getElementsByClassName('preview__canvas_container')[0],
+    // )
   },
   methods: {
     ...mapGetters(['getCurrentProgramContent']),
@@ -63,15 +63,15 @@ export default {
     },
     execute() {
       // console.log(this.getCurrentProgramContent());
-
       // DeclickRuntime.executeCode(this.getCurrentProgramContent())
-      DeclickRuntime.clear()
-      DeclickRuntime.startGraphics().then(() => {
-        DeclickRuntime.executeCode(
-          this.$store.state.programs.get(this.$store.state.currentProgramName),
-        )
-        this.view = 'preview'
-      })
+      //
+      // DeclickRuntime.clear()
+      // DeclickRuntime.startGraphics().then(() => {
+      //   DeclickRuntime.executeCode(
+      //     this.$store.state.programs.get(this.$store.state.currentProgramName),
+      //   )
+      //   this.view = 'preview'
+      // })
     },
   },
   components: {
@@ -84,7 +84,7 @@ export default {
 
 <style lang="scss">
 .ide {
-  height: 100vh;
+  height: 100%;
   width: 100%;
   display: grid;
   grid-template-areas: 'help content';

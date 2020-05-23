@@ -2,12 +2,12 @@
 .program-list
   .program-list__content
     program-item(
-      v-for='program in orderedPrograms'
+      v-for='program in programs'
       @select='select(program.id)'
       @rename='name => renameProgram(program.id, name)'
       @destroy='destroyProgram(program.id)'
       :key='program.id'
-      :name='program.name'
+      :name='program.file_name'
       :selected='selectedId === program.id'
       :id='program.id'
     )
@@ -23,31 +23,32 @@ import { mapState, mapActions } from 'vuex'
 export default {
   data() {
     return {
-      programs: [],
       selectedId: null,
     }
   },
-  created() {
-    this.createProgram()
+  props: {
+    programs: {
+      type: Array,
+      default: () => [],
+    },
   },
-  mounted() {
-    this.select(1)
-  },
+  created() {},
+  mounted() {},
   methods: {
     select(id) {
       this.$nextTick(() => (this.selectedId = id))
-
-      const name = this.programs.find(program => program.id === id).name
+      const name = this.programs.find(program => program.id === id).file_name
       this.setCurrentProgramName({ name })
+      // this.setCurrentProgramContent({ id: name, content: this.getProjetResourceContent() })
       this.$emit('select', name)
     },
     renameProgram(id, newName) {
-      this.programs.find(program => program.id === id).name = newName
+      this.programs.find(program => program.id === id).file_name = newName
     },
     createProgram() {
       const id = this.generateId()
       const name = this.generateName()
-      this.programs.push({ id, name })
+      this.programs.push({ id, file_name: name })
       this.setCurrentProgramContent({ id: name, content: '' })
     },
     destroySelectedProgram() {
@@ -62,7 +63,7 @@ export default {
     generateName() {
       let i = 1
       const name = index => this.$t('pattern.program.name', { index })
-      while (this.programs.some(program => program.name === name(i))) {
+      while (this.programs.some(program => program.file_name === name(i))) {
         i++
       }
       return name(i)
@@ -74,11 +75,23 @@ export default {
       }
       return i
     },
-    ...mapActions(['setCurrentProgramName', 'setCurrentProgramContent']),
+    ...mapActions([
+      'setCurrentProgramName',
+      'setCurrentProgramContent',
+      'getProjetResourceContent',
+    ]),
+  },
+  watch: {
+    programs: function() {
+      if (this.programs.length > 0) {
+        this.select(this.programs[0].id)
+      }
+    },
   },
   computed: {
     orderedPrograms() {
-      return this.programs.sort((a, b) => a.name.localeCompare(b.name))
+      const self = this
+      return self.programs.sort((a, b) => a.name.localeCompare(b.file_name))
     },
   },
   components: {

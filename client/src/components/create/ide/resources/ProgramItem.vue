@@ -107,7 +107,7 @@ export default {
 </script>
 
 <style lang="scss">
-@import "~@/assets/styles/mixins";
+@import '~@/assets/styles/mixins';
 
 .program-item {
   color: #480a2a;
@@ -118,7 +118,8 @@ export default {
     background: #ddd6dd;
   }
 
-  &--selected-active, &:hover {
+  &--selected-active,
+  &:hover {
     background: #f0f0f0;
   }
 }
