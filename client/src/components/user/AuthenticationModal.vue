@@ -74,7 +74,7 @@ export default {
         })
         this.$emit('close')
       } catch (e) {
-        this.error = e.body.errors
+        // this.error = e.body.errors
       } finally {
         this.isLogingIn = false
       }

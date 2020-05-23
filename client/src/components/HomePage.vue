@@ -138,19 +138,14 @@
 </template>
 
 <style lang="scss">
-@import "~@/styles/mixins";
-
-$crimson: #e32c20;
-$cab-sav: #480a2a;
-$red-violet: #de1580;
-$white: #fff;
-$wine-berry: #531937;
+@import '~@/assets/styles/mixins';
+@import '~@/assets/styles/globals';
 
 $vertical-gap: 40px;
 
 @mixin postline($color) {
   &:after {
-    content: "";
+    content: '';
     display: block;
     width: 100px;
     margin: auto;
@@ -162,7 +157,7 @@ $vertical-gap: 40px;
 
 @mixin preline($color) {
   &:before {
-    content: "";
+    content: '';
     display: block;
     width: 100px;
     margin: auto;
@@ -387,5 +382,4 @@ $vertical-gap: 40px;
     margin-top: 20px;
   }
 }
-
 </style>
