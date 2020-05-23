@@ -10,7 +10,7 @@
 
 <script>
 import { mapState } from 'vuex'
-import config from '@/config'
+import config from '@/assets/js/config'
 import ExecuteHeaderBar from './ExecuteHeaderBar'
 import store from '../../store'
 
