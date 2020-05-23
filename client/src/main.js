@@ -19,7 +19,6 @@ if (config.seoId) {
   })
 }
 
-/* eslint-disable no-new */
 new Vue({
   el: '#application',
   i18n,
