@@ -7,10 +7,12 @@ $valid-color: #2e962e;
 $robot-face: #f4b39b;
 $delete-color: #d9534f;
 $border-color: #ddd;
+$declick-yellow:#d1d718;
 
 $size-1: 4px;
 $size-2: 8px;
 $size-3: 16px;
+$size-4: 32px;
 
 $padding-1: 4px;
 $padding-2: 8px;
@@ -34,19 +36,25 @@ a {
 }
 
 .btn {
+    display: flex;
+    align-items: center;
     border: 0;
     border-radius: $padding-1;
     padding: $padding-2;
     margin-right: $size-2;
     text-decoration: none;
     font-size: 14px;
+    border: 1px solid $cab-sav;
+    color: $cab-sav;
+    background: transparent;
 
     &.btn-default {
-        background-color: $cab-sav;
-        color: $white;
+        // background-color: $cab-sav;
+        // color: $white;
 
         &:hover {
-            background-color: $wine-berry;
+            // background-color: $wine-berry;
+            // color: $white;
             text-decoration: none;
         }
     }
