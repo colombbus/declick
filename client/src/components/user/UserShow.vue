@@ -73,7 +73,7 @@ div.user-profile {
   }
 
   .breadcrumb-separator {
-    padding: 0 $padding-3;
+    padding: 0 $size-3;
   }
 
   table,

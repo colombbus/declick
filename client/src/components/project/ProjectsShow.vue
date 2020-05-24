@@ -115,7 +115,7 @@ export default {
   }
 
   i.fa.fa-plus {
-    padding: $padding-1;
+    padding: $size-1;
   }
 
   .tag {
@@ -128,7 +128,7 @@ export default {
 
   th,
   td {
-    padding: $padding-2;
+    padding: $size-2;
   }
 
   tr:hover {

@@ -70,12 +70,12 @@ export default {
   }
 
   .breadcrumb-separator {
-    padding: 0 $padding-3;
+    padding: 0 $size-3;
   }
 
   th,
   td {
-    padding: $padding-1;
+    padding: $size-1;
   }
   th:nth-child(1) {
     text-align: right;
