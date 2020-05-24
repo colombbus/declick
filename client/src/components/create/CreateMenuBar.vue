@@ -4,11 +4,11 @@
     a.dropdown-trigger(type='button' data-toggle='dropdown' @click="showPopup = !showPopup" v-click-outside="()=> {this.showPopup = false}")
     ul.dropdown-menu(v-show="showPopup")
       li.menu-item: a(@click="$emit('showView', { view: 'ProjectDetails', params: { project: currentProject }})") 
-        i.fa.fa-info-circle
+        i.fa.fa-info
         | informations
       li.divider(role='separator')
       li.menu-item: a(@click="$emit('showView', 'ProjectList')")
-        i.fa.fa-clipboard-list
+        i.fa.fa-list
         | projets
       template(v-if='user')
         li.divider(role='separator')
@@ -82,17 +82,16 @@ export default {
       }
       a {
         display: grid;
-        grid-template-columns: 25px 1fr;
+        grid-template-columns: $size-4 1fr;
         align-items: center;
         // display: block;
         height: 24px;
         line-height: 24px;
         padding: $size-2 $size-3;
-        .fa {
-          font-size: 18px;
-        }
-        .fa-clipboard-list {
-          margin-left: 2px;
+
+        
+        .fa-info {
+          margin-left: 6px;
         }
         .fa-file-import {
           margin-left: -2px;
@@ -144,15 +143,16 @@ export default {
     background-image: url(~@/assets/images/switch-editor.png);
   }
   .show-editor-link:hover {
-    background-image: url(~@/assets/images/switch-editor-hover.png);
+    // background-image: url(~@/assets/images/switch-editor-hover.png);
   }
 
   .show-view-link {
-    background-image: url(~@/assets/images/view.svg);
+    margin-right: $size-2;
+    background-image: url(~@/assets/images/controls/view.svg);
   }
 
   .show-view-link:hover {
-    background-image: url(~@/assets/images/switch-view-hover.png);
+    // background-image: url(~@/assets/images/switch-view-hover.png);
   }
 }
 </style>
