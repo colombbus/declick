@@ -14,10 +14,6 @@ $size-2: 8px;
 $size-3: 16px;
 $size-4: 32px;
 
-$padding-1: 4px;
-$padding-2: 8px;
-$padding-3: 16px;
-
 @import "~@fortawesome/fontawesome-free/scss/fontawesome.scss";
 @import "~@fortawesome/fontawesome-free/css/all.css";
 
@@ -39,14 +35,15 @@ a {
     display: flex;
     align-items: center;
     border: 0;
-    border-radius: $padding-1;
-    padding: $padding-2;
+    border-radius: $size-1;
+    padding: $size-2;
     margin-right: $size-2;
     text-decoration: none;
     font-size: 14px;
     border: 1px solid $cab-sav;
     color: $cab-sav;
     background: transparent;
+    font-family: 'Arial';
 
     &.btn-default {
         // background-color: $cab-sav;
@@ -73,9 +70,9 @@ a {
 .tag {
     display: inline-block;
     color: $cab-sav;
-    padding: $padding-1;
+    padding: $size-1;
     border: 1px solid $cab-sav;
-    border-radius: $padding-1;
+    border-radius: $size-1;
     text-decoration: none;
 
     &:hover {
