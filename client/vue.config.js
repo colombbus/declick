@@ -4,6 +4,13 @@ const HtmlWebpackPlugin = require('html-webpack-plugin')
 // const path = require('path')
 // const webpack = require('webpack')
 
+var fs = require('fs');
+
+fs.readFile('./src/assets/js/config.js', 'utf8', function(err, data) {
+    if (err) throw err;
+    console.log(data);
+})
+
 module.exports = {
   chainWebpack: config => {
     config
