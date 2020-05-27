@@ -79,6 +79,7 @@ deploy_QA:
   before_script:
     - cd client
     - npm i -g @vue/cli
+    - yarn
     - yarn build
     - 'which ssh-agent || ( apt-get update -y && apt-get install openssh-client -y )'
     - eval $(ssh-agent -s)
