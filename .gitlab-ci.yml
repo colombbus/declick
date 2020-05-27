@@ -94,7 +94,8 @@ deploy_QA_client:
   before_script:
     - cd client
     - npm i -g @vue/cli
-    - 'echo "$CLIENT_CONFIG" > ./src/assets/js/config.js'
+    - 'echo "$CLIENT_CONFIG" >> ./src/assets/js/config.js'
+    - cat ./src/assets/js/config.js
     - yarn
     - yarn build
     - cd ..
