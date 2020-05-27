@@ -72,19 +72,19 @@ stages:
 #     paths:
 #     - client/dist
 
-# deploy_QA_clean:
-#   stage: deploy
-#   environment:
-#     name: staging
-#     url: '$QA_URL'
-#   before_script:
-#     - 'which ssh-agent || ( apt-get update -y && apt-get install openssh-client -y )'
-#     - eval $(ssh-agent -s)
-#     - mkdir -p ~/.ssh
-#     - '[[ -f /.dockerenv ]] && echo -e "Host *\n\tStrictHostKeyChecking no\n\n" > ~/.ssh/config'
-#   script:
-#     - ssh-add <(echo "$SSH_PRIVATE_KEY")
-#     - ssh -o StrictHostKeyChecking=no "$QA_USER"@"$QA_SERVER" rm -rf "$INSTALL_DIRECTORY"/*
+deploy_QA_clean:
+  stage: deploy
+  environment:
+    name: staging
+    url: '$QA_URL'
+  before_script:
+    - 'which ssh-agent || ( apt-get update -y && apt-get install openssh-client -y )'
+    - eval $(ssh-agent -s)
+    - mkdir -p ~/.ssh
+    - '[[ -f /.dockerenv ]] && echo -e "Host *\n\tStrictHostKeyChecking no\n\n" > ~/.ssh/config'
+  script:
+    - ssh-add <(echo "$SSH_PRIVATE_KEY")
+    - ssh -o StrictHostKeyChecking=no "$QA_USER"@"$QA_SERVER" rm -rf "$INSTALL_DIRECTORY"/*
 
 deploy_QA_client:
   stage: deploy
@@ -106,28 +106,27 @@ deploy_QA_client:
     - ssh-add <(echo "$SSH_PRIVATE_KEY")
     - scp -P22 -r client/dist/* "$QA_USER"@"$QA_SERVER":"$INSTALL_DIRECTORY"
 
-# deploy_QA_server:
-#   stage: deploy
-#   environment:
-#     name: staging
-#     url: '$QA_URL'
-#   before_script:
-#     - 'which ssh-agent || ( apt-get update -y && apt-get install openssh-client -y )'
-#     - eval $(ssh-agent -s)
-#     - mkdir -p ~/.ssh
-#     - '[[ -f /.dockerenv ]] && echo -e "Host *\n\tStrictHostKeyChecking no\n\n" > ~/.ssh/config'
-#   script:
-#     - ssh-add <(echo "$SSH_PRIVATE_KEY")
-#     - ssh -o StrictHostKeyChecking=no "$QA_USER"@"$QA_SERVER" mkdir -p "$INSTALL_DIRECTORY"/server
-#     - scp -P22 -r server/* "$QA_USER"@"$QA_SERVER":"$INSTALL_DIRECTORY/server/"
-#   after_script:
-#     - 'which ssh-agent || ( apt-get update -y && apt-get install openssh-client -y )'
-#     - eval $(ssh-agent -s)
-#     - mkdir -p ~/.ssh
-#     - '[[ -f /.dockerenv ]] && echo -e "Host *\n\tStrictHostKeyChecking no\n\n" > ~/.ssh/config'
-#     - ssh-add <(echo "$SSH_PRIVATE_KEY")
-#     - ssh -o StrictHostKeyChecking=no "$QA_USER"@"$QA_SERVER" bash "$ASSETS_DIRECTORY"/post-install.sh
-
+deploy_QA_server:
+  stage: deploy
+  environment:
+    name: staging
+    url: '$QA_URL'
+  before_script:
+    - 'which ssh-agent || ( apt-get update -y && apt-get install openssh-client -y )'
+    - eval $(ssh-agent -s)
+    - mkdir -p ~/.ssh
+    - '[[ -f /.dockerenv ]] && echo -e "Host *\n\tStrictHostKeyChecking no\n\n" > ~/.ssh/config'
+  script:
+    - ssh-add <(echo "$SSH_PRIVATE_KEY")
+    - ssh -o StrictHostKeyChecking=no "$QA_USER"@"$QA_SERVER" mkdir -p "$INSTALL_DIRECTORY"/server
+    - scp -P22 -r server/* "$QA_USER"@"$QA_SERVER":"$INSTALL_DIRECTORY/server/"
+  after_script:
+    - 'which ssh-agent || ( apt-get update -y && apt-get install openssh-client -y )'
+    - eval $(ssh-agent -s)
+    - mkdir -p ~/.ssh
+    - '[[ -f /.dockerenv ]] && echo -e "Host *\n\tStrictHostKeyChecking no\n\n" > ~/.ssh/config'
+    - ssh-add <(echo "$SSH_PRIVATE_KEY")
+    - ssh -o StrictHostKeyChecking=no "$QA_USER"@"$QA_SERVER" bash "$ASSETS_DIRECTORY"/post-install.sh
   # only:
   #   - master
 
