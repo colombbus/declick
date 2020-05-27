@@ -84,6 +84,7 @@ deploy_QA:
     - npm i -g @vue/cli
     - yarn
     - yarn build
+    - cd ..
     - 'which ssh-agent || ( apt-get update -y && apt-get install openssh-client -y )'
     - eval $(ssh-agent -s)
     - mkdir -p ~/.ssh
@@ -91,7 +92,7 @@ deploy_QA:
   script:
     - ssh-add <(echo "$SSH_PRIVATE_KEY")
     - ssh -o StrictHostKeyChecking=no "$QA_USER"@"$QA_SERVER" rm -rf "$INSTALL_DIRECTORY"/*
-    - scp -P22 -r dist/* "$QA_USER"@"$QA_SERVER":"$INSTALL_DIRECTORY"
+    - scp -P22 -r client/dist/* "$QA_USER"@"$QA_SERVER":"$INSTALL_DIRECTORY"
     - scp -P22 -r server/* "$QA_USER"@"$QA_SERVER":"$INSTALL_DIRECTORY/server/"
   # only:
   #   - master
