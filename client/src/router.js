@@ -7,8 +7,19 @@ import CmsDocument from '@/components/CmsDocument'
 // import Administration from '@/components/Administration'
 import Course from '@/components/learn/Course'
 import CourseList from '@/components/learn/CourseList'
-import BlockEditor from '@/components/block/BlockEditor'
+
 import CreateView from '@/components/create/CreateView'
+// import CreateView2 from '@/components/create2/CreateView2'
+// import ProjectList from '@/components/create2/ProjectList'
+// import ProjectCreator from '@/components/create2/ProjectCreator'
+// import ProjectShow from '@/components/create2/ProjectShow'
+// import ProjectEdit from '@/components/create2/ProjectEdit'
+// import ProjectImport from '@/components/create2/ProjectImport'
+import ProjectList from '@/components/create/ProjectList'
+import ProjectCreator from '@/components/create/ProjectCreator'
+import ProjectDetails from '@/components/create/ProjectDetails'
+import ProjectEditor from '@/components/create/ProjectEditor'
+import ProjectImport from '@/components/create/ProjectImport'
 
 import Progress from '@/components/learn/Progress'
 import DeclickMap from '@/components/learn/DeclickMap'
@@ -22,10 +33,6 @@ import config from '@/config'
 // import UserEditor from '@/components/user/UserEditor'
 import UserShow from '@/components/user/UserShow'
 import UserEdit from '@/components/user/UserEdit'
-
-import ProjectsShow from '@/components/project/ProjectsShow'
-import ProjectShow from '@/components/project/ProjectShow'
-import ProjectNew from '@/components/project/ProjectNew'
 
 // import courseRunfrom from '@/components/learn/CourseRun_new'
 
@@ -42,14 +49,6 @@ const routes = [
       title: 'Accueil',
     },
   },
-  // {
-  //   path: '/ide',
-  //   name: 'ide',
-  //   component: Ide,
-  //   meta: {
-  //     useFullscreen: true,
-  //   },
-  // },
   {
     path: '/users/:id',
     component: UserShow,
@@ -58,15 +57,18 @@ const routes = [
       keepAlive: false,
     },
     props: true,
-  },
-  {
-    path: '/users/:id/edit',
-    component: UserEdit,
-    meta: {
-      title: 'Modification de profil utilisateur',
-      keepAlive: false,
-    },
-    props: true,
+    children: [
+      {
+        path: 'edit',
+        name: 'User profile edit',
+        component: UserEdit,
+        meta: {
+          title: 'Modification de profil utilisateur',
+          keepAlive: false,
+        },
+        props: true,
+      },
+    ],
   },
   {
     name: 'Create View',
@@ -76,29 +78,85 @@ const routes = [
       useFullscreen: true,
       menuLess: true,
     },
+    /*
+    /create/new **********************
+    /create/projects **********************
+    /create/4/edit **********************
+    /create/4/import **********************
+    /create/4/show **********************
+    
+    /create
+    
+    /create/writer
+    /create/assembler
+    /create/4
+    /create/4/writer
+    /create/4/assembler
+    
+     /execute/4
+    */
+    children: [
+      {
+        name: 'Projects',
+        path: 'projects',
+        component: ProjectList,
+        meta: {
+          useFullscreen: true,
+          menuLess: true,
+          project: true,
+        },
+      },
+      {
+        name: 'ProjectCreator',
+        path: 'new',
+        component: ProjectCreator,
+        meta: {
+          useFullscreen: true,
+          menuLess: true,
+          project: true,
+        },
+      },
+      {
+        name: 'ProjectEditor',
+        component: ProjectEditor,
+        path: ':id/edit',
+        meta: {
+          useFullscreen: true,
+          menuLess: true,
+          project: true,
+        },
+      },
+      {
+        name: 'ProjectImport',
+        path: ':id/import',
+        component: ProjectImport,
+        meta: {
+          useFullscreen: true,
+          menuLess: true,
+          project: true,
+        },
+      },
+      {
+        name: 'ProjectDetails',
+        path: ':id/show',
+        component: ProjectDetails,
+        meta: {
+          useFullscreen: true,
+          menuLess: true,
+          project: true,
+        },
+      },
+      {
+        name: 'Assembler',
+        path: 'assembler',
+        meta: {
+          useFullscreen: true,
+          menuLess: true,
+          editor: 'assembler',
+        },
+      },
+    ],
   },
-  // {
-  //   name: 'Projects list',
-  //   path: '/users/:id/projects',
-  //   component: ProjectsShow,
-  //   meta: {
-  //     title: 'Projects list',
-  //   },
-  // },
-  // {
-  //   path: '/users/:id/projects/new',
-  //   component: ProjectNew,
-  //   meta: {
-  //     title: 'new project',
-  //   },
-  // },
-  // {
-  //   path: '/users/:id/projects/:pid',
-  //   component: ProjectShow,
-  //   meta: {
-  //     title: 'Project show',
-  //   },
-  // },
   {
     name: 'execute',
     path: '/execute/:projectId',
@@ -163,11 +221,6 @@ const routes = [
       useFullscreen: true,
     },
   },
-  // {
-  //   path: '/block',
-  //   name: 'block',
-  //   component: BlockEditor,
-  // },
   {
     path: '/resources',
     component: ResourcesPage,

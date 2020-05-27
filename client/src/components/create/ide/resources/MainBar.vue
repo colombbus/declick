@@ -21,12 +21,13 @@ export default {
 
 <style lang="scss">
 @import '~@/assets/styles/mixins';
+@import '~@/assets/styles/globals';
 
 .main-bar {
-  @include items-hgap(9px);
+  @include items-hgap($size-2);
 
   display: flex;
-  padding: 9px;
+  padding: $size-2;
   align-items: center;
   justify-items: center;
   background: #ddd6dd;
@@ -37,7 +38,7 @@ export default {
   width: 36px;
 }
 
-//         ,~,
+//         ,~ ,
 //         )))Y
 //        ((((,\________________
 //        \)/( [_____________
@@ -52,23 +53,23 @@ export default {
   }
 
   &__hints {
-    @include image-button('~@/assets/images/controls/help.png');
+    @include image-button('~@/assets/images/controls/help.svg');
 
     margin-right: auto;
   }
 
   &__play {
-    @include image-button('~@/assets/images/controls/play.png');
+    @include image-button('~@/assets/images/controls/play.svg');
   }
 
   &__save {
-    @include image-button('~@/assets/images/controls/save.png');
+    @include image-button('~@/assets/images/controls/save.svg');
 
     margin-left: auto;
   }
 }
 
 .main-bar__help--active {
-  background-image: url('~@/assets/images/controls/buoy-active.png');
+  background-image: url('~@/assets/images/controls/buoy.svg');
 }
 </style>

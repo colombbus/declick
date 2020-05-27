@@ -32,7 +32,8 @@ a {
 }
 
 .btn {
-    display: flex;
+    display: inline-block;
+    max-height: max-content;
     align-items: center;
     border: 0;
     border-radius: $size-1;

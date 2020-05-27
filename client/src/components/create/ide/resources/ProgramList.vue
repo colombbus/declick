@@ -131,11 +131,11 @@ export default {
 
 .program-list {
   &__new {
-    @include image-button('~@/assets/images/controls/new.png');
+    @include image-button('~@/assets/images/controls/new.svg');
   }
 
   &__delete {
-    @include image-button('~@/assets/images/controls/delete.png');
+    @include image-button('~@/assets/images/controls/delete.svg');
   }
 }
 </style>

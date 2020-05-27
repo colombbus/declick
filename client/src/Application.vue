@@ -1,7 +1,7 @@
 <template lang="pug">
 .application(:class="fullscreenMode ? 'application--fullscreen': null")
   header-bar.application__header
-  main-menu(v-show="!$route.meta.menuLess")
+  main-menu(v-if="!$route.meta.menuLess")
   .content
     course-run(v-show="this.$route.name === 'step'")
     create-view(v-show="this.$route.name === 'create'")

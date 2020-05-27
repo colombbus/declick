@@ -9,8 +9,35 @@ export const setCurrentProgramName = async ({ commit }, { name }) => {
   commit(mutations.CURRENT_PROGRAM, { name })
 }
 
-export const setCurrentProgramContent = async ({ commit }, { id, content }) => {
+export const setCurrentProgramContent = async (
+  { state, commit },
+  { id, content },
+) => {
+  const resources = await Api.getAllProjectResources(
+    state.user.currentProjectId,
+  )
+  const [resource] = resources.filter(r => r.file_name === id)
+  // await Api.setProjetResourceContent(state.user.token, state.user.currentProjectId, resource.id, content)
   commit(mutations.CURRENT_CODE_UPDATE, { id, content })
+}
+
+export const getCurrentProgramContent = async ({ state, commit }) => {
+  const resources = await Api.getAllProjectResources(
+    state.user.currentProjectId,
+  )
+  const [resource] = resources.filter(
+    r => r.file_name === state.currentProgramName,
+  )
+  const content = await Api.getProjetResourceContent(
+    state.user.token,
+    state.user.currentProjectId,
+    resource.id,
+  )
+  commit(mutations.CURRENT_CODE_UPDATE, {
+    id: state.currentProgramName,
+    content,
+  })
+  return content
 }
 
 export const loadExecuteProject = async ({ state, commit }, { id }) => {
@@ -200,17 +227,21 @@ export const selectProject = async ({ commit, state }, { id }) => {
 export const updateProject = async ({ state }, { id, data }) => {
   return await Api.updateProject(id, data, state.token)
 }
+export const deleteProject = async ({ state }, { id }) => {
+  return await Api.deleteProject(id, state.token)
+}
 
 export const getAllUserProjects = async ({ state }) => {
   return await Api.getAllUserProjects(state.user.id, state.token)
 }
 
-export const getAllProjectResources = async ({ state }) => {
-  return await Api.getAllProjectResources(
-    // state.user.currentProjectId,
-    4629,
-    state.user.token,
-  )
+export const getAllProjectResources = async ({ state }, { id }) => {
+  const projectId = typeof id === 'undefined' ? state.user.currentProjectId : id
+  console.log(projectId, state)
+  return await Api.getAllProjectResources(projectId, state.user.token)
+}
+export const getProject = async ({ commit, state }, { id }) => {
+  return await Api.getProject(id, state.user.token)
 }
 
 function getLocalItem(key) {

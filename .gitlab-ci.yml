@@ -12,6 +12,7 @@ variables:
 
 before_script:
   - npm i -g npm@latest
+  - npm i -g @vue/cli
 
 cache:
   paths:

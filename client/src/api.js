@@ -245,6 +245,7 @@ export default {
         sceneHeight: project.scene_height,
         description: project.description,
         instructions: project.instructions,
+        main_program_id: project.mainProgramId,
       }
     })
   },
@@ -277,10 +278,37 @@ export default {
       method: 'get',
       url,
       headers: {
-        Authorization: 'Token ' + token,
+        Authorization: `Token ${token}`,
       },
     })
     return data
+  },
+  async getProjetResourceContent(token, projectId, resourceId) {
+    // https://declick.net/server/api/v1/projects/4629/resources/14308/content.png
+    // https://declick.net/server/api/v1/projects/4629/resources/14308/content
+    // const url = `${config.apiUrl}projects/${id}/resources/${resourceId}/content`
+    const url = `${config.apiUrl}projects/${projectId}/resources/${resourceId}/content`
+    const { data } = await axios({
+      method: 'get',
+      url,
+      headers: {
+        Authorization: `Token ${token}`,
+      },
+    })
+    return data
+  },
+  async setProjetResourceContent(token, projectId, resourceId, content) {
+    const url = `${config.apiUrl}projects/${projectId}/resources/${resourceId}/content`
+    const response = await axios({
+      method: 'post',
+      url,
+      headers: {
+        Authorization: `Token ${token}`,
+      },
+      data: content,
+    })
+    console.log(response)
+    // return data
   },
 
   // courses methods

@@ -6,33 +6,33 @@
     @toggleEditor='editor = !editor'
     :editor='editor'
   )
-  transition(
-    @before-enter='beforeEnter'
-    @enter='onEnter'
-    @leave='onLeave'
-    :css='false'
-  )
-    .slider(v-if='view')
-      .container
-        .slider-header
-          h3
-            | Mes projets 
-            chevron-right.breadcrumb-chevron
-            | Nouveau projet
-          declick-logo(class="declick-logo")
-          button.close-button(@click='view = null')
-        component(
-          @showView='showView',
-          @close='view = null',
-          :is='view',
-          :params='params'
-          v-if='view'
-        )
-    ide(v-else)
+  ide
+
+  slide-up-down.slider(:active="$route.meta.project")
+    .container(v-if="$route.meta.project")
+      .slider-header
+        h3
+          router-link(to="/create/projects") Mes projets
+          chevron-right.breadcrumb-chevron
+          | {{ $route.name }}
+          chevron-right.breadcrumb-chevron(v-if='currentProject.name')
+          span(v-if="currentProject.name") {{ currentProject.name }}
+        //- button.close-button(@click='view = null')
+        router-link.close-button(to="/create")
+      .separator
+      router-view
+    //- component(
+    //-   @showView='showView',
+    //-   @close='view = null',
+    //-   :is='view',
+    //-   :params='params'
+    //-   v-if='view'
+    //- )
 </template>
 
 <script>
 import { mapState } from 'vuex'
+
 import CreateHeaderBar from './CreateHeaderBar'
 import CreateMenuBar from './CreateMenuBar'
 import Ide from './ide/Ide'
@@ -42,8 +42,9 @@ import ProjectEditor from './ProjectEditor'
 import ProjectList from './ProjectList'
 import config from '@/config'
 import { EventBus } from '@/eventBus'
-import DeclickLogo from '@/assets/images/declick.svg?inline'
-import ChevronRight from '@/assets/images/chevron.svg?inline'
+import SlideUpDown from '@/components/miscellaneous/SlideUpDown'
+
+import ChevronRight from '@/assets/images/icons/chevron.svg?inline'
 
 export default {
   data() {
@@ -53,19 +54,22 @@ export default {
       editor: true,
       wikiUrl: config.wikiUrl,
       wiki: false,
+      projectName: '',
     }
   },
+  // watch: {
+  //   '$store.state.user'() {
+  //     const currentProject = this.currentProject
+  // if (typeof currentProject !== 'undefined' || currentProject !== null) {
+  // return this.currentProject.name
+  // } else {
+  //   return ''
+  // }
+  // return ''
+  //   },
+  // },
   computed: {
-    frameUrl() {
-      return (
-        `${config.clientUrl}index.html` +
-        `#editor=${this.editor}` +
-        `&token=${this.token}` +
-        (this.currentProject ? `&id=${this.currentProject.id}` : '') +
-        `&wiki=${this.wiki}`
-      )
-    },
-    ...mapState(['currentProject', 'token']),
+    ...mapState(['currentProject']),
   },
   mounted() {
     window.addEventListener(
@@ -131,13 +135,13 @@ export default {
   components: {
     CreateHeaderBar,
     CreateMenuBar,
-    DeclickLogo,
     ChevronRight,
     Ide,
     ProjectCreator,
     ProjectDetails,
     ProjectEditor,
     ProjectList,
+    SlideUpDown,
   },
 }
 </script>
@@ -151,50 +155,59 @@ export default {
 
   .slider {
     position: absolute;
-    top: 112px;
+    top: 100px;
     right: 0;
     bottom: 0;
     left: 0;
-    padding: $size-3;
-    background-color: #fff;
     overflow: auto;
+    background-color: $white;
+    z-index: 5;
+
     .slider-header {
       display: grid;
-      grid-template-columns: 1fr 1fr 1fr;
+      grid-template-columns: 1fr 50px;
       justify-content: space-between;
       align-items: center;
-      .declick-logo {
-        justify-self: center;
-        width: 100px;
-        .triangle-1,
-        .triangle-2 {
-          fill: $cab-sav;
-        }
-        .letter-d,
-        .letter-k {
-          fill: $crimson;
-        }
-        .letter-e,
-        .letter-c1,
-        .letter-l,
-        .letter-i,
-        .letter-c2 {
-          fill: $white;
-        }
-        .robot-eyes {
-          fill: $crimson;
-        }
-        .robot-head {
-          fill: $robot-face;
-        }
-        .robot-body {
-          fill: $crimson;
-        }
+      position: relative;
+      &::before {
+        content: '';
+        position: absolute;
+        top: 0;
+        right: 0;
+        bottom: 0;
+        left: 0;
+        background: no-repeat center url(~@/assets/images/declick.svg);
+        opacity: 0.1;
+        z-index: 0;
       }
+      h3 {
+        font-weight: normal;
+        z-index: 1;
+      }
+
       .breadcrumb-chevron {
         vertical-align: middle;
         fill: $crimson;
-        margin: 0 $size-1;
+        margin: 0 $size-2;
+      }
+    }
+    .container {
+      padding: $size-3;
+      position: relative;
+      height: 95%;
+      &::after {
+        content: '';
+        position: absolute;
+        top: 0;
+        right: 0;
+        bottom: 0;
+        left: 0;
+        background: no-repeat url(~@/assets/images/declick.svg);
+        background-position: -700px 450px;
+        opacity: 0.07;
+        z-index: -1;
+        height: 100%;
+        background-size: 200%;
       }
     }
     .close-button {
@@ -205,9 +218,20 @@ export default {
       background-color: transparent;
       background-image: url(~@/assets/images/controls/close.svg);
       border: none;
+      z-index: 1;
     }
   }
-
+  .separator::after {
+    content: '';
+    display: block;
+    width: 250px;
+    margin-right: auto;
+    margin-left: auto;
+    margin-top: $size-3;
+    margin-bottom: $size-3;
+    border-bottom: 1px solid $crimson;
+    grid-column: 1/4;
+  }
   .frame {
     height: calc(100vh - 112px);
     width: 100%;
@@ -225,6 +249,7 @@ export default {
   }
   .ide {
     height: calc(100% - 100px);
+    z-index: 0;
   }
   .dropdown {
     position: absolute;

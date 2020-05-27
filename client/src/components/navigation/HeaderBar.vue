@@ -4,9 +4,11 @@
 </template>
 
 <style lang="scss">
+@import '~@/assets/styles/globals';
+
 .slogan-bar {
-  border-bottom: 3px solid #d1d718;
-  background: #480a2a;
+  border-bottom: 3px solid $declick-yellow;
+  background: $cab-sav;
 }
 
 .slogan-bar__logo {
@@ -17,7 +19,7 @@
   padding: 0;
   border: 0;
   background-color: transparent;
-  background-image: url(~@/assets/images/logos/Declick.svg);
+  background-image: url(~@/assets/images/logos/declick.svg);
   outline: 0;
 }
 </style>

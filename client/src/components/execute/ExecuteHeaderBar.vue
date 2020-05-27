@@ -43,7 +43,7 @@ export default {
   width: 45px;
   height: 45px;
   vertical-align: bottom;
-  background-image: url(~@/assets/images/mini-logo.png);
+  background-image: url(~@/assets/images/logos/declick-small.svg);
   cursor: pointer;
 }
 
@@ -62,11 +62,11 @@ export default {
   width: 42px;
   height: 42px;
   vertical-align: bottom;
-  background-image: url(~@/assets/images/close-2.png);
+  background-image: url(~@/assets/images/controls/back.svg);
   cursor: pointer;
 }
 
 .close-link:hover {
-  background-image: url(~@/assets/images/close-hover.png);
+  // background-image: url(~@/assets/images/close-hover.png);
 }
 </style>

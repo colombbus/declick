@@ -24,5 +24,33 @@
     "logout": "se déconnecter",
     "administration": "administration",
     "my-account": "mon compte"
+  },
+  "words": {
+    "cancel": "quitter",
+    "current-project-id": "id du projet actuel",
+    "default-project-id": "id du projet par défaut",
+    "delete": "supprimer",
+    "description": "description",
+    "email": "courriel",
+    "edit": "modifier les infos",
+    "id": "id",
+    "instructions": "instructions",
+    "is-admin": "administrateur",
+    "is-default": "project par défaut",
+    "is-public": "publié",
+    "my-project": "mon projet",
+    "my-projects": "mes projets",
+    "new-project": "nouveau projet",
+    "name": "nom",
+    "password": "mot de passe",
+    "save": "enregistrer",
+    "scene-width": "largeur scène",
+    "scene-height": "hauteur scène",
+    "token": "token",
+    "uiVersion": "version du logiciel",
+    "username": "utilisateur",
+    "users": "utilisateur",
+    "show": "voir les infos",
+    "work-on-this-project": "travailler sur ce projet"
   }
 }

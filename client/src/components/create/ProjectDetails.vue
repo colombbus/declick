@@ -9,8 +9,10 @@
       tr
         th lien vers l'application
         td: project-link
-        td: router-link(:to="{name: 'execute', params: { projectId: project.id }}")
           | {{ project.name }}
+        td
+          | lancer 
+          router-link(target="_blank" :to="{name: 'execute', params: { projectId: $route.params.id }}") {{ project.name }}
       tr
         th public
         td: project-share
@@ -36,57 +38,60 @@
         td: project-mainfile
         td {{ mainProgramName }}
   .separator
-  button.btn.btn-default(
-    @click="$emit('showView', {view: 'ProjectEditor', params: {project}})"
-    type='button'
-  ) modifier les informations
-  |
-  |
-  button.btn.btn-default(
-    @click="selectAsCurrentProject"
-    type='button'
-  ) travailler sur ce projet
-  |
-  |
-  button.btn.btn-danger(
-    v-show='!project.isDefault'
-    @click="deleteProject"
-    type='button'
-  ) supprimer
+  .form-action
+    router-link.btn.btn-default(:to="`/create/${$route.params.id}/edit`") 
+      | modifier les informations
+    button.btn.btn-default(
+      @click="selectAsCurrentProject"
+      type='button'
+    ) travailler sur ce projet
+    button.btn.btn-danger(
+      :class="project.isDefault ? 'disabled' : ''"
+      :disabled="project.isDefault ? 'disabled' : ''"
+      @click="deleteProject"
+      type='button'
+    ) supprimer
 </template>
 
 <script>
 import { mapActions, mapState } from 'vuex'
 import Api from '@/api'
-import ProjectName from '@/assets/images/controls/project-name.svg?inline'
-import ProjectShare from '@/assets/images/controls/project-share.svg?inline'
-import ProjectSize from '@/assets/images/controls/project-size.svg?inline'
-import ProjectLink from '@/assets/images/controls/link.svg?inline'
-import ProjectDescription from '@/assets/images/controls/project-description.svg?inline'
-import ProjectInstruction from '@/assets/images/controls/project-instruction.svg?inline'
-import ProjectMainfile from '@/assets/images/controls/project-mainfile.svg?inline'
+import ProjectName from '@/assets/images/icons/project-name.svg?inline'
+import ProjectShare from '@/assets/images/icons/project-share.svg?inline'
+import ProjectSize from '@/assets/images/icons/project-size.svg?inline'
+import ProjectLink from '@/assets/images/icons/link.svg?inline'
+import ProjectDescription from '@/assets/images/icons/project-description.svg?inline'
+import ProjectInstruction from '@/assets/images/icons/project-instruction.svg?inline'
+import ProjectMainfile from '@/assets/images/icons/project-mainfile.svg?inline'
 
 export default {
   props: ['params'],
   data() {
     return {
-      mainProgramName: null,
+      mainProgramName: "non supporté pour l'instant",
+      project: {},
     }
   },
-  mounted() {
-    this.getMainProgramName(this.params.project.mainProgramId)
+  async mounted() {
+    this.getMainProgramName(this.$route.params.id)
+    this.project = await this.getProject({ id: this.$route.params.id })
   },
   computed: {
-    project() {
-      return this.params.project
-    },
     ...mapState(['currentProject', 'user']),
   },
   methods: {
     async getMainProgramName(id) {
-      const resources = await this.getAllProjectResources()
-      const [{ file_name }] = resources.filter(r => r.id === id)
-      this.mainProgramName = file_name
+      // TODO : id is the main file of current project / not the id of shown project
+      // todo: need request that id
+      console.log('getMainProgramName', id)
+      if (id === null) {
+        return
+      }
+      console.log(id)
+      const resources = await this.getAllProjectResources({ id: parseInt(id) })
+      const resource = resources.filter(r => r.id === parseInt(id))
+      console.log(resource)
+      // this.mainProgramName = file_name
     },
     async selectAsCurrentProject() {
       await this.selectProject({ id: this.project.id })
@@ -97,9 +102,9 @@ export default {
       if (this.currentProject.id === this.project.id) {
         this.selectProject({ id: this.user.defaultProjectId })
       }
-      this.$emit('showView', { view: 'ProjectList' })
+      // this.$emit('showView', { view: 'ProjectList' })
     },
-    ...mapActions(['selectProject', 'getAllProjectResources']),
+    ...mapActions(['selectProject', 'getAllProjectResources', 'getProject']),
   },
   components: {
     ProjectName,
@@ -126,21 +131,28 @@ export default {
   table {
     display: block;
     // border: 1px solid $border-color;
-    padding: $size-3;
-    margin-bottom: $size-3;
+    // padding: $size-2;
 
     tr {
       display: grid;
       grid-template-columns: 1fr 36px 1fr;
       align-items: center;
       gap: $size-2;
-
       padding: $size-2;
       height: 34px;
       th {
         text-align: right;
       }
+      td {
+        font-family: 'Rubik', monospace;
+      }
     }
+  }
+  .form-action {
+    display: flex;
+  }
+  .disabled {
+    opacity: 0.5;
   }
 }
 </style>

@@ -1,16 +1,16 @@
 <template lang="html">
   <div id="declickMap">
-      <canvas id="map"></canvas>
-      <!-- <courseRunfrom></courseRunfrom> -->
-        <keep-alive>
-    <router-view></router-view>
-  </keep-alive>
+    <canvas id="map"></canvas>
+    <!-- <courseRunfrom></courseRunfrom> -->
+    <keep-alive>
+      <router-view></router-view>
+    </keep-alive>
   </div>
 </template>
 
 <script>
+/* eslint-disable */
 /* global __webpack_public_path__ */
-
 import Map from './map.js'
 import { mapState, mapActions } from 'vuex'
 

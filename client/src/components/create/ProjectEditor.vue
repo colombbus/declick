@@ -68,27 +68,22 @@
           | {{resource.file_name}}
     .separator
     .form-action
-      button.btn.btn-default(
-        @click='showProjectDetails'
-        type='button'
-      )
-        | annuler
-      | &nbsp;
+      router-link.btn.btn-default(:to="`/create/${$route.params.id}/show`") annuler
       button.btn.btn-primary(@click='updateProject' type='button')
         | enregistrer les modifications
 </template>
 
 <script>
+import { mapActions } from 'vuex'
 import Api from '@/api'
-import ProjectName from '@/assets/images/controls/project-name.svg?inline'
-import ProjectShare from '@/assets/images/controls/project-share.svg?inline'
-import ProjectSize from '@/assets/images/controls/project-size.svg?inline'
-import ProjectLink from '@/assets/images/controls/link.svg?inline'
-import ProjectDescription from '@/assets/images/controls/project-description.svg?inline'
-import ProjectInstruction from '@/assets/images/controls/project-instruction.svg?inline'
-import ProjectMainfile from '@/assets/images/controls/project-mainfile.svg?inline'
+import ProjectName from '@/assets/images/icons/project-name.svg?inline'
+import ProjectShare from '@/assets/images/icons/project-share.svg?inline'
+import ProjectSize from '@/assets/images/icons/project-size.svg?inline'
+import ProjectLink from '@/assets/images/icons/link.svg?inline'
+import ProjectDescription from '@/assets/images/icons/project-description.svg?inline'
+import ProjectInstruction from '@/assets/images/icons/project-instruction.svg?inline'
+import ProjectMainfile from '@/assets/images/icons/project-mainfile.svg?inline'
 export default {
-  props: ['params'],
   data() {
     return {
       name: '',
@@ -98,18 +93,19 @@ export default {
       description: '',
       instructions: '',
       mainProgramId: null,
-      resources: null,
+      resources: [],
     }
   },
   async created() {
-    this.name = this.params.project.name
-    this.isPublic = this.params.project.isPublic
-    this.sceneWidth = this.params.project.sceneWidth
-    this.sceneHeight = this.params.project.sceneHeight
-    this.description = this.params.project.description
-    this.instructions = this.params.project.instructions
-    this.mainProgramId = this.params.project.mainProgramId
-    const resources = await Api.getAllProjectResources(this.params.project.id)
+    const project = await this.getProject({ id: this.$route.params.id })
+    this.name = project.name
+    this.isPublic = project.isPublic
+    this.sceneWidth = project.sceneWidth
+    this.sceneHeight = project.sceneHeight
+    this.description = project.description
+    this.instructions = project.instructions
+    this.mainProgramId = project.mainProgramId
+    const resources = await Api.getAllProjectResources(project.id)
     resources.unshift({
       file_name: '<aucun>',
       id: null,
@@ -129,25 +125,12 @@ export default {
         mainProgramId: this.mainProgramId,
       }
       const storeUpProject = await this.$store.dispatch('updateProject', {
-        id: this.params.project.id,
+        id: this.$route.params.id,
         data,
       })
-      // console.debug(storeUpProject)
-      this.params.project.name = this.name
-      this.params.project.isPublic = this.isPublic
-      this.params.project.sceneWidth = this.sceneWidth
-      this.params.project.sceneHeight = this.sceneHeight
-      this.params.project.description = this.description
-      this.params.project.instructions = this.instructions
-      this.params.project.mainProgramId = this.mainProgramId
-      this.showProjectDetails()
+      this.$router.go(-1)
     },
-    showProjectDetails() {
-      this.$emit('showView', {
-        view: 'ProjectDetails',
-        params: { project: this.params.project },
-      })
-    },
+    ...mapActions(['getProject']),
   },
   components: {
     ProjectName,
@@ -175,7 +158,7 @@ export default {
     grid-template-columns: 1fr 36px 1fr;
     gap: 8px;
     align-items: center;
-    margin-bottom: $size-2;
+    padding: $size-1;
     label {
       font-weight: bold;
       text-align: right;
@@ -186,9 +169,28 @@ export default {
   }
 
   textarea {
-    padding: $size-2;
+    resize: vertical;
+  }
+  .scene-height {
+    transform: rotate(90deg);
+  }
+
+  div.form-action {
+    display: flex;
+  }
+
+  input[type='checkbox'] {
+    border: 1px solid $cab-sav;
+  }
+
+  textarea,
+  input[type='text'],
+  input[type='number'],
+  select {
+    font-family: 'Arial', sans-serif;
+    border: 1px solid $cab-sav;
     border-radius: $size-1;
-    border: 1px solid $border-color;
+    padding: $size-2;
   }
 }
 </style>

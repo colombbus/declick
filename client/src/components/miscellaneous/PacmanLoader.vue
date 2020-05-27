@@ -9,33 +9,31 @@
 
 <script>
 export default {
-  
   name: 'PacmanLoader',
   props: {
     loading: {
       type: Boolean,
-      default: true
+      default: true,
     },
-    color: { 
+    color: {
       type: String,
-      default: '#5dc596'
+      default: '#5dc596',
     },
     size: {
       type: String,
-      default: '25px'
+      default: '25px',
     },
     margin: {
       type: String,
-      default: '2px'
+      default: '2px',
     },
     radius: {
       type: String,
-      default: '100%'
-    }
+      default: '100%',
+    },
   },
-  data () {
+  data() {
     return {
-
       spinnerDelay2: {
         animationDelay: '0.25s',
         backgroundColor: '#480a2a',
@@ -55,11 +53,11 @@ export default {
         animationDelay: '1s',
         backgroundColor: '#480a2a',
         zIndex: -1,
-      }
+      },
     }
   },
   computed: {
-    spinnerStyle () {
+    spinnerStyle() {
       return {
         backgroundColor: this.color,
         width: this.size,
@@ -68,13 +66,13 @@ export default {
         borderRadius: this.radius,
       }
     },
-    border1 () {
+    border1() {
       return this.size + ' solid transparent'
     },
-    border2 () {
+    border2() {
       return this.size + ' solid ' + this.color
     },
-    spinnerStyle1 () {
+    spinnerStyle1() {
       return {
         width: 0,
         height: 0,
@@ -82,14 +80,14 @@ export default {
         borderRight: this.border1,
         borderBottom: this.border2,
         borderLeft: this.border2,
-        borderRadius: this.size
+        borderRadius: this.size,
       }
     },
-    animationStyle () {
+    animationStyle() {
       return {
         width: '10px',
         height: '10px',
-        transform: 'translate(0, '+ -parseFloat(this.size)/4 + 'px)',
+        transform: 'translate(0, ' + -parseFloat(this.size) / 4 + 'px)',
         position: 'absolute',
         top: '25px',
         left: '100px',
@@ -97,43 +95,36 @@ export default {
         animationDuration: '1s',
         animationIterationCount: 'infinite',
         animationTimingFunction: 'linear',
-        animationFillMode: 'both'
+        animationFillMode: 'both',
       }
-    }
-  }
+    },
+  },
 }
 </script>
 
 <style>
-.v-spinner
-{
-    text-align: center;
+.v-spinner {
+  text-align: center;
 }
 /*TODO computed transform */
-@-webkit-keyframes v-pacmanStretchDelay
-{
-    75%
-    {
-        -webkit-opacity: 0.7;             
-        opacity: 0.7;
-    }
-    100%
-    {
-        -webkit-transform: translate(-100px, -6.25px);
-                transform: translate(-100px, -6.25px);
-    }
+@-webkit-keyframes v-pacmanStretchDelay {
+  75% {
+    -webkit-opacity: 0.7;
+    opacity: 0.7;
+  }
+  100% {
+    -webkit-transform: translate(-100px, -6.25px);
+    transform: translate(-100px, -6.25px);
+  }
 }
-@keyframes v-pacmanStretchDelay
-{
-    75%
-    {
-        -webkit-opacity: 0.7;             
-        opacity: 0.7;
-    }
-    100%
-    {
-        -webkit-transform: translate(-100px, -6.25px);
-                transform: translate(-100px, -6.25px);
-    }
+@keyframes v-pacmanStretchDelay {
+  75% {
+    -webkit-opacity: 0.7;
+    opacity: 0.7;
+  }
+  100% {
+    -webkit-transform: translate(-100px, -6.25px);
+    transform: translate(-100px, -6.25px);
+  }
 }
 </style>

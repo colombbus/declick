@@ -24,5 +24,33 @@
     "logout": "logout",
     "administration": "administration",
     "my-account": "my account"
+  },
+  "words": {
+    "cancel": "cancel",
+    "current-project-id": "current project id",
+    "default-project-id": "default project id",
+    "edit": "edit",
+    "email": "email",
+    "delete": "delete",
+    "description": "description",
+    "id": "id",
+    "instructions": "instructions",
+    "is-admin": "is administrator",
+    "is-default": "default project",
+    "is-public": "published",
+    "my-project": "my project",
+    "my-projects": "my projects",
+    "name": "name",
+    "new-project": "new project",
+    "password": "password",
+    "save": "save",
+    "scene-width": "scene width",
+    "scene-height": "scene height",
+    "token": "token",
+    "uiVersion": "software version",
+    "username": "username",
+    "users": "users",
+    "show": "show",
+    "work-on-this-project": "work on this project"
   }
 }

@@ -19,14 +19,14 @@
     project-size
     input#project-creation-scene-width.form-control(
       v-model='sceneWidth'
-      type='text'
+      type='number'
     )
     label(for='project-creation-scene-height')
       | hauteur de la scène en pixels
     project-size.scene-height
     input#project-creation-scene-height.form-control(
       v-model='sceneHeight'
-      type='text'
+      type='number'
     )
     label(for='project-creation-description')
       | description
@@ -45,7 +45,7 @@
     .separator
     .form-action
       button.btn.btn-default(
-        @click="$emit('showView', 'ProjectList')"
+        @click="$router.go(-1)"
         type='button'
       )
         | annuler
@@ -55,12 +55,12 @@
 
 <script>
 import CloseRight from '@/assets/images/controls/close.svg?inline'
-import ProjectName from '@/assets/images/controls/project-name.svg?inline'
-import ProjectShare from '@/assets/images/controls/project-share.svg?inline'
-import ProjectSize from '@/assets/images/controls/project-size.svg?inline'
-import ProjectLink from '@/assets/images/controls/link.svg?inline'
-import ProjectDescription from '@/assets/images/controls/project-description.svg?inline'
-import ProjectInstruction from '@/assets/images/controls/project-instruction.svg?inline'
+import ProjectName from '@/assets/images/icons/project-name.svg?inline'
+import ProjectShare from '@/assets/images/icons/project-share.svg?inline'
+import ProjectSize from '@/assets/images/icons/project-size.svg?inline'
+import ProjectLink from '@/assets/images/icons/link.svg?inline'
+import ProjectDescription from '@/assets/images/icons/project-description.svg?inline'
+import ProjectInstruction from '@/assets/images/icons/project-instruction.svg?inline'
 
 export default {
   data() {
@@ -119,9 +119,15 @@ export default {
     .form-action {
       grid-column: 1/4;
     }
+    .form-action {
+      display: flex;
+    }
     label {
       font-weight: bold;
       text-align: right;
+    }
+    input[type='checkbox'] {
+      justify-self: start;
     }
   }
 }

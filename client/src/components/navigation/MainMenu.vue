@@ -5,8 +5,7 @@ div.main-menu(:class='stateClass' ref='menu')
   ul.main-menu__list
     li.main-menu__item: router-link.main-menu__link.main-menu__home(to='/') {{ $t('menu.homepage') }}
     li.main-menu__item: router-link.main-menu__link(to='/progress') {{ $t('menu.learn') }}
-    li.main-menu__item: router-link.main-menu__link(to='/ide') {{ $t('menu.create') }}
-    //- li.main-menu__item: router-link.main-menu__link(to='/block') {{ $t('menu.block') }}
+    li.main-menu__item: router-link.main-menu__link(to='/create') {{ $t('menu.create') }}
     li.main-menu__item: router-link.main-menu__link(to='/explore') {{ $t('menu.play') }}
     //- li.main-menu__item: router-link.main-menu__link(to='/resources') {{ $t('menu.resources') }}
     //- li.main-menu__item: router-link.main-menu__link(to='/contact') {{ $t('menu.contact') }}
@@ -18,53 +17,12 @@ div.main-menu(:class='stateClass' ref='menu')
       a.main-menu__link.connectionLink(
         v-else
         @click='logOut') {{ $t('menu.logout') }}
-    li.main-menu__item(v-if="user && user.isAdmin"): router-link.main-menu__link(to='/administration') {{ $t('menu.administration') }}
+    //- li.main-menu__item(v-if="user && user.isAdmin"): router-link.main-menu__link(to='/administration') {{ $t('menu.administration') }}
     li.main-menu__item(v-if="user"): router-link.main-menu__link(:to='getUserIDLink') {{ $t('menu.my-account') }}
-
-
   authentication-modal(
     @close='isAuthenticationModalVisible = false'
     v-if='isAuthenticationModalVisible'
   )
-//- .self
-//-   ul
-//-     li
-//-       router-link(
-//-         to='/explore'
-//-         class='illustrated-link explore-link'
-//-       ) Découvrir
-//-     li
-//-       router-link(
-//-         to='/progress'
-//-         class='illustrated-link progress-link'
-//-       ) Progresser
-//-     li
-//-       router-link(
-//-         to='/create'
-//-         class='illustrated-link create-link'
-//-       ) Créer
-//-     //- li
-//-     //-   router-link(
-//-     //-     to='/resources'
-//-     //-   ) Ressources
-//-     //- TO REMOVE WHEN FORUM READY
-//-     //-li
-//-       a(
-//-         :href='forumLink'
-//-         class='illustrated-link discuss-link'
-//-         target='forum'
-//-       ) Discuter
-//-     li(v-if='!user')
-//-       a(
-//-         @click='isAuthenticationModalVisible = true'
-//-         class="illustrated-link log-in-link"
-//-       ) Se connecter
-//-     li(v-else)
-//-       a(@click='logOut') Se déconnecter
-//-   authentication-modal(
-//-     @close='isAuthenticationModalVisible = false'
-//-     v-if='isAuthenticationModalVisible'
-//-   )
 </template>
 
 <script>
@@ -130,7 +88,8 @@ export default {
 </script>
 
 <style lang="scss">
-@import '../../styles/global';
+@import '~@/assets/styles/globals';
+
 .main-menu__list {
   position: relative;
   width: 100%;
@@ -141,7 +100,7 @@ export default {
   border-top: 7px solid #6e3a51;
   justify-content: center;
   background-color: #652e46;
-  background-image: url(../../assets/images/waves.png);
+  background-image: url(../../assets/images/wave.svg);
   box-shadow: 0 2px 6px 0 rgba(0, 0, 0, 0.25);
   text-transform: uppercase;
 }

@@ -1,21 +1,27 @@
 <template lang="pug">
 .create-menu-bar
   .dropdown(v-show='user')
-    a.dropdown-trigger(type='button' data-toggle='dropdown' @click="showPopup = !showPopup" v-click-outside="()=> {this.showPopup = false}")
     ul.dropdown-menu(v-show="showPopup")
-      li.menu-item: a(@click="$emit('showView', { view: 'ProjectDetails', params: { project: currentProject }})") 
-        i.fa.fa-info
-        | informations
+      li.menu-item 
+        router-link(:to="`/create/${currentProject.id}/show`")
+          i.fa.fa-info
+          | informations
       li.divider(role='separator')
-      li.menu-item: a(@click="$emit('showView', 'ProjectList')")
-        i.fa.fa-list
-        | projets
-      template(v-if='user')
-        li.divider(role='separator')
-        li.menu-item: a(@click='importExamplePrograms')
+      li.menu-item 
+        router-link(:to="`/create/projects`")
+          i.fa.fa-list
+          | projets
+      //- a(@click="$emit('showView', 'ProjectList')")
+      li.divider(role='separator')
+      li.menu-item
+        router-link(:to="`/create/${currentProject.id}/import`")
           i.fa.fa-file-import
           | importer les programmes d'exemple
-  span.project-name {{(currentProject && currentProject.name) || 'Projet'}}
+      //- template(v-if='user')
+      //-   li.divider(role='separator')
+      //-   li.menu-item: a(@click='importExamplePrograms')
+  a.dropdown-trigger(type='button' data-toggle='dropdown' @click="showPopup = !showPopup" v-click-outside="()=> {this.showPopup = false}")
+      span.project-name {{(currentProject && currentProject.name) || 'Projet'}}
   a(
     @click='toggleMode',
     :class="editor ? 'show-view-link' : 'show-editor-link'"
@@ -35,12 +41,6 @@ export default {
     }
   },
   methods: {
-    importExamplePrograms() {
-      Api.importProject(402, this.token)
-      window.alert(
-        'Les programmes ont été importés, veuillez recharger la page.',
-      )
-    },
     toggleMode() {
       this.$emit('toggleEditor')
     },
@@ -54,17 +54,14 @@ export default {
 
 <style lang="scss">
 @import '~@/assets/styles/globals';
+$menu-height: 50px;
 
 .create-menu-bar {
-  height: 50px;
-  padding: 0 $size-1;
-  // line-height: 50px;
+  height: $menu-height;
+  padding: 0 $size-2;
   color: $cab-sav;
   border-bottom: 1px solid $border-color;
-  a {
-    cursor: pointer;
-    text-decoration: none !important;
-  }
+
   .dropdown {
     display: inline-block;
     &-menu {
@@ -76,6 +73,7 @@ export default {
       border-width: 1px;
       margin: 0;
       list-style: none;
+      margin-top: $menu-height;
 
       li:last-child a {
         border-radius: 0 0 $size-2 $size-2;
@@ -88,8 +86,10 @@ export default {
         height: 24px;
         line-height: 24px;
         padding: $size-2 $size-3;
+        color: $cab-sav;
+        text-decoration: none;
+        cursor: pointer;
 
-        
         .fa-info {
           margin-left: 6px;
         }
@@ -110,8 +110,8 @@ export default {
   .dropdown-trigger {
     display: inline-block;
     width: 21px;
-    height: 50px;
-    background-image: url(~@/assets/images/dropdown-trigger.svg);
+    height: $menu-height;
+    background-image: url(~@/assets/images/controls/dropdown-trigger.svg);
     background-repeat: no-repeat;
     background-position: center;
     vertical-align: bottom;
@@ -125,11 +125,12 @@ export default {
     font-weight: 700;
     color: $cab-sav;
     vertical-align: middle;
-    height: 50px;
-    line-height: 50px;
+    height: $menu-height;
+    line-height: $menu-height;
     position: absolute;
-    left: 50px;
+    left: 55px;
     z-index: 50;
+    text-overflow: 150px;
   }
   .show-editor-link,
   .show-view-link {
@@ -140,14 +141,13 @@ export default {
     cursor: pointer;
   }
   .show-editor-link {
-    background-image: url(~@/assets/images/switch-editor.png);
+    background-image: url(~@/assets/images/controls/switch-editor.svg);
   }
   .show-editor-link:hover {
     // background-image: url(~@/assets/images/switch-editor-hover.png);
   }
 
   .show-view-link {
-    margin-right: $size-2;
     background-image: url(~@/assets/images/controls/view.svg);
   }
 

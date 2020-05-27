@@ -40,7 +40,7 @@ export default {
   }
 
   &__hints {
-    @include image-button('~@/assets/images/controls/help.png');
+    @include image-button('~@/assets/images/controls/help.svg');
 
     margin-right: auto;
   }
@@ -52,11 +52,11 @@ export default {
   }
 
   &__floating-controller {
-    @include image-button('~@/assets/images/controls/floating_controller.png');
+    @include image-button('~@/assets/images/controls/controller.svg');
   }
 }
 
 .preview-bar__help--active {
-  background-image: url('~@/assets/images/controls/buoy-active.png');
+  // background-image: url(~@/assets/images/controls/buoy.svg);
 }
 </style>

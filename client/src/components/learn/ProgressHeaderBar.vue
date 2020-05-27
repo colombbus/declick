@@ -43,18 +43,20 @@ export default {
 }
 </script>
 
-<style>
+<style lang="scss">
+@import '~@/assets/styles/globals';
+
 #mapController div {
   cursor: pointer;
 }
 #rightLink:hover {
-  background-image: url('../../assets/images/arrow-right-hover.png');
+  background-image: url(../../assets/images/controls/arrow-right-hover.svg);
 }
 #leftLink:hover {
-  background-image: url('../../assets/images/arrow-left-hover.png');
+  background-image: url(../../assets/images/controls/arrow-left-hover.svg);
 }
 #rightLink {
-  background-image: url('../../assets/images/arrow-right.png');
+  background-image: url(../../assets/images/controls/arrow-right.svg);
   content: '';
   position: absolute;
   right: 115px !important;
@@ -66,7 +68,7 @@ export default {
 #leftLink {
   position: absolute;
   content: '';
-  background-image: url('../../assets/images/arrow-left.png');
+  background-image: url(../../assets/images/controls/arrow-left.svg);
   right: 165px;
   top: 9px;
   left: initial !important;
@@ -78,7 +80,7 @@ export default {
 }
 #navigation-bar-small {
   padding: 0px 10px;
-  background-color: #480a2a;
+  background-color: $cab-sav;
   border-bottom: 5px solid #d1d718;
   height: 55px;
 }
@@ -99,7 +101,7 @@ export default {
   width: 45px;
   height: 45px;
   cursor: pointer;
-  background-image: url('../../assets/images/dk.png');
+  background-image: url(~@/assets/images/logos/declick-small.svg);
 }
 
 #map-control-small {
@@ -109,10 +111,10 @@ export default {
   width: 42px;
   height: 42px;
   cursor: pointer;
-  background-image: url('../../assets/images/carte.png');
+  background-image: url(../../assets/images/controls/map.svg);
 }
 
 #map-control-small:hover {
-  background-image: url('../../assets/images/carte-hover.png');
+  // background-image: url(../../assets/images/carte-hover.png);
 }
 </style>

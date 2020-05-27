@@ -83,25 +83,25 @@ export default {
 
 .resource-panel {
   &__switch-programs {
-    @include image-button('~@/assets/images/controls/programs.png');
+    @include image-button('~@/assets/images/controls/programs.svg');
   }
 
   &__switch-assets {
-    @include image-button('~@/assets/images/controls/assets.png');
+    @include image-button('~@/assets/images/controls/assets.svg');
   }
 }
 
 .resource-panel--programs {
   .resource-panel__switch-programs {
     background-color: #a6a1a6;
-    background-image: url('~@/assets/images/controls/programs-active.png');
+    // background-image: url('~@/assets/images/controls/programs-active.png');
   }
 }
 
 .resource-panel--assets {
   .resource-panel__switch-assets {
     background-color: #a6a1a6;
-    background-image: url('~@/assets/images/controls/assets-active.png');
+    // background-image: url('~@/assets/images/controls/assets-active.png');
   }
 }
 </style>

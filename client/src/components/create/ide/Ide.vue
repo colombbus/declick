@@ -89,7 +89,8 @@ export default {
   display: grid;
   grid-template-areas: 'help content';
   grid-template-columns: auto 1fr;
-  grid-template-rows: 95%;
+  // grid-template-rows: 100%;
+  position: relative;
   // grid-template-rows: 1fr;
 }
 
