@@ -12,7 +12,6 @@ variables:
 
 before_script:
   - npm i -g npm@latest
-  - npm i -g @vue/cli
 
 cache:
   paths:
@@ -79,6 +78,7 @@ deploy_QA:
     url: '$QA_URL'
   before_script:
     - cd client
+    - npm i -g @vue/cli
     - yarn build
     - 'which ssh-agent || ( apt-get update -y && apt-get install openssh-client -y )'
     - eval $(ssh-agent -s)
