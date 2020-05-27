@@ -119,6 +119,8 @@ deploy_QA_server:
     - ssh-add <(echo "$SSH_PRIVATE_KEY")
     - ssh -o StrictHostKeyChecking=no "$QA_USER"@"$QA_SERVER" mkdir -p "$INSTALL_DIRECTORY"/server
     - scp -P22 -r server/* "$QA_USER"@"$QA_SERVER":"$INSTALL_DIRECTORY/server/"
+  after_script:
+    - ssh -o StrictHostKeyChecking=no "$QA_USER"@"$QA_SERVER" bash "$ASSETS_DIRECTORY"/post-install.sh
 
   # only:
   #   - master
