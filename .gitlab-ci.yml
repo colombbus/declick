@@ -103,7 +103,7 @@ deploy_QA_client:
     - '[[ -f /.dockerenv ]] && echo -e "Host *\n\tStrictHostKeyChecking no\n\n" > ~/.ssh/config'
   script:
     - ssh-add <(echo "$SSH_PRIVATE_KEY")
-    - scp -P22 -r dist/* "$QA_USER"@"$QA_SERVER":"$INSTALL_DIRECTORY"
+    - scp -P22 -r client/dist/* "$QA_USER"@"$QA_SERVER":"$INSTALL_DIRECTORY"
 
 deploy_QA_server:
   stage: deploy
