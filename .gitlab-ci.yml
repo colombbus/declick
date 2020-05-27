@@ -18,6 +18,7 @@ cache:
     - client/node_modules/
     - objects/node_modules/
     - runtime/node_modules/
+    - server/vendor/
 
 stages:
   - test
@@ -77,7 +78,9 @@ deploy_QA:
     name: staging
     url: '$QA_URL'
   before_script:
-    - cd client
+    - cd server
+    - composer install
+    - cd ../client
     - npm i -g @vue/cli
     - yarn
     - yarn build
@@ -88,7 +91,7 @@ deploy_QA:
   script:
     - ssh-add <(echo "$SSH_PRIVATE_KEY")
     - ssh -o StrictHostKeyChecking=no "$QA_USER"@"$QA_SERVER" rm -rf "$INSTALL_DIRECTORY"/*
-    - scp -P22 -r client/dist/* "$QA_USER"@"$QA_SERVER":"$INSTALL_DIRECTORY"
+    - scp -P22 -r dist/* "$QA_USER"@"$QA_SERVER":"$INSTALL_DIRECTORY"
     - scp -P22 -r server/* "$QA_USER"@"$QA_SERVER":"$INSTALL_DIRECTORY/server/"
   # only:
   #   - master
