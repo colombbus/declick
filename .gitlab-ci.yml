@@ -105,6 +105,13 @@ deploy_QA_client:
   script:
     - ssh-add <(echo "$SSH_PRIVATE_KEY")
     - scp -P22 -r client/dist/* "$QA_USER"@"$QA_SERVER":"$INSTALL_DIRECTORY"
+  after_script:
+    - 'which ssh-agent || ( apt-get update -y && apt-get install openssh-client -y )'
+    - eval $(ssh-agent -s)
+    - mkdir -p ~/.ssh
+    - '[[ -f /.dockerenv ]] && echo -e "Host *\n\tStrictHostKeyChecking no\n\n" > ~/.ssh/config'
+    - ssh-add <(echo "$SSH_PRIVATE_KEY")
+    - ssh -o StrictHostKeyChecking=no "$QA_USER"@"$QA_SERVER" bash "$ASSETS_DIRECTORY"/post-client-install.sh
 
 deploy_QA_server:
   stage: deploy
@@ -126,7 +133,7 @@ deploy_QA_server:
     - mkdir -p ~/.ssh
     - '[[ -f /.dockerenv ]] && echo -e "Host *\n\tStrictHostKeyChecking no\n\n" > ~/.ssh/config'
     - ssh-add <(echo "$SSH_PRIVATE_KEY")
-    - ssh -o StrictHostKeyChecking=no "$QA_USER"@"$QA_SERVER" bash "$ASSETS_DIRECTORY"/post-install.sh
+    - ssh -o StrictHostKeyChecking=no "$QA_USER"@"$QA_SERVER" bash "$ASSETS_DIRECTORY"/post-server-install.sh
   # only:
   #   - master
 
