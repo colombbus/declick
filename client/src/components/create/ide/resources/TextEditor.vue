@@ -76,7 +76,7 @@ export default {
   background-color: black;
   color: white;
   position: relative;
-  &__wrapper {
+  &__wrapper.ace-editor {
     position: absolute;
     top: 0;
     right: 0;
