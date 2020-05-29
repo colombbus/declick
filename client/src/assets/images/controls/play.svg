@@ -7,40 +7,40 @@
    xmlns="http://www.w3.org/2000/svg"
    xmlns:sodipodi="http://sodipodi.sourceforge.net/DTD/sodipodi-0.dtd"
    xmlns:inkscape="http://www.inkscape.org/namespaces/inkscape"
-   inkscape:version="1.0 (6e3e5246a0, 2020-05-07)"
-   sodipodi:docname="play.svg"
-   width="36"
-   height="36"
-   viewBox="0 0 36 36"
+   id="svg8"
    version="1.1"
-   id="svg8">
+   viewBox="0 0 36 36"
+   height="36"
+   width="36"
+   sodipodi:docname="play.svg"
+   inkscape:version="1.0 (6e3e5246a0, 2020-05-07)">
   <sodipodi:namedview
-     inkscape:snap-page="true"
-     inkscape:current-layer="svg8"
-     inkscape:window-maximized="1"
-     inkscape:window-y="0"
-     inkscape:window-x="0"
-     inkscape:cy="21.729696"
-     inkscape:cx="20.108174"
-     inkscape:zoom="15.348487"
-     fit-margin-bottom="0"
-     fit-margin-right="0"
-     fit-margin-left="0"
-     fit-margin-top="0"
-     scale-x="1"
-     showgrid="false"
-     id="namedview838"
-     inkscape:window-height="1016"
-     inkscape:window-width="1920"
-     inkscape:pageshadow="2"
-     inkscape:pageopacity="0"
-     guidetolerance="10"
-     gridtolerance="10"
-     objecttolerance="10"
-     borderopacity="1"
-     bordercolor="#666666"
+     inkscape:document-rotation="0"
      pagecolor="#ffffff"
-     inkscape:document-rotation="0" />
+     bordercolor="#666666"
+     borderopacity="1"
+     objecttolerance="10"
+     gridtolerance="10"
+     guidetolerance="10"
+     inkscape:pageopacity="0"
+     inkscape:pageshadow="2"
+     inkscape:window-width="1920"
+     inkscape:window-height="1016"
+     id="namedview838"
+     showgrid="false"
+     scale-x="1"
+     fit-margin-top="0"
+     fit-margin-left="0"
+     fit-margin-right="0"
+     fit-margin-bottom="0"
+     inkscape:zoom="22.972222"
+     inkscape:cx="18"
+     inkscape:cy="18"
+     inkscape:window-x="0"
+     inkscape:window-y="0"
+     inkscape:window-maximized="1"
+     inkscape:current-layer="svg8"
+     inkscape:snap-page="true" />
   <defs
      id="defs2" />
   <metadata
@@ -56,15 +56,15 @@
     </rdf:RDF>
   </metadata>
   <circle
-     transform="rotate(45)"
-     r="18"
-     cy="8.0532036e-06"
-     cx="25.455849"
+     style="fill:#480a2a;fill-opacity:1;stroke:none;stroke-width:2.50594;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:0.985824"
      id="path21"
-     style="fill:#480a2a;fill-opacity:1;stroke:none;stroke-width:2.50594;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:0.985824" />
+     cx="25.455849"
+     cy="8.0532036e-06"
+     r="18"
+     transform="rotate(45)" />
   <path
-     sodipodi:nodetypes="cccc"
+     style="fill:#ffffff;stroke:none;stroke-width:0.0932891;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1"
+     d="M 12.433242,3.9123497 V 32.405289 l 14.051372,-14.24647 z"
      id="path852"
-     d="M 14.80501,2.7287062 V 33.271312 L 29.86718,18.000009 Z"
-     style="fill:#ffffff;stroke:none;stroke-width:0.1;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1" />
+     sodipodi:nodetypes="cccc" />
 </svg>
