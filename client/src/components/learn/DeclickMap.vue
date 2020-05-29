@@ -35,7 +35,7 @@ export default {
   ]),
   mounted() {
     // TODO: Find a better solution.
-    let robotPath = require('@/assets/images/robot-pawn.svg')
+    let robotPath = require('@/assets/images/figures/robot-pawn.svg')
     map.init(
       'map',
       robotPath,

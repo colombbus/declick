@@ -176,7 +176,7 @@ export default {
         right: 0;
         bottom: 0;
         left: 0;
-        background: no-repeat center url(~@/assets/images/declick.svg);
+        background: no-repeat center url(~@/assets/images/figures/declick.svg);
         opacity: 0.1;
         z-index: 0;
       }
@@ -202,7 +202,7 @@ export default {
         right: 0;
         bottom: 0;
         left: 0;
-        background: no-repeat url(~@/assets/images/declick.svg);
+        background: no-repeat url(~@/assets/images/figures/declick.svg);
         background-position: -700px 450px;
         opacity: 0.07;
         z-index: -1;

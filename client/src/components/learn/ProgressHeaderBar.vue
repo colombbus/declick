@@ -50,13 +50,13 @@ export default {
   cursor: pointer;
 }
 #rightLink:hover {
-  background-image: url(../../assets/images/controls/arrow-right-hover.svg);
+  // background-image: url(../../assets/images/controls/arrow-right-hover.svg);
 }
 #leftLink:hover {
-  background-image: url(../../assets/images/controls/arrow-left-hover.svg);
+  // background-image: url(../../assets/images/controls/arrow-left-hover.svg);
 }
 #rightLink {
-  background-image: url(../../assets/images/controls/arrow-right.svg);
+  background-image: url(../../assets/images/controls/next-step.svg);
   content: '';
   position: absolute;
   right: 115px !important;
@@ -68,7 +68,8 @@ export default {
 #leftLink {
   position: absolute;
   content: '';
-  background-image: url(../../assets/images/controls/arrow-left.svg);
+  background-image: url(../../assets/images/controls/next-step.svg);
+  transform: scaleX(-1);
   right: 165px;
   top: 9px;
   left: initial !important;
@@ -101,7 +102,7 @@ export default {
   width: 45px;
   height: 45px;
   cursor: pointer;
-  background-image: url(~@/assets/images/logos/declick-small.svg);
+  background-image: url(~@/assets/images/figures/declick-small.svg);
 }
 
 #map-control-small {

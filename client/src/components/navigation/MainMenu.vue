@@ -100,7 +100,7 @@ export default {
   border-top: 7px solid #6e3a51;
   justify-content: center;
   background-color: #652e46;
-  background-image: url(../../assets/images/wave.svg);
+  background-image: url(../../assets/images/flourish/wave.svg);
   box-shadow: 0 2px 6px 0 rgba(0, 0, 0, 0.25);
   text-transform: uppercase;
 }

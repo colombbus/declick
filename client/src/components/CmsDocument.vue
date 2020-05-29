@@ -2,12 +2,12 @@
 //- Uncomment when ready to clean-up.
 //- div
 //-   .cms-document-loading-message
-//-     img(src="assets/images/spinner.gif")
+//-     img(src="assets/images/flourish/spinner.gif")
 //-     p Chargement...
 //-   .cms-document-content
 #contentContainerHome
   #onLoadGif
-    img(src="../assets/images/spinner.gif")
+    img(src="../assets/images/flourish/spinner.gif")
     p Chargement...
   #content
 </template>
@@ -257,7 +257,7 @@ export default {
   }
 
   #quoi td ul li {
-    list-style-image: url('../assets/images/yellow.png');
+    list-style-image: url('../assets/images/flourish/yellow.svg');
   }
 
   #qui, #ensemble, #logos {
@@ -336,7 +336,7 @@ export default {
     position:absolute;
     width:144px;
     height:144px;
-    background-image:url("../assets/images/animateurs.png");
+    background-image:url("../assets/images/figures/animateurs.png");
     left:0;
     right:0;
     margin-left:auto;
@@ -345,7 +345,7 @@ export default {
   }
 
   #animateurs:hover {
-    background-image:url("../assets/images//animateurs_on.png");
+    background-image:url("../assets/images/figures/animateurs_on.png");
   }
 
   #content .page-text img#image_contact {

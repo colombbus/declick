@@ -43,7 +43,7 @@ export default {
   width: 45px;
   height: 45px;
   vertical-align: bottom;
-  background-image: url(~@/assets/images/logos/declick-small.svg);
+  background-image: url(~@/assets/images/figures/declick-small.svg);
   cursor: pointer;
 }
 

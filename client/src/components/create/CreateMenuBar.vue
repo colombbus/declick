@@ -3,7 +3,7 @@
   .dropdown(v-show='user')
     ul.dropdown-menu(v-show="showPopup")
       li.menu-item 
-        router-link(:to="`/create/${currentProject.id}/show`")
+        router-link(:to="`/create/${project.id}/show`")
           i.fa.fa-info
           | informations
       li.divider(role='separator')
@@ -14,14 +14,14 @@
       //- a(@click="$emit('showView', 'ProjectList')")
       li.divider(role='separator')
       li.menu-item
-        router-link(:to="`/create/${currentProject.id}/import`")
+        router-link(:to="`/create/${project.id}/import`")
           i.fa.fa-file-import
           | importer les programmes d'exemple
       //- template(v-if='user')
       //-   li.divider(role='separator')
       //-   li.menu-item: a(@click='importExamplePrograms')
   a.dropdown-trigger(type='button' data-toggle='dropdown' @click="showPopup = !showPopup" v-click-outside="()=> {this.showPopup = false}")
-      span.project-name {{(currentProject && currentProject.name) || 'Projet'}}
+      span.project-name {{(project && project.name) || 'Projet'}}
   a(
     @click='toggleMode',
     :class="editor ? 'show-view-link' : 'show-editor-link'"
@@ -45,7 +45,16 @@ export default {
       this.$emit('toggleEditor')
     },
   },
-  computed: mapState(['token', 'user', 'currentProject']),
+  computed: {
+    project() {
+      let project = { id: 0, name: 'Mon projet' }
+      if (this.currentProject) {
+        project = this.currentProject
+      }
+      return project
+    },
+    ...mapState(['token', 'user', 'currentProject']),
+  },
   directives: {
     ClickOutside,
   },

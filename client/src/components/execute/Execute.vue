@@ -1,7 +1,7 @@
 <template lang="pug">
 .main
   .loading(ref='loading')
-    img(src='../../assets/images/spinner.gif')
+    img(src='../../assets/images/flourish/spinner.gif')
     p Chargement...
   execute-header-bar
   .main__execute

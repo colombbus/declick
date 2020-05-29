@@ -19,7 +19,7 @@
   padding: 0;
   border: 0;
   background-color: transparent;
-  background-image: url(~@/assets/images/logos/declick.svg);
+  background-image: url(~@/assets/images/figures/declick.svg);
   outline: 0;
 }
 </style>
