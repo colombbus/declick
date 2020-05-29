@@ -22,55 +22,55 @@ cache:
 
 stages:
   - test
-  - build
+  # - build
   - deploy
 
-# unit_test_objects:
-#   stage: test
-#   script:
-#     - cd objects
-#     - npm run unit
+unit_test_objects:
+  stage: test
+  script:
+    - cd objects
+    - npm run test
 
-# unit_test_runtime:
-#   stage: test
-#   script:
-#     - cd runtime
-#     - npm run unit
+unit_test_runtime:
+  stage: test
+  script:
+    - cd runtime
+    - npm run test
 
-# build_runtime:
-#   stage: build
-#   script:
-#     - cd runtime
-#     - npm run build
-#   artifacts:
-#     paths:
-#     - runtime/lib/@declick/runtime.js
-#     - runtime/lib/@declick/runtime.js.map
-#     - runtime/lib/@declick/runtime.min.js
-#     - runtime/lib/@declick/runtime.min.js.map
+build_runtime:
+  stage: build
+  script:
+    - cd runtime
+    - npm run build
+  artifacts:
+    paths:
+    - runtime/lib/@declick/runtime.js
+    - runtime/lib/@declick/runtime.js.map
+    - runtime/lib/@declick/runtime.min.js
+    - runtime/lib/@declick/runtime.min.js.map
 
-# build_objects:
-#   stage: build
-#   before_script:
-#     - npm i -g npm@latest
-#   script:
-#     - cd objects
-#     - npm run build
-#   artifacts:
-#     paths:
-#     - objects/lib/@declick/objects.js
-#     - objects/lib/@declick/objects.js.map
-#     - objects/lib/@declick/objects.min.js
-#     - objects/lib/@declick/objects.min.js.map
+build_objects:
+  stage: build
+  before_script:
+    - npm i -g npm@latest
+  script:
+    - cd objects
+    - npm run build
+  artifacts:
+    paths:
+    - objects/lib/@declick/objects.js
+    - objects/lib/@declick/objects.js.map
+    - objects/lib/@declick/objects.min.js
+    - objects/lib/@declick/objects.min.js.map
 
-# build_client:
-#   stage: build
-#   script:
-#     - cd client
-#     - npm run build
-#   artifacts:
-#     paths:
-#     - client/dist
+build_client:
+  stage: build
+  script:
+    - cd client
+    - npm run build
+  artifacts:
+    paths:
+    - client/dist
 
 deploy_QA_clean:
   stage: deploy
