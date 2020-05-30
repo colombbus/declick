@@ -29,12 +29,14 @@ unit_test_objects:
   stage: test
   script:
     - cd objects
+    - npm install
     - npm run test
 
 unit_test_runtime:
   stage: test
   script:
     - cd runtime
+    - npm install
     - npm run test
 
 # build_runtime:
