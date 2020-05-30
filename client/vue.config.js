@@ -40,6 +40,6 @@ module.exports = {
           .loader('file-loader')
           .options({
             name: 'assets/[name].[hash:8].[ext]',
-          });
+          })
   },
 }

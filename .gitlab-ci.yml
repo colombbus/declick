@@ -37,40 +37,40 @@ unit_test_runtime:
     - cd runtime
     - npm run test
 
-build_runtime:
-  stage: build
-  script:
-    - cd runtime
-    - npm run build
-  artifacts:
-    paths:
-    - runtime/lib/@declick/runtime.js
-    - runtime/lib/@declick/runtime.js.map
-    - runtime/lib/@declick/runtime.min.js
-    - runtime/lib/@declick/runtime.min.js.map
+# build_runtime:
+#   stage: build
+#   script:
+#     - cd runtime
+#     - npm run build
+#   artifacts:
+#     paths:
+#     - runtime/lib/@declick/runtime.js
+#     - runtime/lib/@declick/runtime.js.map
+#     - runtime/lib/@declick/runtime.min.js
+#     - runtime/lib/@declick/runtime.min.js.map
 
-build_objects:
-  stage: build
-  before_script:
-    - npm i -g npm@latest
-  script:
-    - cd objects
-    - npm run build
-  artifacts:
-    paths:
-    - objects/lib/@declick/objects.js
-    - objects/lib/@declick/objects.js.map
-    - objects/lib/@declick/objects.min.js
-    - objects/lib/@declick/objects.min.js.map
+# build_objects:
+#   stage: build
+#   before_script:
+#     - npm i -g npm@latest
+#   script:
+#     - cd objects
+#     - npm run build
+#   artifacts:
+#     paths:
+#     - objects/lib/@declick/objects.js
+#     - objects/lib/@declick/objects.js.map
+#     - objects/lib/@declick/objects.min.js
+#     - objects/lib/@declick/objects.min.js.map
 
-build_client:
-  stage: build
-  script:
-    - cd client
-    - npm run build
-  artifacts:
-    paths:
-    - client/dist
+# build_client:
+#   stage: build
+#   script:
+#     - cd client
+#     - npm run build
+#   artifacts:
+#     paths:
+#     - client/dist
 
 deploy_QA_clean:
   stage: deploy
@@ -134,8 +134,6 @@ deploy_QA_server:
     - '[[ -f /.dockerenv ]] && echo -e "Host *\n\tStrictHostKeyChecking no\n\n" > ~/.ssh/config'
     - ssh-add <(echo "$SSH_PRIVATE_KEY")
     - ssh -o StrictHostKeyChecking=no "$QA_USER"@"$QA_SERVER" bash "$ASSETS_DIRECTORY"/post-server-install.sh
-  # only:
-  #   - master
 
 # deploy_production:
 #   stage: deploy
