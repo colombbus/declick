@@ -70,6 +70,7 @@ $menu-height: 50px;
   padding: 0 $size-2;
   color: $cab-sav;
   border-bottom: 1px solid $border-color;
+  box-sizing: border-box;
 
   .dropdown {
     display: inline-block;
