@@ -5,11 +5,11 @@ transition(name='modal')
       .container(@click.stop='')
         div(v-show="mode === 'connection'")
           .form-group.has-error(v-if='error')
-            span.help-block
+            .help-block
              | Nom d'utilisateur ou mot de passe incorrect
           .form-group.has-feedback
             .input-group
-              .input-group-addon: span.glyphicon.glyphicon-user
+              .input-group-addon: i.fa.fa-user
               input(
                 @keyup.enter='logIn'
                 v-model='username'
@@ -19,7 +19,7 @@ transition(name='modal')
               )
           .form-group
             .input-group
-              .input-group-addon: span.glyphicon.glyphicon-lock
+              .input-group-addon: i.fa.fa-lock
               input(
                 @keyup.enter='logIn'
                 v-model='password'
@@ -27,21 +27,23 @@ transition(name='modal')
                 class='form-control'
                 placeholder='mot de passe'
               )
-          button(
-            @click='logIn',
-            :disabled='isLogingIn'
-            type='button'
-            class='btn btn-block btn-primary'
-          )
-            | se connecter
-            span(v-show='isLogingIn')
-              | &nbsp;
-              span.fa.fa-circle-o-notch.fa-spin
-          button(
-            @click="mode = 'registration'"
-            type='button'
-            class='btn btn-block btn-link'
-          ) s'inscrire
+          .form-group
+            .input-group.validation
+              button(
+                @click='logIn',
+                :disabled='isLogingIn'
+                type='button'
+                class='btn btn-block btn-primary'
+              )
+                | se connecter
+                span(v-show='isLogingIn')
+                  | &nbsp;
+                  span.fa.fa-circle-o-notch.fa-spin
+              button(
+                @click="mode = 'registration'"
+                type='button'
+                class='btn btn-block btn-link'
+              ) s'inscrire
         registration-form(
           @switch-to-connection="mode = 'connection'"
           @close="$emit('close')"
@@ -86,7 +88,9 @@ export default {
 }
 </script>
 
-<style lang="scss" scoped>
+<style lang="scss">
+@import '~@/assets/styles/globals';
+
 .mask {
   position: fixed;
   z-index: 9999;
@@ -94,33 +98,86 @@ export default {
   left: 0;
   width: 100%;
   height: 100%;
-  background-color: rgba(0, 0, 0, 0.5);
+  background-color: #00000080;
   display: table;
   transition: opacity 0.3s ease;
-}
-.wrapper {
-  display: table-cell;
-  vertical-align: middle;
-}
-.container {
-  width: 300px;
-  margin: 0px auto;
-  padding: 20px;
-  background-color: #f8f8f8;
-  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.33);
-  transition: all 0.3s ease;
-}
-.modal-enter,
-.modal-leave-active {
-  opacity: 0;
-}
+  font-family: 'Arial', sans-serif;
 
-.modal-enter .container,
-.modal-leave-active .container {
-  -webkit-transform: scale(1.1);
-  transform: scale(1.1);
-}
-.input-group {
-  margin-bottom: 6px;
+  .wrapper {
+    display: table-cell;
+    vertical-align: middle;
+  }
+
+  .container {
+    width: 300px;
+    // height: 210px;
+    margin: 0 auto;
+    padding: $size-3;
+    box-sizing: border-box;
+    background-color: $white;
+    box-shadow: 0 $size-1 $size-2 #00000054;
+    transition: all 0.3s ease;
+  }
+
+  .modal-enter,
+  .modal-leave-active {
+    opacity: 0;
+  }
+
+  .modal-enter .container,
+  .modal-leave-active .container {
+    -webkit-transform: scale(1.1);
+    transform: scale(1.1);
+  }
+  .form-control {
+    color: white;
+    width: 100%;
+    &:focus {
+      border-color: $valid-color;
+      outline: 0;
+      box-shadow: inset 0 1px 1px rgba(0, 0, 0, 0.075),
+        0 0 8px rgba(102, 175, 233, 0.6);
+    }
+  }
+  .input-group {
+    display: flex;
+    align-items: center;
+    margin-bottom: $size-2;
+    height: $size-4;
+
+    .fa {
+      padding: $size-3;
+      background-color: $wine-berry;
+      color: $white;
+      border-radius: $size-1 0 0 $size-1;
+      font-size: 0.7em;
+      display: flex;
+      align-items: center;
+    }
+    input {
+      border-radius: 0 $size-1 $size-1 0;
+      border: 0;
+      background-color: $white;
+      background-image: none;
+      color: $cab-sav;
+      border: $cab-sav solid 1px;
+      padding-left: $size-2;
+      font-family: 'Arial', sans-serif;
+    }
+
+    .fa,
+    input {
+      box-sizing: border-box;
+      height: $size-4;
+    }
+  }
+  .input-group.validation {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    margin-bottom: 0;
+    button:last-child {
+      margin-right: 0;
+    }
+  }
 }
 </style>

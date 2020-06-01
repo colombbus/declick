@@ -1,8 +1,8 @@
 <template lang="pug">
-div
+.registration-form
   .form-group.has-feedback(:class="{'has-error': errors.username}")
     .input-group
-      .input-group-addon: span.glyphicon.glyphicon-user
+      .input-group-addon: i.fa.fa-user
       input(
         @keyup.enter='logIn'
         v-model='username'
@@ -14,11 +14,11 @@ div
       | {{errors.username[0]}}
   .form-group.has-feedback(:class="{'has-error': errors.email}")
     .input-group
-      .input-group-addon: span.glyphicon.glyphicon-envelope
+      .input-group-addon: i.fa.fa-envelope
       input(
         @keyup.enter='register'
         v-model='email'
-        type='text'
+        type='email'
         class='form-control'
         placeholder="email (optionnel)"
       )
@@ -26,7 +26,7 @@ div
       | {{errors.email[0]}}
   .form-group.has-feedback(:class="{'has-error': errors.password}")
     .input-group
-      .input-group-addon: span.glyphicon.glyphicon-lock
+      .input-group-addon: i.fa.fa-lock
       input(
         @keyup.enter='register'
         v-model='password'
@@ -38,7 +38,7 @@ div
       | {{errors.password[0]}}
   .form-group.has-feedback(:class="{'has-error': errors.passwordConfirmation}")
     .input-group
-      .input-group-addon: span.glyphicon.glyphicon-lock
+      .input-group-addon: i.fa.fa-lock
       input(
         @keyup.enter='register'
         v-model='passwordConfirmation'
@@ -48,18 +48,20 @@ div
       )
     span.help-block(v-if='errors.passwordConfirmation')
       |  {{errors.passwordConfirmation[0]}}
-  button(
-    @click='register'
-    type='button'
-    class='btn btn-block btn-primary'
-  ) valider l'inscription
-  span.help-block(v-if='errors.server')
-    | {{errors.server[0]}}
-  button(
-    @click="$emit('switch-to-connection')"
-    type='button'
-    class='btn btn-block btn-link'
-  ) retourner à la connexion
+  .form-group
+    .input-group.validation
+      button(
+        @click='register'
+        type='button'
+        class='btn btn-block btn-primary'
+      ) valider
+      span.help-block(v-if='errors.server')
+        | {{errors.server[0]}}
+      button(
+        @click="$emit('switch-to-connection')"
+        type='button'
+        class='btn btn-block btn-link'
+      ) retour
 </template>
 
 <script>
@@ -170,8 +172,38 @@ export default {
 }
 </script>
 
-<style lang="scss" scoped>
-.input-group {
-  margin-bottom: 6px;
+<style lang="scss">
+@import '~@/assets/styles/globals';
+
+.registration-form {
+  height: 226px;
+  .form-group {
+    margin-bottom: $size-3;
+  }
+  .fa {
+    padding: $size-3;
+    background-color: $wine-berry;
+    color: $white;
+    border-radius: $size-1 0 0 $size-1;
+    font-size: 0.7em;
+    display: flex;
+    align-items: center;
+  }
+  input {
+    border-radius: 0 $size-1 $size-1 0;
+    border: 0;
+    background-color: $white;
+    background-image: none;
+    color: $cab-sav;
+    border: $cab-sav solid 1px;
+    padding-left: $size-2;
+    font-family: 'Arial', sans-serif;
+  }
+
+  .fa,
+  input {
+    box-sizing: border-box;
+    height: $size-4;
+  }
 }
 </style>
