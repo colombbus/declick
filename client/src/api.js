@@ -310,6 +310,39 @@ export default {
     console.log(response)
     // return data
   },
+  async createProjetResource(token, projectId, id) {
+    const url = `${config.apiUrl}projects/${projectId}/resources`
+    const response = await axios({
+      method: 'post',
+      url,
+      headers: {
+        Authorization: `Token ${token}`,
+      },
+      data: { file_name: id, media_type: 'text/vnd.colombbus.declick.script' },
+    })
+    return response.data
+  },
+  async deleteProjetResource(token, projectId, id) {
+    const url = `${config.apiUrl}projects/${projectId}/resources/${id}`
+    const response = await axios({
+      method: 'delete',
+      url,
+      headers: {
+        Authorization: `Token ${token}`,
+      },
+    })
+  },
+  async updateProjetResource(token, projectId, id, content) {
+    const url = `${config.apiUrl}projects/${projectId}/resources/${id}`
+    const response = await axios({
+      method: 'delete',
+      url,
+      headers: {
+        Authorization: `Token ${token}`,
+      },
+      // data: { file_name: id, media_type: 'text/vnd.colombbus.declick.script' },
+    })
+  },
 
   // courses methods
   async getAllCourses() {

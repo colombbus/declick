@@ -79,6 +79,7 @@ $app->group(['prefix' => 'api/v1'], function () use ($app) {
 
     // projects resources routes
     $app->get('projects/{projectId}/resources', 'ProjectResourceController@index');
+    $app->delete('projects/{projectId}/resources/{resourceId}', 'ProjectResourceController@delete');
 
     $app->get(
         'projects/{projectId}/resources/{resourceId}/' .
@@ -108,11 +109,10 @@ $app->group(['prefix' => 'api/v1'], function () use ($app) {
             'as' => 'resources',
             'uses' => 'ProjectResourceController@show',
         ]);
-        $app->delete(
-            'resources/{resourceId}',
-            'ProjectResourceController@delete'
-        );
-     
+        // $app->delete(
+        //     'resources/{resourceId}',
+        //     'ProjectResourceController@delete'
+        // );
     });
 
     $app->patch(

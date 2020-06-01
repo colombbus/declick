@@ -227,6 +227,7 @@ export const selectProject = async ({ commit, state }, { id }) => {
 export const updateProject = async ({ state }, { id, data }) => {
   return await Api.updateProject(id, data, state.token)
 }
+
 export const deleteProject = async ({ state }, { id }) => {
   return await Api.deleteProject(id, state.token)
 }
@@ -237,11 +238,33 @@ export const getAllUserProjects = async ({ state }) => {
 
 export const getAllProjectResources = async ({ state }, { id }) => {
   const projectId = typeof id === 'undefined' ? state.user.currentProjectId : id
-  console.log(projectId, state)
   return await Api.getAllProjectResources(projectId, state.user.token)
 }
+
 export const getProject = async ({ commit, state }, { id }) => {
   return await Api.getProject(id, state.user.token)
+}
+
+export const createProjetResource = async ({ commit, state }, { id }) => {
+  return await Api.createProjetResource(
+    state.token,
+    state.user.currentProjectId,
+    id,
+  )
+}
+export const deleteProjetResource = async ({ commit, state }, { id }) => {
+  return await Api.deleteProjetResource(
+    state.token,
+    state.user.currentProjectId,
+    id,
+  )
+}
+export const updateProjetResource = async ({ commit, state }, { id }) => {
+  return await Api.updateProjetResource(
+    state.token,
+    state.user.currentProjectId,
+    id,
+  )
 }
 
 function getLocalItem(key) {

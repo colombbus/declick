@@ -32,8 +32,6 @@ export default {
       default: () => [],
     },
   },
-  created() {},
-  mounted() {},
   methods: {
     select(id) {
       this.$nextTick(() => (this.selectedId = id))
@@ -42,21 +40,31 @@ export default {
       // this.setCurrentProgramContent({ id: name, content: this.getProjetResourceContent() })
       this.$emit('select', name)
     },
-    renameProgram(id, newName) {
+    async renameProgram(id, newName) {
       this.programs.find(program => program.id === id).file_name = newName
+      console.log(id)
+      // TODO check if name exists
+      await this.updateProjetResource({ id, file_name: newName })
+      // this.programs = this.programs.filter(program => program.id !== this.selectedId)
     },
-    createProgram() {
-      const id = this.generateId()
+    async createProgram() {
       const name = this.generateName()
-      this.programs.push({ id, file_name: name })
+      const resource = await this.createProjetResource({ id: name })
       this.setCurrentProgramContent({ id: name, content: '' })
+      this.programs.push({ id: resource.id, file_name: name })
+      this.select(resource.id)
     },
-    destroySelectedProgram() {
-      this.destroyProgram(this.selectedId)
-    },
-    destroyProgram(id) {
-      this.programs = this.programs.filter(program => program.id !== id)
-      if (this.selectedId === id) {
+    async destroySelectedProgram() {
+      const [{ id }] = this.programs.filter(program => {
+        if (program.id === this.selectedId) {
+          return program.id
+        }
+      })
+      await this.deleteProjetResource({ id })
+      this.programs = this.programs.filter(
+        program => program.id !== this.selectedId,
+      )
+      if (this.selectedId === this.selectedId) {
         this.selectedId = null
       }
     },
@@ -79,14 +87,10 @@ export default {
       'setCurrentProgramName',
       'setCurrentProgramContent',
       'getProjetResourceContent',
+      'createProjetResource',
+      'deleteProjetResource',
+      'updateProjetResource',
     ]),
-  },
-  watch: {
-    programs: function() {
-      if (this.programs.length > 0) {
-        this.select(this.programs[0].id)
-      }
-    },
   },
   computed: {
     orderedPrograms() {
