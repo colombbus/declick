@@ -72,11 +72,13 @@ export default {
 </script>
 
 <style lang="scss">
+@import '~@/assets/styles/globals';
+
 .editor {
   background-color: black;
-  color: white;
+  color: $white;
   position: relative;
-  &__wrapper.ace-editor {
+  &__wrapper {
     position: absolute;
     top: 0;
     right: 0;
@@ -92,6 +94,9 @@ export default {
     font-size: 1em;
     color: white;
     opacity: 0.3;
+  }
+  .editor__wrapper.ace-editor {
+    height: 100%;
   }
 }
 </style>
