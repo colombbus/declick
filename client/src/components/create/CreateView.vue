@@ -12,7 +12,7 @@
     .container(v-if="$route.meta.project")
       .slider-header
         h3
-          router-link(to="/create/projects") Mes projets
+          router-link(to="/create/projects") {{ $t('words.my-projects') }}
           chevron-right.breadcrumb-chevron
           | {{ $route.name }}
           chevron-right.breadcrumb-chevron(v-if='currentProject.name')
@@ -156,7 +156,7 @@ export default {
 
   .slider {
     position: absolute;
-    top: 100px;
+    top: var(--header-height);
     right: 0;
     bottom: 0;
     left: 0;
