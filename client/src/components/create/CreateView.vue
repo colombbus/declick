@@ -150,6 +150,7 @@ export default {
 @import '~@/assets/styles/globals';
 
 .create-view {
+  --header-height: 115px;
   position: relative;
   height: 100%;
 
@@ -233,7 +234,7 @@ export default {
     grid-column: 1/4;
   }
   .frame {
-    height: calc(100vh - 112px);
+    height: calc(100vh - var(--header-height));
     width: 100%;
     padding: 0 8px 8px 8px;
     border: none;
@@ -242,13 +243,13 @@ export default {
 
   .wikiFrame {
     position: absolute;
-    height: calc(100vh - 112px);
+    height: calc(100vh - var(--header-height));
     width: 365px;
     display: none;
     border: none;
   }
   .ide {
-    height: calc(100% - 100px);
+    height: calc(100vh - var(--header-height));
     z-index: 0;
   }
   .dropdown {

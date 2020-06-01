@@ -57,7 +57,6 @@ export default {
 <style lang="scss">
 .application {
   // display: grid;
-  height: 100%;
   margin: 0;
   padding: 0;
   grid-template-rows: auto auto 1fr auto;
@@ -66,6 +65,7 @@ export default {
   }
 }
 .application--fullscreen {
+  height: 100%;
   .application__header,
   .application__footer {
     display: none;

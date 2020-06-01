@@ -9,9 +9,10 @@
 @import '~@/assets/styles/globals';
 
 .create-header-bar {
-  padding: 0 $size-2;
+  padding: $size-2;
   border-bottom: $size-1 solid $declick-yellow;
   background-color: $cab-sav;
+  box-sizing: border-box;
 
   .home-link {
     display: inline-block;
