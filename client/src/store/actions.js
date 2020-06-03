@@ -17,7 +17,12 @@ export const setCurrentProgramContent = async (
     state.user.currentProjectId,
   )
   const [resource] = resources.filter(r => r.file_name === id)
-  await Api.setProjetResourceContent(state.token, state.user.currentProjectId, resource.id, content)
+  await Api.setProjetResourceContent(
+    state.token,
+    state.user.currentProjectId,
+    resource.id,
+    content,
+  )
   commit(mutations.CURRENT_CODE_UPDATE, { id, content })
 }
 
