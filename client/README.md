@@ -5,13 +5,14 @@ This component is part of [Declick platform](https://gitlab.com/colombbus/declic
 It is built on [Vue.js](https://vuejs.org).
 ## Configuration
 
-1. copy `src/assets/js/example.config.js` into `src/assets/js/config.js` and set parameters according to your configuration:
+1. install vue command line tool : `npm install -g @vue/cli` or `yarn global add @vue/cli`
+2. copy `src/assets/js/example.config.js` into `src/assets/js/config.js` and set parameters according to your configuration:
     * domain: you can specify a domain in order to be able to load content from a cms located on another domain (CSRF protection)
     * basePath: base path following your server address. For instance if access url is 'http://localhost/declick-ui/dist', basePath should be set to '/declick-client/dist'
     * apiUrl: URL to server endpoint, e.g. 'http://localhost/declick-server/api/',
     * clientUrl: URL to declick-client, e.g. 'http://localhost/declick-client/dist/',
     * cmsUrl: URL to CMS storing static pages, e.g. 'http://localhost/cms/'
-2. At the application root copy htaccess.example into .htaccess and set parameter RewriteBase according to your configuration. For instance if access url is `http://localhost/declick-client/dist`, RewriteBase should be `/declick-client/dist/`
+3. At the application root copy htaccess.example into .htaccess and set parameter RewriteBase according to your configuration. For instance if access url is `http://localhost/declick-client/dist`, RewriteBase should be `/declick-client/dist/`
 
 ## Project setup
 ```
