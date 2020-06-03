@@ -121,8 +121,8 @@ export default {
     color: white;
     opacity: 0.3;
   }
-  .editor__wrapper.ace-editor {
-    height: 100%;
-  }
+}
+.editor__wrapper.ace-editor {
+  height: 100%;
 }
 </style>
