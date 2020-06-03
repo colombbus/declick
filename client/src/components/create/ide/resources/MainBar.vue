@@ -10,7 +10,7 @@
     type='button'
     @click="$emit('execute')"
   )
-  button.main-bar__save(type='button')
+  button.main-bar__save(type='button' @click="$emit('save-file-content')")
 </template>
 
 <script>

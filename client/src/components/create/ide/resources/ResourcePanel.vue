@@ -3,6 +3,8 @@
   program-list(
     v-show="view === 'programs'" 
     @select="$emit('select', $event)"
+    @rename="renameResource"
+    @delete-program="deleteResource"
     :programs="programs"
   )
   asset-list(
@@ -40,13 +42,22 @@ export default {
         r => r.media_type === 'text/vnd.colombbus.declick.script',
       )
       this.assets = resources.filter(r => r.media_type.includes('image'))
-      // console.log(currentProjectId, resources, this.programs, this.assets)
     },
-    ...mapActions(['getAllProjectResources']),
+    deleteResource(selectedId) {
+      this.programs = this.programs.filter(program => program.id !== selectedId)
+    },
+    async renameResource(id, newName) {
+      this.programs.find(program => program.id === id).file_name = newName
+      await this.updateProjetResource({ id, file_name: newName })
+    },
+    async saveResource(id, newName) {
+      this.programs.find(program => program.id === id).file_name = newName
+      await this.updateProjetResource({ id, file_name: newName })
+    },
+    ...mapActions(['getAllProjectResources', 'updateProjetResource']),
   },
   watch: {
     '$store.state.user': function(user) {
-      console.log('user updated /current from state ::! need save ??')
       this.getResources()
     },
   },

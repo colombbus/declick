@@ -78,22 +78,22 @@ $app->group(['prefix' => 'api/v1'], function () use ($app) {
     });
 
     // projects resources routes
-    $app->get('projects/{projectId}/resources', 'ProjectResourceController@index');
-    $app->delete('projects/{projectId}/resources/{resourceId}', 'ProjectResourceController@delete');
-
+    $app->get(
+        'projects/{projectId}/resources', 
+        'ProjectResourceController@index'
+    );
     $app->get(
         'projects/{projectId}/resources/{resourceId}/' .
         'content{extension:(?:\\..+)?}',
         'ProjectResourceController@showContent'
     );
-
     $app->get(
         'projects/{projectId}/exercicesContent',
         'ProjectResourceController@showExercicesContent'
     );
     
     $app->group([
-        'prefix' => 'projects/{patch}',
+        'prefix' => 'projects/{projectId}',
         'middleware' => 'members-only',
     ], function () use ($app) {
         $app->post('resources', 'ProjectResourceController@create');
@@ -109,10 +109,10 @@ $app->group(['prefix' => 'api/v1'], function () use ($app) {
             'as' => 'resources',
             'uses' => 'ProjectResourceController@show',
         ]);
-        // $app->delete(
-        //     'resources/{resourceId}',
-        //     'ProjectResourceController@delete'
-        // );
+        $app->delete(
+            'resources/{resourceId}',
+            'ProjectResourceController@delete'
+        );
     });
 
     $app->patch(
@@ -120,7 +120,6 @@ $app->group(['prefix' => 'api/v1'], function () use ($app) {
         'ProjectResourceController@exerciseUpdate'
     );
  
-
     // circuits routes
     $app->get('circuits', 'CircuitController@index');
     $app->post('circuits', 'CircuitController@create');

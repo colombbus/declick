@@ -2,7 +2,7 @@
 .program-list
   .program-list__content
     program-item(
-      v-for='program in programs'
+      v-for='program in orderedPrograms'
       @select='select(program.id)'
       @rename='name => renameProgram(program.id, name)'
       @destroy='destroyProgram(program.id)'
@@ -37,36 +37,24 @@ export default {
       this.$nextTick(() => (this.selectedId = id))
       const name = this.programs.find(program => program.id === id).file_name
       this.setCurrentProgramName({ name })
-      // this.setCurrentProgramContent({ id: name, content: this.getProjetResourceContent() })
       this.$emit('select', name)
     },
     async renameProgram(id, newName) {
-      this.programs.find(program => program.id === id).file_name = newName
-      console.log(id)
-      // TODO check if name exists
-      await this.updateProjetResource({ id, file_name: newName })
-      // this.programs = this.programs.filter(program => program.id !== this.selectedId)
+      this.$emit('rename', id, newName)
     },
     async createProgram() {
       const name = this.generateName()
       const resource = await this.createProjetResource({ id: name })
+      this.setCurrentProgramName({ name })
       this.setCurrentProgramContent({ id: name, content: '' })
       this.programs.push({ id: resource.id, file_name: name })
       this.select(resource.id)
     },
     async destroySelectedProgram() {
-      const [{ id }] = this.programs.filter(program => {
-        if (program.id === this.selectedId) {
-          return program.id
-        }
-      })
-      await this.deleteProjetResource({ id })
-      this.programs = this.programs.filter(
-        program => program.id !== this.selectedId,
-      )
-      if (this.selectedId === this.selectedId) {
-        this.selectedId = null
-      }
+      await this.deleteProjetResource({ id: this.selectedId })
+      this.select(this.programs[0].id)
+      this.setCurrentProgramName({ name: this.programs[0].name })
+      this.$emit('delete-program', this.selectedId)
     },
     generateName() {
       let i = 1
@@ -89,13 +77,17 @@ export default {
       'getProjetResourceContent',
       'createProjetResource',
       'deleteProjetResource',
-      'updateProjetResource',
     ]),
   },
   computed: {
     orderedPrograms() {
+      if (typeof this.programs === 'undefined' || this.programs === null) {
+        return {}
+      }
       const self = this
-      return self.programs.sort((a, b) => a.name.localeCompare(b.file_name))
+      return self.programs.sort((a, b) =>
+        a.file_name.localeCompare(b.file_name),
+      )
     },
   },
   components: {

@@ -332,15 +332,15 @@ export default {
       },
     })
   },
-  async updateProjetResource(token, projectId, id, content) {
+  async updateProjetResource(token, projectId, id, file_name) {
     const url = `${config.apiUrl}projects/${projectId}/resources/${id}`
     const response = await axios({
-      method: 'delete',
+      method: 'patch',
       url,
       headers: {
         Authorization: `Token ${token}`,
       },
-      // data: { file_name: id, media_type: 'text/vnd.colombbus.declick.script' },
+      data: { file_name },
     })
   },
 

@@ -17,7 +17,7 @@ export const setCurrentProgramContent = async (
     state.user.currentProjectId,
   )
   const [resource] = resources.filter(r => r.file_name === id)
-  // await Api.setProjetResourceContent(state.user.token, state.user.currentProjectId, resource.id, content)
+  await Api.setProjetResourceContent(state.token, state.user.currentProjectId, resource.id, content)
   commit(mutations.CURRENT_CODE_UPDATE, { id, content })
 }
 
@@ -252,6 +252,7 @@ export const createProjetResource = async ({ commit, state }, { id }) => {
     id,
   )
 }
+
 export const deleteProjetResource = async ({ commit, state }, { id }) => {
   return await Api.deleteProjetResource(
     state.token,
@@ -259,11 +260,13 @@ export const deleteProjetResource = async ({ commit, state }, { id }) => {
     id,
   )
 }
-export const updateProjetResource = async ({ commit, state }, { id }) => {
+
+export const updateProjetResource = async ({ state }, { id, file_name }) => {
   return await Api.updateProjetResource(
     state.token,
     state.user.currentProjectId,
     id,
+    file_name,
   )
 }
 

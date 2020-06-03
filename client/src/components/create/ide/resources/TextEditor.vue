@@ -15,16 +15,31 @@ import 'brace/ext/themelist'
 import 'brace/theme/twilight'
 
 export default {
-  props: { programName: String },
+  props: { programName: String, needSave: Boolean },
+  data() {
+    return {
+      favicon: new Favico({
+        animation: 'slide',
+        // fontFamily: 'Font Awesome 5 Free',
+        fontStyle: 'bold',
+        position: 'up',
+        // badge: '\f00c',
+        // bgColor: '#5CB85C',
+        bgColor: '#e32c20',
+        textColor: '#fff',
+
+        //         var favicon=new Favico({
+        //     fontFamily : 'FontAwesome',
+        //     elementId : 'badgeFont'
+        // });
+        // favicon.badge('\f0a2');
+      }),
+    }
+  },
   created() {
     this.$nextTick(() => this.createEditor())
   },
-  mounted() {
-    var favicon = new Favico({
-      animation: 'slide',
-    })
-    // favicon.badge('hl')
-  },
+  mounted() {},
   methods: {
     createEditor() {
       this.editor = ace.edit(this.$refs.editor)
@@ -41,6 +56,8 @@ export default {
       this.editSession.on(
         'change',
         debounce(() => {
+          // this.favicon.badge('\f00c')
+          this.favicon.badge('*')
           this.setCurrentProgramContent({
             id: this.currentProgramName(),
             content: this.editSession.getValue(),
@@ -49,7 +66,6 @@ export default {
       )
     },
     ...mapActions(['setCurrentProgramContent', 'getCurrentProgramContent']),
-    ...mapGetters(['getCurrentProgramName']),
     ...mapState(['currentProgramName']),
   },
   computed: {
@@ -65,6 +81,16 @@ export default {
         typeof this.editSession !== 'undefined'
       ) {
         this.editSession.setValue(content)
+      }
+    },
+    needSave: async function(value) {
+      if (value) {
+        const name = this.$store.state.currentProgramName
+        await this.setCurrentProgramContent({
+          id: name,
+          content: this.editSession.getValue(),
+        })
+        this.$emit('save-ended')
       }
     },
   },
