@@ -4,6 +4,7 @@
   @click='onClick'
   :class="selectedClass"
 )
+  i.fas.fa-star-of-life
   span(v-if='inputMode === false') {{ name }}
   input(
     v-else
@@ -121,6 +122,8 @@ export default {
   &--selected-active,
   &:hover {
     background: #f0f0f0;
+  }
+  i.fas.fa-star-of-life {
   }
 }
 
