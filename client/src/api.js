@@ -297,7 +297,8 @@ export default {
     })
     return data
   },
-  async setProjetResourceContent(token, projectId, resourceId, content) {
+  async setProjectResourceContent(token, projectId, resourceId, content) {
+    // console.log('resource saved')
     const url = `${config.apiUrl}projects/${projectId}/resources/${resourceId}/content`
     const response = await axios({
       method: 'post',
@@ -307,8 +308,6 @@ export default {
       },
       data: content,
     })
-    console.log(response)
-    // return data
   },
   async createProjetResource(token, projectId, id) {
     const url = `${config.apiUrl}projects/${projectId}/resources`
