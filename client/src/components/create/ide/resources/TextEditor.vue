@@ -20,14 +20,12 @@ export default {
     return {
       favicon: new Favico({
         animation: 'slide',
-        // fontFamily: 'Font Awesome 5 Free',
+        fontFamily: 'Font Awesome 5 Free',
         fontStyle: 'bold',
-        position: 'up',
-        // badge: '\f00c',
+        badge: '\f00c',
         // bgColor: '#5CB85C',
         bgColor: '#e32c20',
         textColor: '#fff',
-
         //         var favicon=new Favico({
         //     fontFamily : 'FontAwesome',
         //     elementId : 'badgeFont'

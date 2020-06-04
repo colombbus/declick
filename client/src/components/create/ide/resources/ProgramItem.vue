@@ -14,6 +14,7 @@
     ref='input'
     type='text'
   )
+  i.fas.fa-lock
 </template>
 
 <script>
@@ -108,12 +109,16 @@ export default {
 </script>
 
 <style lang="scss">
+@import '~@/assets/styles/globals';
 @import '~@/assets/styles/mixins';
 
 .program-item {
-  color: #480a2a;
-  padding: 10px 20px;
+  color: $cab-sav;
+  padding: 10px 0;
   cursor: pointer;
+  display: grid;
+  grid-template-columns: 20px 1fr 24px;
+  gap: 5px;
 
   &--selected-passive {
     background: #ddd6dd;
@@ -123,25 +128,32 @@ export default {
   &:hover {
     background: #f0f0f0;
   }
-  i.fas.fa-star-of-life {
+  
+  .fas.fa-lock,
+  .fa-star-of-life {
+    justify-self: center;
+    align-self: center;
+    font-size: 12px;
+    padding: 0 $size-1;
+    opacity: 0;
   }
-}
 
-.program-item > span {
-  display: inline-block;
-  padding-bottom: 2px;
-  user-select: none;
-}
-
-.program-item > input {
-  margin-bottom: -1px;
-  padding: 0;
-  padding-bottom: 2px;
-  border: none;
-  border-bottom: 1px solid #a3a3a3;
-  font-size: inherit;
-  color: inherit;
-  background: transparent;
-  outline: 0;
+  & > span {
+    display: inline-block;
+    padding-bottom: 2px;
+    user-select: none;
+    overflow: hidden;
+  }
+  & > input {
+    margin-bottom: -1px;
+    padding: 0;
+    padding-bottom: 2px;
+    border: none;
+    border-bottom: 1px solid #a3a3a3;
+    font-size: inherit;
+    color: inherit;
+    background: transparent;
+    outline: 0;
+  }
 }
 </style>
