@@ -234,6 +234,17 @@ class Sprite extends GraphicClass {
     this._setMovement('downward')
   }
 
+  @Reflect.metadata('translated', i18n`ifCollisionWith`)
+  @Reflect.metadata('help', i18n`ifCollisionWith_help`)
+  ifCollisionWith(object, command) {
+    const callStatement = this._runtime.createCallStatement(command)
+    this._graphics
+      .getScene()
+      .physics.add.collider(this._object, object.getGraphicalObject(), () => {
+        this._runtime.executePriorityStatements([callStatement], [this, object])
+      })
+  }
+
   setLocation(x, y) {
     super.setLocation(x, y)
     this._targetX = x

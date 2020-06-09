@@ -99,5 +99,7 @@
   "jump": "sauter",
   "jump_help": "sauter()",
   "setJumpAmount": "définirAmplitudeSaut",
-  "setJumpAmount_help": "définirAmplitudeSaut(30)"
+  "setJumpAmount_help": "définirAmplitudeSaut(30)",
+  "ifCollisionWith": "siCollisionAvec",
+  "ifCollisionWith_help": "siCollisionAvec(objet, fonction)"
 }
