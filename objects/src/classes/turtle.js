@@ -11,32 +11,22 @@ class Turtle extends Robot {
     this._previousY = 0
     this._renderer = this._graphics.getRenderer()
   }
-  _onReady() {
-    this._centerX = Math.round(this._object.width / 2)
-    this._centerY = Math.round(this._object.height / 2)
-    super._onReady()
-  }
-
   @Reflect.metadata('translated', i18n`traceOn`)
   traceOn() {
-    this._whenReady(() => {
-      if (!this._trace) {
-        this._previousX = this._x
-        this._previousY = this._y
-        this.addListener('move', this._updateTrace)
-        this._trace = true
-      }
-    })
+    if (!this._trace) {
+      this._previousX = this._x
+      this._previousY = this._y
+      this.addListener('move', this._updateTrace)
+      this._trace = true
+    }
   }
 
   @Reflect.metadata('translated', i18n`traceOff`)
   traceOff() {
-    this._whenReady(() => {
-      if (this._trace) {
-        this.removeListener('move', this._updateTrace)
-        this._trace = false
-      }
-    })
+    if (this._trace) {
+      this.removeListener('move', this._updateTrace)
+      this._trace = false
+    }
   }
 
   _updateTrace(x, y) {
