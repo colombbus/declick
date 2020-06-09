@@ -9,8 +9,8 @@ class Robot extends Sprite {
   constructor() {
     super()
     this._distance = DEFAULT_DISTANCE
-    this.addListener('movementChange', () => {
-      if (this._movement === 'stop') {
+    this.addListener('movementChange', movement => {
+      if (movement === 'stop') {
         this._runtime.resume()
       }
     })
