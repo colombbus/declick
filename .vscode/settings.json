@@ -9,5 +9,6 @@
           ],
           "url": "./objects/translations/translation.schema.json"
       }
-  ]
+  ],
+  "editor.formatOnSave": true
 }
