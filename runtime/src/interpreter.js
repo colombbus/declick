@@ -121,9 +121,10 @@ export default class extends JSInterpreter {
       : []
     this.stateStack.push({
       node: { type: 'CallExpression', arguments: args },
-      arguments_: [],
-      n_: 0,
+      arguments_: args,
+      n_: args.length,
       doneCallee_: true,
+      doneArgs_: true,
       func_: state.node.func_,
       funcThis_: this.stateStack[0].thisExpression,
     })
@@ -152,7 +153,7 @@ export default class extends JSInterpreter {
   // add ability to insert code
   insertStatements(statements, parameters, callback) {
     // Append the new statements
-    if (callback !== null) {
+    if (callback != null) {
       this.stateStack.push({
         node: this.createCallbackStatement(callback),
         done: false,
