@@ -72,7 +72,7 @@
   "Robot": "Robot",
   "Platform": "Plateforme",
   "addRow": "ajouterLigne",
-  "Block": "Block",
+  "Block": "Bloc",
   "build": "construire",
   "addColumn": "ajouterColonne",
   "setTile": "définirBirque",
@@ -88,5 +88,16 @@
   "traceOff": "nePasTracer",
   "traceOn": "tracer",
   "setLocation": "définirPosition",
-  "setLocation_help": "définirPosition(100,100)"
+  "setLocation_help": "définirPosition(100,100)",
+  "addBLock": "ajouterBloc",
+  "addBlock_help": "ajouterBloc(bloc)",
+  "mayFall": "peutTomber",
+  "mayFall_help": "peutTomber(true)",
+  "setGravity": "définirGravité",
+  "setGravity_help": "définirGravité(300)",
+  "Walker": "Promeneur",
+  "jump": "sauter",
+  "jump_help": "sauter()",
+  "setJumpAmount": "définirAmplitudeSaut",
+  "setJumpAmount_help": "définirAmplitudeSaut(30)"
 }

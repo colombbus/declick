@@ -1,503 +1,556 @@
 {
-  "type": "object",
-  "properties": {
-    "$schema": {
-      "type": "string"
-    },
-    " ": {
-      "type": "string",
-      "minLength": 1
-    },
-    "Block": {
-      "type": "string",
-      "minLength": 1
-    },
-    "List": {
-      "type": "string",
-      "minLength": 1
-    },
-    "Platform": {
-      "type": "string",
-      "minLength": 1
-    },
-    "Random": {
-      "type": "string",
-      "minLength": 1
-    },
-    "Robot": {
-      "type": "string",
-      "minLength": 1
-    },
-    "Sprite": {
-      "type": "string",
-      "minLength": 1
-    },
-    "Text": {
-      "type": "string",
-      "minLength": 1
-    },
-    "Turtle": {
-      "type": "string",
-      "minLength": 1
-    },
-    "Variable": {
-      "type": "string",
-      "minLength": 1
-    },
-    "add": {
-      "type": "string",
-      "minLength": 1
-    },
-    "addColumn": {
-      "type": "string",
-      "minLength": 1
-    },
-    "addColumn_help": {
-      "type": "string",
-      "minLength": 1
-    },
-    "addRow": {
-      "type": "string",
-      "minLength": 1
-    },
-    "addRow_help": {
-      "type": "string",
-      "minLength": 1
-    },
-    "add_help": {
-      "type": "string",
-      "minLength": 1
-    },
-    "build": {
-      "type": "string",
-      "minLength": 1
-    },
-    "build_help": {
-      "type": "string",
-      "minLength": 1
-    },
-    "capslock": {
-      "type": "string",
-      "minLength": 1
-    },
-    "clear": {
-      "type": "string",
-      "minLength": 1
-    },
-    "clear_help": {
-      "type": "string",
-      "minLength": 1
-    },
-    "compareStructure": {
-      "type": "string",
-      "minLength": 1
-    },
-    "compareStructure_help": {
-      "type": "string",
-      "minLength": 1
-    },
-    "declick": {
-      "type": "string",
-      "minLength": 1
-    },
-    "delete": {
-      "type": "string",
-      "minLength": 1
-    },
-    "delete_help": {
-      "type": "string",
-      "minLength": 1
-    },
-    "down": {
-      "type": "string",
-      "minLength": 1
-    },
-    "escape": {
-      "type": "string",
-      "minLength": 1
-    },
-    "getNextObject": {
-      "type": "string",
-      "minLength": 1
-    },
-    "getNextObject_help": {
-      "type": "string",
-      "minLength": 1
-    },
-    "getObject": {
-      "type": "string",
-      "minLength": 1
-    },
-    "getObject_help": {
-      "type": "string",
-      "minLength": 1
-    },
-    "getSize": {
-      "type": "string",
-      "minLength": 1
-    },
-    "getSize_help": {
-      "type": "string",
-      "minLength": 1
-    },
-    "getStructure": {
-      "type": "string",
-      "minLength": 1
-    },
-    "getStructure_help": {
-      "type": "string",
-      "minLength": 1
-    },
-    "getText": {
-      "type": "string",
-      "minLength": 1
-    },
-    "getText_help": {
-      "type": "string",
-      "minLength": 1
-    },
-    "getTileCount": {
-      "type": "string",
-      "minLength": 1
-    },
-    "getTileCount_help": {
-      "type": "string",
-      "minLength": 1
-    },
-    "has": {
-      "type": "string",
-      "minLength": 1
-    },
-    "hasIn": {
-      "type": "string",
-      "minLength": 1
-    },
-    "hasIn_help": {
-      "type": "string",
-      "minLength": 1
-    },
-    "hasObjects": {
-      "type": "string",
-      "minLength": 1
-    },
-    "hasObjects_help": {
-      "type": "string",
-      "minLength": 1
-    },
-    "has_help": {
-      "type": "string",
-      "minLength": 1
-    },
-    "insert": {
-      "type": "string",
-      "minLength": 1
-    },
-    "keyboard": {
-      "type": "string",
-      "minLength": 1
-    },
-    "left": {
-      "type": "string",
-      "minLength": 1
-    },
-    "loadStructure": {
-      "type": "string",
-      "minLength": 1
-    },
-    "loadStructure_help": {
-      "type": "string",
-      "minLength": 1
-    },
-    "modify": {
-      "type": "string",
-      "minLength": 1
-    },
-    "modify_help": {
-      "type": "string",
-      "minLength": 1
-    },
-    "moveAlwaysBackward": {
-      "type": "string",
-      "minLength": 1
-    },
-    "moveAlwaysBackward_help": {
-      "type": "string",
-      "minLength": 1
-    },
-    "moveAlwaysDownward": {
-      "type": "string",
-      "minLength": 1
-    },
-    "moveAlwaysDownward_help": {
-      "type": "string",
-      "minLength": 1
-    },
-    "moveAlwaysForward": {
-      "type": "string",
-      "minLength": 1
-    },
-    "moveAlwaysForward_help": {
-      "type": "string",
-      "minLength": 1
-    },
-    "moveAlwaysUpward": {
-      "type": "string",
-      "minLength": 1
-    },
-    "moveAlwaysUpward_help": {
-      "type": "string",
-      "minLength": 1
-    },
-    "moveBackward": {
-      "type": "string",
-      "minLength": 1
-    },
-    "moveBackward_help": {
-      "type": "string",
-      "minLength": 1
-    },
-    "moveDownward": {
-      "type": "string",
-      "minLength": 1
-    },
-    "moveDownward_help": {
-      "type": "string",
-      "minLength": 1
-    },
-    "moveForward": {
-      "type": "string",
-      "minLength": 1
-    },
-    "moveForward_help": {
-      "type": "string",
-      "minLength": 1
-    },
-    "moveUpward": {
-      "type": "string",
-      "minLength": 1
-    },
-    "moveUpward_help": {
-      "type": "string",
-      "minLength": 1
-    },
-    "remove": {
-      "type": "string",
-      "minLength": 1
-    },
-    "removeTile": {
-      "type": "string",
-      "minLength": 1
-    },
-    "removeTile_help": {
-      "type": "string",
-      "minLength": 1
-    },
-    "remove_help": {
-      "type": "string",
-      "minLength": 1
-    },
-    "resume": {
-      "type": "string",
-      "minLength": 1
-    },
-    "resume_help": {
-      "type": "string",
-      "minLength": 1
-    },
-    "return": {
-      "type": "string",
-      "minLength": 1
-    },
-    "returnStart": {
-      "type": "string",
-      "minLength": 1
-    },
-    "returnStart_help": {
-      "type": "string",
-      "minLength": 1
-    },
-    "right": {
-      "type": "string",
-      "minLength": 1
-    },
-    "setLocation": {
-      "type": "string",
-      "minLength": 1
-    },
-    "setLocation_help": {
-      "type": "string",
-      "minLength": 1
-    },
-    "setText": {
-      "type": "string",
-      "minLength": 1
-    },
-    "setText_help": {
-      "type": "string",
-      "minLength": 1
-    },
-    "setTile": {
-      "type": "string",
-      "minLength": 1
-    },
-    "setTile_help": {
-      "type": "string",
-      "minLength": 1
-    },
-    "stop": {
-      "type": "string",
-      "minLength": 1
-    },
-    "stop_help": {
-      "type": "string",
-      "minLength": 1
-    },
-    "suspend": {
-      "type": "string",
-      "minLength": 1
-    },
-    "suspend_help": {
-      "type": "string",
-      "minLength": 1
-    },
-    "throwDice": {
-      "type": "string",
-      "minLength": 1
-    },
-    "throwDice_help": {
-      "type": "string",
-      "minLength": 1
-    },
-    "traceOff": {
-      "type": "string",
-      "minLength": 1
-    },
-    "traceOn": {
-      "type": "string",
-      "minLength": 1
-    },
-    "up": {
-      "type": "string",
-      "minLength": 1
-    },
-    "void": {
-      "type": "string",
-      "minLength": 1
-    },
-    "void_help": {
-      "type": "string",
-      "minLength": 1
-    },
-    "write": {
-      "type": "string",
-      "minLength": 1
-    },
-    "write_help": {
-      "type": "string",
-      "minLength": 1
-    }
-  },
-  "required": [
-    " ",
-    "Block",
-    "List",
-    "Platform",
-    "Random",
-    "Robot",
-    "Sprite",
-    "Text",
-    "Turtle",
-    "Variable",
-    "add",
-    "addColumn",
-    "addColumn_help",
-    "addRow",
-    "addRow_help",
-    "add_help",
-    "animate",
-    "animate_help",
-    "build",
-    "build_help",
-    "capslock",
-    "clear",
-    "clear_help",
-    "compareStructure",
-    "compareStructure_help",
-    "declick",
-    "delete",
-    "delete_help",
-    "down",
-    "escape",
-    "getNextObject",
-    "getNextObject_help",
-    "getObject",
-    "getObject_help",
-    "getSize",
-    "getSize_help",
-    "getStructure",
-    "getStructure_help",
-    "getText",
-    "getText_help",
-    "getTileCount",
-    "getTileCount_help",
-    "has",
-    "hasIn",
-    "hasIn_help",
-    "hasObjects",
-    "hasObjects_help",
-    "has_help",
-    "insert",
-    "keyboard",
-    "left",
-    "loadStructure",
-    "loadStructure_help",
-    "modify",
-    "modify_help",
-    "moveAlwaysBackward",
-    "moveAlwaysBackward_help",
-    "moveAlwaysDownward",
-    "moveAlwaysDownward_help",
-    "moveAlwaysForward",
-    "moveAlwaysForward_help",
-    "moveAlwaysUpward",
-    "moveAlwaysUpward_help",
-    "moveBackward",
-    "moveBackward_help",
-    "moveDownward",
-    "moveDownward_help",
-    "moveForward",
-    "moveForward_help",
-    "moveUpward",
-    "moveUpward_help",
-    "remove",
-    "removeTile",
-    "removeTile_help",
-    "remove_help",
-    "resume",
-    "resume_help",
-    "return",
-    "returnStart",
-    "returnStart_help",
-    "right",
-    "setLocation",
-    "setLocation_help",
-    "setText",
-    "setText_help",
-    "setTile",
-    "setTile_help",
-    "stop",
-    "stop_help",
-    "suspend",
-    "suspend_help",
-    "throwDice",
-    "throwDice_help",
-    "traceOff",
-    "traceOn",
-    "up",
-    "void",
-    "void_help",
-    "write",
-    "write_help"
-  ],
-  "additionalProperties": false
+	"type": "object",
+	"properties": {
+		"$schema": {
+			"type": "string"
+		},
+		" ": {
+			"type": "string",
+			"minLength": 1
+		},
+		"Block": {
+			"type": "string",
+			"minLength": 1
+		},
+		"List": {
+			"type": "string",
+			"minLength": 1
+		},
+		"Platform": {
+			"type": "string",
+			"minLength": 1
+		},
+		"Random": {
+			"type": "string",
+			"minLength": 1
+		},
+		"Robot": {
+			"type": "string",
+			"minLength": 1
+		},
+		"Sprite": {
+			"type": "string",
+			"minLength": 1
+		},
+		"Text": {
+			"type": "string",
+			"minLength": 1
+		},
+		"Turtle": {
+			"type": "string",
+			"minLength": 1
+		},
+		"Variable": {
+			"type": "string",
+			"minLength": 1
+		},
+		"Walker": {
+			"type": "string",
+			"minLength": 1
+		},
+		"add": {
+			"type": "string",
+			"minLength": 1
+		},
+		"addBLock": {
+			"type": "string",
+			"minLength": 1
+		},
+		"addBlock_help": {
+			"type": "string",
+			"minLength": 1
+		},
+		"addColumn": {
+			"type": "string",
+			"minLength": 1
+		},
+		"addColumn_help": {
+			"type": "string",
+			"minLength": 1
+		},
+		"addRow": {
+			"type": "string",
+			"minLength": 1
+		},
+		"addRow_help": {
+			"type": "string",
+			"minLength": 1
+		},
+		"add_help": {
+			"type": "string",
+			"minLength": 1
+		},
+		"build": {
+			"type": "string",
+			"minLength": 1
+		},
+		"build_help": {
+			"type": "string",
+			"minLength": 1
+		},
+		"capslock": {
+			"type": "string",
+			"minLength": 1
+		},
+		"clear": {
+			"type": "string",
+			"minLength": 1
+		},
+		"clear_help": {
+			"type": "string",
+			"minLength": 1
+		},
+		"compareStructure": {
+			"type": "string",
+			"minLength": 1
+		},
+		"compareStructure_help": {
+			"type": "string",
+			"minLength": 1
+		},
+		"declick": {
+			"type": "string",
+			"minLength": 1
+		},
+		"delete": {
+			"type": "string",
+			"minLength": 1
+		},
+		"delete_help": {
+			"type": "string",
+			"minLength": 1
+		},
+		"down": {
+			"type": "string",
+			"minLength": 1
+		},
+		"escape": {
+			"type": "string",
+			"minLength": 1
+		},
+		"getNextObject": {
+			"type": "string",
+			"minLength": 1
+		},
+		"getNextObject_help": {
+			"type": "string",
+			"minLength": 1
+		},
+		"getObject": {
+			"type": "string",
+			"minLength": 1
+		},
+		"getObject_help": {
+			"type": "string",
+			"minLength": 1
+		},
+		"getSize": {
+			"type": "string",
+			"minLength": 1
+		},
+		"getSize_help": {
+			"type": "string",
+			"minLength": 1
+		},
+		"getStructure": {
+			"type": "string",
+			"minLength": 1
+		},
+		"getStructure_help": {
+			"type": "string",
+			"minLength": 1
+		},
+		"getText": {
+			"type": "string",
+			"minLength": 1
+		},
+		"getText_help": {
+			"type": "string",
+			"minLength": 1
+		},
+		"getTileCount": {
+			"type": "string",
+			"minLength": 1
+		},
+		"getTileCount_help": {
+			"type": "string",
+			"minLength": 1
+		},
+		"has": {
+			"type": "string",
+			"minLength": 1
+		},
+		"hasIn": {
+			"type": "string",
+			"minLength": 1
+		},
+		"hasIn_help": {
+			"type": "string",
+			"minLength": 1
+		},
+		"hasObjects": {
+			"type": "string",
+			"minLength": 1
+		},
+		"hasObjects_help": {
+			"type": "string",
+			"minLength": 1
+		},
+		"has_help": {
+			"type": "string",
+			"minLength": 1
+		},
+		"insert": {
+			"type": "string",
+			"minLength": 1
+		},
+		"jump": {
+			"type": "string",
+			"minLength": 1
+		},
+		"jump_help": {
+			"type": "string",
+			"minLength": 1
+		},
+		"keyboard": {
+			"type": "string",
+			"minLength": 1
+		},
+		"left": {
+			"type": "string",
+			"minLength": 1
+		},
+		"loadStructure": {
+			"type": "string",
+			"minLength": 1
+		},
+		"loadStructure_help": {
+			"type": "string",
+			"minLength": 1
+		},
+		"mayFall": {
+			"type": "string",
+			"minLength": 1
+		},
+		"mayFall_help": {
+			"type": "string",
+			"minLength": 1
+		},
+		"modify": {
+			"type": "string",
+			"minLength": 1
+		},
+		"modify_help": {
+			"type": "string",
+			"minLength": 1
+		},
+		"moveAlwaysBackward": {
+			"type": "string",
+			"minLength": 1
+		},
+		"moveAlwaysBackward_help": {
+			"type": "string",
+			"minLength": 1
+		},
+		"moveAlwaysDownward": {
+			"type": "string",
+			"minLength": 1
+		},
+		"moveAlwaysDownward_help": {
+			"type": "string",
+			"minLength": 1
+		},
+		"moveAlwaysForward": {
+			"type": "string",
+			"minLength": 1
+		},
+		"moveAlwaysForward_help": {
+			"type": "string",
+			"minLength": 1
+		},
+		"moveAlwaysUpward": {
+			"type": "string",
+			"minLength": 1
+		},
+		"moveAlwaysUpward_help": {
+			"type": "string",
+			"minLength": 1
+		},
+		"moveBackward": {
+			"type": "string",
+			"minLength": 1
+		},
+		"moveBackward_help": {
+			"type": "string",
+			"minLength": 1
+		},
+		"moveDownward": {
+			"type": "string",
+			"minLength": 1
+		},
+		"moveDownward_help": {
+			"type": "string",
+			"minLength": 1
+		},
+		"moveForward": {
+			"type": "string",
+			"minLength": 1
+		},
+		"moveForward_help": {
+			"type": "string",
+			"minLength": 1
+		},
+		"moveUpward": {
+			"type": "string",
+			"minLength": 1
+		},
+		"moveUpward_help": {
+			"type": "string",
+			"minLength": 1
+		},
+		"remove": {
+			"type": "string",
+			"minLength": 1
+		},
+		"removeTile": {
+			"type": "string",
+			"minLength": 1
+		},
+		"removeTile_help": {
+			"type": "string",
+			"minLength": 1
+		},
+		"remove_help": {
+			"type": "string",
+			"minLength": 1
+		},
+		"resume": {
+			"type": "string",
+			"minLength": 1
+		},
+		"resume_help": {
+			"type": "string",
+			"minLength": 1
+		},
+		"return": {
+			"type": "string",
+			"minLength": 1
+		},
+		"returnStart": {
+			"type": "string",
+			"minLength": 1
+		},
+		"returnStart_help": {
+			"type": "string",
+			"minLength": 1
+		},
+		"right": {
+			"type": "string",
+			"minLength": 1
+		},
+		"setGravity": {
+			"type": "string",
+			"minLength": 1
+		},
+		"setGravity_help": {
+			"type": "string",
+			"minLength": 1
+		},
+		"setJumpAmount": {
+			"type": "string",
+			"minLength": 1
+		},
+		"setJumpAmount_help": {
+			"type": "string",
+			"minLength": 1
+		},
+		"setLocation": {
+			"type": "string",
+			"minLength": 1
+		},
+		"setLocation_help": {
+			"type": "string",
+			"minLength": 1
+		},
+		"setText": {
+			"type": "string",
+			"minLength": 1
+		},
+		"setText_help": {
+			"type": "string",
+			"minLength": 1
+		},
+		"setTile": {
+			"type": "string",
+			"minLength": 1
+		},
+		"setTile_help": {
+			"type": "string",
+			"minLength": 1
+		},
+		"stop": {
+			"type": "string",
+			"minLength": 1
+		},
+		"stop_help": {
+			"type": "string",
+			"minLength": 1
+		},
+		"suspend": {
+			"type": "string",
+			"minLength": 1
+		},
+		"suspend_help": {
+			"type": "string",
+			"minLength": 1
+		},
+		"throwDice": {
+			"type": "string",
+			"minLength": 1
+		},
+		"throwDice_help": {
+			"type": "string",
+			"minLength": 1
+		},
+		"traceOff": {
+			"type": "string",
+			"minLength": 1
+		},
+		"traceOn": {
+			"type": "string",
+			"minLength": 1
+		},
+		"up": {
+			"type": "string",
+			"minLength": 1
+		},
+		"void": {
+			"type": "string",
+			"minLength": 1
+		},
+		"void_help": {
+			"type": "string",
+			"minLength": 1
+		},
+		"write": {
+			"type": "string",
+			"minLength": 1
+		},
+		"write_help": {
+			"type": "string",
+			"minLength": 1
+		}
+	},
+	"required": [
+		" ",
+		"Block",
+		"List",
+		"Platform",
+		"Random",
+		"Robot",
+		"Sprite",
+		"Text",
+		"Turtle",
+		"Variable",
+		"Walker",
+		"add",
+		"addBLock",
+		"addBlock_help",
+		"addColumn",
+		"addColumn_help",
+		"addRow",
+		"addRow_help",
+		"add_help",
+		"build",
+		"build_help",
+		"capslock",
+		"clear",
+		"clear_help",
+		"compareStructure",
+		"compareStructure_help",
+		"declick",
+		"delete",
+		"delete_help",
+		"down",
+		"escape",
+		"getNextObject",
+		"getNextObject_help",
+		"getObject",
+		"getObject_help",
+		"getSize",
+		"getSize_help",
+		"getStructure",
+		"getStructure_help",
+		"getText",
+		"getText_help",
+		"getTileCount",
+		"getTileCount_help",
+		"has",
+		"hasIn",
+		"hasIn_help",
+		"hasObjects",
+		"hasObjects_help",
+		"has_help",
+		"insert",
+		"jump",
+		"jump_help",
+		"keyboard",
+		"left",
+		"loadStructure",
+		"loadStructure_help",
+		"mayFall",
+		"mayFall_help",
+		"modify",
+		"modify_help",
+		"moveAlwaysBackward",
+		"moveAlwaysBackward_help",
+		"moveAlwaysDownward",
+		"moveAlwaysDownward_help",
+		"moveAlwaysForward",
+		"moveAlwaysForward_help",
+		"moveAlwaysUpward",
+		"moveAlwaysUpward_help",
+		"moveBackward",
+		"moveBackward_help",
+		"moveDownward",
+		"moveDownward_help",
+		"moveForward",
+		"moveForward_help",
+		"moveUpward",
+		"moveUpward_help",
+		"remove",
+		"removeTile",
+		"removeTile_help",
+		"remove_help",
+		"resume",
+		"resume_help",
+		"return",
+		"returnStart",
+		"returnStart_help",
+		"right",
+		"setGravity",
+		"setGravity_help",
+		"setJumpAmount",
+		"setJumpAmount_help",
+		"setLocation",
+		"setLocation_help",
+		"setText",
+		"setText_help",
+		"setTile",
+		"setTile_help",
+		"stop",
+		"stop_help",
+		"suspend",
+		"suspend_help",
+		"throwDice",
+		"throwDice_help",
+		"traceOff",
+		"traceOn",
+		"up",
+		"void",
+		"void_help",
+		"write",
+		"write_help"
+	],
+	"additionalProperties": false
 }
