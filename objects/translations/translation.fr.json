@@ -101,5 +101,7 @@
   "setJumpAmount": "définirAmplitudeSaut",
   "setJumpAmount_help": "définirAmplitudeSaut(30)",
   "ifCollisionWith": "siCollisionAvec",
-  "ifCollisionWith_help": "siCollisionAvec(objet, fonction)"
+  "ifCollisionWith_help": "siCollisionAvec(objet, fonction)",
+  "ifOverlapWith": "siChevauche",
+  "ifOverlapWith_help": "siChevauche(objet, fonction)"
 }

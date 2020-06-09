@@ -208,6 +208,14 @@
 			"type": "string",
 			"minLength": 1
 		},
+		"ifOverlapWith": {
+			"type": "string",
+			"minLength": 1
+		},
+		"ifOverlapWith_help": {
+			"type": "string",
+			"minLength": 1
+		},
 		"insert": {
 			"type": "string",
 			"minLength": 1
@@ -501,6 +509,8 @@
 		"has_help",
 		"ifCollisionWith",
 		"ifCollisionWith_help",
+		"ifOverlapWith",
+		"ifOverlapWith_help",
 		"insert",
 		"jump",
 		"jump_help",

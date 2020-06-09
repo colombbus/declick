@@ -155,6 +155,11 @@ class Sprite extends GraphicClass {
     }
   }
 
+  destroy() {
+    this._object.disableBody(true, true)
+    super.destroy()
+  }
+
   _setMovement(newMovement) {
     const oldMovement = this._movement
     this._movement = newMovement
@@ -237,10 +242,23 @@ class Sprite extends GraphicClass {
   @Reflect.metadata('translated', i18n`ifCollisionWith`)
   @Reflect.metadata('help', i18n`ifCollisionWith_help`)
   ifCollisionWith(object, command) {
+    //TODO: handle other types of command (programs, code)
     const callStatement = this._runtime.createCallStatement(command)
     this._graphics
       .getScene()
       .physics.add.collider(this._object, object.getGraphicalObject(), () => {
+        this._runtime.executePriorityStatements([callStatement], [this, object])
+      })
+  }
+
+  @Reflect.metadata('translated', i18n`ifOverlapWith`)
+  @Reflect.metadata('help', i18n`ifOverlapWith_help`)
+  ifOverlapWith(object, command) {
+    //TODO: handle other types of command (programs, code)
+    const callStatement = this._runtime.createCallStatement(command)
+    this._graphics
+      .getScene()
+      .physics.add.overlap(this._object, object.getGraphicalObject(), () => {
         this._runtime.executePriorityStatements([callStatement], [this, object])
       })
   }
