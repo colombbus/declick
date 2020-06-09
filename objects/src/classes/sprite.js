@@ -43,7 +43,7 @@ class Sprite extends GraphicClass {
       this._object.play(animation)
     })
     const scene = this._graphics.getScene()
-    this._object = scene.add.sprite(this._x, this._y, 'bidule')
+    this._object = scene.physics.add.sprite(this._x, this._y, 'bidule')
     this._object.setOrigin(0)
     scene.anims.create({
       key: 'robot_face',

@@ -111,6 +111,13 @@ const _initialize = function(canvas, options) {
         mode: Phaser.Scale.RESIZE,
         autoCenter: Phaser.Scale.Center.NO_CENTER,
       },
+      physics: {
+        default: 'arcade',
+        arcade: {
+          gravity: { y: 0 },
+          debug: false,
+        },
+      },
       callbacks: {
         postBoot() {
           try {
