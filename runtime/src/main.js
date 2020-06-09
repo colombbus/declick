@@ -73,16 +73,16 @@ export default {
     _scheduler.addStatements(_parser.parse(code), null, callback)
   },
 
-  executeStatements(statements, callback) {
-    _scheduler.addStatements(statements, null, callback)
+  executeStatements(statements, parameters, callback) {
+    _scheduler.addStatements(statements, parameters, callback)
   },
 
   executePriorityCode(code) {
     _scheduler.addPriorityStatements(_parser.parse(code))
   },
 
-  executePriorityStatements(statements) {
-    _scheduler.addPriorityStatements(statements)
+  executePriorityStatements(statements, parameters, callback) {
+    _scheduler.addPriorityStatements(statements, parameters, callback)
   },
 
   getStatements(code) {
@@ -131,5 +131,9 @@ export default {
 
   startGraphics() {
     return _graphics.start()
+  },
+
+  createCallStatement(functionStatement) {
+    return _interpreter.createCallStatement(functionStatement)
   },
 }
