@@ -115,6 +115,62 @@ describe('Given an instance of Interpreter', () => {
     assert.equal(interpreter.getLastValue().data, 'je suis passé par ici')
   })
 
+  it.only('should pass provided parameters to an inner call', () => {
+    let codeInit = `
+      c = 'rien encore'
+    `
+
+    let codeFunction = `
+    function phrase(param1, param2, param3) {
+      c = param1 +' '+ param2[1] +' '+ param3.quoi
+    }
+    `
+
+    let codeParam1 = `'Je'`
+
+    let codeParam2 = `
+    ['dors', 'mange', 'bois']
+    `
+
+    let codeParam3 = `function aClass(){}
+
+    aClass.prototype.qui = 'moi'
+    aClass.prototype.quoi = 'des pates'
+    aClass.prototype.quand = 'demain'
+
+    a = new aClass()
+    a
+    `
+
+    let astInit = declickParser.parse(codeInit)
+    interpreter.appendCode(astInit)
+    interpreter.run()
+    let astFunction = declickParser.parse(codeFunction).body[0]
+    let astFunction2 = interpreter.createFunction(
+      astFunction,
+      interpreter.getScope(),
+    )
+    let innerCallStatement = interpreter.createCallStatement(astFunction2)
+    let astParam1 = declickParser.parse(codeParam1)
+    interpreter.appendCode(astParam1)
+    interpreter.run()
+    let valueParam1 = interpreter.getLastValue()
+    let astParam2 = declickParser.parse(codeParam2)
+    interpreter.appendCode(astParam2)
+    interpreter.run()
+    let valueParam2 = interpreter.getLastValue()
+    let astParam3 = declickParser.parse(codeParam3)
+    interpreter.appendCode(astParam3)
+    interpreter.run()
+    let valueParam3 = interpreter.getLastValue()
+    interpreter.appendStatements(
+      [innerCallStatement],
+      [valueParam1, valueParam2, valueParam3],
+    )
+    interpreter.run()
+    assert.equal(interpreter.getLastValue().data, 'Je mange des pates')
+  })
+
   it('should insert function at the right place', () => {
     let code1 = `
     c = 1
