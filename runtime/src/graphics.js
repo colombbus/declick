@@ -51,13 +51,15 @@ const _loadLocalAtlas = function(key, data) {
 
 const _loadResource = function(key, type, data, local) {
   if (local) {
-    switch (type) {
-      case 'image':
-        _loadLocalImage(key, data)
-        break
-      case 'atlas':
-        _loadLocalAtlas(key, data)
-        break
+    if (!_scene.textures.exists(key)) {
+      switch (type) {
+        case 'image':
+          _loadLocalImage(key, data)
+          break
+        case 'atlas':
+          _loadLocalAtlas(key, data)
+          break
+      }
     }
   } else {
     _scene.load[type](key, ...data)
@@ -98,7 +100,7 @@ const _initializeScene = function() {
   )
 }
 
-const _initialize = function(canvas, options) {
+const _initialize = function(canvas, container, options) {
   return new Promise((resolve, reject) => {
     let config = {
       type: Phaser.CANVAS,
@@ -107,9 +109,12 @@ const _initialize = function(canvas, options) {
       transparent: true,
       scene: null,
       scale: {
+        parent: container,
         expandParent: false,
-        mode: Phaser.Scale.RESIZE,
+        mode: Phaser.Scale.FIT,
         autoCenter: Phaser.Scale.Center.NO_CENTER,
+        width: '100%',
+        height: '100%',
       },
       physics: {
         default: 'arcade',
@@ -158,9 +163,8 @@ const _addResource = function(type, key, data, local) {
 }
 
 export default {
-  initialize(canvas, options) {
-    this.reset()
-    return _initialize(canvas, options)
+  initialize(canvas, container, options) {
+    return _initialize(canvas, container, options)
   },
   addLocalResource(type, key, ...data) {
     _addResource(type, key, data, true)
