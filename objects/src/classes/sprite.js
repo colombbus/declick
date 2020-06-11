@@ -25,15 +25,7 @@ class Sprite extends GraphicClass {
     }
   }
 
-  constructor() {
-    super()
-    this._texture = this.constructor._texture
-    this._vX = DEFAULT_SPEED
-    this._vY = DEFAULT_SPEED
-    this._targetX = 0
-    this._targetY = 0
-    this._movement = 'stop'
-    this._updateVelocity = false
+  _buildObject() {
     const scene = this._graphics.getScene()
     this._object = scene.physics.add.sprite(this._x, this._y, this._texture)
     this._object.setOrigin(0)
@@ -72,9 +64,31 @@ class Sprite extends GraphicClass {
     })
     this.addListener('movementChange', movement => {
       this._setAnimation(movement)
-      this._updateVelocity = true
     })
     this._object.play('robot_face')
+  }
+
+  _bindObject() {
+    if (this._object !== null) {
+      this._object.setData('declickObject', this)
+    }
+  }
+
+  constructor() {
+    super()
+    this._object = null
+    this._texture = this.constructor._texture
+    this._vX = DEFAULT_SPEED
+    this._vY = DEFAULT_SPEED
+    this._targetX = 0
+    this._targetY = 0
+    this._movement = 'stop'
+    this._updateVelocity = false
+    this.addListener('movementChange', movement => {
+      this._updateVelocity = true
+    })
+    this._buildObject()
+    this._bindObject()
   }
 
   _setAnimation(movement) {
@@ -246,9 +260,16 @@ class Sprite extends GraphicClass {
     const callStatement = this._runtime.createCallStatement(command)
     this._graphics
       .getScene()
-      .physics.add.collider(this._object, object.getGraphicalObject(), () => {
-        this._runtime.executePriorityStatements([callStatement], [this, object])
-      })
+      .physics.add.collider(
+        this._object,
+        object.getGraphicalObject(),
+        (me, who) => {
+          this._runtime.executePriorityStatements(
+            [callStatement],
+            [me.getData('declickObject'), who.getData('declickObject')],
+          )
+        },
+      )
   }
 
   @Reflect.metadata('translated', i18n`ifOverlapWith`)
@@ -258,9 +279,16 @@ class Sprite extends GraphicClass {
     const callStatement = this._runtime.createCallStatement(command)
     this._graphics
       .getScene()
-      .physics.add.overlap(this._object, object.getGraphicalObject(), () => {
-        this._runtime.executePriorityStatements([callStatement], [this, object])
-      })
+      .physics.add.overlap(
+        this._object,
+        object.getGraphicalObject(),
+        (me, who) => {
+          this._runtime.executePriorityStatements(
+            [callStatement],
+            [me.getData('declickObject'), who.getData('declickObject')],
+          )
+        },
+      )
   }
 
   setLocation(x, y) {
