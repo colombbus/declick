@@ -136,4 +136,24 @@ export default {
   createCallStatement(functionStatement) {
     return _interpreter.createCallStatement(functionStatement)
   },
+
+  addImageResource(image, name) {
+    _graphics.addResource('image', name, image)
+  },
+
+  addImageResources(data) {
+    for (let [name, image] of data) {
+      _graphics.addResource('image', name, image)
+    }
+  },
+
+  addSpriteSheetResource(spriteSheet, name) {
+    _graphics.addResource('atlas', name, spriteSheet)
+  },
+
+  addSpriteSheetResources(data) {
+    for (let [name, spriteSheet] of data) {
+      _graphics.addResource('atlas', name, spriteSheet)
+    }
+  },
 }
