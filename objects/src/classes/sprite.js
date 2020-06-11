@@ -29,43 +29,45 @@ class Sprite extends GraphicClass {
     const scene = this._graphics.getScene()
     this._object = scene.physics.add.sprite(this._x, this._y, this._texture)
     this._object.setOrigin(0)
-    scene.anims.create({
-      key: 'robot_face',
-      frames: scene.anims.generateFrameNames(this._texture, {
-        prefix: 'robot_face_',
-        suffix: '.png',
-        start: 1,
-        end: 6,
-      }),
-      repeat: -1,
-      duration: 1500,
-    })
-    scene.anims.create({
-      key: 'robot_right',
-      frames: scene.anims.generateFrameNames(this._texture, {
-        prefix: 'robot_right_',
-        suffix: '.png',
-        start: 1,
-        end: 4,
-      }),
-      repeat: -1,
-      duration: 1500,
-    })
-    scene.anims.create({
-      key: 'robot_left',
-      frames: scene.anims.generateFrameNames(this._texture, {
-        prefix: 'robot_left_',
-        suffix: '.png',
-        start: 1,
-        end: 4,
-      }),
-      repeat: -1,
-      duration: 1500,
-    })
-    this.addListener('movementChange', movement => {
-      this._setAnimation(movement)
-    })
-    this._object.play('robot_face')
+    if (scene.textures.get(this._texture).has('face_1.png')) {
+      scene.anims.create({
+        key: 'face',
+        frames: scene.anims.generateFrameNames(this._texture, {
+          prefix: 'face_',
+          suffix: '.png',
+          start: 1,
+          end: 6,
+        }),
+        repeat: -1,
+        duration: 1500,
+      })
+      scene.anims.create({
+        key: 'right',
+        frames: scene.anims.generateFrameNames(this._texture, {
+          prefix: 'right_',
+          suffix: '.png',
+          start: 1,
+          end: 4,
+        }),
+        repeat: -1,
+        duration: 1500,
+      })
+      scene.anims.create({
+        key: 'left',
+        frames: scene.anims.generateFrameNames(this._texture, {
+          prefix: 'left_',
+          suffix: '.png',
+          start: 1,
+          end: 4,
+        }),
+        repeat: -1,
+        duration: 1500,
+      })
+      this.addListener('movementChange', movement => {
+        this._setAnimation(movement)
+      })
+      this._object.play('face')
+    }
   }
 
   _bindObject() {
@@ -74,10 +76,10 @@ class Sprite extends GraphicClass {
     }
   }
 
-  constructor() {
+  constructor(texture) {
     super()
     this._object = null
-    this._texture = this.constructor._texture
+    this._texture = texture !== undefined ? texture : this.constructor._texture
     this._vX = DEFAULT_SPEED
     this._vY = DEFAULT_SPEED
     this._targetX = 0
@@ -97,11 +99,11 @@ class Sprite extends GraphicClass {
       animation = this._targetX > this._object.x ? 'robot_right' : 'robot_left'
     } else {
       const animations = {
-        stop: 'robot_face',
-        forward: 'robot_right',
-        backward: 'robot_left',
-        upward: 'robot_face',
-        downward: 'robot_face',
+        stop: 'face',
+        forward: 'right',
+        backward: 'left',
+        upward: 'face',
+        downward: 'face',
       }
       animation = animations[movement]
     }
