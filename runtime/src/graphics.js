@@ -188,13 +188,6 @@ export default {
   clear() {
     if (_scene) {
       _scene.children.removeAll()
-      const textures = _scene.textures
-      _graphicalResources.forEach((resource, key) => {
-        if (!resource.local) {
-          textures.remove(key)
-          _graphicalResources.delete(key)
-        }
-      })
       _graphicalObjects.length = 0
       _whenLoadedActions.length = 0
     }
@@ -232,16 +225,18 @@ export default {
     }
   },
   reset() {
-    _graphicalResources.clear()
-    _graphicalObjects.length = 0
-    _loadingLocalResources.clear()
-    _whenLoadedActions.length = 0
-    if (_game) {
-      _game.scene.remove('main')
-      _game.destroy(false, false)
-      _game = null
+    if (_scene) {
+      _scene.children.removeAll()
+      _graphicalObjects.length = 0
+      _whenLoadedActions.length = 0
+      const textures = _scene.textures
+      _graphicalResources.forEach((resource, key) => {
+        if (!resource.local) {
+          textures.remove(key)
+          _graphicalResources.delete(key)
+        }
+      })
+      _sceneActive = false
     }
-    _sceneActive = false
-    _scene = null
   },
 }

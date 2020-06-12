@@ -55,8 +55,8 @@ export default {
     return reference.objectName
   },
 
-  suspend() {
-    _scheduler.suspend()
+  suspend(keepPriorityOn) {
+    _scheduler.suspend(keepPriorityOn)
   },
 
   resume() {
@@ -94,7 +94,7 @@ export default {
   },
   reset() {
     _scheduler.clear()
-    _data.reset()
+    _data.clear()
     _graphics.reset()
   },
   addObject(object) {

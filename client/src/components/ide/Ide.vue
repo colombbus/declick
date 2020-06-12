@@ -68,7 +68,7 @@ export default {
       // console.log(this.getCurrentProgramContent());
 
       // DeclickRuntime.executeCode(this.getCurrentProgramContent())
-      DeclickRuntime.clear()
+      DeclickRuntime.reset()
       DeclickRuntime.startGraphics().then(() => {
         DeclickRuntime.executeCode(
           this.$store.state.programs.get(this.$store.state.currentProgramName),

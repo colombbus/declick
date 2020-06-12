@@ -159,15 +159,19 @@ export default {
     _clear()
   },
 
-  suspend() {
+  suspend(keepPriorityOn = false) {
     _interpreter.paused_ = true
-    _priorityInterpreter.paused_ = true
+    if (!keepPriorityOn) {
+      _priorityInterpreter.paused_ = true
+    }
   },
 
   resume() {
     if (_interpreter.paused_) {
       _interpreter.paused_ = false
-      _priorityInterpreter.paused_ = false
+      if (_priorityInterpreter.paused_) {
+        _priorityInterpreter.paused_ = false
+      }
       _run()
     }
   },
