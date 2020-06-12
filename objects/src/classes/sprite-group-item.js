@@ -16,11 +16,6 @@ class SpriteGroupItem extends Sprite {
     super()
     this.setObject(obj)
   }
-
-  destroy() {
-    this._object.disableBody(true, true)
-    super.destroy()
-  }
 }
 
 export default SpriteGroupItem
