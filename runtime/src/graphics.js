@@ -49,6 +49,18 @@ const _loadLocalAtlas = function(key, data) {
   atlasImage.src = imageData
 }
 
+const _loadLocalMap = function(key, data) {
+  const jsonData = data[0]
+  const callback = data.length > 1 ? data[1] : false
+  _scene.cache.tilemap.add(key, {
+    format: Phaser.Tilemaps.Formats.TILED_JSON,
+    data: jsonData,
+  })
+  if (callback) {
+    callback()
+  }
+}
+
 const _loadResource = function(key, type, data, local) {
   if (local) {
     if (!_scene.textures.exists(key)) {
@@ -58,6 +70,9 @@ const _loadResource = function(key, type, data, local) {
           break
         case 'atlas':
           _loadLocalAtlas(key, data)
+          break
+        case 'map':
+          _loadLocalMap(key, data)
           break
       }
     }
