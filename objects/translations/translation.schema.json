@@ -268,6 +268,14 @@
 			"type": "string",
 			"minLength": 1
 		},
+		"mayMove": {
+			"type": "string",
+			"minLength": 1
+		},
+		"mayMove_help": {
+			"type": "string",
+			"minLength": 1
+		},
 		"modify": {
 			"type": "string",
 			"minLength": 1
@@ -540,6 +548,8 @@
 		"loadStructure_help",
 		"mayFall",
 		"mayFall_help",
+		"mayMove",
+		"mayMove_help",
 		"modify",
 		"modify_help",
 		"moveAlwaysBackward",

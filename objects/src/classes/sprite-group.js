@@ -1,11 +1,11 @@
-import Sprite from './sprite'
+import GraphicClass from '../graphic-class'
 import SpriteGroupItem from './sprite-group-item'
 import i18n from 'es2015-i18n-tag'
 import 'reflect-metadata'
 import groupTexture from '../../resources/star.png'
 
 @Reflect.metadata('translated', i18n`SpriteGroup`)
-class SpriteGroup extends Sprite {
+class SpriteGroup extends GraphicClass {
   static setupDone = false
   static _texture = 'group_default_texture'
 
@@ -21,21 +21,37 @@ class SpriteGroup extends Sprite {
     }
   }
 
+  constructor(texture) {
+    super()
+    this._movable = true
+    this._object = null
+    this._texture = texture !== undefined ? texture : this.constructor._texture
+    this._buildObject()
+  }
+
   _buildObject() {
     const scene = this._graphics.getScene()
     this._object = scene.physics.add.group()
-  }
-
-  _bindObject() {
-    // do nothing
+    this._object.setOrigin(0)
   }
 
   @Reflect.metadata('translated', i18n`createSprite`)
   @Reflect.metadata('help', i18n`createSprite_help`)
   createSprite(x = 0, y = 0) {
     const object = this._object.create(x, y, this._texture)
+    object.setOrigin(0)
+    object.setImmovable(!this._movable)
     const item = new SpriteGroupItem(object)
     return item
+  }
+
+  @Reflect.metadata('translated', i18n`mayMove`)
+  @Reflect.metadata('help', i18n`mayMove_help`)
+  mayMove(value = true) {
+    this._movable = value
+    this._object.getChildren().forEach(child => {
+      child.mayMove(value)
+    })
   }
 }
 

@@ -107,5 +107,7 @@
   "SpriteGroup": "GroupeSprites",
   "createSprite": "créerSprite",
   "createSprite_help": "créerSprite(100,100)",
-  "SpriteGroupItem": "ElémentGroupeSprites"
+  "SpriteGroupItem": "ElémentGroupeSprites",
+  "mayMove": "peutBouger",
+  "mayMove_help": "peutBouger(true)"
 }

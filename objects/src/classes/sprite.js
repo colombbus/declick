@@ -172,7 +172,9 @@ class Sprite extends GraphicClass {
   }
 
   destroy() {
-    this._object.disableBody(true, true)
+    if (this._object !== null) {
+      this._object.disableBody(true, true)
+    }
     super.destroy()
   }
 
@@ -291,6 +293,12 @@ class Sprite extends GraphicClass {
           )
         },
       )
+  }
+
+  @Reflect.metadata('translated', i18n`mayMove`)
+  @Reflect.metadata('help', i18n`mayMove_help`)
+  mayMove(value = true) {
+    this._object.setImmovable(!value)
   }
 
   setLocation(x, y) {
