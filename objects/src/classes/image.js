@@ -25,13 +25,13 @@ class Image extends GraphicClass {
     super()
     this._texture = texture !== undefined ? texture : this.constructor._texture
     const scene = this._graphics.getScene()
-    this._object = scene.physics.add.image(this._x, this._y, this._texture)
+    this._object = scene.add.image(0, 0, this._texture)
     this._object.setOrigin(0)
   }
 
   setLocation(x, y) {
     super.setLocation(x, y)
-    this._object.body.reset(x, y)
+    this._object.setPosition(x, y)
   }
 }
 
