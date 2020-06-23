@@ -121,5 +121,29 @@
     "size": { "w": 120, "h": 200 },
     "scale": "1",
     "smartupdate": "$TexturePacker:SmartUpdate:840c11f35ec9b6a4b67351d5ddcd3cfb:135c45e4d8f91df28c266090c628e729:a304e87a8f03f133e4f637a0c46d3aed$"
+  },
+  "anims": {
+    "face": {
+      "frames": [
+        "face_1.png",
+        "face_2.png",
+        "face_3.png",
+        "face_4.png",
+        "face_5.png",
+        "face_6.png"
+      ],
+      "repeat": -1,
+      "duration": 1500
+    },
+    "left": {
+      "frames": ["left_1.png", "left_2.png", "left_3.png", "left_4.png"],
+      "repeat": -1,
+      "duration": 1500
+    },
+    "right": {
+      "frames": ["right_1.png", "right_2.png", "right_3.png", "right_4.png"],
+      "repeat": -1,
+      "duration": 1500
+    }
   }
 }

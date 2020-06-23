@@ -44,6 +44,7 @@ const _loadLocalAtlas = function(key, data) {
   _loadingLocalResource(key, callback)
   const atlasImage = new Image()
   atlasImage.onload = () => {
+    _scene.cache.json.add(key, jsonData)
     _scene.textures.addAtlas(key, atlasImage, jsonData)
   }
   atlasImage.src = imageData
