@@ -25,11 +25,7 @@ class Block extends GraphicClass {
     super()
     this._texture = this.constructor._texture
     const scene = this._graphics.getScene()
-    this._object = scene.physics.add.staticImage(
-      this._x,
-      this._y,
-      this._texture,
-    )
+    this._object = scene.physics.add.staticImage(0, 0, this._texture)
     this._object.setOrigin(0)
     //this._object.setImmovable()
   }

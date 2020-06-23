@@ -27,7 +27,7 @@ class Sprite extends GraphicClass {
 
   _buildObject() {
     const scene = this._graphics.getScene()
-    this._object = scene.physics.add.sprite(this._x, this._y, this._texture)
+    this._object = scene.physics.add.sprite(0, 0, this._texture)
     this._object.setOrigin(0)
     const jsonData = scene.cache.json.get(this._texture)
     if (jsonData !== undefined && jsonData.anims !== undefined) {
