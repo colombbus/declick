@@ -2,8 +2,8 @@ import Sprite from './sprite'
 import i18n from 'es2015-i18n-tag'
 import 'reflect-metadata'
 
-const DEFAULT_GRAVITY = 300
-const DEFAULT_JUMP = 30
+const DEFAULT_GRAVITY = 500
+const DEFAULT_JUMP = 400
 
 @Reflect.metadata('translated', i18n`Walker`)
 class Walker extends Sprite {
@@ -39,7 +39,7 @@ class Walker extends Sprite {
   @Reflect.metadata('help', i18n`jump_help`)
   jump() {
     if (this._object.body.blocked.down) {
-      this._object.setVelocityY(-(this._gravityY + this._jumpAmount))
+      this._object.setVelocityY(-this._jumpAmount)
     }
   }
 
