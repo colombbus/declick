@@ -50,6 +50,14 @@ class Platform extends GraphicClass {
       scene.physics.add.collider(object, layer, handler)
     })
   }
+
+  addOverlap(object, handler) {
+    //TODO: continue
+    /*const scene = this._graphics.getScene()
+    this._layers.forEach(layer => {
+      scene.physics.add.overlap(object, layer, handler)
+    })*/
+  }
 }
 
 export default Platform

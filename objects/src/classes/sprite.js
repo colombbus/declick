@@ -269,18 +269,12 @@ class Sprite extends GraphicClass {
   ifOverlapWith(object, command) {
     //TODO: handle other types of command (programs, code)
     const callStatement = this._runtime.createCallStatement(command)
-    this._graphics
-      .getScene()
-      .physics.add.overlap(
-        this._object,
-        object.getGraphicalObject(),
-        (me, who) => {
-          this._runtime.executePriorityStatements(
-            [callStatement],
-            [me.getData('declickObject'), who.getData('declickObject')],
-          )
-        },
+    object.addOverlap(this._object, (me, who) => {
+      this._runtime.executePriorityStatements(
+        [callStatement],
+        [me.getData('declickObject'), who.getData('declickObject')],
       )
+    })
   }
 
   @Reflect.metadata('translated', i18n`mayMove`)
@@ -300,6 +294,10 @@ class Sprite extends GraphicClass {
     this._graphics
       .getScene()
       .physics.add.collider(object, this._object, handler)
+  }
+
+  addOverlap(object, handler) {
+    this._graphics.getScene().physics.add.overlap(object, this._object, handler)
   }
 
   _distanceBetween(x1, y1, x2, y2) {
