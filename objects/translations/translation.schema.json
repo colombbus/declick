@@ -360,6 +360,14 @@
 			"type": "string",
 			"minLength": 1
 		},
+		"setTracerLocation": {
+			"type": "string",
+			"minLength": 1
+		},
+		"setTracerLocation_help": {
+			"type": "string",
+			"minLength": 1
+		},
 		"stop": {
 			"type": "string",
 			"minLength": 1
@@ -388,7 +396,15 @@
 			"type": "string",
 			"minLength": 1
 		},
+		"traceOff_help": {
+			"type": "string",
+			"minLength": 1
+		},
 		"traceOn": {
+			"type": "string",
+			"minLength": 1
+		},
+		"traceOn_help": {
 			"type": "string",
 			"minLength": 1
 		},
@@ -503,6 +519,8 @@
 		"setLocation_help",
 		"setText",
 		"setText_help",
+		"setTracerLocation",
+		"setTracerLocation_help",
 		"stop",
 		"stop_help",
 		"suspend",
@@ -510,7 +528,9 @@
 		"throwDice",
 		"throwDice_help",
 		"traceOff",
+		"traceOff_help",
 		"traceOn",
+		"traceOn_help",
 		"up",
 		"void",
 		"void_help",

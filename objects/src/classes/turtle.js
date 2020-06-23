@@ -9,6 +9,8 @@ class Turtle extends Robot {
     this._trace = false
     this._previousX = 0
     this._previousY = 0
+    this._traceX = 0
+    this._traceY = 0
     this._renderer = this._graphics.getScene().add.graphics()
     this._renderer.lineStyle(1, 0x000000, 1.0)
   }
@@ -21,7 +23,10 @@ class Turtle extends Robot {
       this._previousY = this._object.y
       this._trace = true
       this._renderer.beginPath()
-      this._renderer.moveTo(this._object.x, this._object.y)
+      this._renderer.moveTo(
+        this._object.x + this._traceX,
+        this._object.y + this._traceY,
+      )
     }
   }
 
@@ -33,6 +38,19 @@ class Turtle extends Robot {
     }
   }
 
+  @Reflect.metadata('translated', i18n`setTracerLocation`)
+  @Reflect.metadata('help', i18n`setTracerLocation_help`)
+  setTracerLocation(x, y) {
+    if (this.trace) {
+      this._renderer.moveTo(
+        this._object.x - this._traceX + x,
+        this._object.y - this._traceY + y,
+      )
+    }
+    this._traceX = x
+    this._traceY = y
+  }
+
   tick(delta) {
     super.tick(delta)
     if (this._trace) {
@@ -40,7 +58,10 @@ class Turtle extends Robot {
         this._object.x !== this._previousX ||
         this._object.y !== this.previousY
       ) {
-        this._renderer.lineTo(this._object.x, this._object.y)
+        this._renderer.lineTo(
+          this._object.x + this._traceX,
+          this._object.y + this._traceY,
+        )
         this._renderer.strokePath()
       }
     }

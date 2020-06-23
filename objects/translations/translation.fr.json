@@ -77,7 +77,9 @@
   "Random": "Hasard",
   "Turtle": "Tortue",
   "traceOff": "nePasTracer",
+  "traceOff_help": "nePasTracer()",
   "traceOn": "tracer",
+  "traceOn_help": "tracer()",
   "setLocation": "définirPosition",
   "setLocation_help": "définirPosition(100,100)",
   "addBLock": "ajouterBloc",
@@ -101,5 +103,7 @@
   "SpriteGroupItem": "ElémentGroupeSprites",
   "mayMove": "peutBouger",
   "mayMove_help": "peutBouger(true)",
-  "Image": "Image"
+  "Image": "Image",
+  "setTracerLocation": "définirPositionTraceur",
+  "setTracerLocation_help": "définirPositionTraceur(0,0)"
 }
