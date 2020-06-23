@@ -105,5 +105,6 @@
   "mayMove_help": "peutBouger(true)",
   "Image": "Image",
   "setTracerLocation": "définirPositionTraceur",
-  "setTracerLocation_help": "définirPositionTraceur(0,0)"
+  "setTracerLocation_help": "définirPositionTraceur(0,0)",
+  "PlatformTile": "Brique"
 }

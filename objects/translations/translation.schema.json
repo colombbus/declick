@@ -24,6 +24,10 @@
 			"type": "string",
 			"minLength": 1
 		},
+		"PlatformTile": {
+			"type": "string",
+			"minLength": 1
+		},
 		"Random": {
 			"type": "string",
 			"minLength": 1
@@ -435,6 +439,7 @@
 		"Image",
 		"List",
 		"Platform",
+		"PlatformTile",
 		"Random",
 		"Robot",
 		"Sprite",

@@ -3,6 +3,7 @@ import GraphicClass from '../graphic-class'
 import 'reflect-metadata'
 import defaultMap from '../../resources/map.json'
 import defaultMapTiles from '../../resources/tiles.png'
+import PlatformTile from './platform-tile'
 
 @Reflect.metadata('translated', i18n`Platform`)
 class Platform extends GraphicClass {
@@ -46,8 +47,14 @@ class Platform extends GraphicClass {
 
   addCollider(object, handler) {
     const scene = this._graphics.getScene()
+    let collisionHandler
+    if (handler !== undefined) {
+      collisionHandler = (me, tile) => {
+        handler(me, new PlatformTile(tile))
+      }
+    }
     this._layers.forEach(layer => {
-      scene.physics.add.collider(object, layer, handler)
+      scene.physics.add.collider(object, layer, collisionHandler)
     })
   }
 
