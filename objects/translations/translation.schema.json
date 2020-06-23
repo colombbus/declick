@@ -68,31 +68,7 @@
 			"type": "string",
 			"minLength": 1
 		},
-		"addColumn": {
-			"type": "string",
-			"minLength": 1
-		},
-		"addColumn_help": {
-			"type": "string",
-			"minLength": 1
-		},
-		"addRow": {
-			"type": "string",
-			"minLength": 1
-		},
-		"addRow_help": {
-			"type": "string",
-			"minLength": 1
-		},
 		"add_help": {
-			"type": "string",
-			"minLength": 1
-		},
-		"build": {
-			"type": "string",
-			"minLength": 1
-		},
-		"build_help": {
 			"type": "string",
 			"minLength": 1
 		},
@@ -105,14 +81,6 @@
 			"minLength": 1
 		},
 		"clear_help": {
-			"type": "string",
-			"minLength": 1
-		},
-		"compareStructure": {
-			"type": "string",
-			"minLength": 1
-		},
-		"compareStructure_help": {
 			"type": "string",
 			"minLength": 1
 		},
@@ -168,27 +136,11 @@
 			"type": "string",
 			"minLength": 1
 		},
-		"getStructure": {
-			"type": "string",
-			"minLength": 1
-		},
-		"getStructure_help": {
-			"type": "string",
-			"minLength": 1
-		},
 		"getText": {
 			"type": "string",
 			"minLength": 1
 		},
 		"getText_help": {
-			"type": "string",
-			"minLength": 1
-		},
-		"getTileCount": {
-			"type": "string",
-			"minLength": 1
-		},
-		"getTileCount_help": {
 			"type": "string",
 			"minLength": 1
 		},
@@ -236,6 +188,14 @@
 			"type": "string",
 			"minLength": 1
 		},
+		"isBlockedBy": {
+			"type": "string",
+			"minLength": 1
+		},
+		"isBlockedBy_help": {
+			"type": "string",
+			"minLength": 1
+		},
 		"jump": {
 			"type": "string",
 			"minLength": 1
@@ -249,14 +209,6 @@
 			"minLength": 1
 		},
 		"left": {
-			"type": "string",
-			"minLength": 1
-		},
-		"loadStructure": {
-			"type": "string",
-			"minLength": 1
-		},
-		"loadStructure_help": {
 			"type": "string",
 			"minLength": 1
 		},
@@ -352,14 +304,6 @@
 			"type": "string",
 			"minLength": 1
 		},
-		"removeTile": {
-			"type": "string",
-			"minLength": 1
-		},
-		"removeTile_help": {
-			"type": "string",
-			"minLength": 1
-		},
 		"remove_help": {
 			"type": "string",
 			"minLength": 1
@@ -417,14 +361,6 @@
 			"minLength": 1
 		},
 		"setText_help": {
-			"type": "string",
-			"minLength": 1
-		},
-		"setTile": {
-			"type": "string",
-			"minLength": 1
-		},
-		"setTile_help": {
 			"type": "string",
 			"minLength": 1
 		},
@@ -498,18 +434,10 @@
 		"add",
 		"addBLock",
 		"addBlock_help",
-		"addColumn",
-		"addColumn_help",
-		"addRow",
-		"addRow_help",
 		"add_help",
-		"build",
-		"build_help",
 		"capslock",
 		"clear",
 		"clear_help",
-		"compareStructure",
-		"compareStructure_help",
 		"createSprite",
 		"createSprite_help",
 		"declick",
@@ -523,12 +451,8 @@
 		"getObject_help",
 		"getSize",
 		"getSize_help",
-		"getStructure",
-		"getStructure_help",
 		"getText",
 		"getText_help",
-		"getTileCount",
-		"getTileCount_help",
 		"has",
 		"hasIn",
 		"hasIn_help",
@@ -540,12 +464,12 @@
 		"ifOverlapWith",
 		"ifOverlapWith_help",
 		"insert",
+		"isBlockedBy",
+		"isBlockedBy_help",
 		"jump",
 		"jump_help",
 		"keyboard",
 		"left",
-		"loadStructure",
-		"loadStructure_help",
 		"mayFall",
 		"mayFall_help",
 		"mayMove",
@@ -569,8 +493,6 @@
 		"moveUpward",
 		"moveUpward_help",
 		"remove",
-		"removeTile",
-		"removeTile_help",
 		"remove_help",
 		"resume",
 		"resume_help",
@@ -586,8 +508,6 @@
 		"setLocation_help",
 		"setText",
 		"setText_help",
-		"setTile",
-		"setTile_help",
 		"stop",
 		"stop_help",
 		"suspend",
