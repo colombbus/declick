@@ -100,5 +100,6 @@
   "createSprite_help": "créerSprite(100,100)",
   "SpriteGroupItem": "ElémentGroupeSprites",
   "mayMove": "peutBouger",
-  "mayMove_help": "peutBouger(true)"
+  "mayMove_help": "peutBouger(true)",
+  "Image": "Image"
 }

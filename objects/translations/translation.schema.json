@@ -12,6 +12,10 @@
 			"type": "string",
 			"minLength": 1
 		},
+		"Image": {
+			"type": "string",
+			"minLength": 1
+		},
 		"List": {
 			"type": "string",
 			"minLength": 1
@@ -185,14 +189,6 @@
 			"minLength": 1
 		},
 		"insert": {
-			"type": "string",
-			"minLength": 1
-		},
-		"isBlockedBy": {
-			"type": "string",
-			"minLength": 1
-		},
-		"isBlockedBy_help": {
 			"type": "string",
 			"minLength": 1
 		},
@@ -420,6 +416,7 @@
 	"required": [
 		" ",
 		"Block",
+		"Image",
 		"List",
 		"Platform",
 		"Random",
@@ -464,8 +461,6 @@
 		"ifOverlapWith",
 		"ifOverlapWith_help",
 		"insert",
-		"isBlockedBy",
-		"isBlockedBy_help",
 		"jump",
 		"jump_help",
 		"keyboard",
