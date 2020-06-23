@@ -250,18 +250,18 @@ class Sprite extends GraphicClass {
   ifCollisionWith(object, command) {
     //TODO: handle other types of command (programs, code)
     const callStatement = this._runtime.createCallStatement(command)
-    this._graphics
-      .getScene()
-      .physics.add.collider(
-        this._object,
-        object.getGraphicalObject(),
-        (me, who) => {
-          this._runtime.executePriorityStatements(
-            [callStatement],
-            [me.getData('declickObject'), who.getData('declickObject')],
-          )
-        },
+    object.addCollider(this._object, (me, who) => {
+      this._runtime.executePriorityStatements(
+        [callStatement],
+        [me.getData('declickObject'), who.getData('declickObject')],
       )
+    })
+  }
+
+  @Reflect.metadata('translated', i18n`addBLock`)
+  @Reflect.metadata('help', i18n`addBlock_help`)
+  addBlock(block) {
+    block.addCollider(this._object)
   }
 
   @Reflect.metadata('translated', i18n`ifOverlapWith`)
@@ -294,6 +294,12 @@ class Sprite extends GraphicClass {
     this._targetX = x
     this._targetY = y
     this._object.body.reset(x, y)
+  }
+
+  addCollider(object, handler) {
+    this._graphics
+      .getScene()
+      .physics.add.collider(object, this._object, handler)
   }
 
   _distanceBetween(x1, y1, x2, y2) {

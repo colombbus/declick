@@ -7,8 +7,8 @@ const DEFAULT_JUMP = 30
 
 @Reflect.metadata('translated', i18n`Walker`)
 class Walker extends Sprite {
-  constructor() {
-    super()
+  constructor(texture) {
+    super(texture)
     this._gravityY = DEFAULT_GRAVITY
     this._jumpAmount = DEFAULT_JUMP
     this._mayFall = false
@@ -35,18 +35,10 @@ class Walker extends Sprite {
     }
   }
 
-  @Reflect.metadata('translated', i18n`addBLock`)
-  @Reflect.metadata('help', i18n`addBlock_help`)
-  addBlock(block) {
-    this._graphics
-      .getScene()
-      .physics.add.collider(this._object, block.getGraphicalObject())
-  }
-
   @Reflect.metadata('translated', i18n`jump`)
   @Reflect.metadata('help', i18n`jump_help`)
   jump() {
-    if (this._object.body.touching.down) {
+    if (this._object.body.blocked.down) {
       this._object.setVelocityY(-(this._gravityY + this._jumpAmount))
     }
   }

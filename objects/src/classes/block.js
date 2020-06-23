@@ -38,6 +38,12 @@ class Block extends GraphicClass {
     super.setLocation(x, y)
     this._object.body.reset(x, y)
   }
+
+  addCollider(object, handler) {
+    this._graphics
+      .getScene()
+      .physics.add.collider(object, this._object, handler)
+  }
 }
 
 export default Block
