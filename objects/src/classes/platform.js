@@ -7,6 +7,7 @@ import defaultMapTiles from '../../resources/tiles.png'
 @Reflect.metadata('translated', i18n`Platform`)
 class Platform extends GraphicClass {
   static _map = 'platform_default_map'
+  static _tiles = 'platform_default_tiles'
 
   static setupDone = false
 
@@ -23,16 +24,17 @@ class Platform extends GraphicClass {
     }
   }
 
-  constructor(map) {
+  constructor(map, tiles) {
     super()
     this._map = map !== undefined ? map : this.constructor._map
+    this._tiles = tiles !== undefined ? tiles : this.constructor._tiles
     const scene = this._graphics.getScene()
     this._object = scene.add.tilemap(this._map)
-    const tileset = this._object.addTilesetImage(
-      'default-tiles',
-      'platform_default_tiles',
+    const mapData = scene.cache.tilemap.get(this._map)
+    const tilesets = mapData.data.tilesets.map(tileset =>
+      this._object.addTilesetImage(tileset.name, this._tiles),
     )
-    this._object.createDynamicLayer('layer1', tileset)
+    this._object.createDynamicLayer('layer1', tilesets)
   }
 }
 
