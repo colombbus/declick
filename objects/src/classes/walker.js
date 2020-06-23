@@ -12,6 +12,7 @@ class Walker extends Sprite {
     this._gravityY = DEFAULT_GRAVITY
     this._jumpAmount = DEFAULT_JUMP
     this._mayFall = false
+    this.setBounce(0.1)
     //this._object.setCollideWorldBounds(true)
   }
 
