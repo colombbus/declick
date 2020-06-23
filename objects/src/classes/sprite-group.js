@@ -53,6 +53,16 @@ class SpriteGroup extends GraphicClass {
       child.mayMove(value)
     })
   }
+
+  addCollider(object, handler) {
+    this._graphics
+      .getScene()
+      .physics.add.collider(object, this._object, handler)
+  }
+
+  addOverlap(object, handler) {
+    this._graphics.getScene().physics.add.overlap(object, this._object, handler)
+  }
 }
 
 export default SpriteGroup
