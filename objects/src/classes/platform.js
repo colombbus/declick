@@ -34,7 +34,13 @@ class Platform extends GraphicClass {
     const tilesets = mapData.data.tilesets.map(tileset =>
       this._object.addTilesetImage(tileset.name, this._tiles),
     )
-    this._object.createDynamicLayer('layer1', tilesets)
+    mapData.data.layers.forEach(layer => {
+      if (layer.dynamic !== undefined && layer.dynamic) {
+        this._object.createDynamicLayer(layer.name, tilesets)
+      } else {
+        this._object.createStaticLayer(layer.name, tilesets)
+      }
+    })
   }
 }
 
