@@ -4,28 +4,45 @@ import 'reflect-metadata'
 
 @Reflect.metadata('translated', i18n`Turtle`)
 class Turtle extends Robot {
-  constructor() {
-    super()
+  constructor(texture) {
+    super(texture)
     this._trace = false
     this._previousX = 0
     this._previousY = 0
-    this._renderer = this._graphics.getRenderer()
+    this._renderer = this._graphics.getScene().add.graphics()
+    this._renderer.lineStyle(1, 0x000000, 1.0)
   }
+
   @Reflect.metadata('translated', i18n`traceOn`)
+  @Reflect.metadata('help', i18n`traceOn_help`)
   traceOn() {
     if (!this._trace) {
-      this._previousX = this._x
-      this._previousY = this._y
-      this.addListener('move', this._updateTrace)
+      this._previousX = this._object.x
+      this._previousY = this._object.y
       this._trace = true
+      this._renderer.beginPath()
+      this._renderer.moveTo(this._object.x, this._object.y)
     }
   }
 
   @Reflect.metadata('translated', i18n`traceOff`)
+  @Reflect.metadata('help', i18n`traceOff_help`)
   traceOff() {
     if (this._trace) {
-      this.removeListener('move', this._updateTrace)
       this._trace = false
+    }
+  }
+
+  tick(delta) {
+    super.tick(delta)
+    if (this._trace) {
+      if (
+        this._object.x !== this._previousX ||
+        this._object.y !== this.previousY
+      ) {
+        this._renderer.lineTo(this._object.x, this._object.y)
+        this._renderer.strokePath()
+      }
     }
   }
 
