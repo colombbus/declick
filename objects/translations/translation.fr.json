@@ -106,5 +106,7 @@
   "Image": "Image",
   "setTracerLocation": "définirPositionTraceur",
   "setTracerLocation_help": "définirPositionTraceur(0,0)",
-  "PlatformTile": "Brique"
+  "PlatformTile": "Brique",
+  "createTexture": "créerTexture",
+  "createTexture_help": "créerTexture(\"nom\")"
 }

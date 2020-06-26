@@ -100,6 +100,14 @@
 			"type": "string",
 			"minLength": 1
 		},
+		"createTexture": {
+			"type": "string",
+			"minLength": 1
+		},
+		"createTexture_help": {
+			"type": "string",
+			"minLength": 1
+		},
 		"declick": {
 			"type": "string",
 			"minLength": 1
@@ -458,6 +466,8 @@
 		"clear_help",
 		"createSprite",
 		"createSprite_help",
+		"createTexture",
+		"createTexture_help",
 		"declick",
 		"delete",
 		"delete_help",
