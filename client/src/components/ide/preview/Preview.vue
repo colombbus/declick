@@ -10,15 +10,35 @@
 
 <script>
 import PreviewBar from './PreviewBar.vue'
+import DeclickRuntime from '../../../../../runtime/lib/declick-runtime'
+import DeclickObjects from '../../../../../objects/lib/declick-objects'
 
 export default {
-  props: ['helpVisible'],
+  props: ['helpVisible', 'code'],
+  data() {
+    return {
+      intialized: false,
+    }
+  },
   components: {
     PreviewBar,
   },
-  mounted() {
-    let el = document.getElementsByClassName('preview__canvas')[0]
-  }
+  watch: {
+    async code(value) {
+      if (!this.initialized) {
+        await DeclickRuntime.initDisplay(
+          document.getElementsByClassName('preview__canvas')[0],
+          document.getElementsByClassName('preview__canvas_container')[0],
+        )
+        const objects = await DeclickObjects.load('fr')
+        await DeclickRuntime.initialize('fr', objects)
+        this.initialized = true
+      }
+      DeclickRuntime.reset()
+      await DeclickRuntime.startGraphics()
+      await DeclickRuntime.executeCode(value)
+    },
+  },
 }
 </script>
 
@@ -39,7 +59,7 @@ export default {
 }
 
 .preview__canvas {
-  height:100%;
-  width:100%;
+  height: 100%;
+  width: 100%;
 }
 </style>

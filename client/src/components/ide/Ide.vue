@@ -6,6 +6,7 @@
     v-show="view === 'preview'"
     @toggle-help='toggleHelp'
     :helpVisible='helpVisible'
+    :code='code'
   )
   resource-manager.ide__resource-manager(
     v-show="view === 'resource-manager'"
@@ -19,8 +20,6 @@
 import Preview from '@/components/ide/preview/Preview.vue'
 import ResourceManager from '@/components/ide/resources/ResourceManager.vue'
 import Help from './Help.vue'
-import DeclickRuntime from '../../../../runtime/lib/declick-runtime'
-import DeclickObjects from '../../../../objects/lib/declick-objects'
 
 import { mapGetters } from 'vuex'
 
@@ -30,6 +29,7 @@ export default {
       view: 'resource-manager', // 'resource-manager' | 'preview'
       helpVisible: false,
       onKeyUp: null,
+      code: '',
     }
   },
   created() {
@@ -39,19 +39,11 @@ export default {
       }
     }
     document.addEventListener('keyup', this.onKeyUp)
-    DeclickObjects.load('fr').then(objects => {
-      DeclickRuntime.initialize('fr', objects)
-    })
   },
   destroyed() {
     document.removeEventListener('keyup', this.onKeyUp)
   },
-  mounted() {
-    DeclickRuntime.initDisplay(
-      document.getElementsByClassName('preview__canvas')[0],
-      document.getElementsByClassName('preview__canvas_container')[0],
-    )
-  },
+  mounted() {},
   methods: {
     ...mapGetters(['getCurrentProgramContent']),
     toggleHelp() {
@@ -62,19 +54,10 @@ export default {
         this.view === 'resource-manager' ? 'preview' : 'resource-manager'
     },
     execute() {
-      // DeclickRuntime.executeCode(`t = new Texte();
-      // t.définirTexte('abracadabra');
-      // t.récupérerTexte();`)
-      // console.log(this.getCurrentProgramContent());
-
-      // DeclickRuntime.executeCode(this.getCurrentProgramContent())
-      DeclickRuntime.reset()
-      DeclickRuntime.startGraphics().then(() => {
-        DeclickRuntime.executeCode(
-          this.$store.state.programs.get(this.$store.state.currentProgramName),
-        )
-        this.view = 'preview'
-      })
+      this.view = 'preview'
+      this.code = this.$store.state.programs.get(
+        this.$store.state.currentProgramName,
+      )
     },
   },
   components: {
