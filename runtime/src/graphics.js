@@ -119,7 +119,7 @@ const _initializeScene = function() {
 const _initialize = function(canvas, container, options) {
   return new Promise((resolve, reject) => {
     let config = {
-      type: Phaser.CANVAS,
+      type: Phaser.AUTO,
       customEnvironment: false,
       canvas: canvas,
       transparent: true,

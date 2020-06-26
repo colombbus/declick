@@ -109,8 +109,8 @@ export default {
     _data.registerInstance(object)
   },
 
-  initDisplay(canvas, container) {
-    return _graphics.initialize(canvas, container)
+  initDisplay(canvas, container, options) {
+    return _graphics.initialize(canvas, container, options)
   },
 
   resizeDisplay() {
