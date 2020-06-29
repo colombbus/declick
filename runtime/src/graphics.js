@@ -116,12 +116,11 @@ const _initializeScene = function() {
   )
 }
 
-const _initialize = function(canvas, container, options) {
+const _initialize = function(container, options) {
   return new Promise((resolve, reject) => {
     let config = {
       type: Phaser.AUTO,
       customEnvironment: false,
-      canvas: canvas,
       transparent: true,
       scene: null,
       scale: {

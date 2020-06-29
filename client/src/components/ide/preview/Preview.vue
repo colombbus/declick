@@ -1,7 +1,6 @@
 <template lang="pug">
 .preview
   .preview__canvas_container
-    canvas.preview__canvas
   preview-bar(
     @toggle-help="$emit('toggle-help')"
     :helpVisible='helpVisible'
@@ -12,7 +11,6 @@
 import PreviewBar from './PreviewBar.vue'
 import DeclickRuntime from '../../../../../runtime/lib/declick-runtime'
 import DeclickObjects from '../../../../../objects/lib/declick-objects'
-import Phaser from 'phaser'
 
 export default {
   props: ['helpVisible', 'code'],
@@ -28,9 +26,7 @@ export default {
     async code(value) {
       if (!this.initialized) {
         await DeclickRuntime.initDisplay(
-          document.getElementsByClassName('preview__canvas')[0],
           document.getElementsByClassName('preview__canvas_container')[0],
-          { type: Phaser.CANVAS },
         )
         const objects = await DeclickObjects.load('fr')
         await DeclickRuntime.initialize('fr', objects)
@@ -60,8 +56,8 @@ export default {
   background-color: white;
 }
 
-.preview__canvas {
+/*.preview__canvas {
   height: 100%;
   width: 100%;
-}
+}*/
 </style>

@@ -19,7 +19,6 @@
     "lodash.debounce": "^4.0.8",
     "lodash.range": "^3.2.0",
     "paper": "^0.12.3",
-    "phaser": "^3.23.0",
     "underscore": "^1.9.1",
     "vue": "^2.6.10",
     "vue-analytics": "^5.17.0",
