@@ -17,7 +17,6 @@ class Turtle extends Robot {
   _buildObject() {
     this._path = new Phaser.Curves.Path()
     this._renderer = this._graphics.getScene().add.graphics()
-    this._renderer.lineStyle(1, 0x000000, 1.0)
     super._buildObject()
   }
 
@@ -81,6 +80,7 @@ class Turtle extends Robot {
           this._object.y + this._traceY,
         )
         this._renderer.clear()
+        this._renderer.lineStyle(1, 0x000000, 1.0)
         this._path.draw(this._renderer)
       }
     }
