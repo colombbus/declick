@@ -62,9 +62,10 @@ class Turtle extends Robot {
       .getScene()
       .make.graphics({ x: 0, y: 0, add: false })
     const bounds = this._path.getBounds()
-    graphics.translateCanvas(-bounds.x, -bounds.y)
+    graphics.lineStyle(1, 0x000000, 1.0)
+    graphics.translateCanvas(-bounds.x + 1, -bounds.y + 1)
     this._path.draw(graphics)
-    graphics.generateTexture(name, bounds.width, bounds.height + 1)
+    graphics.generateTexture(name, bounds.width + 2, bounds.height + 2)
     graphics.destroy()
   }
 
