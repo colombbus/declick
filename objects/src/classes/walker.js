@@ -16,6 +16,13 @@ class Walker extends Sprite {
     //this._object.setCollideWorldBounds(true)
   }
 
+  _setVelocity(vx, vy) {
+    this._object.setVelocityX(vx)
+    if (!this._mayFall) {
+      this._object.setVelocityY(vy)
+    }
+  }
+
   @Reflect.metadata('translated', i18n`mayFall`)
   @Reflect.metadata('help', i18n`mayFall_help`)
   mayFall(value) {

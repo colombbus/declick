@@ -70,10 +70,7 @@ class Sprite extends GraphicClass {
     this._targetX = 0
     this._targetY = 0
     this._movement = 'stop'
-    this._updateVelocity = false
-    this.addListener('movementChange', movement => {
-      this._updateVelocity = true
-    })
+    this._oldTargetDistance = 0
     this._buildObject()
     this._bindObject()
   }
@@ -99,64 +96,20 @@ class Sprite extends GraphicClass {
     }
   }
 
-  _setVelocity(movement) {
-    const vX = this._vX
-    const vY = this._vY
-    const _this = this
-    const computeVelocity = {
-      stop: function() {
-        _this._object.setVelocityX(0)
-        _this._object.setVelocityY(0)
-      },
-      forward: function() {
-        _this._object.setVelocityX(vX)
-        _this._object.setVelocityY(0)
-      },
-      backward: function() {
-        _this._object.setVelocityX(-vX)
-        _this._object.setVelocityY(0)
-      },
-      upward: function() {
-        _this._object.setVelocityX(0)
-        _this._object.setVelocityY(-vY)
-      },
-      downward: function() {
-        _this._object.setVelocityX(0)
-        _this._object.setVelocityY(vY)
-      },
-    }
-    computeVelocity[movement]()
-    this._updateVelocity = false
-  }
-
   tick(delta) {
     if (this._movement === 'target') {
-      const x = this._object.x
-      const y = this._object.y
-      const targetX = this._targetX
-      const targetY = this._targetY
-      const vX = this._vX
-      const vY = this._vY
-      const d = this._distanceBetween(x, y, targetX, targetY)
-      this._object.setVelocityX(0)
-      this._object.setVelocityY(0)
-      if (d < 4) {
-        this._object.body.reset(targetX, targetY)
+      const distance = this._distanceBetween(
+        this._object.x,
+        this._object.y,
+        this._targetX,
+        this._targetY,
+      )
+      if (distance < 4 || distance > this._oldTargetDistance) {
+        this._object.body.reset(this._targetX, this._targetY)
         this._setMovement('stop')
       } else {
-        if (this._targetX > x) {
-          this._object.setVelocityX(vX)
-        } else if (this._targetX < x) {
-          this._object.setVelocityX(-vX)
-        }
-        if (this._targetY > y) {
-          this._object.setVelocityY(vY)
-        } else if (this._targetY < y) {
-          this._object.setVelocityY(-vY)
-        }
+        this._oldTargetDistance = distance
       }
-    } else if (this._updateVelocity) {
-      this._setVelocity(this._movement)
     }
   }
 
@@ -182,67 +135,92 @@ class Sprite extends GraphicClass {
     }
   }
 
+  _moveToTarget() {
+    const physics = this._graphics.getScene().physics
+    this._oldTargetDistance = this._distanceBetween(
+      this._object.x,
+      this._object.y,
+      this._targetX,
+      this._targetY,
+    )
+    physics.moveTo(
+      this._object,
+      this._targetX,
+      this._targetY,
+      Math.max(this._vX, this._vY),
+    )
+    this._setMovement('target')
+  }
+
+  _setVelocity(vx, vy) {
+    this._object.setVelocityX(vx)
+    this._object.setVelocityY(vy)
+  }
+
   @Reflect.metadata('translated', i18n`moveForward`)
   @Reflect.metadata('help', i18n`moveForward_help`)
   moveForward(distance) {
     this._initTargetMovement()
-    this._targetX = this._object.x + distance
-    this._setMovement('target')
+    this._targetX += distance
+    this._moveToTarget()
   }
 
   @Reflect.metadata('translated', i18n`moveBackward`)
   @Reflect.metadata('help', i18n`moveBackward_help`)
   moveBackward(distance) {
     this._initTargetMovement()
-    this._targetX = this._object.x - distance
-    this._setMovement('target')
+    this._targetX -= distance
+    this._moveToTarget()
   }
 
   @Reflect.metadata('translated', i18n`moveUpward`)
   @Reflect.metadata('help', i18n`moveUpward_help`)
   moveUpward(distance) {
     this._initTargetMovement()
-    this._targetY = this._object.y - distance
-    this._setMovement('target')
+    this._targetY -= distance
+    this._moveToTarget()
   }
 
   @Reflect.metadata('translated', i18n`moveDownward`)
   @Reflect.metadata('help', i18n`moveDownward_help`)
   moveDownward(distance) {
     this._initTargetMovement()
-    this._targetY = this._object.y + distance
-    this._setMovement('target')
+    this._targetY += distance
+    this._moveToTarget()
   }
 
   @Reflect.metadata('translated', i18n`stop`)
   @Reflect.metadata('help', i18n`stop_help`)
   stop() {
+    this._setVelocity(0, 0)
     this._setMovement('stop')
-    this._targetX = this._object.x
-    this._targetY = this._object.y
   }
 
   @Reflect.metadata('translated', i18n`moveAlwaysForward`)
   @Reflect.metadata('help', i18n`moveAlwaysForward_help`)
   moveAlwaysForward() {
+    this._setVelocity(this._vX, 0)
     this._setMovement('forward')
   }
 
   @Reflect.metadata('translated', i18n`moveAlwaysBackward`)
   @Reflect.metadata('help', i18n`moveAlwaysBackward_help`)
   moveAlwaysBackward() {
+    this._setVelocity(-this._vX, 0)
     this._setMovement('backward')
   }
 
   @Reflect.metadata('translated', i18n`moveAlwaysUpward`)
   @Reflect.metadata('help', i18n`moveAlwaysUpward_help`)
   moveAlwaysUpward() {
+    this._setVelocity(0, -this._vY)
     this._setMovement('upward')
   }
 
   @Reflect.metadata('translated', i18n`moveAlwaysDownward`)
   @Reflect.metadata('help', i18n`moveAlwaysDownward_help`)
   moveAlwaysDownward() {
+    this._setVelocity(0, this._vY)
     this._setMovement('downward')
   }
 
