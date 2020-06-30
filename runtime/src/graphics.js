@@ -116,10 +116,10 @@ const _initializeScene = function() {
   )
 }
 
-const _initialize = function(container, options) {
+const _initialize = function(container, forceCanvas = false) {
   return new Promise((resolve, reject) => {
     let config = {
-      type: Phaser.AUTO,
+      type: forceCanvas ? Phaser.CANVAS : Phaser.AUTO,
       customEnvironment: false,
       transparent: true,
       scene: null,
@@ -149,9 +149,6 @@ const _initialize = function(container, options) {
         },
       },
     }
-    if (options) {
-      config = Object.assign(config, options)
-    }
     try {
       _game = new Phaser.Game(config)
     } catch (e) {
@@ -178,8 +175,8 @@ const _addResource = function(type, key, data, local) {
 }
 
 export default {
-  initialize(canvas, container, options) {
-    return _initialize(canvas, container, options)
+  initialize(container, forceCanvas) {
+    return _initialize(container, forceCanvas)
   },
   addLocalResource(type, key, ...data) {
     _addResource(type, key, data, true)

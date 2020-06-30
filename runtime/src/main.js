@@ -55,6 +55,10 @@ export default {
     return reference.objectName
   },
 
+  getDeclickObject(name) {
+    return _data.findInterpreterObject(name)
+  },
+
   suspend(keepPriorityOn) {
     _scheduler.suspend(keepPriorityOn)
   },
@@ -109,8 +113,8 @@ export default {
     _data.registerInstance(object)
   },
 
-  initDisplay(container, options) {
-    return _graphics.initialize(container, options)
+  initDisplay(container, forceCanvas = false) {
+    return _graphics.initialize(container, forceCanvas)
   },
 
   resizeDisplay() {
