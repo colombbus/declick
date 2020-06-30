@@ -106,7 +106,9 @@ class Sprite extends GraphicClass {
       )
       if (distance < 4 || distance > this._oldTargetDistance) {
         this._object.body.reset(this._targetX, this._targetY)
-        this._setMovement('stop')
+        this._graphics.getScene().game.events.once('postrender', () => {
+          this._setMovement('stop')
+        })
       } else {
         this._oldTargetDistance = distance
       }
