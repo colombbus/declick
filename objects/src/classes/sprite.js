@@ -129,7 +129,7 @@ class Sprite extends GraphicClass {
   }
 
   _initTargetMovement() {
-    if (this._movement !== 'stop' && this._movement !== 'target') {
+    if (this._movement !== 'target') {
       this._targetX = this._object.x
       this._targetY = this._object.y
     }

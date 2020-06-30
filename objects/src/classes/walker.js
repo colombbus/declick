@@ -23,6 +23,35 @@ class Walker extends Sprite {
     }
   }
 
+  _moveToTarget() {
+    if (this._mayFall) {
+      if (this._targetX > this._object.x) {
+        this._object.setVelocityX(this._vX)
+      } else if (this._targetX < this._object.x) {
+        this._object.setVelocityX(-this._vX)
+      } else {
+        this._object.setVelocityX(0)
+      }
+      this._oldTargetDistance = this._distanceBetween(
+        this._object.x,
+        this._object.y,
+        this._targetX,
+        this._targetY,
+      )
+    } else {
+      super._moveToTarget()
+    }
+  }
+
+  _distanceBetween(x1, y1, x2, y2) {
+    if (this._mayFall) {
+      let dx = x1 - x2
+      return Math.sqrt(dx * dx)
+    } else {
+      return super._distanceBetween(x1, y1, x2, y2)
+    }
+  }
+
   @Reflect.metadata('translated', i18n`mayFall`)
   @Reflect.metadata('help', i18n`mayFall_help`)
   mayFall(value) {
