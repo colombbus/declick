@@ -116,10 +116,22 @@ const _initializeScene = function() {
   )
 }
 
-const _initialize = function(container, forceCanvas = false) {
+const _initialize = function(container, displayType = false) {
+  let type
+  switch (displayType) {
+    case 'canvas':
+      type = Phaser.CANVAS
+      break
+    case 'headless':
+      type = Phaser.HEADLESS
+      break
+    default:
+      type = Phaser.AUTO
+      break
+  }
   return new Promise((resolve, reject) => {
     let config = {
-      type: forceCanvas ? Phaser.CANVAS : Phaser.AUTO,
+      type: type,
       customEnvironment: false,
       transparent: true,
       scene: null,
@@ -175,8 +187,15 @@ const _addResource = function(type, key, data, local) {
 }
 
 export default {
-  initialize(container, forceCanvas) {
-    return _initialize(container, forceCanvas)
+  initialize(container, displayType) {
+    _sceneActive = false
+    _scene = null
+    _game = null
+    _graphicalObjects.length = 0
+    _whenLoadedActions.length = 0
+    _graphicalResources.clear()
+    _loadingLocalResources.clear()
+    return _initialize(container, displayType)
   },
   addLocalResource(type, key, ...data) {
     _addResource(type, key, data, true)
@@ -237,10 +256,10 @@ export default {
     }
   },
   reset() {
+    _graphicalObjects.length = 0
+    _whenLoadedActions.length = 0
     if (_scene) {
       _scene.children.removeAll()
-      _graphicalObjects.length = 0
-      _whenLoadedActions.length = 0
       const textures = _scene.textures
       _graphicalResources.forEach((resource, key) => {
         if (!resource.local) {

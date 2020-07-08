@@ -115,7 +115,7 @@ describe('Given an instance of Interpreter', () => {
     assert.equal(interpreter.getLastValue().data, 'je suis passé par ici')
   })
 
-  it.only('should pass provided parameters to an inner call', () => {
+  it('should pass provided parameters to an inner call', () => {
     let codeInit = `
       c = 'rien encore'
     `

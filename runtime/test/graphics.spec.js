@@ -7,7 +7,7 @@ const localResource =
 
 describe('When graphics is initialized', () => {
   before(() => {
-    document.body.innerHTML = `<div id='container'><canvas id='canvas'></canvas></div>`
+    document.body.innerHTML = `<div id='container'></div>`
   })
   afterEach(() => {
     graphics.reset()
@@ -17,9 +17,7 @@ describe('When graphics is initialized', () => {
   })
   it('should have a scene named main', () => {
     return graphics
-      .initialize(document.getElementById('canvas'), {
-        type: Phaser.HEADLESS,
-      })
+      .initialize(document.getElementById('container'), 'headless')
       .then(() => {
         const scenes = graphics.getController().scene.getScenes(false)
         assert.equal(scenes.length, 1)
@@ -29,18 +27,14 @@ describe('When graphics is initialized', () => {
   })
   it('should not set scene active before start is called', () => {
     return graphics
-      .initialize(document.getElementById('canvas'), {
-        type: Phaser.HEADLESS,
-      })
+      .initialize(document.getElementById('container'), 'headless')
       .then(() => {
         assert.equal(graphics.getController().scene.isActive('main'), false)
       })
   })
   it('should set scene active when start is called', () => {
     return graphics
-      .initialize(document.getElementById('canvas'), {
-        type: Phaser.HEADLESS,
-      })
+      .initialize(document.getElementById('container'), 'headless')
       .then(() => {
         graphics.start()
         assert.equal(graphics.getController().scene.isActive('main'), true)
@@ -48,9 +42,7 @@ describe('When graphics is initialized', () => {
   })
   it('should set scene inactive when stop is called', () => {
     return graphics
-      .initialize(document.getElementById('canvas'), {
-        type: Phaser.HEADLESS,
-      })
+      .initialize(document.getElementById('container'), 'headless')
       .then(() => {
         graphics.start()
         graphics.stop()
@@ -59,9 +51,7 @@ describe('When graphics is initialized', () => {
   })
   it('should not load a resource before start', done => {
     graphics
-      .initialize(document.getElementById('canvas'), {
-        type: Phaser.HEADLESS,
-      })
+      .initialize(document.getElementById('container'), 'headless')
       .then(() => {
         const loader = graphics.getController().scene.getScene('main').load
         let loadStart = false
@@ -77,9 +67,7 @@ describe('When graphics is initialized', () => {
   })
   it('should load a resource when started', done => {
     graphics
-      .initialize(document.getElementById('canvas'), {
-        type: Phaser.HEADLESS,
-      })
+      .initialize(document.getElementById('container'), 'headless')
       .then(() => {
         const loader = graphics.getController().scene.getScene('main').load
         loader.once('complete', () => {
@@ -91,9 +79,7 @@ describe('When graphics is initialized', () => {
   })
   it('should load a resource after start', done => {
     graphics
-      .initialize(document.getElementById('canvas'), {
-        type: Phaser.HEADLESS,
-      })
+      .initialize(document.getElementById('container'), 'headless')
       .then(() => {
         const loader = graphics.getController().scene.getScene('main').load
         loader.once('complete', () => {
@@ -107,9 +93,7 @@ describe('When graphics is initialized', () => {
   })
   it('should support loading a resource twice', done => {
     graphics
-      .initialize(document.getElementById('canvas'), {
-        type: Phaser.HEADLESS,
-      })
+      .initialize(document.getElementById('container'), 'headless')
       .then(() => {
         const loader = graphics.getController().scene.getScene('main').load
         loader.once('complete', () => {
@@ -122,9 +106,7 @@ describe('When graphics is initialized', () => {
   })
   it('should not load two different resources with same key', () => {
     return graphics
-      .initialize(document.getElementById('canvas'), {
-        type: Phaser.HEADLESS,
-      })
+      .initialize(document.getElementById('container'), 'headless')
       .then(() => {
         graphics.addResource('image', 'anImage', `file://${__dirname}/dk.png`)
         try {
@@ -146,9 +128,7 @@ describe('When graphics is initialized', () => {
       },
     }
     graphics
-      .initialize(document.getElementById('canvas'), {
-        type: Phaser.HEADLESS,
-      })
+      .initialize(document.getElementById('container'), 'headless')
       .then(() => {
         graphics.addObject(myObject)
         return graphics.start()
@@ -159,9 +139,7 @@ describe('When graphics is initialized', () => {
   })
   it('should be able to load a local image', () => {
     return graphics
-      .initialize(document.getElementById('canvas'), {
-        type: Phaser.HEADLESS,
-      })
+      .initialize(document.getElementById('container'), 'headless')
       .then(() => {
         graphics.addLocalResource('image', 'anImage', localResource)
         return graphics.start()
@@ -225,9 +203,7 @@ describe('When graphics is initialized', () => {
     }
 
     return graphics
-      .initialize(document.getElementById('canvas'), {
-        type: Phaser.HEADLESS,
-      })
+      .initialize(document.getElementById('container'), 'headless')
       .then(() => {
         graphics.addLocalResource('atlas', 'anAtlas', localResource, jsonData)
         return graphics.start()
@@ -244,11 +220,9 @@ describe('When graphics is initialized', () => {
         }
       })
   })
-  it('should clear graphical resources when cleared', () => {
+  it('should not clear graphical resources when cleared', () => {
     return graphics
-      .initialize(document.getElementById('canvas'), {
-        type: Phaser.HEADLESS,
-      })
+      .initialize(document.getElementById('container'), 'headless')
       .then(() => {
         graphics.addResource('image', 'anImage', `file://${__dirname}/dk.png`)
         return graphics.start()
@@ -259,20 +233,50 @@ describe('When graphics is initialized', () => {
           .getController()
           .scene.getScene('main')
           .textures.exists('anImage')
+        assert.isTrue(test)
+      })
+  })
+  it('should clear graphical resources when reset', () => {
+    return graphics
+      .initialize(document.getElementById('container'), 'headless')
+      .then(() => {
+        graphics.addResource('image', 'anImage', `file://${__dirname}/dk.png`)
+        return graphics.start()
+      })
+      .then(() => {
+        graphics.reset()
+        const test = graphics
+          .getController()
+          .scene.getScene('main')
+          .textures.exists('anImage')
         assert.isFalse(test)
       })
   })
   it('should not clear local graphical resources when cleared', () => {
     return graphics
-      .initialize(document.getElementById('canvas'), {
-        type: Phaser.HEADLESS,
-      })
+      .initialize(document.getElementById('container'), 'headless')
       .then(() => {
         graphics.addLocalResource('image', 'anImage', localResource)
         return graphics.start()
       })
       .then(() => {
         graphics.clear()
+        const test = graphics
+          .getController()
+          .scene.getScene('main')
+          .textures.exists('anImage')
+        assert.isTrue(test)
+      })
+  })
+  it('should not clear local graphical resources when reset', () => {
+    return graphics
+      .initialize(document.getElementById('container'), 'headless')
+      .then(() => {
+        graphics.addLocalResource('image', 'anImage', localResource)
+        return graphics.start()
+      })
+      .then(() => {
+        graphics.reset()
         const test = graphics
           .getController()
           .scene.getScene('main')
