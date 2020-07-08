@@ -213,7 +213,7 @@ describe('When graphics is initialized', () => {
           graphics
             .getController()
             .scene.getScene('main')
-            .add.sprite(10, 10, 'anImage')
+            .add.sprite(10, 10, 'anAtlas')
           assert.isOk(true)
         } catch (e) {
           assert.fail(e)
