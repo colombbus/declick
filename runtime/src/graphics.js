@@ -223,15 +223,6 @@ export default {
       _whenLoadedActions.length = 0
     }
   },
-  getRenderedImage() {
-    return null //_engine.renderer.plugins.extract.image(_renderer)
-  },
-  getRenderedPixels() {
-    return null //_engine.renderer.plugins.extract.pixels(_renderer)
-  },
-  getRenderedCanvas() {
-    return null //_engine.renderer.plugins.extract.canvas(_renderer)
-  },
   start() {
     if (_game) {
       return new Promise((resolve, reject) => {
