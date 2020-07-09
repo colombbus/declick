@@ -8,6 +8,7 @@ const MAX_STEP = 100
 
 let _errorHandler = error => {
   console.log(error.getMessage())
+  console.log(`(L ${error.getStart().line}, C ${error.getStart().column})`)
   console.error(error.getError())
 }
 let _stepCount = 0
@@ -18,56 +19,38 @@ let _priorityInterpreter = null
 let _priorityStep = false
 
 let _nextStep = function() {
+  if (_priorityInterpreter.step()) {
+    _priorityStep = true
+    return true
+  }
+  if (_interpreter.step()) {
+    _priorityStep = false
+    return true
+  }
+  return false
+  //_logCommand(_interpreter.stateStack)
+}
+
+let _run = function() {
   try {
-    let step = false
-    if (_priorityInterpreter.step()) {
-      _priorityStep = true
-      step = true
-    }
-    if (!step && _interpreter.step()) {
-      step = true
-      _priorityStep = false
-    }
-    if (step) {
+    _running = true
+    while (_running) {
       _stepCount++
-      if (!(_priorityInterpreter.paused_ && _interpreter.paused_)) {
-        if (_stepCount >= MAX_STEP) {
-          _stepCount = 0
-          window.setTimeout(_nextStep, 0)
-        } else {
-          _nextStep()
-        }
+      _running =
+        _nextStep() && !(_priorityInterpreter.paused_ && _interpreter.paused_)
+      if (_running && _stepCount >= MAX_STEP) {
+        _running = false
+        window.setTimeout(_start, 0)
       }
-    } else {
-      _running = false
     }
-    // _logCommand(_interpreter.stateStack);
   } catch (err) {
     let state, error
-    let interpreter = _priorityStep ? _priorityInterpreter : _interpreter
+    const interpreter = _priorityStep ? _priorityInterpreter : _interpreter
     if (!(err instanceof DeclickError)) {
       error = new DeclickError(err, interpreter.stateStack)
-      /*error.detectError()
-      if (interpreter.stateStack.length > 0) {
-        state = interpreter.stateStack[0]
-        console.debug(interpreter)
-        console.debug(state)
-        if (state.node.loc) {
-          error.setLines([state.node.loc.start.line, state.node.loc.end.line])
-        }
-      }*/
     } else {
       error = err
     }
-    /*if (interpreter.stateStack.length > 0) {
-      state = interpreter.stateStack[0]
-      if (!state.node.loc || !state.node.loc.source) {
-        // no program associated: remove lines if any
-        error.setLines([])
-      } else {
-        error.setProgramName(state.node.loc.source)
-      }
-    }*/
     _stop(interpreter.getGlobalScope())
 
     if (_errorHandler != null) {
@@ -76,11 +59,6 @@ let _nextStep = function() {
       throw error
     }
   }
-}
-
-let _run = function() {
-  _running = true
-  _nextStep()
 }
 
 let _start = function() {
@@ -172,7 +150,7 @@ export default {
       if (_priorityInterpreter.paused_) {
         _priorityInterpreter.paused_ = false
       }
-      _run()
+      _start()
     }
   },
 
