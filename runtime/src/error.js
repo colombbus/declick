@@ -36,9 +36,18 @@ let _getMessage = function(error, state, node) {
       } else if (node.type === 'CallExpression') {
         // unknown function
         return i18n`unknown function ${node.callee.name}`
-      } else if (node.left && node.left.type === 'Identifier') {
-        // unknown variable
-        return i18n`unknown variable ${node.left.name}`
+      } else if (node.type === 'AssignmentExpression') {
+        console.debug(node)
+        if (node.right && node.right.type === 'Identifier') {
+          return i18n`unknown variable ${node.right.name}`
+        }
+      } else if (node.type === 'BinaryExpression') {
+        if (state.doneRight_ && node.right.type === 'Identifier') {
+          return i18n`unknown variable ${node.right.name}`
+        }
+        if (node.left.type === 'Identifier') {
+          return i18n`unknown variable ${node.left.name}`
+        }
       }
     } else if (error instanceof TypeError) {
       if (

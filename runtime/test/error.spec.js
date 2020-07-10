@@ -107,9 +107,10 @@ describe('when detecting an error', () => {
     assert.equal(error.getMessage(), 'Erreur de syntaxe')
   })
 
-  it('should detect unknown variable', () => {
+  it('should detect unknown variable in binary expression (left)', () => {
     const code = `
-    b = a + 5
+    c = 2
+    b = a + c
     `
     let ast
     let error
@@ -120,7 +121,40 @@ describe('when detecting an error', () => {
     } catch (e) {
       error = new DeclickError(e, interpreter.stateStack)
     }
-    assert.equal(error.getMessage(), "a + 5\na n'est pas défini")
+    assert.equal(error.getMessage(), "a + c\na n'est pas défini")
+  })
+
+  it('should detect unknown variable in binary expression (right)', () => {
+    const code = `
+    c = 2
+    b = c + a
+    `
+    let ast
+    let error
+    try {
+      ast = declickParser.parse(code)
+      interpreter.appendCode(ast)
+      interpreter.run()
+    } catch (e) {
+      error = new DeclickError(e, interpreter.stateStack)
+    }
+    assert.equal(error.getMessage(), "c + a\na n'est pas défini")
+  })
+
+  it('should detect unknown variable in assignment expression', () => {
+    const code = `
+    b = a
+    `
+    let ast
+    let error
+    try {
+      ast = declickParser.parse(code)
+      interpreter.appendCode(ast)
+      interpreter.run()
+    } catch (e) {
+      error = new DeclickError(e, interpreter.stateStack)
+    }
+    assert.equal(error.getMessage(), "b = a\na n'est pas défini")
   })
 
   it('should detect error location for an interpreter error', () => {
