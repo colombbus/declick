@@ -103,4 +103,20 @@ describe('when detecting an error', () => {
     }
     assert.equal(error.getMessage(), 'Erreur de syntaxe')
   })
+
+  it('should detect unknown variable', () => {
+    const code = `
+    b = a + 5
+    `
+    let ast
+    let error
+    try {
+      ast = declickParser.parse(code)
+      interpreter.appendCode(ast)
+      interpreter.run()
+    } catch (e) {
+      error = new DeclickError(e, interpreter.stateStack)
+    }
+    assert.equal(error.getMessage(), "a + 5\na n'est pas défini")
+  })
 })

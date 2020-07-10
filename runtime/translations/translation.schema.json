@@ -25,6 +25,9 @@
     },
     "Error: ${0}": {
       "type": "string"
+    },
+    "unknown variable ${0}": {
+      "type": "string"
     }
   },
   "required": ["repeat"],

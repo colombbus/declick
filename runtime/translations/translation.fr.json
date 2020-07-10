@@ -6,5 +6,6 @@
   "missing quote": "Il manque un guillemet",
   "unknown class ${0}": "Impossible de créer un objet de type ${0}",
   "syntax error": "Erreur de syntaxe",
-  "Error: ${0}": "Erreur : ${0}"
+  "Error: ${0}": "Erreur : ${0}",
+  "unknown variable ${0}": "${0} n'est pas défini"
 }

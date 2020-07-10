@@ -1,6 +1,6 @@
 import i18n from 'es2015-i18n-tag'
 
-let _getMessage = function(error, lastState, node) {
+let _getMessage = function(error, state, node) {
   try {
     if (error instanceof ReferenceError) {
       if (node.type === 'NewExpression') {
@@ -9,11 +9,14 @@ let _getMessage = function(error, lastState, node) {
       } else if (node.type === 'CallExpression') {
         // unknown function
         return i18n`unknown function ${node.callee.name}`
+      } else if (node.left && node.left.type === 'Identifier') {
+        // unknown variable
+        return i18n`unknown variable ${node.left.name}`
       }
     } else if (error instanceof TypeError) {
       if (
-        lastState.func_ &&
-        lastState.func_.type === 'undefined' &&
+        state.func_ &&
+        state.func_.type === 'undefined' &&
         node.type === 'CallExpression'
       ) {
         // unknown method
