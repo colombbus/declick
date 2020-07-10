@@ -42,15 +42,13 @@ export default class {
     this._error = e
     this._start = false
     this._end = false
-    if (states) {
-      this._detectError(e, states)
-    }
+    this._detectError(e, states)
   }
 
   setLines() {}
 
   _detectError(error, states) {
-    if (states.length > 0) {
+    if (states && states.length > 0) {
       const lastState = states[states.length - 1]
       const node = lastState.node
       if (node.loc) {
@@ -68,6 +66,8 @@ export default class {
       }*/
       this._message =
         (node.raw ? `${node.raw}\n` : '') + _getMessage(error, lastState, node)
+    } else {
+      this._message = _getMessage(error)
     }
   }
 

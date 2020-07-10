@@ -1,5 +1,6 @@
 /*eslint-env mocha */
 import { assert } from 'chai'
+import { parse } from 'acorn'
 import declickParser from '../src/parser'
 import Interpreter from '../src/interpreter'
 import DeclickError from '../src/error'
@@ -79,7 +80,8 @@ describe('when detecting an error', () => {
     let ast
     let error
     try {
-      ast = declickParser.parse(code)
+      // use acorn parser in order to not trigger error management from declick parser
+      ast = parse(code)
       interpreter.appendCode(ast)
       interpreter.run()
     } catch (e) {
@@ -95,7 +97,8 @@ describe('when detecting an error', () => {
     let ast
     let error
     try {
-      ast = declickParser.parse(code)
+      // use acorn parser in order to not trigger error management from declick parser
+      ast = parse(code)
       interpreter.appendCode(ast)
       interpreter.run()
     } catch (e) {

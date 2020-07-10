@@ -1,4 +1,5 @@
 import { plugins, parse, tokTypes, TokenType, keywordTypes } from 'acorn'
+import DeclickError from './error'
 
 let _options = {
   locations: true,
@@ -7,6 +8,12 @@ let _options = {
 }
 
 let _repeatKeyword = 'repeat'
+
+let _errorHandler = error => {
+  console.log(error.getMessage())
+  console.log(`(L ${error.getStart().line}, C ${error.getStart().column})`)
+  console.error(error.getError())
+}
 
 tokTypes.repeat = keywordTypes.repeat = new TokenType('repeat', {
   isLoop: true,
@@ -78,12 +85,25 @@ export default {
   },
 
   parse(input, programName) {
-    if (programName) {
-      _options['sourceFile'] = programName
-    } else {
-      _options['sourceFile'] = null
+    try {
+      if (programName) {
+        _options['sourceFile'] = programName
+      } else {
+        _options['sourceFile'] = null
+      }
+      return parse(input, _options)
+    } catch (err) {
+      const error = new DeclickError(err)
+      if (_errorHandler != null) {
+        _errorHandler(error)
+      } else {
+        throw error
+      }
     }
-    return parse(input, _options)
+  },
+
+  setErrorHandler(handler) {
+    _errorHandler = handler
   },
 }
 

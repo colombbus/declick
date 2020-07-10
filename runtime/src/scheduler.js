@@ -1,7 +1,5 @@
 import Interpreter from './interpreter'
 import data from './data'
-
-// TODO: ajouter error
 import DeclickError from './error'
 
 const MAX_STEP = 100

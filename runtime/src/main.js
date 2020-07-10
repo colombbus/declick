@@ -160,4 +160,8 @@ export default {
       _graphics.addResource('atlas', name, spriteSheet)
     }
   },
+  setErrorHandler(handler) {
+    _scheduler.setErrorHandler(handler)
+    _parser.setErrorHandler(handler)
+  },
 }
