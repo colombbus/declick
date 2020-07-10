@@ -1,5 +1,32 @@
 import i18n from 'es2015-i18n-tag'
 
+const _findLocation = /^.*\((\d*):(\d*)\)/
+
+let _getLocation = function(error, node) {
+  if (node && node.loc) {
+    return {
+      start: { line: node.loc.start.line, column: node.loc.start.column },
+      end: { line: node.loc.end.line, column: node.loc.end.column },
+    }
+  }
+  // case of syntax error
+  if (error instanceof SyntaxError) {
+    try {
+      const results = _findLocation.exec(error.message)
+      if (results && results.length > 2) {
+        const line = parseInt(results[1])
+        const column = parseInt(results[2])
+        return {
+          start: { line: line, column: column },
+          end: { line: line, column: column },
+        }
+      }
+    } catch {}
+  }
+
+  return { start: { line: 0, column: 0 }, end: { line: 0, column: 0 } }
+}
+
 let _getMessage = function(error, state, node) {
   try {
     if (error instanceof ReferenceError) {
@@ -40,22 +67,21 @@ export default class {
   constructor(e, states) {
     this._message = e.toString()
     this._error = e
-    this._start = false
-    this._end = false
+    this._location = { start: false, end: false }
     this._detectError(e, states)
   }
 
   setLines() {}
 
   _detectError(error, states) {
-    if (states && states.length > 0) {
-      const lastState = states[states.length - 1]
-      const node = lastState.node
-      if (node.loc) {
-        this._start = node.loc.start
-        this._end = node.loc.end
-      }
-      /*if (interpreter.stateStack.length > 0) {
+    const lastState =
+      states && states.length > 0 ? states[states.length - 1] : null
+    const node = lastState ? lastState.node : null
+    this._message =
+      (node && node.raw ? `${node.raw}\n` : '') +
+      _getMessage(error, lastState, node)
+    this._location = _getLocation(error, node)
+    /*if (interpreter.stateStack.length > 0) {
         state = interpreter.stateStack[0]
         if (!state.node.loc || !state.node.loc.source) {
           // no program associated: remove lines if any
@@ -64,11 +90,6 @@ export default class {
           error.setProgramName(state.node.loc.source)
         }
       }*/
-      this._message =
-        (node.raw ? `${node.raw}\n` : '') + _getMessage(error, lastState, node)
-    } else {
-      this._message = _getMessage(error)
-    }
   }
 
   setProgramName() {}
@@ -82,10 +103,10 @@ export default class {
   }
 
   getStart() {
-    return this._start
+    return this._location.start
   }
 
   getEnd() {
-    return this._end
+    return this._location.end
   }
 }

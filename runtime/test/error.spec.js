@@ -80,7 +80,7 @@ describe('when detecting an error', () => {
     let ast
     let error
     try {
-      // use acorn parser in order to not trigger error management from declick parser
+      // use acorn parser in order not to trigger error management from declick parser
       ast = parse(code)
       interpreter.appendCode(ast)
       interpreter.run()
@@ -97,7 +97,7 @@ describe('when detecting an error', () => {
     let ast
     let error
     try {
-      // use acorn parser in order to not trigger error management from declick parser
+      // use acorn parser in order not to trigger error management from declick parser
       ast = parse(code)
       interpreter.appendCode(ast)
       interpreter.run()
@@ -121,5 +121,41 @@ describe('when detecting an error', () => {
       error = new DeclickError(e, interpreter.stateStack)
     }
     assert.equal(error.getMessage(), "a + 5\na n'est pas défini")
+  })
+
+  it('should detect error location for an interpreter error', () => {
+    const code = `a = 5
+    b = 6
+    c = a+d
+    `
+    let ast
+    let error
+    try {
+      ast = declickParser.parse(code)
+      interpreter.appendCode(ast)
+      interpreter.run()
+    } catch (e) {
+      error = new DeclickError(e, interpreter.stateStack)
+    }
+    assert.deepEqual(error.getStart(), { line: 3, column: 8 })
+    assert.deepEqual(error.getEnd(), { line: 3, column: 11 })
+  })
+
+  it('should detect error location for a parser error', () => {
+    const code = `a = 5
+    b = 6
+    c = a,`
+    let ast
+    let error
+    try {
+      // use acorn parser in order not to trigger error management from declick parser
+      ast = parse(code)
+      interpreter.appendCode(ast)
+      interpreter.run()
+    } catch (e) {
+      error = new DeclickError(e, interpreter.stateStack)
+    }
+    assert.deepEqual(error.getStart(), { line: 3, column: 10 })
+    assert.deepEqual(error.getEnd(), { line: 3, column: 10 })
   })
 })
