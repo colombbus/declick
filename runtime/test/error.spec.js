@@ -3,9 +3,19 @@ import { assert } from 'chai'
 import declickParser from '../src/parser'
 import Interpreter from '../src/interpreter'
 import DeclickError from '../src/error'
+import { i18nConfig } from 'es2015-i18n-tag'
 
 describe('when detecting an error', () => {
   let interpreter
+
+  before(() => {
+    return import(`../translations/translation.fr.json`).then(translations => {
+      i18nConfig({
+        locales: 'fr',
+        translations: translations,
+      })
+    })
+  })
 
   beforeEach(() => {
     interpreter = new Interpreter('')
@@ -48,8 +58,8 @@ describe('when detecting an error', () => {
 
   it('should detect use of an unknown function', () => {
     const code = `
-    truc()
-    `
+      truc()
+      `
     const ast = declickParser.parse(code)
     interpreter.appendCode(ast)
     let error

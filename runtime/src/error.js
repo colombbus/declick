@@ -1,13 +1,14 @@
-//TODO: i18n
+import i18n from 'es2015-i18n-tag'
+
 let _getMessage = function(error, lastState, node) {
   try {
     if (error instanceof ReferenceError) {
       if (node.type === 'NewExpression') {
         // class unknown
-        return `Impossible de créer un objet de type ${node.callee.name}`
+        return i18n`unknown class ${node.callee.name}`
       } else if (node.type === 'CallExpression') {
         // unknown function
-        return `La fonction ${node.callee.name} n'existe pas`
+        return i18n`unknown function ${node.callee.name}`
       }
     } else if (error instanceof TypeError) {
       if (
@@ -16,18 +17,18 @@ let _getMessage = function(error, lastState, node) {
         node.type === 'CallExpression'
       ) {
         // unknown method
-        return `La méthode ${node.callee.property.name} n'existe pas pour l'objet ${node.callee.object.name}`
+        return i18n`unknown method ${node.callee.property.name} for object ${node.callee.object.name}`
       }
     } else if (error instanceof SyntaxError) {
       if (error.message.toLowerCase().includes('unterminated string')) {
         // unterminated string
-        return 'Il manque un guillemet'
+        return i18n`missing quote`
       } else {
-        return 'Erreur de syntaxe'
+        return i18n`syntax error`
       }
     }
   } catch {
-    return `Erreur d'exécution : ${error.toString()}`
+    return `Error: ${error.toString()}`
   }
   return error.toString()
 }

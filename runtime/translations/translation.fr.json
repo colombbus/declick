@@ -1,3 +1,10 @@
 {
-  "repeat": "répéter"
+  "$schema": "./translation.schema.json",
+  "repeat": "répéter",
+  "unknown function ${0}": "La fonction ${0} n'existe pas",
+  "unknown method ${0} for object ${1}": "La méthode ${0} n'existe pas pour l'objet ${1}",
+  "missing quote": "Il manque un guillemet",
+  "unknown class ${0}": "Impossible de créer un objet de type ${0}",
+  "syntax error": "Erreur de syntaxe",
+  "Error: ${0}": "Erreur : ${0}"
 }

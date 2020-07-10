@@ -1,3 +1,4 @@
 {
+  "$schema": "./translation.schema.json",
   "repeat": "repeat"
 }
