@@ -112,4 +112,17 @@ describe('When scheduler is initialized', () => {
       assert.equal(result, 142)
     })
   })
+
+  it('should send any error to a given error handler', done => {
+    let code = 'a = new Nothing()'
+    let ast = parse(code)
+    scheduler.setErrorHandler(error => {
+      assert.equal(
+        error.getMessage(),
+        'Impossible de créer un objet de type Nothing',
+      )
+      done()
+    })
+    scheduler.addStatements(ast)
+  })
 })
