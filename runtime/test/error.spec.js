@@ -32,9 +32,10 @@ describe('when detecting an error', () => {
     } catch (e) {
       error = new DeclickError(e, interpreter.stateStack)
     }
+    assert.equal(error.getCode(), 'new Truc()')
     assert.equal(
       error.getMessage(),
-      'new Truc()\nImpossible de créer un objet de type Truc',
+      'Impossible de créer un objet de type Truc',
     )
   })
 
@@ -51,10 +52,27 @@ describe('when detecting an error', () => {
     } catch (e) {
       error = new DeclickError(e, interpreter.stateStack)
     }
+    assert.equal(error.getCode(), 'a.truc()')
     assert.equal(
       error.getMessage(),
-      "a.truc()\nLa méthode truc n'existe pas pour l'objet a",
+      "La méthode truc n'existe pas pour l'objet a",
     )
+  })
+
+  it('should detect use of an unknown instance', () => {
+    const code = `
+    a.truc()
+    `
+    const ast = declickParser.parse(code)
+    interpreter.appendCode(ast)
+    let error
+    try {
+      interpreter.run()
+    } catch (e) {
+      error = new DeclickError(e, interpreter.stateStack)
+    }
+    assert.equal(error.getCode(), 'a.truc')
+    assert.equal(error.getMessage(), "L'objet a n'existe pas")
   })
 
   it('should detect use of an unknown function', () => {
@@ -69,7 +87,8 @@ describe('when detecting an error', () => {
     } catch (e) {
       error = new DeclickError(e, interpreter.stateStack)
     }
-    assert.equal(error.getMessage(), "truc()\nLa fonction truc n'existe pas")
+    assert.equal(error.getCode(), 'truc()')
+    assert.equal(error.getMessage(), "La fonction truc n'existe pas")
   })
 
   it('should detect unterminated string', () => {
@@ -87,6 +106,7 @@ describe('when detecting an error', () => {
     } catch (e) {
       error = new DeclickError(e, interpreter.stateStack)
     }
+    assert.equal(error.getCode(), '')
     assert.equal(error.getMessage(), 'Il manque un guillemet')
   })
 
@@ -104,6 +124,7 @@ describe('when detecting an error', () => {
     } catch (e) {
       error = new DeclickError(e, interpreter.stateStack)
     }
+    assert.equal(error.getCode(), '')
     assert.equal(error.getMessage(), 'Erreur de syntaxe')
   })
 
@@ -121,7 +142,8 @@ describe('when detecting an error', () => {
     } catch (e) {
       error = new DeclickError(e, interpreter.stateStack)
     }
-    assert.equal(error.getMessage(), "a + c\na n'est pas défini")
+    assert.equal(error.getCode(), 'a + c')
+    assert.equal(error.getMessage(), "a n'est pas défini")
   })
 
   it('should detect unknown variable in binary expression (right)', () => {
@@ -138,7 +160,8 @@ describe('when detecting an error', () => {
     } catch (e) {
       error = new DeclickError(e, interpreter.stateStack)
     }
-    assert.equal(error.getMessage(), "c + a\na n'est pas défini")
+    assert.equal(error.getCode(), 'c + a')
+    assert.equal(error.getMessage(), "a n'est pas défini")
   })
 
   it('should detect unknown variable in assignment expression', () => {
@@ -154,7 +177,8 @@ describe('when detecting an error', () => {
     } catch (e) {
       error = new DeclickError(e, interpreter.stateStack)
     }
-    assert.equal(error.getMessage(), "b = a\na n'est pas défini")
+    assert.equal(error.getCode(), 'b = a')
+    assert.equal(error.getMessage(), "a n'est pas défini")
   })
 
   it('should detect error location for an interpreter error', () => {

@@ -37,7 +37,6 @@ let _getMessage = function(error, state, node) {
         // unknown function
         return i18n`unknown function ${node.callee.name}`
       } else if (node.type === 'AssignmentExpression') {
-        console.debug(node)
         if (node.right && node.right.type === 'Identifier') {
           return i18n`unknown variable ${node.right.name}`
         }
@@ -47,6 +46,10 @@ let _getMessage = function(error, state, node) {
         }
         if (node.left.type === 'Identifier') {
           return i18n`unknown variable ${node.left.name}`
+        }
+      } else if (node.type === 'MemberExpression') {
+        if (node.object && node.object.type === 'Identifier') {
+          return i18n`unknown object ${node.object.name}`
         }
       }
     } else if (error instanceof TypeError) {
@@ -72,6 +75,12 @@ let _getMessage = function(error, state, node) {
   return error.toString()
 }
 
+let _getCode = function(node) {
+  if (node && node.raw) {
+    return node.raw
+  }
+  return ''
+}
 export default class {
   constructor(e, states) {
     this._message = e.toString()
@@ -86,9 +95,8 @@ export default class {
     const lastState =
       states && states.length > 0 ? states[states.length - 1] : null
     const node = lastState ? lastState.node : null
-    this._message =
-      (node && node.raw ? `${node.raw}\n` : '') +
-      _getMessage(error, lastState, node)
+    this._code = _getCode(node)
+    this._message = _getMessage(error, lastState, node)
     this._location = _getLocation(error, node)
     /*if (interpreter.stateStack.length > 0) {
         state = interpreter.stateStack[0]
@@ -102,6 +110,10 @@ export default class {
   }
 
   setProgramName() {}
+
+  getCode() {
+    return this._code
+  }
 
   getMessage() {
     return this._message

@@ -7,5 +7,6 @@
   "unknown class ${0}": "Impossible de créer un objet de type ${0}",
   "syntax error": "Erreur de syntaxe",
   "Error: ${0}": "Erreur : ${0}",
-  "unknown variable ${0}": "${0} n'est pas défini"
+  "unknown variable ${0}": "${0} n'est pas défini",
+  "unknown object ${0}": "L'objet ${0} n'existe pas"
 }
