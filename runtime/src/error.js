@@ -34,8 +34,19 @@ let _getMessage = function(error, state, node) {
         // class unknown
         return i18n`unknown class ${node.callee.name}`
       } else if (node.type === 'CallExpression') {
-        // unknown function
-        return i18n`unknown function ${node.callee.name}`
+        if (state.func_) {
+          if (
+            state.n_ &&
+            node.arguments &&
+            node.arguments[state.n_ - 1] &&
+            node.arguments[state.n_ - 1].type === 'Identifier'
+          ) {
+            return i18n`unknown variable ${node.arguments[state.n_ - 1].name}`
+          }
+        } else {
+          // unknown function
+          return i18n`unknown function ${node.callee.name}`
+        }
       } else if (node.type === 'AssignmentExpression') {
         if (node.right && node.right.type === 'Identifier') {
           return i18n`unknown variable ${node.right.name}`

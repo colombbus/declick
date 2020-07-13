@@ -181,6 +181,46 @@ describe('when detecting an error', () => {
     assert.equal(error.getMessage(), "a n'est pas défini")
   })
 
+  it('should detect unknown variable used as parameter', () => {
+    const code = `
+    function sum(a) {
+      return a + 5
+    }
+    sum(b)
+    `
+    let ast
+    let error
+    try {
+      ast = declickParser.parse(code)
+      interpreter.appendCode(ast)
+      interpreter.run()
+    } catch (e) {
+      error = new DeclickError(e, interpreter.stateStack)
+    }
+    assert.equal(error.getCode(), 'sum(b)')
+    assert.equal(error.getMessage(), "b n'est pas défini")
+  })
+
+  it.only('should detect unknown variable used as second parameter', () => {
+    const code = `
+    function sum(a, b) {
+      return a + b
+    }
+    sum(5, c)
+    `
+    let ast
+    let error
+    try {
+      ast = declickParser.parse(code)
+      interpreter.appendCode(ast)
+      interpreter.run()
+    } catch (e) {
+      error = new DeclickError(e, interpreter.stateStack)
+    }
+    assert.equal(error.getCode(), 'sum(5, c)')
+    assert.equal(error.getMessage(), "c n'est pas défini")
+  })
+
   it('should detect error location for an interpreter error', () => {
     const code = `a = 5
     b = 6
