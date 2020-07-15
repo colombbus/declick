@@ -63,9 +63,9 @@ class Turtle extends Robot {
       .make.graphics({ x: 0, y: 0, add: false })
     const bounds = this._path.getBounds()
     graphics.lineStyle(1, 0x000000, 1.0)
-    graphics.translateCanvas(-bounds.x + 1, -bounds.y + 1)
+    graphics.translateCanvas(-bounds.x + 0.5, -bounds.y + 0.5)
     this._path.draw(graphics)
-    graphics.generateTexture(name, bounds.width + 2, bounds.height + 2)
+    graphics.generateTexture(name, bounds.width + 1, bounds.height + 1)
     graphics.destroy()
   }
 
@@ -82,6 +82,8 @@ class Turtle extends Robot {
         )
         this._renderer.clear()
         this._renderer.lineStyle(1, 0x000000, 1.0)
+        // In order to draw lines with 1 pixel width
+        this._renderer.translateCanvas(0.5, 0.5)
         this._path.draw(this._renderer)
       }
     }
