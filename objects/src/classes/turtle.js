@@ -1,7 +1,6 @@
 import Robot from './robot'
 import i18n from 'es2015-i18n-tag'
 import 'reflect-metadata'
-import Phaser from 'Phaser'
 
 @Reflect.metadata('translated', i18n`Turtle`)
 class Turtle extends Robot {
@@ -12,11 +11,16 @@ class Turtle extends Robot {
     this._previousY = 0
     this._traceX = 0
     this._traceY = 0
+    this._xMin = 100000
+    this._xMax = -100000
+    this._yMin = 100000
+    this._yMax = -100000
   }
 
   _buildObject() {
-    this._path = new Phaser.Curves.Path()
     this._renderer = this._graphics.getScene().add.graphics()
+    this._renderer.lineStyle(1, 0x000000, 1.0)
+    this._renderer.translateCanvas(0.5, 0.5)
     super._buildObject()
   }
 
@@ -27,10 +31,11 @@ class Turtle extends Robot {
       this._previousX = this._object.x
       this._previousY = this._object.y
       this._trace = true
-      this._path.moveTo(
+      this._renderer.moveTo(
         this._object.x + this._traceX,
         this._object.y + this._traceY,
       )
+      this._renderer.beginPath()
     }
   }
 
@@ -46,7 +51,7 @@ class Turtle extends Robot {
   @Reflect.metadata('help', i18n`setTracerLocation_help`)
   setTracerLocation(x, y) {
     if (this.trace) {
-      this._path.moveTo(
+      this._renderer.moveTo(
         this._object.x - this._traceX + x,
         this._object.y - this._traceY + y,
       )
@@ -61,11 +66,13 @@ class Turtle extends Robot {
     const graphics = this._graphics
       .getScene()
       .make.graphics({ x: 0, y: 0, add: false })
-    const bounds = this._path.getBounds()
-    graphics.lineStyle(1, 0x000000, 1.0)
-    graphics.translateCanvas(-bounds.x + 0.5, -bounds.y + 0.5)
-    this._path.draw(graphics)
-    graphics.generateTexture(name, bounds.width + 1, bounds.height + 1)
+    graphics.translateCanvas(-this._xMin, -this._yMin)
+    graphics.commandBuffer = graphics.commandBuffer.concat(
+      this._renderer.commandBuffer,
+    )
+    const width = this._xMax - this._xMin + 1
+    const height = this._yMax - this._yMin + 1
+    graphics.generateTexture(name, width, height)
     graphics.destroy()
   }
 
@@ -74,17 +81,18 @@ class Turtle extends Robot {
     if (this._trace) {
       if (
         this._object.x !== this._previousX ||
-        this._object.y !== this.previousY
+        this._object.y !== this._previousY
       ) {
-        this._path.lineTo(
-          this._object.x + this._traceX,
-          this._object.y + this._traceY,
-        )
-        this._renderer.clear()
-        this._renderer.lineStyle(1, 0x000000, 1.0)
-        // In order to draw lines with 1 pixel width
-        this._renderer.translateCanvas(0.5, 0.5)
-        this._path.draw(this._renderer)
+        const newX = this._object.x + this._traceX
+        const newY = this._object.y + this._traceY
+        this._renderer.lineTo(newX, newY)
+        this._renderer.strokePath()
+        this._xMin = Math.min(this._xMin, newX)
+        this._xMax = Math.max(this._xMax, newX)
+        this._yMin = Math.min(this._yMin, newY)
+        this._yMax = Math.max(this._yMax, newY)
+        this._previousX = this._object.x
+        this._previousY = this._object.y
       }
     }
   }
