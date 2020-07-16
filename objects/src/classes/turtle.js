@@ -49,7 +49,7 @@ class Turtle extends Robot {
   @Reflect.metadata('translated', i18n`setTracerLocation`)
   @Reflect.metadata('help', i18n`setTracerLocation_help`)
   setTracerLocation(x, y) {
-    if (this.trace) {
+    if (this._trace) {
       this._renderer.moveTo(
         this._object.x - this._traceX + x,
         this._object.y - this._traceY + y,
