@@ -35,7 +35,6 @@ class Turtle extends Robot {
         this._object.x + this._traceX,
         this._object.y + this._traceY,
       )
-      this._renderer.beginPath()
     }
   }
 
