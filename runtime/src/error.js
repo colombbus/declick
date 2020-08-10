@@ -21,7 +21,7 @@ let _getLocation = function(error, node) {
           end: { line: line, column: column },
         }
       }
-    } catch {}
+    } catch (e) {}
   }
 
   return { start: { line: 0, column: 0 }, end: { line: 0, column: 0 } }
@@ -79,9 +79,15 @@ let _getMessage = function(error, state, node) {
       } else {
         return i18n`syntax error`
       }
+    } else if (
+      !(error instanceof Error) &&
+      typeof error === 'object' &&
+      typeof error.declickObjectError !== 'undefined'
+    ) {
+      return error.declickObjectError
     }
-  } catch {
-    return `Error: ${error.toString()}`
+  } catch (e) {
+    return i18n`Error: ${error.toString()}`
   }
   return error.toString()
 }
@@ -92,7 +98,8 @@ let _getCode = function(node) {
   }
   return ''
 }
-export default class {
+
+export default class Error {
   constructor(e, states) {
     this._message = e.toString()
     this._error = e

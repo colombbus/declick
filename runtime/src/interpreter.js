@@ -1,7 +1,7 @@
 import parser from './parser'
 import JSInterpreter from 'js-interpreter'
 
-export default class extends JSInterpreter {
+export default class Interpreter extends JSInterpreter {
   // TODO: voir pourquoi ?
   stepFunctionDeclaration() {
     var state = this.stateStack.pop()

@@ -1,38 +1,62 @@
 {
-  "type": "object",
-  "properties": {
-    "$schema": {
-      "type": "string"
-    },
-    "repeat": {
-      "type": "string",
-      "minLength": 1
-    },
-    "unknown class ${0}": {
-      "type": "string"
-    },
-    "unknown function ${0}": {
-      "type": "string"
-    },
-    "unknown method ${0} for object ${1}": {
-      "type": "string"
-    },
-    "missing quote": {
-      "type": "string"
-    },
-    "syntax error": {
-      "type": "string"
-    },
-    "Error: ${0}": {
-      "type": "string"
-    },
-    "unknown variable ${0}": {
-      "type": "string"
-    },
-    "unknown object ${0}": {
-      "type": "string"
-    }
-  },
-  "required": ["repeat"],
-  "additionalProperties": false
+	"type": "object",
+	"properties": {
+		"$schema": {
+			"type": "string"
+		},
+		"Error: ${0}": {
+			"type": "string",
+			"minLength": 1,
+			"pattern": "(?=.*?\\$\\{0\\})"
+		},
+		"missing quote": {
+			"type": "string",
+			"minLength": 1
+		},
+		"repeat": {
+			"type": "string",
+			"minLength": 1
+		},
+		"syntax error": {
+			"type": "string",
+			"minLength": 1
+		},
+		"unknown class ${0}": {
+			"type": "string",
+			"minLength": 1,
+			"pattern": "(?=.*?\\$\\{0\\})"
+		},
+		"unknown function ${0}": {
+			"type": "string",
+			"minLength": 1,
+			"pattern": "(?=.*?\\$\\{0\\})"
+		},
+		"unknown method ${0} for object ${1}": {
+			"type": "string",
+			"minLength": 1,
+			"pattern": "(?=.*?\\$\\{0\\})(?=.*?\\$\\{1\\})"
+		},
+		"unknown object ${0}": {
+			"type": "string",
+			"minLength": 1,
+			"pattern": "(?=.*?\\$\\{0\\})"
+		},
+		"unknown variable ${0}": {
+			"type": "string",
+			"minLength": 1,
+			"pattern": "(?=.*?\\$\\{0\\})"
+		}
+	},
+	"required": [
+		"Error: ${0}",
+		"missing quote",
+		"repeat",
+		"syntax error",
+		"unknown class ${0}",
+		"unknown function ${0}",
+		"unknown method ${0} for object ${1}",
+		"unknown object ${0}",
+		"unknown variable ${0}"
+	],
+	"additionalProperties": false
 }
