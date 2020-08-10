@@ -80,6 +80,16 @@
 			"type": "string",
 			"minLength": 1
 		},
+		"array value expected ${0}": {
+			"type": "string",
+			"minLength": 1,
+			"pattern": "(?=.*?\\$\\{0\\})"
+		},
+		"boolean value expected ${0}": {
+			"type": "string",
+			"minLength": 1,
+			"pattern": "(?=.*?\\$\\{0\\})"
+		},
 		"capslock": {
 			"type": "string",
 			"minLength": 1
@@ -127,6 +137,11 @@
 		"escape": {
 			"type": "string",
 			"minLength": 1
+		},
+		"function value expected ${0}": {
+			"type": "string",
+			"minLength": 1,
+			"pattern": "(?=.*?\\$\\{0\\})"
 		},
 		"getNextObject": {
 			"type": "string",
@@ -203,6 +218,11 @@
 		"insert": {
 			"type": "string",
 			"minLength": 1
+		},
+		"integer value expected ${0}": {
+			"type": "string",
+			"minLength": 1,
+			"pattern": "(?=.*?\\$\\{0\\})"
 		},
 		"jump": {
 			"type": "string",
@@ -308,7 +328,25 @@
 			"type": "string",
 			"minLength": 1
 		},
+		"number value expected ${0}": {
+			"type": "string",
+			"minLength": 1,
+			"pattern": "(?=.*?\\$\\{0\\})"
+		},
+		"object value expected ${0}": {
+			"type": "string",
+			"minLength": 1,
+			"pattern": "(?=.*?\\$\\{0\\})"
+		},
 		"remove": {
+			"type": "string",
+			"minLength": 1
+		},
+		"removeTile": {
+			"type": "string",
+			"minLength": 1
+		},
+		"removeTile_help": {
 			"type": "string",
 			"minLength": 1
 		},
@@ -388,6 +426,11 @@
 			"type": "string",
 			"minLength": 1
 		},
+		"string value expected ${0}": {
+			"type": "string",
+			"minLength": 1,
+			"pattern": "(?=.*?\\$\\{0\\})"
+		},
 		"suspend": {
 			"type": "string",
 			"minLength": 1
@@ -461,6 +504,8 @@
 		"addBLock",
 		"addBlock_help",
 		"add_help",
+		"array value expected ${0}",
+		"boolean value expected ${0}",
 		"capslock",
 		"clear",
 		"clear_help",
@@ -473,6 +518,7 @@
 		"delete_help",
 		"down",
 		"escape",
+		"function value expected ${0}",
 		"getNextObject",
 		"getNextObject_help",
 		"getObject",
@@ -492,6 +538,7 @@
 		"ifOverlapWith",
 		"ifOverlapWith_help",
 		"insert",
+		"integer value expected ${0}",
 		"jump",
 		"jump_help",
 		"keyboard",
@@ -518,7 +565,11 @@
 		"moveForward_help",
 		"moveUpward",
 		"moveUpward_help",
+		"number value expected ${0}",
+		"object value expected ${0}",
 		"remove",
+		"removeTile",
+		"removeTile_help",
 		"remove_help",
 		"resume",
 		"resume_help",
@@ -538,6 +589,7 @@
 		"setTracerLocation_help",
 		"stop",
 		"stop_help",
+		"string value expected ${0}",
 		"suspend",
 		"suspend_help",
 		"throwDice",

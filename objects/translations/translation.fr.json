@@ -108,5 +108,14 @@
   "setTracerLocation_help": "définirPositionTraceur(0,0)",
   "PlatformTile": "Brique",
   "createTexture": "créerTexture",
-  "createTexture_help": "créerTexture(\"nom\")"
+  "createTexture_help": "créerTexture(\"nom\")",
+  "array value expected ${0}": "${0} n'est pas une liste",
+  "boolean value expected ${0}": "${0} n'est pas un booléen",
+  "function value expected ${0}": "${0} n'est pas une fonction",
+  "integer value expected ${0}": "${0} n'est pas un nombre entier",
+  "number value expected ${0}": "${0} n'est pas un nombre",
+  "object value expected ${0}": "${0} n'est pas un objet",
+  "string value expected ${0}": "${0} n'est pas un texte",
+  "removeTile": "retirerBrique",
+  "removeTile_help": "retirerBrique(brique)"
 }
