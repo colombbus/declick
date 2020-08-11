@@ -50,6 +50,11 @@ describe('When checkArguments is added', () => {
           return true
         }
 
+        @checkArguments(['any'])
+        expectAny(value) {
+          return true
+        }
+
         @checkArguments([
           'string',
           'integer',
@@ -93,7 +98,7 @@ describe('When checkArguments is added', () => {
   })
 
   it('should be ok when the right type is provided', () => {
-    let value1, value2, value3, value4, value5, value6, value7
+    let value1, value2, value3, value4, value5, value6, value7, value8
     value1 = testInstance.expectString('a string')
     value2 = testInstance.expectInteger(42)
     value3 = testInstance.expectNumber(1.2)
@@ -103,6 +108,7 @@ describe('When checkArguments is added', () => {
     DeclickClass._declickId_ = 'test'
     value6 = testInstance.expectObject(new DeclickClass())
     value7 = testInstance.expectFunction(() => {})
+    value8 = testInstance.expectAny('abc')
     assert.ok(value1)
     assert.ok(value2)
     assert.ok(value3)
@@ -110,6 +116,7 @@ describe('When checkArguments is added', () => {
     assert.ok(value5)
     assert.ok(value6)
     assert.ok(value7)
+    assert.ok(value8)
   })
 
   it('should be ok when the right types are provided in the right order', () => {
@@ -210,7 +217,7 @@ describe('When checkArguments is added', () => {
   it('should detect when one argument is missing', () => {
     const DeclickClass = class {}
     DeclickClass._declickId_ = 'test'
-    let error
+    let error1, error2
     try {
       testInstance.expectMultiple(
         'string',
@@ -221,10 +228,18 @@ describe('When checkArguments is added', () => {
         new DeclickClass(),
       )
     } catch (e) {
-      error = e
+      error1 = e
     }
-    assert.deepEqual(error, {
+    try {
+      testInstance.expectAny()
+    } catch (e) {
+      error2 = e
+    }
+    assert.deepEqual(error1, {
       declickObjectError: 'il manque un paramètre de type fonction',
+    })
+    assert.deepEqual(error2, {
+      declickObjectError: 'il manque un paramètre',
     })
   })
 

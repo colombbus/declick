@@ -16,7 +16,7 @@ class List extends BaseClass {
    */
   @Reflect.metadata('translated', i18n`add`)
   @Reflect.metadata('help', i18n`add_help`)
-  @checkArguments(['object'])
+  @checkArguments(['any'])
   add(value) {
     this._list.push(value)
   }
@@ -26,7 +26,7 @@ class List extends BaseClass {
    */
   @Reflect.metadata('translated', i18n`remove`)
   @Reflect.metadata('help', i18n`remove_help`)
-  @checkArguments(['object'])
+  @checkArguments(['any'])
   remove(object) {
     this._list = this._list.filter(a => object !== a)
   }
@@ -77,7 +77,7 @@ class List extends BaseClass {
    */
   @Reflect.metadata('translated', i18n`modify`)
   @Reflect.metadata('help', i18n`modify_help`)
-  @checkArguments(['integer', 'object'])
+  @checkArguments(['integer', 'any'])
   modify(index, object) {
     this._index = index - 1
     this._list[this._index] = object
@@ -88,7 +88,7 @@ class List extends BaseClass {
    */
   @Reflect.metadata('translated', i18n`has`)
   @Reflect.metadata('help', i18n`has_help`)
-  @checkArguments(['object'])
+  @checkArguments(['any'])
   has(object) {
     if (this._list.indexOf(object) >= 0) {
       return true
@@ -102,7 +102,7 @@ class List extends BaseClass {
    */
   @Reflect.metadata('translated', i18n`hasIn`)
   @Reflect.metadata('help', i18n`hasIn_help`)
-  @checkArguments(['object'])
+  @checkArguments(['any'])
   hasIn(object) {
     let list = object._list
     for (let i = 0; i < list.length; i++) {

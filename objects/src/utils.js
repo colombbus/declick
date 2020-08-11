@@ -1,73 +1,61 @@
 import i18n from 'es2015-i18n-tag'
 
+const _types = {
+  integer: {
+    check: value => Number.isInteger(value),
+    typeMessage: value => i18n`integer value expected ${value}`,
+    missingMessage: i18n`missing integer argument`,
+  },
+  string: {
+    check: value => typeof value === 'string' || value instanceof String,
+    typeMessage: value => i18n`string value expected ${value}`,
+    missingMessage: i18n`missing string argument`,
+  },
+  array: {
+    check: value => Array.isArray(value),
+    typeMessage: value => i18n`array value expected ${value}`,
+    missingMessage: i18n`missing array argument`,
+  },
+  number: {
+    check: value => typeof value === 'number' && isFinite(value),
+    typeMessage: value => i18n`number value expected ${value}`,
+    missingMessage: i18n`missing number argument`,
+  },
+  boolean: {
+    check: value => typeof value === 'boolean',
+    typeMessage: value => i18n`boolean value expected ${value}`,
+    missingMessage: i18n`missing boolean argument`,
+  },
+  object: {
+    check: value =>
+      typeof value === 'object' &&
+      typeof value.constructor._declickId_ !== 'undefined',
+    typeMessage: value => i18n`object value expected ${value}`,
+    missingMessage: i18n`missing object argument`,
+  },
+  function: {
+    check: value => typeof value === 'function',
+    typeMessage: value => i18n`function value expected ${value}`,
+    missingMessage: i18n`missing function argument`,
+  },
+  any: {
+    check: () => true,
+    missingMessage: i18n`missing argument`,
+  },
+}
+
 const _checkType = function(type, value) {
-  switch (type) {
-    case 'integer':
-      return Number.isInteger(value)
-    case 'string':
-      return typeof value === 'string' || value instanceof String
-    case 'array':
-      return Array.isArray(value)
-    case 'number':
-      return typeof value === 'number' && isFinite(value)
-    case 'boolean':
-      return typeof value === 'boolean'
-    case 'object':
-      return (
-        typeof value === 'object' &&
-        typeof value.constructor._declickId_ !== 'undefined'
-      )
-    case 'function':
-      return typeof value === 'function'
-  }
+  return _types[type].check(value)
 }
 
 const _getTypeErrorMessage = function(type, value) {
-  switch (type) {
-    case 'integer':
-      return i18n`integer value expected ${value}`
-    case 'string':
-      return i18n`string value expected ${value}`
-    case 'array':
-      return i18n`array value expected ${value}`
-    case 'number':
-      return i18n`number value expected ${value}`
-    case 'boolean':
-      return i18n`boolean value expected ${value}`
-    case 'object':
-      return i18n`object value expected ${value}`
-    case 'function':
-      return i18n`function value expected ${value}`
-  }
+  return _types[type].typeMessage(value)
 }
 
 const _getMissingErrorMessage = function(types, skip, length) {
   let messages = []
   for (let i = types.length - skip - length; i < types.length - skip; i++) {
-    let type = types[i]
-    switch (type) {
-      case 'integer':
-        messages.push(i18n`missing integer argument`)
-        break
-      case 'string':
-        messages.push(i18n`missing string argument`)
-        break
-      case 'array':
-        messages.push(i18n`missing array argument`)
-        break
-      case 'number':
-        messages.push(i18n`missing number argument`)
-        break
-      case 'boolean':
-        messages.push(i18n`missing boolean argument`)
-        break
-      case 'object':
-        messages.push(i18n`missing object argument`)
-        break
-      case 'function':
-        messages.push(i18n`missing function argument`)
-        break
-    }
+    messages.push(_types[types[i]].missingMessage)
   }
   return messages.join('\n')
 }
