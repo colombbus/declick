@@ -4,6 +4,7 @@ import 'reflect-metadata'
 import defaultMap from '../../resources/map.json'
 import defaultMapTiles from '../../resources/tiles.png'
 import PlatformTile from './platform-tile'
+import { checkArguments } from '../utils'
 
 @Reflect.metadata('translated', i18n`Platform`)
 class Platform extends GraphicClass {
@@ -64,6 +65,21 @@ class Platform extends GraphicClass {
     this._layers.forEach(layer => {
       scene.physics.add.overlap(object, layer, handler)
     })*/
+  }
+
+  @Reflect.metadata('translated', i18n`removeTile`)
+  @Reflect.metadata('help', i18n`removeTile_help`)
+  @checkArguments(['object'])
+  removeTile(tile) {
+    const tileLayer = tile.getLayer()
+    const layer = this._layers.find(layer => layer === tileLayer)
+    if (layer && layer.removeTileAt !== undefined) {
+      layer.removeTileAt(tile.getX(), tile.getY())
+    } else if (layer) {
+      this.throwError(i18n`layer not dynamic`)
+    } else {
+      this.throwError(i18n`could not find tile`)
+    }
   }
 }
 

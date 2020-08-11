@@ -102,6 +102,10 @@
 			"type": "string",
 			"minLength": 1
 		},
+		"could not find tile": {
+			"type": "string",
+			"minLength": 1
+		},
 		"createSprite": {
 			"type": "string",
 			"minLength": 1
@@ -233,6 +237,10 @@
 			"minLength": 1
 		},
 		"keyboard": {
+			"type": "string",
+			"minLength": 1
+		},
+		"layer not dynamic": {
 			"type": "string",
 			"minLength": 1
 		},
@@ -541,6 +549,7 @@
 		"capslock",
 		"clear",
 		"clear_help",
+		"could not find tile",
 		"createSprite",
 		"createSprite_help",
 		"createTexture",
@@ -574,6 +583,7 @@
 		"jump",
 		"jump_help",
 		"keyboard",
+		"layer not dynamic",
 		"left",
 		"mayFall",
 		"mayFall_help",

@@ -125,5 +125,7 @@
   "missing number argument": "il manque un paramètre de type nombre",
   "missing object argument": "il manque un paramètre de type objet Declik",
   "missing string argument": "il manque un paramètre de type texte",
-  "missing argument": "il manque un paramètre"
+  "missing argument": "il manque un paramètre",
+  "could not find tile": "cette brique ne fait pas partie de cette plateforme",
+  "layer not dynamic": "cette brique ne peut pas être supprimée"
 }

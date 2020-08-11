@@ -12,6 +12,18 @@ class PlatformTile extends BaseClass {
   getData() {
     return this
   }
+
+  getLayer() {
+    return this._tile.tilemapLayer
+  }
+
+  getX() {
+    return this._tile.x
+  }
+
+  getY() {
+    return this._tile.y
+  }
 }
 
 export default PlatformTile
