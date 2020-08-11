@@ -22,7 +22,7 @@ const _checkType = function(type, value) {
   }
 }
 
-const _getErrorMessage = function(type, value) {
+const _getTypeErrorMessage = function(type, value) {
   switch (type) {
     case 'integer':
       return i18n`integer value expected ${value}`
@@ -41,21 +41,62 @@ const _getErrorMessage = function(type, value) {
   }
 }
 
-const checkTypes = function(types) {
+const _getMissingErrorMessage = function(types, skip, length) {
+  let messages = []
+  for (let i = types.length - skip - length; i < types.length - skip; i++) {
+    let type = types[i]
+    switch (type) {
+      case 'integer':
+        messages.push(i18n`missing integer argument`)
+        break
+      case 'string':
+        messages.push(i18n`missing string argument`)
+        break
+      case 'array':
+        messages.push(i18n`missing array argument`)
+        break
+      case 'number':
+        messages.push(i18n`missing number argument`)
+        break
+      case 'boolean':
+        messages.push(i18n`missing boolean argument`)
+        break
+      case 'object':
+        messages.push(i18n`missing object argument`)
+        break
+      case 'function':
+        messages.push(i18n`missing function argument`)
+        break
+    }
+  }
+  return messages.join('\n')
+}
+
+const checkArguments = function(types, optionalParameters = 0) {
   return function(target, name, descriptor) {
     const originalMethod = descriptor.value
     descriptor.value = function(...args) {
       types.forEach((type, index) => {
         const argument = args[index]
-        if (!_checkType(type, argument)) {
+        if (argument !== undefined && !_checkType(type, argument)) {
           throw {
-            declickObjectError: _getErrorMessage(type, argument),
+            declickObjectError: _getTypeErrorMessage(type, argument),
           }
         }
       })
-      originalMethod.apply(this, args)
+      const missingArgsLength = types.length - args.length - optionalParameters
+      if (missingArgsLength > 0) {
+        throw {
+          declickObjectError: _getMissingErrorMessage(
+            types,
+            optionalParameters,
+            missingArgsLength,
+          ),
+        }
+      }
+      return originalMethod.apply(this, args)
     }
     return descriptor
   }
 }
-export { checkTypes }
+export { checkArguments }

@@ -114,8 +114,15 @@
   "function value expected ${0}": "${0} n'est pas une fonction",
   "integer value expected ${0}": "${0} n'est pas un nombre entier",
   "number value expected ${0}": "${0} n'est pas un nombre",
-  "object value expected ${0}": "${0} n'est pas un objet",
+  "object value expected ${0}": "${0} n'est pas un objet Declick",
   "string value expected ${0}": "${0} n'est pas un texte",
   "removeTile": "retirerBrique",
-  "removeTile_help": "retirerBrique(brique)"
+  "removeTile_help": "retirerBrique(brique)",
+  "missing array argument": "il manque un paramètre de type liste",
+  "missing boolean argument": "il manque un paramètre de type booléen",
+  "missing function argument": "il manque un paramètre de type fonction",
+  "missing integer argument": "il manque un paramètre de type nombre entier",
+  "missing number argument": "il manque un paramètre de type nombre",
+  "missing object argument": "il manque un paramètre de type objet Declik",
+  "missing string argument": "il manque un paramètre de type texte"
 }

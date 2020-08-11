@@ -1,13 +1,13 @@
 import i18n from 'es2015-i18n-tag'
 import BaseInstance from '../base-instance'
 import 'reflect-metadata'
-import { checkTypes } from '../utils'
+import { checkArguments } from '../utils'
 
 @Reflect.metadata('translated', i18n`declick`)
 class DeclickClass extends BaseInstance {
   @Reflect.metadata('translated', i18n`write`)
   @Reflect.metadata('help', i18n`write_help`)
-  @checkTypes(['string'])
+  @checkArguments(['string'])
   write(value) {
     console.log(value)
   }

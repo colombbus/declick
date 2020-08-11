@@ -256,6 +256,34 @@
 			"type": "string",
 			"minLength": 1
 		},
+		"missing array argument": {
+			"type": "string",
+			"minLength": 1
+		},
+		"missing boolean argument": {
+			"type": "string",
+			"minLength": 1
+		},
+		"missing function argument": {
+			"type": "string",
+			"minLength": 1
+		},
+		"missing integer argument": {
+			"type": "string",
+			"minLength": 1
+		},
+		"missing number argument": {
+			"type": "string",
+			"minLength": 1
+		},
+		"missing object argument": {
+			"type": "string",
+			"minLength": 1
+		},
+		"missing string argument": {
+			"type": "string",
+			"minLength": 1
+		},
 		"modify": {
 			"type": "string",
 			"minLength": 1
@@ -547,6 +575,13 @@
 		"mayFall_help",
 		"mayMove",
 		"mayMove_help",
+		"missing array argument",
+		"missing boolean argument",
+		"missing function argument",
+		"missing integer argument",
+		"missing number argument",
+		"missing object argument",
+		"missing string argument",
 		"modify",
 		"modify_help",
 		"moveAlwaysBackward",
