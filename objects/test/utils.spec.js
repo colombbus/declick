@@ -8,6 +8,14 @@ describe('When checkArguments is added', () => {
   let TestClass
   let testInstance
 
+  const DeclickClass = class {
+    _declickId_ = 'test'
+  }
+
+  const declickFunction = {
+    type: 'function',
+  }
+
   before(done => {
     i18nConfig({
       locales: 'fr-FR',
@@ -93,6 +101,7 @@ describe('When checkArguments is added', () => {
         }
       }
       testInstance = new TestClass()
+
       done()
     })
   })
@@ -104,10 +113,8 @@ describe('When checkArguments is added', () => {
     value3 = testInstance.expectNumber(1.2)
     value4 = testInstance.expectArray([1, 2])
     value5 = testInstance.expectBoolean(false)
-    const DeclickClass = class {}
-    DeclickClass._declickId_ = 'test'
     value6 = testInstance.expectObject(new DeclickClass())
-    value7 = testInstance.expectFunction(() => {})
+    value7 = testInstance.expectFunction(declickFunction)
     value8 = testInstance.expectAny('abc')
     assert.ok(value1)
     assert.ok(value2)
@@ -120,8 +127,6 @@ describe('When checkArguments is added', () => {
   })
 
   it('should be ok when the right types are provided in the right order', () => {
-    const DeclickClass = class {}
-    DeclickClass._declickId_ = 'test'
     let value = testInstance.expectMultiple(
       'string',
       5,
@@ -129,7 +134,7 @@ describe('When checkArguments is added', () => {
       ['a', 'b'],
       true,
       new DeclickClass(),
-      () => {},
+      declickFunction,
     )
     assert.ok(value)
   })
@@ -193,8 +198,6 @@ describe('When checkArguments is added', () => {
   })
 
   it('should detect when one of the provided types is not right', () => {
-    const DeclickClass = class {}
-    DeclickClass._declickId_ = 'test'
     let error
     try {
       testInstance.expectMultiple(
@@ -204,7 +207,7 @@ describe('When checkArguments is added', () => {
         ['a', 'b'],
         true,
         new DeclickClass(),
-        () => {},
+        declickFunction,
       )
     } catch (e) {
       error = e
@@ -215,8 +218,6 @@ describe('When checkArguments is added', () => {
   })
 
   it('should detect when one argument is missing', () => {
-    const DeclickClass = class {}
-    DeclickClass._declickId_ = 'test'
     let error1, error2
     try {
       testInstance.expectMultiple(

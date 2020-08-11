@@ -233,7 +233,7 @@ class Sprite extends GraphicClass {
 
   @Reflect.metadata('translated', i18n`ifCollisionWith`)
   @Reflect.metadata('help', i18n`ifCollisionWith_help`)
-  @checkArguments(['object', 'string'])
+  @checkArguments(['object', 'function'])
   ifCollisionWith(object, command) {
     //TODO: handle other types of command (programs, code)
     const callStatement = this._runtime.createCallStatement(command)
@@ -254,7 +254,7 @@ class Sprite extends GraphicClass {
 
   @Reflect.metadata('translated', i18n`ifOverlapWith`)
   @Reflect.metadata('help', i18n`ifOverlapWith_help`)
-  @checkArguments(['object', 'string'])
+  @checkArguments(['object', 'function'])
   ifOverlapWith(object, command) {
     //TODO: handle other types of command (programs, code)
     const callStatement = this._runtime.createCallStatement(command)

@@ -28,13 +28,15 @@ const _types = {
   },
   object: {
     check: value =>
-      typeof value === 'object' &&
-      typeof value.constructor._declickId_ !== 'undefined',
+      typeof value === 'object' && value._declickId_ !== undefined,
     typeMessage: value => i18n`object value expected ${value}`,
     missingMessage: i18n`missing object argument`,
   },
   function: {
-    check: value => typeof value === 'function',
+    check: value =>
+      typeof value === 'object' &&
+      value.type !== undefined &&
+      value.type === 'function',
     typeMessage: value => i18n`function value expected ${value}`,
     missingMessage: i18n`missing function argument`,
   },
