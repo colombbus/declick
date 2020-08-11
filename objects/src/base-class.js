@@ -26,6 +26,12 @@ class BaseClass extends EventsInterface {
   delete() {
     this.dispatch('delete')
   }
+
+  throwError(message) {
+    throw {
+      declickObjectError: message,
+    }
+  }
 }
 
 export default BaseClass

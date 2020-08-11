@@ -81,4 +81,17 @@ describe('When BaseClass is instantiated', () => {
       assert.equal(Reflect.getMetadata('instance', BaseClass), false)
     })
   })
+
+  it('should be able to throw an error through its method throwError', () => {
+    return import('../src/base-class').then(({ default: BaseClass }) => {
+      let error
+      let anObject = new BaseClass()
+      try {
+        anObject.throwError('test error')
+      } catch (e) {
+        error = e
+      }
+      assert.deepEqual(error, { declickObjectError: 'test error' })
+    })
+  })
 })
