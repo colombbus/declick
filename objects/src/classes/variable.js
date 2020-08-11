@@ -1,6 +1,7 @@
 import i18n from 'es2015-i18n-tag'
 import BaseClass from '../base-class'
 import 'reflect-metadata'
+import { checkArguments } from '../utils'
 
 @Reflect.metadata('translated', i18n`Variable`)
 class Variable extends BaseClass {
@@ -11,6 +12,7 @@ class Variable extends BaseClass {
 
   @Reflect.metadata('translated', i18n`setText`)
   @Reflect.metadata('help', i18n`setText_help`)
+  @checkArguments(['string'])
   setText(value) {
     this._value = value
   }

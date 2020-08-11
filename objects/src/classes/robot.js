@@ -1,6 +1,7 @@
 import Sprite from './sprite'
 import i18n from 'es2015-i18n-tag'
 import 'reflect-metadata'
+import { checkArguments } from '../utils'
 
 const DEFAULT_DISTANCE = 50
 
@@ -18,6 +19,7 @@ class Robot extends Sprite {
     })
   }
 
+  @checkArguments(['integer'], 1)
   moveForward(steps = 1) {
     if (!this._moving) {
       this._moving = true
@@ -26,6 +28,7 @@ class Robot extends Sprite {
     }
   }
 
+  @checkArguments(['integer'], 1)
   moveBackward(steps = 1) {
     if (!this._moving) {
       this._moving = true
@@ -34,6 +37,7 @@ class Robot extends Sprite {
     }
   }
 
+  @checkArguments(['integer'], 1)
   moveUpward(steps = 1) {
     if (!this._moving) {
       this._moving = true
@@ -42,6 +46,7 @@ class Robot extends Sprite {
     }
   }
 
+  @checkArguments(['integer'], 1)
   moveDownward(steps = 1) {
     if (!this._moving) {
       this._moving = true
@@ -50,6 +55,7 @@ class Robot extends Sprite {
     }
   }
 
+  @checkArguments(['integer', 'integer'])
   setLocation(x, y) {
     super.setLocation(x * this._distance, y * this._distance)
   }

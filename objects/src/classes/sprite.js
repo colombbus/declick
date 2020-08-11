@@ -3,6 +3,7 @@ import GraphicClass from '../graphic-class'
 import 'reflect-metadata'
 import robotData from '../../resources/robot.json'
 import robotTexture from '../../resources/robot.png'
+import { checkArguments } from '../utils'
 
 const DEFAULT_SPEED = 200
 
@@ -161,6 +162,7 @@ class Sprite extends GraphicClass {
 
   @Reflect.metadata('translated', i18n`moveForward`)
   @Reflect.metadata('help', i18n`moveForward_help`)
+  @checkArguments(['integer'])
   moveForward(distance) {
     this._initTargetMovement()
     this._targetX += distance
@@ -169,6 +171,7 @@ class Sprite extends GraphicClass {
 
   @Reflect.metadata('translated', i18n`moveBackward`)
   @Reflect.metadata('help', i18n`moveBackward_help`)
+  @checkArguments(['integer'])
   moveBackward(distance) {
     this._initTargetMovement()
     this._targetX -= distance
@@ -177,6 +180,7 @@ class Sprite extends GraphicClass {
 
   @Reflect.metadata('translated', i18n`moveUpward`)
   @Reflect.metadata('help', i18n`moveUpward_help`)
+  @checkArguments(['integer'])
   moveUpward(distance) {
     this._initTargetMovement()
     this._targetY -= distance
@@ -185,6 +189,7 @@ class Sprite extends GraphicClass {
 
   @Reflect.metadata('translated', i18n`moveDownward`)
   @Reflect.metadata('help', i18n`moveDownward_help`)
+  @checkArguments(['integer'])
   moveDownward(distance) {
     this._initTargetMovement()
     this._targetY += distance
@@ -228,6 +233,7 @@ class Sprite extends GraphicClass {
 
   @Reflect.metadata('translated', i18n`ifCollisionWith`)
   @Reflect.metadata('help', i18n`ifCollisionWith_help`)
+  @checkArguments(['object', 'string'])
   ifCollisionWith(object, command) {
     //TODO: handle other types of command (programs, code)
     const callStatement = this._runtime.createCallStatement(command)
@@ -241,12 +247,14 @@ class Sprite extends GraphicClass {
 
   @Reflect.metadata('translated', i18n`addBLock`)
   @Reflect.metadata('help', i18n`addBlock_help`)
+  @checkArguments(['object'])
   addBlock(block) {
     block.addCollider(this._object)
   }
 
   @Reflect.metadata('translated', i18n`ifOverlapWith`)
   @Reflect.metadata('help', i18n`ifOverlapWith_help`)
+  @checkArguments(['object', 'string'])
   ifOverlapWith(object, command) {
     //TODO: handle other types of command (programs, code)
     const callStatement = this._runtime.createCallStatement(command)
@@ -260,6 +268,7 @@ class Sprite extends GraphicClass {
 
   @Reflect.metadata('translated', i18n`mayMove`)
   @Reflect.metadata('help', i18n`mayMove_help`)
+  @checkArguments(['boolean', 1])
   mayMove(value = true) {
     this._object.setImmovable(!value)
   }

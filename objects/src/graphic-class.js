@@ -1,6 +1,7 @@
 import BaseClass from './base-class'
 import i18n from 'es2015-i18n-tag'
 import 'reflect-metadata'
+import { checkArguments } from './utils'
 
 class GraphicClass extends BaseClass {
   constructor() {
@@ -39,6 +40,7 @@ class GraphicClass extends BaseClass {
 
   @Reflect.metadata('translated', i18n`setLocation`)
   @Reflect.metadata('help', i18n`setLocation_help`)
+  @checkArguments(['integer', 'integer'])
   setLocation(x, y) {
     // do nothing
   }

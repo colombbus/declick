@@ -1,6 +1,7 @@
 import Robot from './robot'
 import i18n from 'es2015-i18n-tag'
 import 'reflect-metadata'
+import { checkArguments } from '../utils'
 
 @Reflect.metadata('translated', i18n`Turtle`)
 class Turtle extends Robot {
@@ -48,6 +49,7 @@ class Turtle extends Robot {
 
   @Reflect.metadata('translated', i18n`setTracerLocation`)
   @Reflect.metadata('help', i18n`setTracerLocation_help`)
+  @checkArguments(['integer', 'integer'])
   setTracerLocation(x, y) {
     if (this._trace) {
       this._renderer.moveTo(
@@ -61,6 +63,7 @@ class Turtle extends Robot {
 
   @Reflect.metadata('translated', i18n`createTexture`)
   @Reflect.metadata('help', i18n`createTexture_help`)
+  @checkArguments(['string'])
   createTexture(name) {
     const graphics = this._graphics
       .getScene()

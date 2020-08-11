@@ -1,6 +1,7 @@
 import i18n from 'es2015-i18n-tag'
 import BaseClass from '../base-class'
 import 'reflect-metadata'
+import { checkArguments } from '../utils'
 
 @Reflect.metadata('translated', i18n`List`)
 class List extends BaseClass {
@@ -15,6 +16,7 @@ class List extends BaseClass {
    */
   @Reflect.metadata('translated', i18n`add`)
   @Reflect.metadata('help', i18n`add_help`)
+  @checkArguments(['object'])
   add(value) {
     this._list.push(value)
   }
@@ -24,6 +26,7 @@ class List extends BaseClass {
    */
   @Reflect.metadata('translated', i18n`remove`)
   @Reflect.metadata('help', i18n`remove_help`)
+  @checkArguments(['object'])
   remove(object) {
     this._list = this._list.filter(a => object !== a)
   }
@@ -63,11 +66,10 @@ class List extends BaseClass {
    */
   @Reflect.metadata('translated', i18n`getObject`)
   @Reflect.metadata('help', i18n`getObject_help`)
+  @checkArguments(['integer'])
   getObject(index) {
-    if (!isNaN(index)) {
-      this._index = index - 1
-      return this.getNextObject()
-    }
+    this._index = index - 1
+    return this.getNextObject()
   }
 
   /**
@@ -75,11 +77,10 @@ class List extends BaseClass {
    */
   @Reflect.metadata('translated', i18n`modify`)
   @Reflect.metadata('help', i18n`modify_help`)
+  @checkArguments(['integer', 'object'])
   modify(index, object) {
-    if (!isNaN(index)) {
-      this._index = index - 1
-      this._list[this._index] = object
-    }
+    this._index = index - 1
+    this._list[this._index] = object
   }
 
   /**
@@ -87,6 +88,7 @@ class List extends BaseClass {
    */
   @Reflect.metadata('translated', i18n`has`)
   @Reflect.metadata('help', i18n`has_help`)
+  @checkArguments(['object'])
   has(object) {
     if (this._list.indexOf(object) >= 0) {
       return true
@@ -100,6 +102,7 @@ class List extends BaseClass {
    */
   @Reflect.metadata('translated', i18n`hasIn`)
   @Reflect.metadata('help', i18n`hasIn_help`)
+  @checkArguments(['object'])
   hasIn(object) {
     let list = object._list
     for (let i = 0; i < list.length; i++) {

@@ -3,6 +3,7 @@ import SpriteGroupItem from './sprite-group-item'
 import i18n from 'es2015-i18n-tag'
 import 'reflect-metadata'
 import groupTexture from '../../resources/star.png'
+import { checkArguments } from '../utils'
 
 @Reflect.metadata('translated', i18n`SpriteGroup`)
 class SpriteGroup extends GraphicClass {
@@ -37,6 +38,7 @@ class SpriteGroup extends GraphicClass {
 
   @Reflect.metadata('translated', i18n`createSprite`)
   @Reflect.metadata('help', i18n`createSprite_help`)
+  @checkArguments(['integer', 'integer'], 2)
   createSprite(x = 0, y = 0) {
     const object = this._object.create(x, y, this._texture)
     object.setOrigin(0)
@@ -47,6 +49,7 @@ class SpriteGroup extends GraphicClass {
 
   @Reflect.metadata('translated', i18n`mayMove`)
   @Reflect.metadata('help', i18n`mayMove_help`)
+  @checkArguments(['boolean'], 1)
   mayMove(value = true) {
     this._movable = value
     this._object.getChildren().forEach(child => {

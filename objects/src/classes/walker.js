@@ -1,6 +1,7 @@
 import Sprite from './sprite'
 import i18n from 'es2015-i18n-tag'
 import 'reflect-metadata'
+import { checkArguments } from '../utils'
 
 const DEFAULT_GRAVITY = 500
 const DEFAULT_JUMP = 400
@@ -54,8 +55,9 @@ class Walker extends Sprite {
 
   @Reflect.metadata('translated', i18n`mayFall`)
   @Reflect.metadata('help', i18n`mayFall_help`)
-  mayFall(value) {
-    this._mayFall = typeof value === 'boolean' ? value : true
+  @checkArguments(['boolean'], 1)
+  mayFall(value = true) {
+    this._mayFall = value
     if (this._mayFall) {
       this._object.setGravityY(this._gravityY)
     } else {
@@ -65,6 +67,7 @@ class Walker extends Sprite {
 
   @Reflect.metadata('translated', i18n`setGravity`)
   @Reflect.metadata('help', i18n`setGravity_help`)
+  @checkArguments(['integer'])
   setGravity(value) {
     this._gravityY = value
     if (this._mayFall) {
@@ -82,6 +85,7 @@ class Walker extends Sprite {
 
   @Reflect.metadata('translated', i18n`setJumpAmount`)
   @Reflect.metadata('help', i18n`setJumpAmount_help`)
+  @checkArguments(['integer'])
   setJumpAmount(value) {
     this._jumpAmount = value
   }
