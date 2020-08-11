@@ -256,6 +256,10 @@
 			"type": "string",
 			"minLength": 1
 		},
+		"missing argument": {
+			"type": "string",
+			"minLength": 1
+		},
 		"missing array argument": {
 			"type": "string",
 			"minLength": 1
@@ -575,6 +579,7 @@
 		"mayFall_help",
 		"mayMove",
 		"mayMove_help",
+		"missing argument",
 		"missing array argument",
 		"missing boolean argument",
 		"missing function argument",

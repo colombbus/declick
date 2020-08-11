@@ -124,5 +124,6 @@
   "missing integer argument": "il manque un paramètre de type nombre entier",
   "missing number argument": "il manque un paramètre de type nombre",
   "missing object argument": "il manque un paramètre de type objet Declik",
-  "missing string argument": "il manque un paramètre de type texte"
+  "missing string argument": "il manque un paramètre de type texte",
+  "missing argument": "il manque un paramètre"
 }
