@@ -132,5 +132,9 @@
   "overlaps": "rencontre",
   "dynamic": "dynamique",
   "is": "est",
-  "is_help": "est(\"type\")"
+  "is_help": "est(\"type\")",
+  "getX": "récupérerX",
+  "getX_help": "récupérerX()",
+  "getY": "récupérerY",
+  "getY_help": "récupérerY()"
 }

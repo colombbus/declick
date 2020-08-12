@@ -187,6 +187,22 @@
 			"type": "string",
 			"minLength": 1
 		},
+		"getX": {
+			"type": "string",
+			"minLength": 1
+		},
+		"getX_help": {
+			"type": "string",
+			"minLength": 1
+		},
+		"getY": {
+			"type": "string",
+			"minLength": 1
+		},
+		"getY_help": {
+			"type": "string",
+			"minLength": 1
+		},
 		"has": {
 			"type": "string",
 			"minLength": 1
@@ -590,6 +606,10 @@
 		"getSize_help",
 		"getText",
 		"getText_help",
+		"getX",
+		"getX_help",
+		"getY",
+		"getY_help",
 		"has",
 		"hasIn",
 		"hasIn_help",

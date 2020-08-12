@@ -18,10 +18,14 @@ class PlatformTile extends BaseClass {
     return this._tile.tilemapLayer
   }
 
+  @Reflect.metadata('translated', i18n`getX`)
+  @Reflect.metadata('help', i18n`getX_help`)
   getX() {
     return this._tile.x
   }
 
+  @Reflect.metadata('translated', i18n`getY`)
+  @Reflect.metadata('help', i18n`getY_help`)
   getY() {
     return this._tile.y
   }
