@@ -294,6 +294,50 @@ class Sprite extends GraphicClass {
     this._object.body.reset(x, y)
   }
 
+  getX() {
+    return Math.round(this._object.x)
+  }
+
+  getY() {
+    return Math.round(this._object.y)
+  }
+
+  @Reflect.metadata('translated', i18n`isMovingForward`)
+  @Reflect.metadata('help', i18n`isMovingForward_help`)
+  isMovingForward() {
+    return (
+      this._movement === 'forward' ||
+      (this._movement === 'target' && this._targetX > this._object.body.x)
+    )
+  }
+
+  @Reflect.metadata('translated', i18n`isMovingBackward`)
+  @Reflect.metadata('help', i18n`isMovingBackward_help`)
+  isMovingBackward() {
+    return (
+      this._movement === 'backward' ||
+      (this._movement === 'target' && this._targetX < this._object.body.x)
+    )
+  }
+
+  @Reflect.metadata('translated', i18n`isMovingUpward`)
+  @Reflect.metadata('help', i18n`isMovingUpward_help`)
+  isMovingUpward() {
+    return (
+      this._movement === 'upward' ||
+      (this._movement === 'target' && this._targetY < this._object.body.y)
+    )
+  }
+
+  @Reflect.metadata('translated', i18n`isMovingDownward`)
+  @Reflect.metadata('help', i18n`isMovingDownward_help`)
+  isMovingDownward() {
+    return (
+      this._movement === 'downward' ||
+      (this._movement === 'target' && this._targetY > this._object.body.y)
+    )
+  }
+
   addCollider(object, handler) {
     this._graphics
       .getScene()

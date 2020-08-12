@@ -147,5 +147,13 @@
   "setLivingTime_help": "définirDurée(1000)",
   "justTyped": "nouvelAppui",
   "justTyped_help": "nouvelAppui(\"a\")",
-  "unknown key": "touche inconnue"
+  "unknown key": "touche inconnue",
+  "isMovingBackward": "estEnTrainDeReculer",
+  "isMovingBackward_help": "estEnTrainDeReculer()",
+  "isMovingForward": "estEnTrainDAvancer",
+  "isMovingForward_help": "estEnTrainDAvancer()",
+  "isMovingUpward": "estEnTrainDeMonter",
+  "isMovingUpward_help": "estEnTrainDeMonter()",
+  "isMovingDownward": "estEnTrainDeDescendre",
+  "isMovingDownward_help": "estEnTrainDeDescendre()"
 }

@@ -44,6 +44,18 @@ class GraphicClass extends BaseClass {
   setLocation(x, y) {
     // do nothing
   }
+
+  @Reflect.metadata('translated', i18n`getX`)
+  @Reflect.metadata('help', i18n`getX_help`)
+  getX() {
+    // do nothing
+  }
+
+  @Reflect.metadata('translated', i18n`getY`)
+  @Reflect.metadata('help', i18n`getY_help`)
+  getY() {
+    // do nothing
+  }
 }
 
 export default GraphicClass

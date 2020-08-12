@@ -266,6 +266,38 @@
 			"type": "string",
 			"minLength": 1
 		},
+		"isMovingBackward": {
+			"type": "string",
+			"minLength": 1
+		},
+		"isMovingBackward_help": {
+			"type": "string",
+			"minLength": 1
+		},
+		"isMovingDownward": {
+			"type": "string",
+			"minLength": 1
+		},
+		"isMovingDownward_help": {
+			"type": "string",
+			"minLength": 1
+		},
+		"isMovingForward": {
+			"type": "string",
+			"minLength": 1
+		},
+		"isMovingForward_help": {
+			"type": "string",
+			"minLength": 1
+		},
+		"isMovingUpward": {
+			"type": "string",
+			"minLength": 1
+		},
+		"isMovingUpward_help": {
+			"type": "string",
+			"minLength": 1
+		},
 		"is_help": {
 			"type": "string",
 			"minLength": 1
@@ -671,6 +703,14 @@
 		"insert",
 		"integer value expected ${0}",
 		"is",
+		"isMovingBackward",
+		"isMovingBackward_help",
+		"isMovingDownward",
+		"isMovingDownward_help",
+		"isMovingForward",
+		"isMovingForward_help",
+		"isMovingUpward",
+		"isMovingUpward_help",
 		"is_help",
 		"jump",
 		"jump_help",
