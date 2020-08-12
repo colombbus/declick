@@ -136,5 +136,11 @@
   "getX": "récupérerX",
   "getX_help": "récupérerX()",
   "getY": "récupérerY",
-  "getY_help": "récupérerY()"
+  "getY_help": "récupérerY()",
+  "putTile": "poserBrique",
+  "putTile_help": "poserBrique(\"type\", 0, 0)",
+  "selectLayer": "sélectionnerCouche",
+  "selectLayer_help": "sélectionnerCouche(\"nom\")",
+  "could not find layer ${0}": "La couche \"${0}\" est introuvable",
+  "could not find tile ${0}": "La brique \"${0}\" est introuvable"
 }

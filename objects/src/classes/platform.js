@@ -53,34 +53,33 @@ class Platform extends GraphicClass {
       }
     })
 
-    const ids = this._object.tilesets.reduce(
-      (tileIds, tileset) => {
+    this._tilesProperties = this._object.tilesets.reduce(
+      (properties, tileset) => {
         for (
           let i = tileset.firstgid;
           i < tileset.firstgid + tileset.total;
           i++
         ) {
-          const properties = tileset.getTileProperties(i)
-          if (
-            properties.collides === true ||
-            properties[i18n`collides`] === true
-          ) {
-            tileIds[0].push(i)
-          }
-          if (
-            properties.overlaps === true ||
-            properties[i18n`overlaps`] === true
-          ) {
-            tileIds[1].push(i)
-          }
+          properties.set(i, tileset.getTileProperties(i))
         }
-        return tileIds
+        return properties
       },
-      [[], []],
+      new Map(),
     )
 
-    this._collisionTileIds = ids[0]
-    this._overlapTileIds = ids[1]
+    this._collisionTileIds = [...this._tilesProperties]
+      .filter(
+        ([index, properties]) =>
+          properties.collides === true || properties[i18n`collides`] === true,
+      )
+      .map(([index, properties]) => index)
+
+    this._overlapTileIds = [...this._tilesProperties]
+      .filter(
+        ([index, properties]) =>
+          properties.overlaps === true || properties[i18n`overlaps`] === true,
+      )
+      .map(([index, properties]) => index)
 
     const interactiveLayers = this._layers.reduce(
       (layers, layer) => {
@@ -178,6 +177,35 @@ class Platform extends GraphicClass {
     } else {
       this.throwError(i18n`could not find tile`)
     }
+  }
+
+  @Reflect.metadata('translated', i18n`selectLayer`)
+  @Reflect.metadata('help', i18n`selectLayer_help`)
+  @checkArguments(['string'])
+  selectLayer(name) {
+    const index = this._object.getLayerIndexByName(name)
+    if (index === null) {
+      this.throwError(i18n`could not find layer ${name}`)
+    }
+    this._object.setLayer(index)
+  }
+
+  @Reflect.metadata('translated', i18n`putTile`)
+  @Reflect.metadata('help', i18n`putTile_help`)
+  @checkArguments(['string', 'integer', 'integer'])
+  putTile(type, x, y) {
+    const layer = this._object.getLayer().tilemapLayer
+    if (layer.putTileAt === undefined) {
+      this.throwError(i18n`layer not dynamic`)
+    }
+    const tile = [...this._tilesProperties].find(
+      ([index, properties]) =>
+        properties.is === type || properties[i18n`is`] === type,
+    )
+    if (tile === undefined) {
+      this.throwError(i18n`could not find tile ${type}`)
+    }
+    layer.putTileAt(tile[0], x, y)
   }
 }
 

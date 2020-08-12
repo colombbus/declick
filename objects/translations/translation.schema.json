@@ -106,9 +106,19 @@
 			"type": "string",
 			"minLength": 1
 		},
+		"could not find layer ${0}": {
+			"type": "string",
+			"minLength": 1,
+			"pattern": "(?=.*?\\$\\{0\\})"
+		},
 		"could not find tile": {
 			"type": "string",
 			"minLength": 1
+		},
+		"could not find tile ${0}": {
+			"type": "string",
+			"minLength": 1,
+			"pattern": "(?=.*?\\$\\{0\\})"
 		},
 		"createSprite": {
 			"type": "string",
@@ -414,6 +424,14 @@
 			"type": "string",
 			"minLength": 1
 		},
+		"putTile": {
+			"type": "string",
+			"minLength": 1
+		},
+		"putTile_help": {
+			"type": "string",
+			"minLength": 1
+		},
 		"remove": {
 			"type": "string",
 			"minLength": 1
@@ -451,6 +469,14 @@
 			"minLength": 1
 		},
 		"right": {
+			"type": "string",
+			"minLength": 1
+		},
+		"selectLayer": {
+			"type": "string",
+			"minLength": 1
+		},
+		"selectLayer_help": {
 			"type": "string",
 			"minLength": 1
 		},
@@ -586,7 +612,9 @@
 		"clear",
 		"clear_help",
 		"collides",
+		"could not find layer ${0}",
 		"could not find tile",
+		"could not find tile ${0}",
 		"createSprite",
 		"createSprite_help",
 		"createTexture",
@@ -662,6 +690,8 @@
 		"number value expected ${0}",
 		"object value expected ${0}",
 		"overlaps",
+		"putTile",
+		"putTile_help",
 		"remove",
 		"removeTile",
 		"removeTile_help",
@@ -672,6 +702,8 @@
 		"returnStart",
 		"returnStart_help",
 		"right",
+		"selectLayer",
+		"selectLayer_help",
 		"setGravity",
 		"setGravity_help",
 		"setJumpAmount",
