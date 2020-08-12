@@ -233,37 +233,45 @@ class Sprite extends GraphicClass {
 
   @Reflect.metadata('translated', i18n`ifCollisionWith`)
   @Reflect.metadata('help', i18n`ifCollisionWith_help`)
-  @checkArguments(['object', 'function'])
-  ifCollisionWith(object, command) {
+  @checkArguments(['object', 'function', 'string'], 1)
+  ifCollisionWith(object, command, optionalParameter) {
     //TODO: handle other types of command (programs, code)
     const callStatement = this._runtime.createCallStatement(command)
-    object.addCollider(this._object, (me, who) => {
-      this._runtime.executePriorityStatements(
-        [callStatement],
-        [me.getData('declickObject'), who.getData('declickObject')],
-      )
-    })
+    object.addCollider(
+      this._object,
+      (me, who) => {
+        this._runtime.executePriorityStatements(
+          [callStatement],
+          [me.getData('declickObject'), who.getData('declickObject')],
+        )
+      },
+      optionalParameter,
+    )
   }
 
   @Reflect.metadata('translated', i18n`addBLock`)
   @Reflect.metadata('help', i18n`addBlock_help`)
-  @checkArguments(['object'])
-  addBlock(block) {
-    block.addCollider(this._object)
+  @checkArguments(['object', 'string'], 1)
+  addBlock(block, optionalParameter) {
+    block.addCollider(this._object, undefined, optionalParameter)
   }
 
   @Reflect.metadata('translated', i18n`ifOverlapWith`)
   @Reflect.metadata('help', i18n`ifOverlapWith_help`)
-  @checkArguments(['object', 'function'])
-  ifOverlapWith(object, command) {
+  @checkArguments(['object', 'function', 'string'], 1)
+  ifOverlapWith(object, command, optionalParameter) {
     //TODO: handle other types of command (programs, code)
     const callStatement = this._runtime.createCallStatement(command)
-    object.addOverlap(this._object, (me, who) => {
-      this._runtime.executePriorityStatements(
-        [callStatement],
-        [me.getData('declickObject'), who.getData('declickObject')],
-      )
-    })
+    object.addOverlap(
+      this._object,
+      (me, who) => {
+        this._runtime.executePriorityStatements(
+          [callStatement],
+          [me.getData('declickObject'), who.getData('declickObject')],
+        )
+      },
+      optionalParameter,
+    )
   }
 
   @Reflect.metadata('translated', i18n`mayMove`)

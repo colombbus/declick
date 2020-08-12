@@ -69,6 +69,11 @@
                          "name":"collides",
                          "type":"bool",
                          "value":true
+                        }, 
+                        {
+                         "name":"is",
+                         "type":"string",
+                         "value":"floor"
                         }]
                 }, 
                 {
@@ -120,6 +125,11 @@
                          "name":"collides",
                          "type":"bool",
                          "value":true
+                        }, 
+                        {
+                         "name":"is",
+                         "type":"string",
+                         "value":"wall"
                         }]
                 }],
          "tilewidth":40

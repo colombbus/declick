@@ -129,13 +129,9 @@ class Platform extends GraphicClass {
 
     this._collisionLayers = interactiveLayers[0]
     this._overlapLayers = interactiveLayers[1]
-
-    this._collisionLayers.forEach(layer => {
-      layer.setCollision(this._collisionTileIds)
-    })
   }
 
-  addCollider(object, handler) {
+  addCollider(object, handler, tileType) {
     const scene = this._graphics.getScene()
     let collisionHandler
     if (handler !== undefined) {
@@ -143,12 +139,24 @@ class Platform extends GraphicClass {
         handler(me, new PlatformTile(tile))
       }
     }
+
+    let tileIds = this._collisionTileIds
+    if (tileType !== undefined) {
+      tileIds = [...this._tilesProperties]
+        .filter(
+          ([index, properties]) =>
+            properties.is === tileType || properties[i18n`is`] === tileType,
+        )
+        .map(([index, properties]) => index)
+    }
+
     this._collisionLayers.forEach(layer => {
+      layer.setCollision(tileIds)
       scene.physics.add.collider(object, layer, collisionHandler)
     })
   }
 
-  addOverlap(object, handler) {
+  addOverlap(object, handler, tileType) {
     const scene = this._graphics.getScene()
     let overlapHandler
     if (handler !== undefined) {
@@ -156,9 +164,18 @@ class Platform extends GraphicClass {
         handler(who, new PlatformTile(tile))
       }
     }
+    let tileIds = this._overlapTileIds
+    if (tileType !== undefined) {
+      tileIds = [...this._tilesProperties]
+        .filter(
+          ([index, properties]) =>
+            properties.is === tileType || properties[i18n`is`] === tileType,
+        )
+        .map(([index, properties]) => index)
+    }
     this._overlapLayers.forEach(layer => {
       if (overlapHandler) {
-        layer.setTileIndexCallback(this._overlapTileIds, overlapHandler, this)
+        layer.setTileIndexCallback(tileIds, overlapHandler, this)
       }
       scene.physics.add.overlap(object, layer)
     })
