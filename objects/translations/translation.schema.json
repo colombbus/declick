@@ -236,6 +236,14 @@
 			"minLength": 1,
 			"pattern": "(?=.*?\\$\\{0\\})"
 		},
+		"is": {
+			"type": "string",
+			"minLength": 1
+		},
+		"is_help": {
+			"type": "string",
+			"minLength": 1
+		},
 		"jump": {
 			"type": "string",
 			"minLength": 1
@@ -594,6 +602,8 @@
 		"ifOverlapWith_help",
 		"insert",
 		"integer value expected ${0}",
+		"is",
+		"is_help",
 		"jump",
 		"jump_help",
 		"keyboard",
