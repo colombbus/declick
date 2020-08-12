@@ -127,5 +127,8 @@
   "missing string argument": "il manque un paramètre de type texte",
   "missing argument": "il manque un paramètre",
   "could not find tile": "cette brique ne fait pas partie de cette plateforme",
-  "layer not dynamic": "cette brique ne peut pas être supprimée"
+  "layer not dynamic": "cette brique ne peut pas être supprimée",
+  "collides": "collision",
+  "overlaps": "rencontre",
+  "dynamic": "dynamique"
 }

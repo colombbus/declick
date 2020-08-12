@@ -102,6 +102,10 @@
 			"type": "string",
 			"minLength": 1
 		},
+		"collides": {
+			"type": "string",
+			"minLength": 1
+		},
 		"could not find tile": {
 			"type": "string",
 			"minLength": 1
@@ -135,6 +139,10 @@
 			"minLength": 1
 		},
 		"down": {
+			"type": "string",
+			"minLength": 1
+		},
+		"dynamic": {
 			"type": "string",
 			"minLength": 1
 		},
@@ -378,6 +386,10 @@
 			"minLength": 1,
 			"pattern": "(?=.*?\\$\\{0\\})"
 		},
+		"overlaps": {
+			"type": "string",
+			"minLength": 1
+		},
 		"remove": {
 			"type": "string",
 			"minLength": 1
@@ -549,6 +561,7 @@
 		"capslock",
 		"clear",
 		"clear_help",
+		"collides",
 		"could not find tile",
 		"createSprite",
 		"createSprite_help",
@@ -558,6 +571,7 @@
 		"delete",
 		"delete_help",
 		"down",
+		"dynamic",
 		"escape",
 		"function value expected ${0}",
 		"getNextObject",
@@ -617,6 +631,7 @@
 		"moveUpward_help",
 		"number value expected ${0}",
 		"object value expected ${0}",
+		"overlaps",
 		"remove",
 		"removeTile",
 		"removeTile_help",
