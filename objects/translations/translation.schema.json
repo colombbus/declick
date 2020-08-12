@@ -90,6 +90,10 @@
 			"minLength": 1,
 			"pattern": "(?=.*?\\$\\{0\\})"
 		},
+		"camera": {
+			"type": "string",
+			"minLength": 1
+		},
 		"capslock": {
 			"type": "string",
 			"minLength": 1
@@ -157,6 +161,14 @@
 			"minLength": 1
 		},
 		"escape": {
+			"type": "string",
+			"minLength": 1
+		},
+		"follow": {
+			"type": "string",
+			"minLength": 1
+		},
+		"follow_help": {
 			"type": "string",
 			"minLength": 1
 		},
@@ -580,6 +592,14 @@
 			"type": "string",
 			"minLength": 1
 		},
+		"stopFollowing": {
+			"type": "string",
+			"minLength": 1
+		},
+		"stopFollowing_help": {
+			"type": "string",
+			"minLength": 1
+		},
 		"stop_help": {
 			"type": "string",
 			"minLength": 1
@@ -668,6 +688,7 @@
 		"add_help",
 		"array value expected ${0}",
 		"boolean value expected ${0}",
+		"camera",
 		"capslock",
 		"clear",
 		"clear_help",
@@ -685,6 +706,8 @@
 		"down",
 		"dynamic",
 		"escape",
+		"follow",
+		"follow_help",
 		"function value expected ${0}",
 		"getNextObject",
 		"getNextObject_help",
@@ -789,6 +812,8 @@
 		"setVelocity",
 		"setVelocity_help",
 		"stop",
+		"stopFollowing",
+		"stopFollowing_help",
 		"stop_help",
 		"string value expected ${0}",
 		"suspend",

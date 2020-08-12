@@ -157,5 +157,10 @@
   "isMovingDownward": "estEnTrainDeDescendre",
   "isMovingDownward_help": "estEnTrainDeDescendre()",
   "setVelocity": "définirVitesse",
-  "setVelocity_help": "définirVitesse(200)"
+  "setVelocity_help": "définirVitesse(200)",
+  "camera": "caméra",
+  "follow": "suivre",
+  "follow_help": "suivre(objet)",
+  "stopFollowing": "nePasSuivre",
+  "stopFollowing_help": "nePasSuivre()"
 }
