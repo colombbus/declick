@@ -568,6 +568,14 @@
 			"type": "string",
 			"minLength": 1
 		},
+		"setVelocity": {
+			"type": "string",
+			"minLength": 1
+		},
+		"setVelocity_help": {
+			"type": "string",
+			"minLength": 1
+		},
 		"stop": {
 			"type": "string",
 			"minLength": 1
@@ -778,6 +786,8 @@
 		"setText_help",
 		"setTracerLocation",
 		"setTracerLocation_help",
+		"setVelocity",
+		"setVelocity_help",
 		"stop",
 		"stop_help",
 		"string value expected ${0}",

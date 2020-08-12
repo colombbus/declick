@@ -155,5 +155,7 @@
   "isMovingUpward": "estEnTrainDeMonter",
   "isMovingUpward_help": "estEnTrainDeMonter()",
   "isMovingDownward": "estEnTrainDeDescendre",
-  "isMovingDownward_help": "estEnTrainDeDescendre()"
+  "isMovingDownward_help": "estEnTrainDeDescendre()",
+  "setVelocity": "définirVitesse",
+  "setVelocity_help": "définirVitesse(200)"
 }

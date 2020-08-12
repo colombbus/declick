@@ -353,6 +353,14 @@ class Sprite extends GraphicClass {
     let dy = y1 - y2
     return Math.sqrt(dx * dx + dy * dy)
   }
+
+  @Reflect.metadata('translated', i18n`setVelocity`)
+  @Reflect.metadata('help', i18n`setVelocity_help`)
+  @checkArguments(['integer'])
+  setVelocity(value) {
+    this._vX = value
+    this._vY = value
+  }
 }
 
 export default Sprite
