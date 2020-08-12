@@ -59,7 +59,15 @@ class Sprite extends GraphicClass {
   _bindObject() {
     if (this._object !== null) {
       this._object.setData('declickObject', this)
-      this._object.on('destroy', this.destroy, this)
+      this._object.on(
+        'destroy',
+        () => {
+          if (!this._isDeleting) {
+            this.delete()
+          }
+        },
+        this,
+      )
     }
   }
 
@@ -75,7 +83,10 @@ class Sprite extends GraphicClass {
     this._oldTargetDistance = 0
     this._buildObject()
     this._bindObject()
-    this._destroying = false
+    this._isDeleting = false
+    this.addListener('delete', () => {
+      this._isDeleting = true
+    })
   }
 
   _setAnimation(movement) {
@@ -115,16 +126,6 @@ class Sprite extends GraphicClass {
       } else {
         this._oldTargetDistance = distance
       }
-    }
-  }
-
-  destroy() {
-    if (!this._destroying) {
-      this._destroying = true
-      if (this._object !== null) {
-        this._object.destroy()
-      }
-      super.destroy()
     }
   }
 
