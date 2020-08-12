@@ -6,6 +6,12 @@ class BaseInstance extends EventsInterface {
     this._runtime = runtime
     this._runtime.addInstance(this)
   }
+
+  throwError(message) {
+    throw {
+      declickObjectError: message,
+    }
+  }
 }
 
 export default BaseInstance
