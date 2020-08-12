@@ -496,6 +496,14 @@
 			"type": "string",
 			"minLength": 1
 		},
+		"setLivingTime": {
+			"type": "string",
+			"minLength": 1
+		},
+		"setLivingTime_help": {
+			"type": "string",
+			"minLength": 1
+		},
 		"setLocation": {
 			"type": "string",
 			"minLength": 1
@@ -708,6 +716,8 @@
 		"setGravity_help",
 		"setJumpAmount",
 		"setJumpAmount_help",
+		"setLivingTime",
+		"setLivingTime_help",
 		"setLocation",
 		"setLocation_help",
 		"setText",

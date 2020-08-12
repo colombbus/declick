@@ -22,29 +22,56 @@ class SpriteGroup extends GraphicClass {
     }
   }
 
-  constructor(texture) {
+  constructor(texture, length) {
     super()
+    if (arguments.length === 1 && Number.isInteger(arguments[0])) {
+      length = arguments[0]
+      texture = undefined
+    }
     this._movable = true
     this._object = null
+    this._livingTime = false
     this._texture = texture !== undefined ? texture : this.constructor._texture
-    this._buildObject()
+    this._buildObject(length)
   }
 
-  _buildObject() {
+  _buildObject(length) {
     const scene = this._graphics.getScene()
     this._object = scene.physics.add.group()
     this._object.setOrigin(0)
+    if (length !== undefined) {
+      this._poolMode = true
+      this._object.createMultiple({
+        key: this._texture,
+        quantity: length,
+        visible: false,
+        active: false,
+      })
+    } else {
+      this._poolMode = false
+    }
   }
 
   @Reflect.metadata('translated', i18n`createSprite`)
   @Reflect.metadata('help', i18n`createSprite_help`)
   @checkArguments(['integer', 'integer'], 2)
   createSprite(x = 0, y = 0) {
-    const object = this._object.create(x, y, this._texture)
-    object.setOrigin(0)
-    object.setImmovable(!this._movable)
-    const item = new SpriteGroupItem(object)
-    return item
+    let object
+    if (this._poolMode) {
+      object = this._object.getFirstDead(false, x, y)
+      if (object) {
+        object.setActive(true)
+        object.setVisible(true)
+      }
+    } else {
+      object = this._object.create(x, y, this._texture)
+    }
+    if (object) {
+      object.setOrigin(0)
+      object.setImmovable(!this._movable)
+      return new SpriteGroupItem(object, this._poolMode, this._livingTime)
+    }
+    return false
   }
 
   @Reflect.metadata('translated', i18n`mayMove`)
@@ -65,6 +92,18 @@ class SpriteGroup extends GraphicClass {
 
   addOverlap(object, handler) {
     this._graphics.getScene().physics.add.overlap(object, this._object, handler)
+  }
+
+  @Reflect.metadata('translated', i18n`setLivingTime`)
+  @Reflect.metadata('help', i18n`setLivingTime_help`)
+  @checkArguments(['integer'])
+  setLivingTime(time) {
+    this._livingTime = time
+    this._object.getChildren().forEach(child => {
+      if (child.getData && child.getData('declickObject')) {
+        child.getData('declickObject').expiresIn(time)
+      }
+    })
   }
 }
 

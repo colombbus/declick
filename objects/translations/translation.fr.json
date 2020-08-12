@@ -142,5 +142,7 @@
   "selectLayer": "sélectionnerCouche",
   "selectLayer_help": "sélectionnerCouche(\"nom\")",
   "could not find layer ${0}": "La couche \"${0}\" est introuvable",
-  "could not find tile ${0}": "La brique \"${0}\" est introuvable"
+  "could not find tile ${0}": "La brique \"${0}\" est introuvable",
+  "setLivingTime": "définirDurée",
+  "setLivingTime_help": "définirDurée(1000)"
 }
