@@ -1,6 +1,7 @@
 import i18n from 'es2015-i18n-tag'
 import BaseInstance from '../base-instance'
 import 'reflect-metadata'
+import { checkArguments } from '../utils'
 
 const keyCodes = new Map([
   ['backspace', [0]],
@@ -115,6 +116,10 @@ class KeyboardClass extends BaseInstance {
   constructor() {
     super()
     this._keyCodes = new Map([...keyNames.keys()].map(code => [code, false]))
+    this._justTyped = new Map([...keyCodes.keys()].map(name => [name, false]))
+    this._translatedNames = new Map(
+      [...keyTranslations].map(([name, translated]) => [translated, name]),
+    )
     const exposedProperties = []
 
     for (let name of keyCodes.keys()) {
@@ -144,6 +149,7 @@ class KeyboardClass extends BaseInstance {
       const name = keyNames.get(code)
       this[`_key_${name}`] = true
       this._keyCodes.set(code, true)
+      this._justTyped.set(name, true)
     }
   }
 
@@ -153,7 +159,23 @@ class KeyboardClass extends BaseInstance {
       const name = keyNames.get(code)
       this[`_key_${name}`] = false
       this._keyCodes.set(code, false)
+      this._justTyped.set(name, false)
     }
+  }
+
+  @Reflect.metadata('translated', i18n`justTyped`)
+  @Reflect.metadata('help', i18n`justTyped_help`)
+  @checkArguments(['string'])
+  justTyped(name) {
+    if (this._translatedNames.has(name)) {
+      name = this._translatedNames.get(name)
+    }
+    if (!this._justTyped.has(name)) {
+      this.throwError(i18n`unknown key`)
+    }
+    let value = this._justTyped.get(name)
+    this._justTyped.set(name, false)
+    return value
   }
 }
 

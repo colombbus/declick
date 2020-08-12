@@ -278,6 +278,14 @@
 			"type": "string",
 			"minLength": 1
 		},
+		"justTyped": {
+			"type": "string",
+			"minLength": 1
+		},
+		"justTyped_help": {
+			"type": "string",
+			"minLength": 1
+		},
 		"keyboard": {
 			"type": "string",
 			"minLength": 1
@@ -573,6 +581,10 @@
 			"type": "string",
 			"minLength": 1
 		},
+		"unknown key": {
+			"type": "string",
+			"minLength": 1
+		},
 		"up": {
 			"type": "string",
 			"minLength": 1
@@ -662,6 +674,8 @@
 		"is_help",
 		"jump",
 		"jump_help",
+		"justTyped",
+		"justTyped_help",
 		"keyboard",
 		"layer not dynamic",
 		"left",
@@ -735,6 +749,7 @@
 		"traceOff_help",
 		"traceOn",
 		"traceOn_help",
+		"unknown key",
 		"up",
 		"void",
 		"void_help",
