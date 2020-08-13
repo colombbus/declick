@@ -3,9 +3,9 @@ const resources = {
 }
 
 const code = `t = new Tortue('pen')
+t.définirPosition(2, 0)
 t.tracer()
 t.définirPositionTraceur(2, 72)
-t.définirPosition(1, 0)
 t.reculer()
 t.descendre()
 t.avancer()
@@ -26,6 +26,5 @@ t.avancer()
 t.descendre()
 t.créerTexture('copy')
 s = new Sprite('copy')
-s.définirPosition(400, 100)
-`
+s.définirPosition(50, 300)`
 export { resources, code }
