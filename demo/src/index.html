@@ -5,7 +5,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <meta http-equiv="X-UA-Compatible" content="ie=edge" />
     <title>Démonstration Declick</title>
-    <script src="dist/demo.js"></script>
+    <script src="demo.js"></script>
     <style>
       body {
         background-color: #f5f5f5;
@@ -16,29 +16,49 @@
         font-size: 14px;
         margin-top: 20px;
         margin-bottom: 15px;
-        max-width: 1000px;
         margin: auto;
       }
       .main {
         display: flex;
         margin: auto;
-        max-width: 1000px;
         flex-flow: row;
       }
       #editor {
-        width: 180px;
-        height: 400px;
+        width: 30%;
+        height: 600px;
         padding: 0;
         box-sizing: border-box;
+        flex-grow: 1;
+        flex-shrink: 0;
+      }
+      #display {
+        width: 70%;
+        height: 600px;
+        box-sizing: border-box;
+        overflow: hidden;
+        flex-grow: 1;
+        flex-shrink: 2;
+      }
+      #editor.close {
+        width: 0;
+        padding: 0;
+        flex-grow: 0;
       }
       #editor.full {
-        width: 800px;
+        flex-basis: 100%;
+        flex-shrink: 1;
+        flex-grow: 2;
       }
+
+      #editor.close .CodeMirror {
+        border: none;
+      }
+
       #size {
         width: 20px;
-        height: 100%;
+        flex-shrink: 0;
       }
-      #size button {
+      button.editor-sizing {
         width: 20px;
         padding: 0;
         text-align: center;
@@ -77,19 +97,12 @@
         border: solid 1px #585f75;
         color: #585f75;
       }
-      #display {
-        flex: auto;
-        /*width:800px;*/
-        height: 400px;
-        box-sizing: border-box;
-        overflow: hidden;
-        /*flex-shrink:2;*/
-      }
       #declick-container {
         height: 100%;
         width: 100%;
         border: solid 1px #8d8d8d;
         background-color: #ffffff;
+        box-sizing: border-box;
       }
       .CodeMirror {
         height: 100%;
@@ -98,16 +111,34 @@
       }
     </style>
     <script>
+      function reduceEditor() {
+        if (editor.classList.contains('full')) {
+          editor.classList.remove('full')
+        } else if (!editor.classList.contains('close')) {
+          editor.classList.add('close')
+        }
+      }
+      function extendEditor() {
+        if (editor.classList.contains('close')) {
+          editor.classList.remove('close')
+        } else if (!editor.classList.contains('full')) {
+          editor.classList.add('full')
+        }
+      }
+      function isEditorClose() {
+        return editor.classList.contains('close')
+      }
+
       var cm
+      var editor
       window.addEventListener('DOMContentLoaded', () => {
+        editor = document.getElementById('editor')
         cm = Declick.initializeEditor(document.getElementById('editor'), {
           lineNumbers: true,
           theme: 'abcdef',
-          mode: 'javascript',
         })
-        Declick.initialize(document.getElementById('declick-container'))
-          .then(() => Declick.startGraphics())
-          .then(() => {
+        Declick.initialize(document.getElementById('declick-container')).then(
+          () => {
             var examples = Declick.getExampleList()
             var options = document.getElementById('example').options
             examples.forEach(function(example) {
@@ -118,9 +149,11 @@
             document
               .getElementById('example')
               .addEventListener('change', function(event) {
+                if (isEditorClose()) {
+                  extendEditor()
+                }
                 Declick.loadExample(event.target.value).then(code => {
-                  console.log(code)
-                  sm.setValue(code)
+                  cm.setValue(code)
                 })
               })
             document.getElementById('go').addEventListener('click', function() {
@@ -129,20 +162,13 @@
               Declick.startGraphics().then(() => Declick.execute(code))
             })
             document
-              .getElementById('toggle')
-              .addEventListener('click', function() {
-                var editor = document.getElementById('editor')
-                var display = document.getElementById('editor')
-                var button = document.getElementById('toggle')
-                if (editor.classList.contains('full')) {
-                  editor.classList.remove('full')
-                  button.innerHTML = '&gt;'
-                } else {
-                  editor.classList.add('full')
-                  button.innerHTML = '&lt;'
-                }
-              })
-          })
+              .getElementById('extend')
+              .addEventListener('click', extendEditor)
+            document
+              .getElementById('reduce')
+              .addEventListener('click', reduceEditor)
+          },
+        )
       })
     </script>
   </head>
@@ -156,7 +182,8 @@
     <div class="main">
       <div id="editor"></div>
       <div id="size">
-        <button id="toggle">&gt;</button>
+        <button id="extend" class="editor-sizing">&gt;</button>
+        <button id="reduce" class="editor-sizing">&lt;</button>
       </div>
       <div id="display">
         <div id="declick-container"></div>

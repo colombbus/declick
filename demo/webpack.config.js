@@ -1,6 +1,8 @@
 const path = require('path')
 const webpack = require('webpack')
 const fs = require('fs')
+const CopyPlugin = require('copy-webpack-plugin')
+const { CleanWebpackPlugin } = require('clean-webpack-plugin')
 
 module.exports = {
   entry: './src/demo.js',
@@ -30,10 +32,23 @@ module.exports = {
     ],
   },
   plugins: [
+    new CleanWebpackPlugin(),
     new webpack.DefinePlugin({
       __EXAMPLE_FILES__: JSON.stringify(
         fs.readdirSync('./examples').filter(file => file.match(/.*\.js$/)),
       ),
+    }),
+    new CopyPlugin({
+      patterns: [
+        {
+          from: 'examples/resources/*',
+          to: 'resources/',
+          flatten: true,
+          force: true,
+          noErrorOnMissing: true,
+        },
+        { from: 'src/*.html', to: './', force: true, flatten: true },
+      ],
     }),
   ],
 }

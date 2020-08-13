@@ -1,4 +1,8 @@
-const resources = []
+const resources = {
+  'test-tiles': ['image', 'test-tiles.png'],
+  'test-map': ['map', 'test-map.json'],
+  'test-atlas': ['spritesheet', 'test-atlas.png', 'test-atlas.json'],
+}
 
 const code = `
 etoiles = 14
@@ -28,10 +32,10 @@ function tir() {
 		}
 	}
 }
-p = new Plateforme()
+p = new Plateforme("test-map", "test-tiles")
 p.sélectionnerCouche("stars")
 p.poserBrique("entry", 18, 8)
-bob = new Promeneur()
+bob = new Promeneur("test-atlas")
 bob.définirPosition(80,40)
 bob.peutTomber()
 bob.définirGravité(500)

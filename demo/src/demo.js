@@ -14,7 +14,7 @@ const exampleNames = exampleFiles.map(file => file.slice(0, -3))
 
 export default {
   getExampleList() {
-    return exampleNames
+    return exampleNames.sort()
   },
   loadExample(name) {
     _images.clear()
@@ -22,15 +22,18 @@ export default {
     _maps.clear()
     return import(`../examples/${name}.js`).then(({ resources, code }) => {
       for (const [name, resource] of Object.entries(resources)) {
-        switch (resource[1]) {
+        switch (resource[0]) {
           case 'image':
-            _images.set(name, resource[0])
+            _images.set(name, `resources/${resource[1]}`)
             break
           case 'spritesheet':
-            _spriteSheets.set(name, resource[0])
+            _spriteSheets.set(name, [
+              `resources/${resource[1]}`,
+              `resources/${resource[2]}`,
+            ])
             break
           case 'map':
-            _maps.set(name, resource[0])
+            _maps.set(name, `resources/${resource[1]}`)
             break
         }
       }
