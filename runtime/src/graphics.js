@@ -138,7 +138,7 @@ const _initialize = function(container, displayType = false) {
       scale: {
         parent: container,
         expandParent: false,
-        mode: Phaser.Scale.FIT,
+        mode: Phaser.Scale.NONE,
         autoCenter: Phaser.Scale.Center.NO_CENTER,
         width: '100%',
         height: '100%',
