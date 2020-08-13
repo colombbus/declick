@@ -1,6 +1,7 @@
 /*eslint-env mocha */
 import { assert } from 'chai'
 import graphics from '../src/graphics'
+import localMap from './map.json'
 
 const localResource =
   'data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAACAAAAAgAQMAAABJtOi3AAAAA1BMVEX///+nxBvIAAAAAXRSTlMAQObYZgAAABVJREFUeF7NwIEAAAAAgKD9qdeocAMAoAABm3DkcAAAAABJRU5ErkJggg=='
@@ -214,6 +215,25 @@ describe('When graphics is initialized', () => {
             .getController()
             .scene.getScene('main')
             .add.sprite(10, 10, 'anAtlas')
+          assert.isOk(true)
+        } catch (e) {
+          assert.fail(e)
+        }
+      })
+  })
+  it('should be able to load a local map', () => {
+    return graphics
+      .initialize(document.getElementById('container'), 'headless')
+      .then(() => {
+        graphics.addLocalResource('map', 'aMap', localMap)
+        return graphics.start()
+      })
+      .then(() => {
+        try {
+          graphics
+            .getController()
+            .scene.getScene('main')
+            .add.tilemap('aMap')
           assert.isOk(true)
         } catch (e) {
           assert.fail(e)
