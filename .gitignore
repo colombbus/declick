@@ -6,3 +6,4 @@ server/.env
 server/storage/app/projects
 **.htaccess
 client/dist/*
+demo/dist/*
