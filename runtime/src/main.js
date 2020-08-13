@@ -141,7 +141,7 @@ export default {
     return _interpreter.createCallStatement(functionStatement)
   },
 
-  addImageResource(image, name) {
+  addImageResource(name, image) {
     _graphics.addResource('image', name, image)
   },
 
@@ -151,15 +151,26 @@ export default {
     }
   },
 
-  addSpriteSheetResource(spriteSheet, name) {
-    _graphics.addResource('atlas', name, spriteSheet)
+  addSpriteSheetResource(name, texture, atlas) {
+    _graphics.addResource('atlas', name, texture, atlas)
   },
 
   addSpriteSheetResources(data) {
-    for (let [name, spriteSheet] of data) {
-      _graphics.addResource('atlas', name, spriteSheet)
+    for (let [name, spriteSheetData] of data) {
+      _graphics.addResource('atlas', name, ...spriteSheetData)
     }
   },
+
+  addMapResource(map, name) {
+    _graphics.addResource('tilemapTiledJSON', name, map)
+  },
+
+  addMapResources(data) {
+    for (let [name, map] of data) {
+      _graphics.addResource('tilemapTiledJSON', name, map)
+    }
+  },
+
   setErrorHandler(handler) {
     _scheduler.setErrorHandler(handler)
     _parser.setErrorHandler(handler)
