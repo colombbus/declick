@@ -141,6 +141,19 @@ class KeyboardClass extends BaseInstance {
         this._processKeyUp(event)
       })
     })
+
+    this.addListener('clear', () => {
+      for (let name of keyCodes.keys()) {
+        const keyName = `_key_${name}`
+        this[keyName] = false
+      }
+      for (let code of this._keyCodes.keys()) {
+        this._keyCodes.set(code, false)
+      }
+      for (let name of this._justTyped.keys()) {
+        this._keyCodes.set(name, false)
+      }
+    })
   }
 
   _processKeyDown(event) {
