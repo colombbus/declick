@@ -36,15 +36,18 @@ class Sprite extends GraphicClass {
       ;['face', 'left', 'right', 'up', 'down'].forEach(move => {
         if (jsonData.anims[move] !== undefined) {
           const moveData = jsonData.anims[move]
-          scene.anims.create({
-            key: `${this._texture}_${move}`,
-            frames: moveData.frames.map(name => ({
-              key: this._texture,
-              frame: name,
-            })),
-            repeat: moveData.repeat ? moveData.repeat : -1,
-            duration: moveData.duration ? moveData.duration : 1500,
-          })
+          const key = `${this._texture}_${move}`
+          if (!scene.anims.exists(key)) {
+            scene.anims.create({
+              key: key,
+              frames: moveData.frames.map(name => ({
+                key: this._texture,
+                frame: name,
+              })),
+              repeat: moveData.repeat ? moveData.repeat : -1,
+              duration: moveData.duration ? moveData.duration : 1500,
+            })
+          }
         }
       })
       this.addListener('movementChange', movement => {
