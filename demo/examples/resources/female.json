@@ -1,0 +1,163 @@
+{
+  "textures": [
+    {
+      "image": "female.png",
+      "format": "RGBA8888",
+      "size": {
+        "w": 206,
+        "h": 184
+      },
+      "scale": 1,
+      "frames": [
+        {
+          "filename": "female_jump.png",
+          "rotated": false,
+          "trimmed": true,
+          "sourceSize": {
+            "w": 80,
+            "h": 110
+          },
+          "spriteSourceSize": {
+            "x": 3,
+            "y": 17,
+            "w": 73,
+            "h": 93
+          },
+          "frame": {
+            "x": 1,
+            "y": 1,
+            "w": 73,
+            "h": 93
+          }
+        },
+        {
+          "filename": "female_walk1.png",
+          "rotated": false,
+          "trimmed": true,
+          "sourceSize": {
+            "w": 80,
+            "h": 110
+          },
+          "spriteSourceSize": {
+            "x": 2,
+            "y": 23,
+            "w": 73,
+            "h": 87
+          },
+          "frame": {
+            "x": 1,
+            "y": 96,
+            "w": 73,
+            "h": 87
+          }
+        },
+        {
+          "filename": "female_walk1_g.png",
+          "rotated": false,
+          "trimmed": true,
+          "sourceSize": {
+            "w": 80,
+            "h": 110
+          },
+          "spriteSourceSize": {
+            "x": 5,
+            "y": 23,
+            "w": 73,
+            "h": 87
+          },
+          "frame": {
+            "x": 76,
+            "y": 1,
+            "w": 73,
+            "h": 87
+          }
+        },
+        {
+          "filename": "female_stand.png",
+          "rotated": false,
+          "trimmed": true,
+          "sourceSize": {
+            "w": 80,
+            "h": 110
+          },
+          "spriteSourceSize": {
+            "x": 10,
+            "y": 23,
+            "w": 61,
+            "h": 87
+          },
+          "frame": {
+            "x": 76,
+            "y": 90,
+            "w": 61,
+            "h": 87
+          }
+        },
+        {
+          "filename": "female_walk2.png",
+          "rotated": false,
+          "trimmed": true,
+          "sourceSize": {
+            "w": 80,
+            "h": 110
+          },
+          "spriteSourceSize": {
+            "x": 13,
+            "y": 21,
+            "w": 54,
+            "h": 89
+          },
+          "frame": {
+            "x": 151,
+            "y": 1,
+            "w": 54,
+            "h": 89
+          }
+        },
+        {
+          "filename": "female_walk2_g.png",
+          "rotated": false,
+          "trimmed": true,
+          "sourceSize": {
+            "w": 80,
+            "h": 110
+          },
+          "spriteSourceSize": {
+            "x": 13,
+            "y": 21,
+            "w": 54,
+            "h": 89
+          },
+          "frame": {
+            "x": 139,
+            "y": 92,
+            "w": 54,
+            "h": 89
+          }
+        }
+      ]
+    }
+  ],
+  "meta": {
+    "app": "https://www.codeandweb.com/texturepacker",
+    "version": "3.0",
+    "smartupdate": "$TexturePacker:SmartUpdate:7669988f7191951e2d2c3e674c977b92:9f65db30451e76faf6ed43a2c2f58682:6a7beede78085821b4ebddc5134ac171$"
+  },
+  "anims": {
+    "face": {
+      "frames": ["female_stand.png"],
+      "repeat": -1,
+      "duration": 500
+    },
+    "left": {
+      "frames": ["female_walk1_g.png", "female_walk2_g.png"],
+      "repeat": -1,
+      "duration": 500
+    },
+    "right": {
+      "frames": ["female_walk1.png", "female_walk2.png"],
+      "repeat": -1,
+      "duration": 500
+    }
+  }
+}
