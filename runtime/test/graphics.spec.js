@@ -272,6 +272,32 @@ describe('When graphics is initialized', () => {
         assert.isFalse(test)
       })
   })
+  it('should clear atlas when reset', () => {
+    return graphics
+      .initialize(document.getElementById('container'), 'headless')
+      .then(() => {
+        graphics.addResource(
+          'atlas',
+          'anAtlas',
+          `file://${__dirname}/spritesheet.png`,
+          `file://${__dirname}/atlas.json`,
+        )
+        return graphics.start()
+      })
+      .then(() => graphics.reset())
+      .then(() => {
+        const test1 = graphics
+          .getController()
+          .scene.getScene('main')
+          .textures.exists('anAtlas')
+        const test2 = graphics
+          .getController()
+          .scene.getScene('main')
+          .cache.json.exists('anAtlas')
+        assert.isFalse(test1)
+        assert.isFalse(test2)
+      })
+  })
   it('should not clear local graphical resources when cleared', () => {
     return graphics
       .initialize(document.getElementById('container'), 'headless')
