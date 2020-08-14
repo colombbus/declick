@@ -14,9 +14,6 @@
         text-align: left;
         font-family: Arial, Helvetica, sans-serif;
         font-size: 14px;
-        margin-top: 20px;
-        margin-bottom: 15px;
-        margin: auto;
       }
       .main {
         display: flex;
@@ -119,6 +116,13 @@
         background-color: #f66c1e;
         color: #f5f5f5;
       }
+      #description {
+        font-family: Arial, Helvetica, sans-serif;
+        font-size: 14px;
+        font-style: italic;
+        min-height: 20px;
+        margin-top: 5px;
+      }
     </style>
     <script>
       function reduceEditor() {
@@ -162,8 +166,10 @@
                 if (isEditorClose()) {
                   extendEditor()
                 }
-                Declick.loadExample(event.target.value).then(code => {
-                  cm.setValue(code)
+                Declick.loadExample(event.target.value).then(data => {
+                  cm.setValue(data.code)
+                  document.getElementById('description').innerHTML =
+                    data.description
                 })
               })
             document.getElementById('go').addEventListener('click', function() {
@@ -195,6 +201,7 @@
         <option value="---"></option>
       </select>
     </div>
+    <div id="description"></div>
     <div class="main">
       <div id="editor"></div>
       <div id="size">

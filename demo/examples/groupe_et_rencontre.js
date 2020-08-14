@@ -1,3 +1,6 @@
+const description =
+  "Illustration de l'utilisation de l'objet GroupeSprites et de la gestion des rencontres avec un autre Sprite"
+
 const resources = {
   book: ['image', 'book.png'],
   female: ['spritesheet', 'female.png', 'female.json'],
@@ -22,4 +25,4 @@ b = new Sprite('female')
 b.siRencontre(a, ramasser)
 b.avancerToujours()`
 
-export { resources, code }
+export { description, resources, code }

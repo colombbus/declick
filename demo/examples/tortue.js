@@ -1,3 +1,6 @@
+const description =
+  "Utilisation de l'objet Tortue pour tracer des traits et générer une texture"
+
 const resources = {
   pen: ['image', 'pen.png'],
 }
@@ -27,4 +30,5 @@ t.descendre()
 t.créerTexture('copy')
 s = new Sprite('copy')
 s.définirPosition(50, 300)`
-export { resources, code }
+
+export { description, resources, code }

@@ -1,23 +1,15 @@
+const description =
+  "Montre comment utiliser l'objet GroupeSprites en mode 'pool' (ici 10 éléments d'une durée de vie de 3 secondes) pour gérer des tirs. Flèches droite et gauche pour avancer, haut pour sauter, espace pour tirer."
+
 const resources = {
-  'test-tiles': ['image', 'test-tiles.png'],
-  'test-map': ['map', 'test-map.json'],
-  'test-atlas': ['spritesheet', 'test-atlas.png', 'test-atlas.json'],
+  fireball: ['image', 'fireball.png'],
+  female: ['spritesheet', 'female.png', 'female.json'],
 }
 
-const code = `
-etoiles = 14
-enAvant = true
-function miam(moi, brique) {
-	p.retirerBrique(brique)
-	etoiles--
-	if (etoiles == 0) {
-		p.poserBrique('exit',18,8)
-	}
-}
-function sortie(moi, brique) {
-	if (etoiles == 0) {
-		declick.écrire("gagné")
-	}
+const code = `enAvant = true
+function supprime(qui, balle) {
+	qui.supprimer()
+  	balle.supprimer()
 }
 function tir() {
 	x = bob.récupérerX()
@@ -32,20 +24,20 @@ function tir() {
 		}
 	}
 }
-p = new Plateforme("test-map", "test-tiles")
+p = new Plateforme()
 p.sélectionnerCouche("stars")
-p.poserBrique("entry", 18, 8)
-bob = new Promeneur("test-atlas")
+bob = new Promeneur()
 bob.définirPosition(80,40)
 bob.peutTomber()
 bob.définirGravité(500)
 bob.définirAmplitudeSaut(400)
 bob.ajouterBloc(p)
-bob.siRencontre(p, miam, "star")
-bob.siRencontre(p, sortie, "exit")
-balles = new GroupeSprites("image_default_texture", 10)
+méchant = new Promeneur('female')
+méchant.définirPosition(600,250)
+bob.ajouterBloc(méchant)
+balles = new GroupeSprites("fireball", 10)
 balles.définirDurée(3000)
-caméra.suivre(bob)
+méchant.siCollisionAvec(balles, supprime)
 répéter() {
 	if (clavier.nouvelAppui("haut")) {
 		bob.sauter()
@@ -63,7 +55,6 @@ répéter() {
 	} else {
 		bob.arrêter()
 	}
-}
-`
+}`
 
-export { resources, code }
+export { description, resources, code }
