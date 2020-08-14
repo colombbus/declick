@@ -12,11 +12,12 @@ function ramasser(qui, livre) {
 	}
 }
 a = new GroupeSprites('book')
-a.créerSprite(200,10)
-a.créerSprite(300,10)
-a.créerSprite(400,10)
-a.créerSprite(500,10)
-a.créerSprite(600,10)
+a.définirTaille(30,40)
+a.créerSprite(200,40)
+a.créerSprite(300,40)
+a.créerSprite(400,40)
+a.créerSprite(500,40)
+a.créerSprite(600,40)
 b = new Sprite('female')
 b.siRencontre(a, ramasser)
 b.avancerToujours()`
