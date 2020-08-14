@@ -250,15 +250,29 @@ export default {
     _graphicalObjects.length = 0
     _whenLoadedActions.length = 0
     if (_scene) {
-      _scene.children.removeAll()
+      _game.scene.stop('main')
+      _scene.children.getChildren().forEach(object => object.destroy()) //removeAll()
       const textures = _scene.textures
       _graphicalResources.forEach((resource, key) => {
         if (!resource.local) {
-          textures.remove(key)
+          if (textures.exists(key)) {
+            textures.remove(key)
+          }
+          if (resource.type === 'atlas') {
+            if (_scene.cache.json.exists(key)) {
+              console.log(`removing atlas: ${key}`)
+              _scene.cache.json.remove(key)
+            } else {
+              console.log(`atlas not found: ${key}`)
+            }
+          }
           _graphicalResources.delete(key)
         }
       })
       _sceneActive = false
+      _game.anims.anims.values().forEach(animation => {
+        animation.destroy()
+      })
     }
   },
 }
