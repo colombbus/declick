@@ -162,5 +162,7 @@
   "follow": "suivre",
   "follow_help": "suivre(objet)",
   "stopFollowing": "nePasSuivre",
-  "stopFollowing_help": "nePasSuivre()"
+  "stopFollowing_help": "nePasSuivre()",
+  "setDisplaySize": "définirTaille",
+  "setDisplaySize_help": "définirTaille(50,50)"
 }
