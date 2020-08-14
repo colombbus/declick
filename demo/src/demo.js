@@ -2,7 +2,9 @@ import DeclickRuntime from '../../runtime/lib/declick-runtime.js'
 import DeclickObjects from '../../objects/lib/declick-objects.js'
 import '../node_modules/codemirror/lib/codemirror.css'
 import '../node_modules/codemirror/theme/abcdef.css'
+import '../node_modules/codemirror/addon/dialog/dialog.css'
 import '../node_modules/codemirror/mode/javascript/javascript.js'
+import '../node_modules/codemirror/addon/dialog/dialog.js'
 import CodeMirror from 'codemirror'
 
 const _images = new Map()

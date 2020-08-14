@@ -109,6 +109,16 @@
         font-size: 16px;
         border: solid 1px transparent;
       }
+      .CodeMirror-dialog {
+        background-color: #f66c1e;
+      }
+      .CodeMirror-dialog-bottom {
+        border-top: none;
+      }
+      .error {
+        background-color: #f66c1e;
+        color: #f5f5f5;
+      }
     </style>
     <script>
       function reduceEditor() {
@@ -167,6 +177,12 @@
             document
               .getElementById('reduce')
               .addEventListener('click', reduceEditor)
+            Declick.setErrorHandler(function(error) {
+              var div = document.createElement('div')
+              div.innerHTML = error.getMessage()
+              div.className = 'error'
+              cm.openNotification(div, { bottom: true })
+            })
           },
         )
       })
