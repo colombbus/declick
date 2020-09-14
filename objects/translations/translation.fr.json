@@ -164,5 +164,7 @@
   "stopFollowing": "nePasSuivre",
   "stopFollowing_help": "nePasSuivre()",
   "setDisplaySize": "définirTaille",
-  "setDisplaySize_help": "définirTaille(50,50)"
+  "setDisplaySize_help": "définirTaille(50,50)",
+  "setStepLength": "définirLongueurPas",
+  "setStepLength_help": "définirLongueurPas(50)"
 }

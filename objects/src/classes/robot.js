@@ -3,13 +3,13 @@ import i18n from 'es2015-i18n-tag'
 import 'reflect-metadata'
 import { checkArguments } from '../utils'
 
-const DEFAULT_DISTANCE = 50
+const DEFAULT_STEP_LENGTH = 50
 
 @Reflect.metadata('translated', i18n`Robot`)
 class Robot extends Sprite {
   constructor(texture) {
     super(texture)
-    this._distance = DEFAULT_DISTANCE
+    this._stepLength = DEFAULT_STEP_LENGTH
     this._moving = false
     this.addListener('movementChange', movement => {
       if (movement === 'stop') {
@@ -23,7 +23,7 @@ class Robot extends Sprite {
   moveForward(steps = 1) {
     if (!this._moving) {
       this._moving = true
-      super.moveForward(steps * this._distance)
+      super.moveForward(steps * this._stepLength)
       this._runtime.suspend(true)
     }
   }
@@ -32,7 +32,7 @@ class Robot extends Sprite {
   moveBackward(steps = 1) {
     if (!this._moving) {
       this._moving = true
-      super.moveBackward(steps * this._distance)
+      super.moveBackward(steps * this._stepLength)
       this._runtime.suspend(true)
     }
   }
@@ -41,7 +41,7 @@ class Robot extends Sprite {
   moveUpward(steps = 1) {
     if (!this._moving) {
       this._moving = true
-      super.moveUpward(steps * this._distance)
+      super.moveUpward(steps * this._stepLength)
       this._runtime.suspend(true)
     }
   }
@@ -50,14 +50,21 @@ class Robot extends Sprite {
   moveDownward(steps = 1) {
     if (!this._moving) {
       this._moving = true
-      super.moveDownward(steps * this._distance)
+      super.moveDownward(steps * this._stepLength)
       this._runtime.suspend(true)
     }
   }
 
   @checkArguments(['integer', 'integer'])
   setLocation(x, y) {
-    super.setLocation(x * this._distance, y * this._distance)
+    super.setLocation(x * this._stepLength, y * this._stepLength)
+  }
+
+  @Reflect.metadata('translated', i18n`setStepLength`)
+  @Reflect.metadata('help', i18n`setStepLength_help`)
+  @checkArguments(['integer'])
+  setStepLength(length) {
+    this._stepLength = length
   }
 }
 
