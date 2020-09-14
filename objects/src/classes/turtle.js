@@ -63,7 +63,7 @@ class Turtle extends Robot {
 
   @Reflect.metadata('translated', i18n`createTexture`)
   @Reflect.metadata('help', i18n`createTexture_help`)
-  @checkArguments(['string'])
+  @checkArguments(['string|canvas'])
   createTexture(name) {
     const graphics = this._graphics
       .getScene()

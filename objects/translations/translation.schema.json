@@ -94,6 +94,11 @@
 			"type": "string",
 			"minLength": 1
 		},
+		"canvas value expected ${0}": {
+			"type": "string",
+			"minLength": 1,
+			"pattern": "(?=.*?\\$\\{0\\})"
+		},
 		"capslock": {
 			"type": "string",
 			"minLength": 1
@@ -367,6 +372,10 @@
 			"minLength": 1
 		},
 		"missing boolean argument": {
+			"type": "string",
+			"minLength": 1
+		},
+		"missing canvas argument": {
 			"type": "string",
 			"minLength": 1
 		},
@@ -705,6 +714,7 @@
 		"array value expected ${0}",
 		"boolean value expected ${0}",
 		"camera",
+		"canvas value expected ${0}",
 		"capslock",
 		"clear",
 		"clear_help",
@@ -773,6 +783,7 @@
 		"missing argument",
 		"missing array argument",
 		"missing boolean argument",
+		"missing canvas argument",
 		"missing function argument",
 		"missing integer argument",
 		"missing number argument",
