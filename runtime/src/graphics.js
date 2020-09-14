@@ -260,10 +260,7 @@ export default {
           }
           if (resource.type === 'atlas') {
             if (_scene.cache.json.exists(key)) {
-              console.log(`removing atlas: ${key}`)
               _scene.cache.json.remove(key)
-            } else {
-              console.log(`atlas not found: ${key}`)
             }
           }
           _graphicalResources.delete(key)
