@@ -40,6 +40,11 @@ const _types = {
     typeMessage: value => i18n`function value expected ${value}`,
     missingMessage: i18n`missing function argument`,
   },
+  canvas: {
+    check: value => value instanceof HTMLCanvasElement,
+    typeMessage: value => i18n`canvas value expected ${value}`,
+    missingMessage: i18n`missing canvas argument`,
+  },
   any: {
     check: () => true,
     missingMessage: i18n`missing argument`,
@@ -48,6 +53,10 @@ const _types = {
 
 const _checkType = function(type, value) {
   return _types[type].check(value)
+}
+
+const _checkTypes = function(types, value) {
+  return types.find(type => _checkType(type, value)) !== undefined
 }
 
 const _getTypeErrorMessage = function(type, value) {
@@ -67,10 +76,11 @@ const checkArguments = function(types, optionalParameters = 0) {
     const originalMethod = descriptor.value
     descriptor.value = function(...args) {
       types.forEach((type, index) => {
+        const allowedTypes = type.split('|')
         const argument = args[index]
-        if (argument !== undefined && !_checkType(type, argument)) {
+        if (argument !== undefined && !_checkTypes(allowedTypes, argument)) {
           throw {
-            declickObjectError: _getTypeErrorMessage(type, argument),
+            declickObjectError: _getTypeErrorMessage(allowedTypes[0], argument),
           }
         }
       })

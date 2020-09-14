@@ -166,5 +166,7 @@
   "setDisplaySize": "définirTaille",
   "setDisplaySize_help": "définirTaille(50,50)",
   "setStepLength": "définirLongueurPas",
-  "setStepLength_help": "définirLongueurPas(50)"
+  "setStepLength_help": "définirLongueurPas(50)",
+  "canvas value expected ${0}": "${0} n'est pas un canvas",
+  "missing canvas argument": "il manque un paramètre de type canvas"
 }
