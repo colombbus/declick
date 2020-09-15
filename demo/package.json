@@ -4,7 +4,8 @@
   "description": "Declick demonstration",
   "main": "dist/index.html",
   "scripts": {
-    "build": "webpack --env build"
+    "build": "webpack --env build",
+    "dev": "webpack --progress --colors --watch --env build"
   },
   "repository": {
     "type": "git",
