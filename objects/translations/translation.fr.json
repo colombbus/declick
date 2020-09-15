@@ -59,7 +59,7 @@
   "getSize_help": "récupérerTaille()",
   "void": "viderListe",
   "void_help": "viderListe()",
-  " ": "espace",
+  "space": "espace",
   "capslock": "majuscules",
   "down": "bas",
   "escape": "echap",

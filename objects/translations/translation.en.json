@@ -67,7 +67,7 @@
   "return": "return",
   "right": "right",
   "up": "up",
-  " ": "space",
+  "space": "space",
   "Robot": "Robot",
   "keyboard": "keyboard",
   "Platform": "Platform",
