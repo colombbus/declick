@@ -13,10 +13,8 @@ export default {
   },
   output: {
     dir: 'lib',
-    /*file: 'lib/declick-objects.js',*/
     format: 'es',
     name: 'DeclickObject',
-    /*inlineDynamicImports: true,*/
   },
   plugins: [
     replace({
@@ -38,7 +36,7 @@ export default {
     }),
     json({ namedExports: false }),
     image(),
-    dynamicImportVars({ exclude: ['translations/translation.en.json'] }),
+    dynamicImportVars(),
     nodeResolve({
       browser: true,
       preferBuiltins: false,
