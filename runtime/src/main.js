@@ -11,7 +11,7 @@ export default {
     const instances = []
 
     return import(`../translations/translation.${locale}.json`).then(
-      translations => {
+      ({ default: translations }) => {
         i18nConfig({
           locales: locale,
           translations: translations,

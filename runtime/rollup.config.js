@@ -1,14 +1,20 @@
 import { nodeResolve } from '@rollup/plugin-node-resolve'
 import commonjs from '@rollup/plugin-commonjs'
+import dynamicImportVars from '@rollup/plugin-dynamic-import-vars'
+import json from '@rollup/plugin-json'
 
 export default {
-  input: 'src/main.js',
+  input: {
+    'declick-runtime': 'src/main.js',
+  },
   output: {
-    file: 'lib/declick-runtime.js',
+    dir: 'lib',
+    /*file: 'lib/declick-runtime.js',*/
     format: 'es',
-    name: 'DeclickRuntime',
   },
   plugins: [
+    json({ namedExports: false }),
+    dynamicImportVars(),
     nodeResolve({
       browser: true,
       preferBuiltins: false,

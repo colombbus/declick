@@ -4,7 +4,7 @@
   "description": "Declick Runtime",
   "main": "lib/declick-runtime.js",
   "scripts": {
-    "build": "rollup --config",
+    "build": "rm -rf lib && rollup --config",
     "test": "mocha",
     "test:watch": "mocha --require @babel/register --colors -w ./test/*.spec.js",
     "lint": "eslint --fix --ext .js --ignore-path .gitignore ."
@@ -31,6 +31,8 @@
     "@babel/preset-env": "^7.5.5",
     "@babel/register": "^7.5.5",
     "@rollup/plugin-commonjs": "^15.0.0",
+    "@rollup/plugin-dynamic-import-vars": "^1.1.0",
+    "@rollup/plugin-json": "^4.1.0",
     "@rollup/plugin-node-resolve": "^9.0.0",
     "babel-eslint": "^10.0.2",
     "babel-loader": "^8.0.6",
