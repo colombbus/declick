@@ -1,4 +1,4 @@
-//replaced by webpack
+//replaced at build time
 const classes = __CLASSES__
 const instances = __INSTANCES__
 import { i18nConfig } from 'es2015-i18n-tag'
@@ -18,30 +18,39 @@ function _getAllTranslatedMethodNames(aPrototype) {
   return translatedMethods
 }
 
+function _loadImportedClass(importedClass, source) {
+  importedClass.prototype._declickId_ = source
+  return {
+    instance: Reflect.getMetadata('instance', importedClass),
+    name: Reflect.getMetadata('translated', importedClass),
+    object: importedClass,
+    methods: _getAllTranslatedMethodNames(importedClass.prototype),
+  }
+}
+
 export default {
   load(locale) {
     return import(`../translations/translation.${locale}.json`).then(
-      translations => {
+      ({ default: translations }) => {
         i18nConfig({
           locales: locale,
           translations: translations,
         })
-        const sources = classes
-          .map(className => `./classes/${className}`)
-          .concat(instances.map(className => `./instances/${className}`))
-
-        const loaders = sources.map(source =>
-          import(source).then(({ default: importedClass }) => {
-            importedClass.prototype._declickId_ = source.slice(2, -3)
-            return {
-              instance: Reflect.getMetadata('instance', importedClass),
-              name: Reflect.getMetadata('translated', importedClass),
-              object: importedClass,
-              methods: _getAllTranslatedMethodNames(importedClass.prototype),
-            }
-          }),
+        const classLoaders = classes.map(className =>
+          import(`./classes/${className}.js`).then(
+            ({ default: importedClass }) => {
+              return _loadImportedClass(importedClass, `classes/${className}`)
+            },
+          ),
         )
-        return Promise.all(loaders)
+        const instanceLoaders = instances.map(className =>
+          import(`./instances/${className}.js`).then(
+            ({ default: importedClass }) => {
+              return _loadImportedClass(importedClass, `instances/${className}`)
+            },
+          ),
+        )
+        return Promise.all(classLoaders.concat(instanceLoaders))
       },
     )
   },
