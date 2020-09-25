@@ -102,6 +102,26 @@ describe('When data has created interpreter', () => {
     assert.equal(interpreter.getLastValue(), 'functionResult')
   })
 
+  it('should be able to add a function to interpreter after it is created', () => {
+    let result = false
+
+    let myFunction = function(a, b) {
+      if (a === 3 && b === 'test') {
+        result = true
+      }
+      return 'functionResult'
+    }
+
+    let interpreter = data.createInterpreter()
+    data.addFunction('interpreterFunction', myFunction)
+    let code = "interpreterFunction(3, 'test')"
+    let ast = parse(code)
+    interpreter.appendCode(ast)
+    interpreter.run()
+    assert.ok(result)
+    assert.equal(interpreter.getLastValue(), 'functionResult')
+  })
+
   it('should be able to retrieve a declared instance from interpreter', () => {
     let result = false
     let MyClass = class {

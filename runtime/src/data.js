@@ -153,8 +153,6 @@ let _deleteInterpreterObject = function(interpreter, reference) {
 let data = {
   createInterpreter() {
     _interpreter = new Interpreter('', (interpreter, scope) => {
-      let name
-
       // at first launch, create and store interpreter instances, classes and functions
       if (!_stored) {
         Array.from(_instances).forEach(([name, instanceData]) => {
@@ -225,7 +223,19 @@ let data = {
   },
 
   addFunction(name, body) {
-    _functions.set(name, body)
+    if (_interpreter == null) {
+      _functions.set(name, body)
+    } else {
+      const interpreterBody = _toInterpreterFunction(_interpreter, body)
+      _functions.set(name, interpreterBody)
+      let scope = _interpreter.getScope()
+      while (scope.parentScope) {
+        scope = scope.parentScope
+      }
+      _interpreter.setProperty(scope, name, interpreterBody, {
+        writable: false,
+      })
+    }
   },
 
   getClass(name) {
