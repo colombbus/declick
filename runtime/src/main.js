@@ -161,7 +161,7 @@ export default {
     }
   },
 
-  addMapResource(map, name) {
+  addMapResource(name, map) {
     _graphics.addResource('tilemapTiledJSON', name, map)
   },
 
@@ -175,4 +175,6 @@ export default {
     _scheduler.setErrorHandler(handler)
     _parser.setErrorHandler(handler)
   },
+
+  addExternalFunction()
 }
