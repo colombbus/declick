@@ -6,6 +6,7 @@ const _classes = new Map()
 // classes without constructor
 const _classStructures = new Map()
 const _instances = new Map()
+const _functions = new Map()
 let _interpreter = null
 let _stored = false
 let _registeredObjects = []
@@ -123,6 +124,10 @@ let _toInterpreterInstance = function(interpreter, object, methods) {
   return interpreterInstance
 }
 
+let _toInterpreterFunction = function(interpreter, body) {
+  return interpreter.createNativeFunction(_getMethodWrapper(interpreter, body))
+}
+
 let _deleteInterpreterObject = function(interpreter, reference) {
   let scope = interpreter.getScope()
   while (scope) {
@@ -150,7 +155,7 @@ let data = {
     _interpreter = new Interpreter('', (interpreter, scope) => {
       let name
 
-      // at first launch, create and store interpreter instances and classes
+      // at first launch, create and store interpreter instances, classes and functions
       if (!_stored) {
         Array.from(_instances).forEach(([name, instanceData]) => {
           _instances.set(
@@ -172,6 +177,9 @@ let data = {
             ),
           )
         })
+        Array.from(_functions).forEach(([name, body]) => {
+          _functions.set(name, _toInterpreterFunction(interpreter, body))
+        })
         _stored = true
       }
 
@@ -185,6 +193,13 @@ let data = {
       // #2 Declare classes
       _classes.forEach((interpreterClass, name) => {
         interpreter.setProperty(scope, name, interpreterClass, {
+          writable: false,
+        })
+      })
+
+      // #3 Declare functions
+      _functions.forEach((interpreterBody, name) => {
+        interpreter.setProperty(scope, name, interpreterBody, {
           writable: false,
         })
       })
@@ -207,6 +222,10 @@ let data = {
 
   addInstance(name, object, methods) {
     _instances.set(name, { object: object, methods: methods })
+  },
+
+  addFunction(name, body) {
+    _functions.set(name, body)
   },
 
   getClass(name) {
@@ -282,6 +301,7 @@ let data = {
     _classes.clear()
     _classStructures.clear()
     _instances.clear()
+    _functions.clear()
     _registeredObjects = []
     _registeredInstances = []
     _interpreter = null
