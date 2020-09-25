@@ -101,6 +101,15 @@ describe('When runtime is initialized', () => {
     assert.equal(runtime.getLastValue(), true)
   })
 
+  it('should be able to add an external function', () => {
+    let testFunction = function(a, b) {
+      return a === 3 && b === 'aText'
+    }
+    runtime.addExternalFunction('exposedFunction', testFunction)
+    runtime.executeCode("exposedFunction(3, 'aText')")
+    assert.equal(runtime.getLastValue(), true)
+  })
+
   after(() => {
     runtime.reset()
   })

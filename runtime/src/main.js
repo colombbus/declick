@@ -176,5 +176,7 @@ export default {
     _parser.setErrorHandler(handler)
   },
 
-  addExternalFunction()
+  addExternalFunction(name, body) {
+    _data.addFunction(name, body)
+  },
 }
