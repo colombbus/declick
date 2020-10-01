@@ -2,40 +2,14 @@
 .home
   .covid-wrapper(v-show="isPopupShown" @click="isPopupShown = false")
     .covid-container
-      input(type='button', value='ok !')
-  .home__presentation.home__covid
-    a(href="https://declick.net/ressource/challenge-gestes.html" target="_blank")
-      img.instaBannier(src="../assets/images/covid/covid-banniere.png")
-    .home__covid-wrapper
-      a(href="https://www.sap.com/france/about/social-responsibility.html" target="_blank")
-        img.instaBannier(src="../assets/images/covid/fondation_sap.jpg")
-      a(href="https://colombbus.org" target="_blank")
-        img.instaBannier(src="../assets/images/covid/colombbus.png")
-    p La Fondation SAP France et l'association Colombbus sont heureuses de vous convier à leur challenge 
-    | « Codez pour faire la différence #GestesBarrières ! »
-    p 
-      | Devenez acteur de 
-      b la lutte contre le Covid-19 à travers les gestes barrières 
-      | en créant un jeu grâce à 
-      a(href="//declick.net") declick.net 
-      | autour de ce thème fort.
-    p 
-      a(href="//www.croix-rouge.fr/" style="float: left" target="_blank")
-        img(src="../assets/images/covid/croix_rouge.png" height="90")
-      | Pas de palmarès de meilleurs projets, mais pour 
-      b chaque projet reçu, la Fondation SAP France réalisera un don de 20€ à la Croix Rouge Française. Un certificat de participation et de don à votre nom vous sera envoyé, comme remerciement.
-    p Vous souhaitez relever le Challenge ? Ci-dessous les grandes étapes !
-    a(href="https://declick.net/ressource/challenge-gestes.html" target="_blank")
-      img.instaBannier(src="../assets/images/covid/covid-etape-sap.png")
-    a(class="covid-action" href="https://declick.net/ressource/challenge-gestes.html" target="_blank")
-      | cliquer ici pour participer
-  hr.home__separation
+      div
+        p Nous travaillons sur des améliorations de la plateforme qui seront disponibles à partir du mois de Novembre 2020
+        p clique sur OK pour continuer
+        input(type='button', value='ok !')
   .home__presentation
-    h1 Declick est un outil clé en main !
+    h1 La plateforme Declick, développée chez l'association Colombbus, est un outil pédagogique clé en main !
     p.
-      En classe, en atelier ou à la maison, il permet d'aborder les bases du
-      code informatique et de les appliquer à travers des projets, individuels
-      ou collectifs, d'applications ou de jeux vidéo.
+      En classe, en atelier ou à la maison, Declick permet d'aborder les bases de l'algorithmique et du code informatique et de les appliquer appliquer à travers des projets, individuels ou collectifs, d'applications ou de jeux vidéo.
     a(href="https://www.instagram.com/associationcolombbus/" target="_blank")
       img.instaBannier(src="../assets/instaBannier.png")
   .home__box
@@ -376,15 +350,22 @@ hr.home__separation
   left: 0
   background-color: #000000aa
   margin-bottom: 0
+  z-index: 500
 
 .covid-container
   width: 560px
-  height: 320px
-  background-image: url(../assets/images/covid/popup.png)
+  height: 250px
   position: relative
   margin-right: auto
   margin-left: auto
   transform: translateY(50%)
+  // background-color: #fff
+  background: linear-gradient(120deg, rgba(215,49,116,1) 0%, rgba(229,81,64,1) 100%)
+  display: flex
+  justify-content: center
+  align-items: center
+  color: white
+  padding: 0 25px
   input
     background-color: #00000000
     border: 1px solid white
@@ -392,9 +373,10 @@ hr.home__separation
     position: absolute
     bottom: 17px
     right: 20px
-    width: 104px
-    height: 50px
-    font-size: 40px
+    // width: 95px
+    // height: 50px
+    padding: 5px 10px 
+    font-size: 25px
     text-transform: uppercase
 
 
