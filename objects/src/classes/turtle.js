@@ -25,6 +25,13 @@ class Turtle extends Robot {
     super._buildObject()
   }
 
+  _updateMinMaxValues(x, y) {
+    this._xMin = Math.min(this._xMin, x)
+    this._xMax = Math.max(this._xMax, x)
+    this._yMin = Math.min(this._yMin, y)
+    this._yMax = Math.max(this._yMax, y)
+  }
+
   @Reflect.metadata('translated', i18n`traceOn`)
   @Reflect.metadata('help', i18n`traceOn_help`)
   traceOn() {
@@ -33,6 +40,10 @@ class Turtle extends Robot {
       this._previousY = this._object.y
       this._trace = true
       this._renderer.moveTo(
+        this._object.x + this._traceX,
+        this._object.y + this._traceY,
+      )
+      this._updateMinMaxValues(
         this._object.x + this._traceX,
         this._object.y + this._traceY,
       )
@@ -56,6 +67,7 @@ class Turtle extends Robot {
         this._object.x - this._traceX + x,
         this._object.y - this._traceY + y,
       )
+      this._updateMinMaxValues(this._object.x + x, this._object.y + y)
     }
     this._traceX = x
     this._traceY = y
@@ -78,6 +90,21 @@ class Turtle extends Robot {
     graphics.destroy()
   }
 
+  @checkArguments(['integer', 'integer'])
+  setLocation(x, y) {
+    super.setLocation(x, y)
+    if (this._trace) {
+      this._renderer.moveTo(
+        this._object.x + this._traceX,
+        this._object.y + this._traceY,
+      )
+      this._updateMinMaxValues(
+        this._object.x + this._traceX,
+        this._object.y + this._traceY,
+      )
+    }
+  }
+
   tick(delta) {
     super.tick(delta)
     if (this._trace) {
@@ -89,10 +116,7 @@ class Turtle extends Robot {
         const newY = this._object.y + this._traceY
         this._renderer.lineTo(newX, newY)
         this._renderer.strokePath()
-        this._xMin = Math.min(this._xMin, newX)
-        this._xMax = Math.max(this._xMax, newX)
-        this._yMin = Math.min(this._yMin, newY)
-        this._yMax = Math.max(this._yMax, newY)
+        this._updateMinMaxValues(newX, newY)
         this._previousX = this._object.x
         this._previousY = this._object.y
       }
