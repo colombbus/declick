@@ -84,7 +84,7 @@ class SpriteGroup extends GraphicClass {
   mayMove(value = true) {
     this._movable = value
     this._object.getChildren().forEach(child => {
-      child.mayMove(value)
+      child.setImmovable(!value)
     })
   }
 
