@@ -115,19 +115,25 @@ class Sprite extends GraphicClass {
 
   tick(delta) {
     if (this._movement === 'target') {
-      const distance = this._distanceBetween(
+      const vector = this._vectorBetween(
         this._object.x,
         this._object.y,
         this._targetX,
         this._targetY,
       )
-      if (distance < 4 || distance > this._oldTargetDistance) {
+      const distance = this._squaredLength(vector)
+      if (distance < 16 || this._dot(vector, this._oldTargetVector) < 0) {
         this._object.body.reset(this._targetX, this._targetY)
         this._graphics.getScene().game.events.once('postrender', () => {
           this._setMovement('stop')
         })
+      } else if (this._object.body.velocity.lengthSq() < 0.01) {
+        this._object.body.setVelocity(0, 0)
+        this._graphics.getScene().game.events.once('postrender', () => {
+          this._setMovement('stop')
+        })
       } else {
-        this._oldTargetDistance = distance
+        this._oldTargetVector = vector
       }
     }
   }
@@ -149,7 +155,7 @@ class Sprite extends GraphicClass {
 
   _moveToTarget() {
     const physics = this._graphics.getScene().physics
-    this._oldTargetDistance = this._distanceBetween(
+    this._oldTargetVector = this._vectorBetween(
       this._object.x,
       this._object.y,
       this._targetX,
@@ -165,8 +171,7 @@ class Sprite extends GraphicClass {
   }
 
   _setVelocity(vx, vy) {
-    this._object.setVelocityX(vx)
-    this._object.setVelocityY(vy)
+    this._object.body.setVelocity(vx, vy)
   }
 
   @Reflect.metadata('translated', i18n`moveForward`)
@@ -285,7 +290,7 @@ class Sprite extends GraphicClass {
 
   @Reflect.metadata('translated', i18n`mayMove`)
   @Reflect.metadata('help', i18n`mayMove_help`)
-  @checkArguments(['boolean', 1])
+  @checkArguments(['boolean'], 1)
   mayMove(value = true) {
     this._object.setImmovable(!value)
   }
@@ -351,10 +356,19 @@ class Sprite extends GraphicClass {
     this._graphics.getScene().physics.add.overlap(object, this._object, handler)
   }
 
-  _distanceBetween(x1, y1, x2, y2) {
-    let dx = x1 - x2
-    let dy = y1 - y2
-    return Math.sqrt(dx * dx + dy * dy)
+  _vectorBetween(x1, y1, x2, y2) {
+    return [x1 - x2, y1 - y2]
+  }
+
+  _squaredLength(vector) {
+    const [x, y] = vector
+    return x * x + y * y
+  }
+
+  _dot(vector1, vector2) {
+    const [x1, y1] = vector1
+    const [x2, y2] = vector2
+    return x1 * x2 + y1 * y2
   }
 
   @Reflect.metadata('translated', i18n`setVelocity`)
