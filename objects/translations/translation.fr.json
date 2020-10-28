@@ -168,5 +168,7 @@
   "setStepLength": "définirLongueurPas",
   "setStepLength_help": "définirLongueurPas(50)",
   "canvas value expected ${0}": "${0} n'est pas un canvas",
-  "missing canvas argument": "il manque un paramètre de type canvas"
+  "missing canvas argument": "il manque un paramètre de type canvas",
+  "getTileAt": "récupérerBrique",
+  "getTileAt_help": "récupérerBrique(0,0)"
 }

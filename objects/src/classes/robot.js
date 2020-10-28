@@ -66,6 +66,14 @@ class Robot extends Sprite {
   setStepLength(length) {
     this._stepLength = length
   }
+
+  getX() {
+    return Math.round(this._object.x / this._stepLength)
+  }
+
+  getY() {
+    return Math.round(this._object.y / this._stepLength)
+  }
 }
 
 export default Robot

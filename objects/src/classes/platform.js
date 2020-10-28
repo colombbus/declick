@@ -224,6 +224,14 @@ class Platform extends GraphicClass {
     }
     layer.putTileAt(tile[0], x, y)
   }
+
+  @Reflect.metadata('translated', i18n`getTileAt`)
+  @Reflect.metadata('help', i18n`getTileAt_help`)
+  @checkArguments(['integer', 'integer'])
+  getTileAt(x, y) {
+    const layer = this._object.getLayer().tilemapLayer
+    return new PlatformTile(layer.getTileAt(x, y, true))
+  }
 }
 
 export default Platform

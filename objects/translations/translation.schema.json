@@ -210,6 +210,14 @@
 			"type": "string",
 			"minLength": 1
 		},
+		"getTileAt": {
+			"type": "string",
+			"minLength": 1
+		},
+		"getTileAt_help": {
+			"type": "string",
+			"minLength": 1
+		},
 		"getX": {
 			"type": "string",
 			"minLength": 1
@@ -742,6 +750,8 @@
 		"getSize_help",
 		"getText",
 		"getText_help",
+		"getTileAt",
+		"getTileAt_help",
 		"getX",
 		"getX_help",
 		"getY",
