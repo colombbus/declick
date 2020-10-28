@@ -307,6 +307,11 @@ let data = {
     _registeredInstances.forEach(instance => instance.dispatch('clear'))
   },
 
+  stop() {
+    _registeredObjects.forEach(object => object.dispatch('stop'))
+    _registeredInstances.forEach(instance => instance.dispatch('stop'))
+  },
+
   reset() {
     _classes.clear()
     _classStructures.clear()

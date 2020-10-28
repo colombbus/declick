@@ -29,6 +29,12 @@ class DeclickClass extends BaseInstance {
   resume() {
     this._runtime.resume()
   }
+
+  @Reflect.metadata('translated', i18n`stop`)
+  @Reflect.metadata('help', i18n`stop_help`)
+  stop() {
+    this._runtime.stop()
+  }
 }
 
 export default DeclickClass

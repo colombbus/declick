@@ -59,6 +59,11 @@ export default {
     return _data.findInterpreterObject(name)
   },
 
+  stop() {
+    _data.stop()
+    _scheduler.clear()
+  },
+
   suspend(keepPriorityOn) {
     _scheduler.suspend(keepPriorityOn)
   },

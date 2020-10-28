@@ -90,6 +90,9 @@ class Sprite extends GraphicClass {
     this.addListener('delete', () => {
       this._isDeleting = true
     })
+    this.addListener('stop', () => {
+      this.stop()
+    })
   }
 
   _setAnimation(movement) {

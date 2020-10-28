@@ -34,6 +34,9 @@ class SpriteGroup extends GraphicClass {
     this._texture = texture !== undefined ? texture : this.constructor._texture
     this._buildObject(length)
     this._size = false
+    this.addListener('stop', () => {
+      this._object.setVelocity(0, 0)
+    })
   }
 
   _buildObject(length) {
