@@ -15,29 +15,45 @@ class PlatformTile extends BaseClass {
   }
 
   getLayer() {
-    return this._tile.tilemapLayer
+    if (this._tile) {
+      return this._tile.tilemapLayer
+    } else {
+      return null
+    }
   }
 
   @Reflect.metadata('translated', i18n`getX`)
   @Reflect.metadata('help', i18n`getX_help`)
   getX() {
-    return this._tile.x
+    if (this._tile) {
+      return this._tile.x
+    } else {
+      return -1
+    }
   }
 
   @Reflect.metadata('translated', i18n`getY`)
   @Reflect.metadata('help', i18n`getY_help`)
   getY() {
-    return this._tile.y
+    if (this._tile) {
+      return this._tile.y
+    } else {
+      return -1
+    }
   }
 
   @Reflect.metadata('translated', i18n`is`)
   @Reflect.metadata('help', i18n`is_help`)
   @checkArguments(['string'])
   is(value) {
-    return (
-      this._tile.properties.is === value ||
-      this._tile.properties[i18n`is`] === value
-    )
+    if (this._tile) {
+      return (
+        this._tile.properties.is === value ||
+        this._tile.properties[i18n`is`] === value
+      )
+    } else {
+      return false
+    }
   }
 }
 
