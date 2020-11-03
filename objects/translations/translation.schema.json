@@ -545,6 +545,14 @@
 			"type": "string",
 			"minLength": 1
 		},
+		"setBodySize": {
+			"type": "string",
+			"minLength": 1
+		},
+		"setBodySize_help": {
+			"type": "string",
+			"minLength": 1
+		},
 		"setDisplaySize": {
 			"type": "string",
 			"minLength": 1
@@ -833,6 +841,8 @@
 		"right",
 		"selectLayer",
 		"selectLayer_help",
+		"setBodySize",
+		"setBodySize_help",
 		"setDisplaySize",
 		"setDisplaySize_help",
 		"setGravity",

@@ -388,6 +388,13 @@ class Sprite extends GraphicClass {
   setDisplaySize(width, height) {
     this._object.setDisplaySize(width, height)
   }
+
+  @Reflect.metadata('translated', i18n`setBodySize`)
+  @Reflect.metadata('help', i18n`setBodySize_help`)
+  @checkArguments(['integer', 'integer'])
+  setBodySize(width, height) {
+    this._object.setBodySize(width, height)
+  }
 }
 
 export default Sprite

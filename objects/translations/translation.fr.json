@@ -170,5 +170,7 @@
   "canvas value expected ${0}": "${0} n'est pas un canvas",
   "missing canvas argument": "il manque un paramètre de type canvas",
   "getTileAt": "récupérerBrique",
-  "getTileAt_help": "récupérerBrique(0,0)"
+  "getTileAt_help": "récupérerBrique(0,0)",
+  "setBodySize": "définirRectangleCollision",
+  "setBodySize_help": "définirRectangleCollision(50,50)"
 }

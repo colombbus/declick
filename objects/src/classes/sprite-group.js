@@ -33,7 +33,8 @@ class SpriteGroup extends GraphicClass {
     this._livingTime = false
     this._texture = texture !== undefined ? texture : this.constructor._texture
     this._buildObject(length)
-    this._size = false
+    this._size = null
+    this._bodySize = null
     this.addListener('stop', () => {
       this._object.setVelocity(0, 0)
     })
@@ -73,8 +74,11 @@ class SpriteGroup extends GraphicClass {
     if (object) {
       object.setOrigin(0)
       object.setImmovable(!this._movable)
-      if (this._size !== false) {
+      if (this._size !== null) {
         object.setDisplaySize(this._size[0], this._size[1])
+      }
+      if (this._bodySize !== null) {
+        object.setBodySize(this._bodySize[0], this._bodySize[1])
       }
       return new SpriteGroupItem(object, this._poolMode, this._livingTime)
     }
@@ -120,6 +124,16 @@ class SpriteGroup extends GraphicClass {
     this._size = [width, height]
     this._object.getChildren().forEach(child => {
       child.setDisplaySize(width, height)
+    })
+  }
+
+  @Reflect.metadata('translated', i18n`setBodySize`)
+  @Reflect.metadata('help', i18n`setBodySize_help`)
+  @checkArguments(['integer', 'integer'])
+  setBodySize(width, height) {
+    this._bodySize = [width, height]
+    this._object.getChildren().forEach(child => {
+      child.setBodySize(width, height)
     })
   }
 }
