@@ -90,6 +90,17 @@ class Turtle extends Robot {
     graphics.destroy()
   }
 
+  @Reflect.metadata('translated', i18n`getTraceBounds`)
+  @Reflect.metadata('help', i18n`getTraceBounds_help`)
+  getTraceBounds() {
+    return {
+      xMin: this._xMin,
+      yMin: this._yMin,
+      width: this._xMax - this._xMin + 1,
+      height: this._yMax - this._yMin + 1,
+    }
+  }
+
   @checkArguments(['integer', 'integer'])
   setLocation(x, y) {
     super.setLocation(x, y)

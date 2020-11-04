@@ -172,5 +172,7 @@
   "getTileAt": "récupérerBrique",
   "getTileAt_help": "récupérerBrique(0,0)",
   "setBodySize": "définirRectangleCollision",
-  "setBodySize_help": "définirRectangleCollision(50,50)"
+  "setBodySize_help": "définirRectangleCollision(50,50)",
+  "getTraceBounds": "récupérerDimensionsTrace",
+  "getTraceBounds_help": "récupérerDimensionsTrace()"
 }

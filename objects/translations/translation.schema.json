@@ -218,6 +218,14 @@
 			"type": "string",
 			"minLength": 1
 		},
+		"getTraceBounds": {
+			"type": "string",
+			"minLength": 1
+		},
+		"getTraceBounds_help": {
+			"type": "string",
+			"minLength": 1
+		},
 		"getX": {
 			"type": "string",
 			"minLength": 1
@@ -760,6 +768,8 @@
 		"getText_help",
 		"getTileAt",
 		"getTileAt_help",
+		"getTraceBounds",
+		"getTraceBounds_help",
 		"getX",
 		"getX_help",
 		"getY",
