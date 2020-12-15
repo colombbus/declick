@@ -1,4 +1,12 @@
 {
   "$schema": "./translation.schema.json",
-  "repeat": "repeat"
+  "repeat": "repeat",
+  "Error: ${0}": "Error: ${0}",
+  "missing quote": "A quote is missing",
+  "unknown class ${0}": "Unable to create object of category ${0}",
+  "syntax error": "Syntax Error",
+  "unknown function ${0}": "Unknown function ${0}",
+  "unknown object ${0}": "Unknown object ${0}",
+  "unknown method ${0} for object ${1}": "method ${0} does not exist for object ${1}",
+  "unknown variable ${0}": "unknown variable ${0}"
 }
