@@ -601,6 +601,14 @@
 			"type": "string",
 			"minLength": 1
 		},
+		"setState": {
+			"type": "string",
+			"minLength": 1
+		},
+		"setState_help": {
+			"type": "string",
+			"minLength": 1
+		},
 		"setStepLength": {
 			"type": "string",
 			"minLength": 1
@@ -863,6 +871,8 @@
 		"setLivingTime_help",
 		"setLocation",
 		"setLocation_help",
+		"setState",
+		"setState_help",
 		"setStepLength",
 		"setStepLength_help",
 		"setText",

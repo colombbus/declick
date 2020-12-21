@@ -174,5 +174,7 @@
   "setBodySize": "définirRectangleCollision",
   "setBodySize_help": "définirRectangleCollision(50,50)",
   "getTraceBounds": "récupérerDimensionsTrace",
-  "getTraceBounds_help": "récupérerDimensionsTrace()"
+  "getTraceBounds_help": "récupérerDimensionsTrace()",
+  "setState": "définirEtat",
+  "setState_help": "définirEtat(\"état\")"
 }

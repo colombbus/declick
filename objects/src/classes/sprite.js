@@ -33,10 +33,10 @@ class Sprite extends GraphicClass {
     this._object.body.reset(0, 0)
     const jsonData = scene.cache.json.get(this._texture)
     if (jsonData !== undefined && jsonData.anims !== undefined) {
-      ;['face', 'left', 'right', 'up', 'down'].forEach(move => {
-        if (jsonData.anims[move] !== undefined) {
-          const moveData = jsonData.anims[move]
-          const key = `${this._texture}_${move}`
+      Object.keys(jsonData.anims).forEach(anim => {
+        if (jsonData.anims[anim] !== undefined) {
+          const moveData = jsonData.anims[anim]
+          const key = `${this._texture}_${anim}`
           if (!scene.anims.exists(key)) {
             scene.anims.create({
               key: key,
@@ -84,6 +84,7 @@ class Sprite extends GraphicClass {
     this._targetY = 0
     this._movement = 'stop'
     this._oldTargetDistance = 0
+    this._state = null
     this._buildObject()
     this._bindObject()
     this._isDeleting = false
@@ -109,9 +110,13 @@ class Sprite extends GraphicClass {
       }
       animation = animations[movement]
     }
+    const anims = this._graphics.getScene().anims
     if (
-      this._graphics.getScene().anims.exists(`${this._texture}_${animation}`)
+      this._state !== null &&
+      anims.exists(`${this._texture}_${this._state}_${animation}`)
     ) {
+      this._object.play(`${this._texture}_${this._state}_${animation}`, true)
+    } else if (anims.exists(`${this._texture}_${animation}`)) {
       this._object.play(`${this._texture}_${animation}`, true)
     }
   }
@@ -394,6 +399,14 @@ class Sprite extends GraphicClass {
   @checkArguments(['integer', 'integer'])
   setBodySize(width, height) {
     this._object.setBodySize(width, height)
+  }
+
+  @Reflect.metadata('translated', i18n`setState`)
+  @Reflect.metadata('help', i18n`setState_help`)
+  @checkArguments(['string'], 1)
+  setState(state = null) {
+    this._state = state
+    this._setAnimation(this._movement)
   }
 }
 

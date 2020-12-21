@@ -174,5 +174,7 @@
   "isMovingDownward": "isMovingDownward",
   "isMovingDownward_help": "isMovingDownward()",
   "isMovingForward": "isMovingForward",
-  "isMovingForward_help": "isMovingForward()"
+  "isMovingForward_help": "isMovingForward()",
+  "setState": "setState",
+  "setState_help": "setState(\"state\")"
 }
