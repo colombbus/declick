@@ -14,7 +14,9 @@ class Robot extends Sprite {
     this.addListener('movementChange', movement => {
       if (movement === 'stop') {
         this._moving = false
-        this._runtime.resume()
+        window.setTimeout(() => {
+          this._runtime.resume()
+        }, 0)
       }
     })
   }
