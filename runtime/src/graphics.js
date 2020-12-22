@@ -277,4 +277,12 @@ export default {
       })
     }
   },
+  destroy(destroyCanvas = false) {
+    _game.destroy(destroyCanvas, true)
+    _graphicalResources.clear()
+    _loadingLocalResources.clear()
+    _sceneActive = false
+    _scene = null
+    _game = null
+  },
 }

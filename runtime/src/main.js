@@ -184,4 +184,12 @@ export default {
   addExternalFunction(name, body) {
     _data.addFunction(name, body)
   },
+
+  destroy() {
+    _scheduler.clear()
+    _data.clear()
+    _data.reset()
+    _graphics.destroy()
+    _interpreter = null
+  },
 }
