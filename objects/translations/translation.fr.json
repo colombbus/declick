@@ -130,7 +130,6 @@
   "layer not dynamic": "cette brique ne peut pas être supprimée",
   "collides": "collision",
   "overlaps": "rencontre",
-  "dynamic": "dynamique",
   "is": "est",
   "is_help": "est(\"type\")",
   "getX": "récupérerX",

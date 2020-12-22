@@ -157,10 +157,6 @@
 			"type": "string",
 			"minLength": 1
 		},
-		"dynamic": {
-			"type": "string",
-			"minLength": 1
-		},
 		"escape": {
 			"type": "string",
 			"minLength": 1
@@ -761,7 +757,6 @@
 		"delete",
 		"delete_help",
 		"down",
-		"dynamic",
 		"escape",
 		"follow",
 		"follow_help",

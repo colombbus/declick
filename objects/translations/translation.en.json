@@ -90,7 +90,6 @@
   "could not find tile ${0}": "could not find tile ${0}",
   "createTexture": "createTexture",
   "createTexture_help": "createTexture(\"name\")",
-  "dynamic": "dynamic",
   "follow": "follow",
   "follow_help": "follow(object)",
   "getTileAt": "getTileAt",
