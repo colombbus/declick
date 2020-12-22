@@ -31,11 +31,11 @@ class Sprite extends GraphicClass {
     this._object = scene.physics.add.sprite(0, 0, this._texture)
     this._object.setOrigin(0)
     this._object.body.reset(0, 0)
-    const jsonData = scene.cache.json.get(this._texture)
-    if (jsonData !== undefined && jsonData.anims !== undefined) {
-      Object.keys(jsonData.anims).forEach(anim => {
-        if (jsonData.anims[anim] !== undefined) {
-          const moveData = jsonData.anims[anim]
+    const jsonData = scene.cache.json.get(`${this._texture}_anims`)
+    if (jsonData !== undefined) {
+      Object.keys(jsonData).forEach(anim => {
+        if (jsonData[anim] !== undefined) {
+          const moveData = jsonData[anim]
           const key = `${this._texture}_${anim}`
           if (!scene.anims.exists(key)) {
             scene.anims.create({
@@ -111,13 +111,25 @@ class Sprite extends GraphicClass {
       animation = animations[movement]
     }
     const anims = this._graphics.getScene().anims
+    let animName
     if (
       this._state !== null &&
       anims.exists(`${this._texture}_${this._state}_${animation}`)
     ) {
-      this._object.play(`${this._texture}_${this._state}_${animation}`, true)
+      animName = `${this._texture}_${this._state}_${animation}`
     } else if (anims.exists(`${this._texture}_${animation}`)) {
-      this._object.play(`${this._texture}_${animation}`, true)
+      animName = `${this._texture}_${animation}`
+    }
+    if (animName) {
+      this._object.anims.chain()
+      this._object.anims.chain(animName)
+      if (this._object.anims.getName() === animName) {
+        this._object.anims.stopOnFrame(
+          this._object.anims.currentAnim.getFrameAt(0),
+        )
+      } else {
+        this._object.anims.stopAfterDelay(100)
+      }
     }
   }
 
