@@ -8,3 +8,4 @@ server/storage/app/projects
 client/dist/*
 client/public/regis/
 client/src/assets/js/config.js
+client/tags
