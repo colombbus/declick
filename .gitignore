@@ -1,11 +1,11 @@
-client/src/assets/config/declick.js
+**.htaccess
 **/node_modules
 **/yarn-error.log
+**/tags
 server/vendor
 server/.env
 server/storage/app/projects
-**.htaccess
 client/dist/*
+client/src/assets/config/declick.js
 client/public/regis/
 client/src/assets/js/config.js
-client/tags
