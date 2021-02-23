@@ -128,7 +128,7 @@ export default {
   &:hover {
     background: #f0f0f0;
   }
-  
+
   .fas.fa-lock,
   .fa-star-of-life {
     justify-self: center;
