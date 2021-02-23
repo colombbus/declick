@@ -38,7 +38,7 @@ transition(name='modal')
                 | se connecter
                 span(v-show='isLogingIn')
                   | &nbsp;
-                  span.fa.fa-circle-o-notch.fa-spin
+                  span.fa.fa-circle-notch.fa-spin
               button(
                 @click="mode = 'registration'"
                 type='button'
@@ -139,13 +139,13 @@ export default {
         0 0 8px rgba(102, 175, 233, 0.6);
     }
   }
-  .input-group {
+  .input-group:not(.validation) {
     display: flex;
     align-items: center;
     margin-bottom: $size-2;
     height: $size-4;
 
-    .fa {
+    i.fa {
       padding: $size-3;
       background-color: $wine-berry;
       color: $white;
