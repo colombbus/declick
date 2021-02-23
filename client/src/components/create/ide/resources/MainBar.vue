@@ -6,6 +6,7 @@
     :class="helpVisible ? 'main-bar__help--active': null"
   )
   button.main-bar__hints(type='button')
+  DButton(name="back.js")
   button.main-bar__play(
     type='button'
     @click="$emit('execute')"
@@ -14,8 +15,10 @@
 </template>
 
 <script>
+import DButton from '@/components/miscellaneous/DButton'
 export default {
   props: ['helpVisible'],
+  components: { DButton },
 }
 </script>
 
