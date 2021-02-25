@@ -83,11 +83,12 @@ export default {
     async getMainProgramName(id) {
       // TODO : id is the main file of current project / not the id of shown project
       // todo: need request that id
+      // dummy changes
       console.log('getMainProgramName', id)
       if (id === null) {
         return
       }
-      console.log(id)
+      
       const resources = await this.getAllProjectResources({ id: parseInt(id) })
       const resource = resources.filter(r => r.id === parseInt(id))
       console.log(resource)
