@@ -2,146 +2,146 @@
 
 /*
 |--------------------------------------------------------------------------
-| Application Routes
+| routerlication Routes
 |--------------------------------------------------------------------------
 |
-| Here is where you can register all of the routes for an application.
+| Here is where you can register all of the routes for an routerlication.
 | It is a breeze. Simply tell Lumen the URIs it should respond to
 | and give it the Closure to call when that URI is requested.
 |
 */
 
-$app->get('/', function () use ($app) {
-    return $app->version();
+$router->get('/', function () use ($router) {
+    return $router->app->version();
 });
 
-$app->group(['prefix' => 'api/v1'], function () use ($app) {
+$router->group(['prefix' => 'api/v1'], function () use ($router) {
 
     // users routes
-    $app->get('users/me', 'UserController@showCurrentUser');
-    $app->get('users', 'UserController@index');
-    $app->post('test/username', 'UserController@testUsernameAvailable');
-    $app->post('users', 'UserController@create');
-    $app->get('users/{id}', [
+    $router->get('users/me', 'UserController@showCurrentUser');
+    $router->get('users', 'UserController@index');
+    $router->post('test/username', 'UserController@testUsernameAvailable');
+    $router->post('users', 'UserController@create');
+    $router->get('users/{id}', [
         'as' => 'users',
         'uses' => 'UserController@show',
      ]);
-    $app->group(['middleware' => 'members-only'], function () use ($app) {
-        $app->patch('users/{id}', 'UserController@update');
-        $app->delete('users/{id}', 'UserController@delete');
+    $router->group(['middleware' => 'members-only'], function () use ($router) {
+        $router->patch('users/{id}', 'UserController@update');
+        $router->delete('users/{id}', 'UserController@delete');
     });
 
     // users projects routes
-    $app->group([
+    $router->group([
         'prefix' => 'users/{userId}',
         'middleware' => 'members-only',
-    ], function () use ($app) {
-        $app->get('projects', 'UserController@indexProjects');
-        $app->get('projects/default', 'UserController@showDefaultProject');
+    ], function () use ($router) {
+        $router->get('projects', 'UserController@indexProjects');
+        $router->get('projects/default', 'UserController@showDefaultProject');
     });
 
     // users results
-    $app->group([
+    $router->group([
         'prefix' => 'users/{userId}',
         'middleware' => 'members-only',
-    ], function () use ($app) {
-        $app->get('results', 'UserResultController@index');
-        $app->post('results', 'UserResultController@create');
-        $app->delete('results', 'UserResultController@delete');
+    ], function () use ($router) {
+        $router->get('results', 'UserResultController@index');
+        $router->post('results', 'UserResultController@create');
+        $router->delete('results', 'UserResultController@delete');
     });
 
     // authorizations routes
-    $app->post('login', 'AuthorizationController@create');
-    $app->post('logout', 'AuthorizationController@deleteCurrent');
-    $app->get('authorizations', 'AuthorizationController@index');
-    $app->post('authorizations', 'AuthorizationController@create');
-    $app->group(['middleware' => 'members-only'], function () use ($app) {
-        $app->get('authorizations/{id}', [
+    $router->post('login', 'AuthorizationController@create');
+    $router->post('logout', 'AuthorizationController@deleteCurrent');
+    $router->get('authorizations', 'AuthorizationController@index');
+    $router->post('authorizations', 'AuthorizationController@create');
+    $router->group(['middleware' => 'members-only'], function () use ($router) {
+        $router->get('authorizations/{id}', [
             'as' => 'authorizations',
             'uses' => 'AuthorizationController@show',
         ]);
-        $app->delete('authorizations/{id}', 'AuthorizationController@delete');
+        $router->delete('authorizations/{id}', 'AuthorizationController@delete');
     });
 
     // projects routes
-    $app->get('projects', 'ProjectController@index');
-    $app->get('projects/{id}', [
+    $router->get('projects', 'ProjectController@index');
+    $router->get('projects/{id}', [
         'as' => 'projects',
         'uses' => 'ProjectController@show',
     ]);
 
-    $app->group(['middleware' => 'members-only'], function () use ($app) {
-        $app->post('projects', 'ProjectController@create');
-        $app->patch('projects/{id}', 'ProjectController@update');
-        $app->delete('projects/{id}', 'ProjectController@delete');
-        $app->post('projects/import/{id}','ProjectController@import');           
+    $router->group(['middleware' => 'members-only'], function () use ($router) {
+        $router->post('projects', 'ProjectController@create');
+        $router->patch('projects/{id}', 'ProjectController@update');
+        $router->delete('projects/{id}', 'ProjectController@delete');
+        $router->post('projects/import/{id}','ProjectController@import');           
     });
 
     // projects resources routes
-    $app->get(
+    $router->get(
         'projects/{projectId}/resources', 
         'ProjectResourceController@index'
     );
-    $app->get(
+    $router->get(
         'projects/{projectId}/resources/{resourceId}/' .
         'content{extension:(?:\\..+)?}',
         'ProjectResourceController@showContent'
     );
-    $app->get(
+    $router->get(
         'projects/{projectId}/exercicesContent',
         'ProjectResourceController@showExercicesContent'
     );
     
-    $app->group([
+    $router->group([
         'prefix' => 'projects/{projectId}',
         'middleware' => 'members-only',
-    ], function () use ($app) {
-        $app->post('resources', 'ProjectResourceController@create');
-        $app->patch(
+    ], function () use ($router) {
+        $router->post('resources', 'ProjectResourceController@create');
+        $router->patch(
             'resources/{resourceId}',
             'ProjectResourceController@update'
         );
-        $app->post(
+        $router->post(
             'resources/{resourceId}/content',
             'ProjectResourceController@updateContent'
         );
-        $app->get('resources/{resourceId}', [
+        $router->get('resources/{resourceId}', [
             'as' => 'resources',
             'uses' => 'ProjectResourceController@show',
         ]);
-        $app->delete(
+        $router->delete(
             'resources/{resourceId}',
             'ProjectResourceController@delete'
         );
     });
 
-    $app->patch(
+    $router->patch(
         'projects/{projectId}/resources/{resourceId}/contentExercise',
         'ProjectResourceController@exerciseUpdate'
     );
  
     // circuits routes
-    $app->get('circuits', 'CircuitController@index');
-    $app->post('circuits', 'CircuitController@create');
-    $app->get('circuits/{id}', [
+    $router->get('circuits', 'CircuitController@index');
+    $router->post('circuits', 'CircuitController@create');
+    $router->get('circuits/{id}', [
         'as' => 'circuits',
         'uses' => 'CircuitController@show',
     ]);
-    $app->delete('circuits/{id}', 'CircuitController@delete');
+    $router->delete('circuits/{id}', 'CircuitController@delete');
 
     // circuits nodes routes
-    $app->group(['prefix' => 'circuits/{circuitId}'], function () use ($app) {
-        $app->get('nodes', 'CircuitNodeController@index');
-        $app->post('nodes', 'CircuitNodeController@create');
-        $app->patch('nodes/{nodeId}', 'CircuitNodeController@update');
-        $app->get('nodes/{nodeId}', [
+    $router->group(['prefix' => 'circuits/{circuitId}'], function () use ($router) {
+        $router->get('nodes', 'CircuitNodeController@index');
+        $router->post('nodes', 'CircuitNodeController@create');
+        $router->patch('nodes/{nodeId}', 'CircuitNodeController@update');
+        $router->get('nodes/{nodeId}', [
             'as' => 'nodes',
             'uses' => 'CircuitNodeController@show',
         ]);
-        $app->get(
+        $router->get(
             'nodes/{nodeId}/children',
             'CircuitNodeController@indexChildren'
         );
-        $app->delete('nodes/{nodeId}', 'CircuitNodeController@delete');
+        $router->delete('nodes/{nodeId}', 'CircuitNodeController@delete');
     });
 });

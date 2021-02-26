@@ -1,41 +1,24 @@
-# Declick Server v2
+# Lumen PHP Framework
 
-This component is part of [Declick v2 platform](https://github.com/colombbus/declick-v2).
+[![Build Status](https://travis-ci.org/laravel/lumen-framework.svg)](https://travis-ci.org/laravel/lumen-framework)
+[![Total Downloads](https://img.shields.io/packagist/dt/laravel/framework)](https://packagist.org/packages/laravel/lumen-framework)
+[![Latest Stable Version](https://img.shields.io/packagist/v/laravel/framework)](https://packagist.org/packages/laravel/lumen-framework)
+[![License](https://img.shields.io/packagist/l/laravel/framework)](https://packagist.org/packages/laravel/lumen-framework)
 
-## Requirements
+Laravel Lumen is a stunningly fast PHP micro-framework for building web applications with expressive, elegant syntax. We believe development must be an enjoyable, creative experience to be truly fulfilling. Lumen attempts to take the pain out of development by easing common tasks used in the majority of web projects, such as routing, database abstraction, queueing, and caching.
 
-Declick Server is built on [Lumen platform](http://lumen.laravel.com/). Therefore the following requirements should be met:
-* PHP >= 5.6.4
-* OpenSSL PHP Extension
-* PDO PHP Extension
-* Mbstring PHP Extension
-* Database engine: MySQL, Postgres, SQLite or SQL Server
+## Official Documentation
 
-## Installation
+Documentation for the framework can be found on the [Lumen website](https://lumen.laravel.com/docs).
 
-### Server
+## Contributing
 
-1. Install [composer](https://getcomposer.org)
-2. At the application root, run `composer install`
+Thank you for considering contributing to Lumen! The contribution guide can be found in the [Laravel documentation](https://laravel.com/docs/contributions).
 
-### Database
+## Security Vulnerabilities
 
-3. Copy .env.example into .env
-4. Set your parameters to access database server:
-    * DB_CONNECTION the database category (mysql, postgres, sqlite, sqlsrv)
-    * DB_HOST the database server address
-    * DB_PORT the server port
-    * DB_DATABASE database name
-    * DB_USERNAME database user
-    * DB_PASSWORD password
-5. Run `php artisan migrate` to initialize database
+If you discover a security vulnerability within Lumen, please send an e-mail to Taylor Otwell at taylor@laravel.com. All security vulnerabilities will be promptly addressed.
 
-### Configuration
+## License
 
-6.  Give your webserver write access to folder "storage/app"
-7.  Copy public/htaccess.example into public/.htaccess - set RewriteBase according to your server configuration
-8.  Browse to *server_adress*/public/ and check that it returns Lumen version
-
-```
-Lumen (5.3.2) (Laravel Components 5.3.*)
-```
+The Lumen framework is open-sourced software licensed under the [MIT license](https://opensource.org/licenses/MIT).
