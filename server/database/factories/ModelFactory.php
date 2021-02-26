@@ -1,5 +1,5 @@
 <?php
-
+use Illuminate\Support\Str;
 /*
 |--------------------------------------------------------------------------
 | Model Factories
@@ -17,6 +17,6 @@ $factory->define(App\User::class, function (Faker\Generator $faker) {
     return [
         'username' => $faker->userName,
         'email' => $faker->email,
-        'password_hash' => Hash::make(str_random(32)),
+        'password_hash' => Hash::make(Str::random(40)),
     ];
 });

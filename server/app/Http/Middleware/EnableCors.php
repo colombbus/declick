@@ -15,7 +15,7 @@ class EnableCors
         }
         $response->header('Access-Control-Allow-Origin', '*');
         $response->header('Access-Control-Allow-Methods',
-            'GET, DELETE, PATCH, POST, PUT');
+            'GET, DELETE, PATCH, POST, PUT, OPTION');
         $response->header('Access-Control-Allow-Headers',
             'Authorization, Content-Type, Origin');
         return $response;
