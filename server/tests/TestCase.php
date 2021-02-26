@@ -35,7 +35,12 @@ class TestCase extends Laravel\Lumen\Testing\TestCase
     // circuit test
     public function testGetCircuits()
     {
-        $this->GET("api/v1/circuits")->seeJson(['name' => "Bob & Max"]);
+        
+        $this->GET("api/v1/circuits")
+            ->seeJson(['name' => "Bob & Max"])
+            ->seeJson(['short_description' => "Apprends à créer un petit jeu de plateforme avec un seul personnage."])
+            ->seeJson(['id' => 1]);
+
         $this->GET("api/v1/circuits/1")->seeJson(['name' => "Bob & Max"]);
         $this->GET("api/v1/circuits/1/nodes")->seeJson(['name' => "Quelques rappels"]);
         $this->GET("api/v1/circuits/1/nodes/1")->seeJson(['name' => null]);
