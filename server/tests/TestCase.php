@@ -1,5 +1,7 @@
 <?php
 
+// use Database\Factories\UserFactory;
+use App\User;
 
 class TestCase extends Laravel\Lumen\Testing\TestCase
 {
@@ -18,17 +20,27 @@ class TestCase extends Laravel\Lumen\Testing\TestCase
 
     public function testGetNotLoged()
     {
-        $this->GET("api/v1/users")->seeJson(['current_page' => 1]);
+        $this->GET("api/v1/users")
+            ->seeJson(['current_page' => 1])
+            ->seeJson(['per_page' => 14]);
+
         $this->GET("api/v1/users/1")->seeJson(['username' => "benoit"]);
     }
 
-    // public function testAllLoged()
-    // {
-    //     $user = factories('App\User')->create();
+    public function testAllLoged()
+    {
+        // $user = User::create([
+        //     "username" => "test",
+        //     "password_hash" =>"test"
+        // ]);
+        // $user = Faker::factories('User')->create();
 
-    //     $this->actingAs($user)
-    //         ->get('/user');
-    // }
+        // var_dump($user);
+
+
+        // $this->actingAs($user)
+        //     ->get('/user');
+    }
 
 
     // circuit test
