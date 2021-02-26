@@ -2,7 +2,8 @@
 
 [![pipeline status](https://gitlab.com/colombbus/declick/badges/dev/pipeline.svg)](https://gitlab.com/colombbus/declick/-/commits/dev)
 
-## usage
+
+## usage
 
 [Declick platform](https://gitlab.com/colombbus/declick) is a software aims to learn programming.
 
