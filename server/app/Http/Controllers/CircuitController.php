@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
+use Illuminate\Support\Arr;
 
 use App\Circuit;
 use App\CircuitNode;
@@ -16,7 +17,7 @@ class CircuitController extends Controller
 
     public function create(Request $request)
     {
-        $values = array_only($request->input(), [
+        $values = Arr::only($request->input(), [
             'name',
             'short_description',
             'description'

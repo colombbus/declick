@@ -5,6 +5,8 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use Illuminate\filesystem\Filesystem;
 
+use Illuminate\Support\Arr;
+
 use App\Project;
 use App\ProjectResource;
 
@@ -28,7 +30,7 @@ class ProjectResourceController extends Controller
             'media_type' => 'required|max:255',
         ]);
 
-        $values = array_only($request->input(), [
+        $values = Arr::only($request->input(), [
             'file_name',
             'media_type',
         ]);
@@ -56,7 +58,7 @@ class ProjectResourceController extends Controller
             'media_type' => 'max:255',
         ]);
 
-        $values = array_only($request->input(), [
+        $values = Arr::only($request->input(), [
             'file_name',
             'media_type',
         ]);

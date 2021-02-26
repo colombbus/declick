@@ -3,6 +3,8 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
+use Illuminate\Support\Arr;
+
 
 use App\Project;
 use App\ProjectResource;
@@ -22,7 +24,7 @@ class ProjectController extends Controller
 
         $owner = $request->user();
 
-        $values = array_only($request->input(), [
+        $values = Arr::only($request->input(), [
             'name',
             'is_exercise',
             'is_public',
@@ -50,7 +52,7 @@ class ProjectController extends Controller
             'name' => 'max:255',
         ]);
 
-        $values = array_only($request->input(), [
+        $values = Arr::only($request->input(), [
             'name',
             'is_exercise',
             'is_public',

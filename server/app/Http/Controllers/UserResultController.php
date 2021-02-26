@@ -4,6 +4,8 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 
+use Illuminate\Support\Arr;
+
 use App\User;
 use App\UserResult;
 
@@ -31,7 +33,7 @@ class UserResultController extends Controller
         }
         */
 
-        $values = array_only($request->input(), [
+        $values = Arr::only($request->input(), [
             'step_id',
             'passed',
             'solution'

@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
+use Illuminate\Support\Arr;
 
 use App\Circuit;
 use App\CircuitNode;
@@ -20,7 +21,7 @@ class CircuitNodeController extends Controller
     {
         $circuit = Circuit::findOrFail($circuitId);
 
-        $values = array_only($request->input(), [
+        $values = Arr::only($request->input(), [
             'name',
             'link',
             'parent_id',
@@ -43,7 +44,7 @@ class CircuitNodeController extends Controller
 
         $node = CircuitNode::findOrFail($nodeId);
 
-        $values = array_only($request->input(), [
+        $values = Arr::only($request->input(), [
             'name',
             'link',
             'parent_id',

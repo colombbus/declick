@@ -5,9 +5,11 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Str;
+use Illuminate\Support\Arr;
 
 use App\Authorization;
 use App\User;
+
 
 class AuthorizationController extends Controller
 {
@@ -41,7 +43,7 @@ class AuthorizationController extends Controller
             return response(['errors' => $errors], 400);
         }
 
-        $filters = array_only($request->input(), ['username']);
+        $filters = Arr::only($request->input(), ['username']);
 
         $owner = User::where($filters)->first();
         if ($owner === null) {

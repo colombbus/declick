@@ -16,34 +16,51 @@ class TestCase extends Laravel\Lumen\Testing\TestCase
 
     // users test
 
-    public function testGetHome()
+    public function testGetNotLoged()
     {
         $this->GET("api/v1/users")->seeJson(['current_page' => 1]);
         $this->GET("api/v1/users/1")->seeJson(['username' => "benoit"]);
-
     }
 
-    public function testApplication()
-    {
-        $user = factories('App\User')->create();
+    // public function testAllLoged()
+    // {
+    //     $user = factories('App\User')->create();
 
-        $this->actingAs($user)
-            ->get('/user');
-    }
+    //     $this->actingAs($user)
+    //         ->get('/user');
+    // }
 
 
     // circuit test
     public function testGetCircuits()
     {
-        
+
         $this->GET("api/v1/circuits")
             ->seeJson(['name' => "Bob & Max"])
             ->seeJson(['short_description' => "Apprends à créer un petit jeu de plateforme avec un seul personnage."])
             ->seeJson(['id' => 1]);
 
-        $this->GET("api/v1/circuits/1")->seeJson(['name' => "Bob & Max"]);
-        $this->GET("api/v1/circuits/1/nodes")->seeJson(['name' => "Quelques rappels"]);
-        $this->GET("api/v1/circuits/1/nodes/1")->seeJson(['name' => null]);
-        $this->GET("api/v1/circuits/1/nodes/1/children")->seeJson(['name' => "Création d'un compte"]);
+        $this->GET("api/v1/circuits/1")
+            ->seeJson(['name' => "Bob & Max"])
+            ->seeJson(['short_description' => "Apprends à créer un petit jeu de plateforme avec un seul personnage."])
+            ->seeJson(['id' => 1]);
+
+        $this->GET("api/v1/circuits/1/nodes")
+            ->seeJson(['name' => "Création d'un compte"])
+            ->seeJson(['name' => "Quelques rappels"])
+            ->seeJson(['name' => "Robot"]);
+
+        $this->GET("api/v1/circuits/1/nodes/2")
+            ->seeJson(['id' => 2])
+            ->seeJson(['name' => "Création d'un compte"])
+            ->seeJson(['parent_id' => 1]);
+
+        $this->GET("api/v1/circuits/1/nodes/1/children")
+            ->seeJson(['id' => 2])
+            ->seeJson(['name' => "Création d'un compte"])
+            ->seeJson(['parent_id' => 1])
+            ->seeJson(['id' => 3])
+            ->seeJson(['name' => "Quelques rappels"])
+            ->seeJson(['position' => 1]);
     }
 }
