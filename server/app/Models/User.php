@@ -1,6 +1,6 @@
 <?php
 
-namespace App;
+namespace App\Models;
 
 use Laravel\Lumen\Auth\Authorizable;
 use Illuminate\Database\Eloquent\Model;
@@ -37,27 +37,27 @@ class User extends Model implements AuthorizableContract
 
     public function authorizations()
     {
-        return $this->hasMany('App\Authorization', 'owner_id');
+        return $this->hasMany('App\Models\Authorization', 'owner_id');
     }
 
     public function projects()
     {
-        return $this->hasMany('App\Project', 'owner_id');
+        return $this->hasMany('App\Models\Project', 'owner_id');
     }
 
     public function defaultProject()
     {
-        return $this->belongsTo('App\Project', 'default_project_id');
+        return $this->belongsTo('App\Models\Project', 'default_project_id');
     }
 
     public function currentProject()
     {
-        return $this->belongsTo('App\Project', 'current_project_id');
+        return $this->belongsTo('App\Models\Project', 'current_project_id');
     }
 
     public function results()
     {
-        return $this->hasMany('App\UserResult', 'user_id');
+        return $this->hasMany('App\Models\UserResult', 'user_id');
     }
 
     public function attributesToArray()

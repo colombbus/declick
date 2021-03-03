@@ -2,8 +2,8 @@
 
 namespace App\Policies;
 
-use App\Authorization;
-use App\User;
+use App\Models\Authorization;
+use App\Models\User;
 
 class AuthorizationPolicy
 {

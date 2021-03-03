@@ -1,6 +1,6 @@
 <?php
 
-namespace App;
+namespace App\Models;
 
 use Illuminate\Database\Eloquent\Model;
 
@@ -26,6 +26,6 @@ class Authorization extends Model
 
     public function owner()
     {
-        return $this->belongsTo('App\User', 'owner_id')->first();
+        return $this->belongsTo('App\Models\User', 'owner_id')->first();
     }
 }

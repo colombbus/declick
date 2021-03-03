@@ -5,8 +5,7 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use Illuminate\Support\Arr;
 
-use App\Circuit;
-use App\CircuitNode;
+use App\Models\Circuit;
 
 class CircuitController extends Controller
 {

@@ -1,6 +1,6 @@
 <?php
 
-namespace App;
+namespace App\Models;
 
 use Illuminate\Database\Eloquent\Model;
 
@@ -33,12 +33,12 @@ class Project extends Model
 
     public function owner()
     {
-        return $this->belongsTo('App\User', 'owner_id')->first();
+        return $this->belongsTo('App\Models\User', 'owner_id')->first();
     }
 
     public function resources()
     {
-        return $this->hasMany('App\ProjectResource');
+        return $this->hasMany('App\Models\ProjectResource');
     }
 
     public function isDefault()
@@ -52,7 +52,7 @@ class Project extends Model
 
     public function mainProject()
     {
-        return $this->belongsTo('App\ProjectResource', 'main_program_id');
+        return $this->belongsTo('App\Models\ProjectResource', 'main_program_id');
     }
 
     public function attributesToArray()

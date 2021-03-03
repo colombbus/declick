@@ -38,7 +38,8 @@
             "@php -r \"file_exists('.env') || copy('.env.example', '.env');\""
         ],
         "test": [
-            "@php vendor/phpunit/phpunit/phpunit tests/TestCase.php"
+            "@php vendor/phpunit/phpunit/phpunit Tests/TestRoutes.php",
+            "@php vendor/phpunit/phpunit/phpunit Tests/Controllers/TestAuthorizationController.php"
         ]
     }
 }

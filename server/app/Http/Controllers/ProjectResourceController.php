@@ -7,8 +7,8 @@ use Illuminate\filesystem\Filesystem;
 
 use Illuminate\Support\Arr;
 
-use App\Project;
-use App\ProjectResource;
+use App\Models\Project;
+use App\Models\ProjectResource;
 
 class ProjectResourceController extends Controller
 {

@@ -6,8 +6,8 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Arr;
 
 
-use App\Project;
-use App\ProjectResource;
+use App\Models\Project;
+use App\Models\ProjectResource;
 
 class ProjectController extends Controller
 {

@@ -1,6 +1,6 @@
 <?php
 
-namespace App;
+namespace App\Models;
 
 use Illuminate\Database\Eloquent\Model;
 
@@ -14,12 +14,12 @@ class UserResult extends Model
 
     public function user()
     {
-        return $this->belongsTo('App\User', 'user_id');
+        return $this->belongsTo('App\Models\User', 'user_id');
     }
 
     public function step()
     {
-        return $this->belongsTo('App\CircuitNode', 'step_id');
+        return $this->belongsTo('App\Models\CircuitNode', 'step_id');
     }
 
     public function attributesToArray()

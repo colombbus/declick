@@ -6,14 +6,15 @@ use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Gate;
 use Illuminate\Support\ServiceProvider;
 
-use App\Authorization;
 use App\Policies\AuthorizationPolicy;
 use App\Policies\ProjectPolicy;
 use App\Policies\ProjectResourcePolicy;
 use App\Policies\UserPolicy;
-use App\Project;
-use App\ProjectResource;
-use App\User;
+
+use App\Models\Authorization;
+use App\Models\Project;
+use App\Models\ProjectResource;
+use App\Models\User;
 
 class AuthorizationServiceProvider extends ServiceProvider
 {
@@ -30,7 +31,20 @@ class AuthorizationServiceProvider extends ServiceProvider
         Gate::policy(User::class, UserPolicy::class);
 
         Auth::viaRequest('api', function ($request) {
-            $headers = getallheaders();
+            if (!function_exists('getallheaders')) {
+                function getallheaders()
+                {
+                    $headers = [];
+                    foreach ($_SERVER as $name => $value) {
+                        if (substr($name, 0, 5) == 'HTTP_') {
+                            $headers[str_replace(' ', '-', ucwords(strtolower(str_replace('_', ' ', substr($name, 5)))))] = $value;
+                        }
+                    }
+                    // return $headers;
+                }
+            } else {
+                $headers = getallheaders();
+            }
 
             if (isset($headers['Authorization'])) {
 

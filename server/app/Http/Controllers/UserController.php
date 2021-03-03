@@ -8,7 +8,7 @@ use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Arr;
 
 
-use App\User;
+use App\Models\User;
 
 class UserController extends Controller
 {
@@ -42,7 +42,12 @@ class UserController extends Controller
         $values['password_hash'] = Hash::make($request->input(['password']));
         $user = User::create($values);
 
-        $project = $user->projects()->create([]);
+        $project = $user->projects()->create([
+                "name"=>"defaut",
+                "description"=>"",
+                "instructions"=>""
+                ]);
+                
         $user->defaultProject()->associate($project);
         $user->save();
 

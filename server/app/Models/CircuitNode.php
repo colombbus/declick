@@ -1,6 +1,6 @@
 <?php
 
-namespace App;
+namespace App\Models;
 
 use Illuminate\Database\Eloquent\Model;
 
@@ -29,7 +29,7 @@ class CircuitNode extends Model
 
     public function children()
     {
-        return $this->hasMany('App\CircuitNode', 'parent_id');
+        return $this->hasMany('App\Models\CircuitNode', 'parent_id');
     }
 
     public function attributesToArray()

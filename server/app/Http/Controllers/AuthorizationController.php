@@ -7,8 +7,8 @@ use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Str;
 use Illuminate\Support\Arr;
 
-use App\Authorization;
-use App\User;
+use App\Models\Authorization;
+use App\Models\User;
 
 
 class AuthorizationController extends Controller

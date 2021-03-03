@@ -2,9 +2,9 @@
 
 namespace App\Policies;
 
-use App\Project;
-use App\ProjectResource;
-use App\User;
+use App\Models\Project;
+use App\Models\ProjectResource;
+use App\Models\User;
 
 class ProjectResourcePolicy
 {

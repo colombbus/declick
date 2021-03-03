@@ -1,6 +1,6 @@
 <?php
 
-namespace App;
+namespace App\Models;
 
 use Illuminate\Database\Eloquent\Model;
 
@@ -28,11 +28,11 @@ class Circuit extends Model
 
     public function rootNode()
     {
-        return $this->belongsTo('App\CircuitNode', 'root_node_id');
+        return $this->belongsTo('App\Models\CircuitNode', 'root_node_id');
     }
 
     public function nodes()
     {
-        return $this->hasMany('App\CircuitNode');
+        return $this->hasMany('App\Models\CircuitNode');
     }
 }
