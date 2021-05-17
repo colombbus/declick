@@ -29,7 +29,7 @@ module.exports = function (grunt) {
                         },
                         {
                             name:'learn_scorm',
-                            exclude: ['jquery', 'simplify-scorm', 'json', 'jquery-ui/core', 'jquery-ui/widget', 'jquery-ui/draggable', 'jquery-ui/mouse', 'split-pane', 'ace/ace', 'ace/autocomplete', 'ace/range', 'iframe-transport', 'fileupload', 'wColorPicker', 'wPaint', 'wPaint/plugins/main', 'wPaint/plugins/text', 'wPaint/plugins/shapes', 'wPaint/plugins/flip', 'wPaint/plugins/file', 'prism', 'babylon', 'objects', 'introjs']
+                            exclude: ['jquery', 'json', 'jquery-ui/core', 'jquery-ui/widget', 'jquery-ui/draggable', 'jquery-ui/mouse', 'split-pane', 'ace/ace', 'ace/autocomplete', 'ace/range', 'iframe-transport', 'fileupload', 'wColorPicker', 'wPaint', 'wPaint/plugins/main', 'wPaint/plugins/text', 'wPaint/plugins/shapes', 'wPaint/plugins/flip', 'wPaint/plugins/file', 'prism', 'babylon', 'objects', 'introjs']
                         },
                         {
                             name:'execute',
