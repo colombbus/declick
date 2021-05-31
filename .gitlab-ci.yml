@@ -1,5 +1,6 @@
+# check syntax CI :
+# https://gitlab.com/colombbus/declick/-/ci/lint
 image: alefesouza/php7-laravel-node-yarn
-
 services:
   - mysql
 
@@ -23,6 +24,7 @@ cache:
 stages:
   - test
   # - build
+  - deploy_QA_clean
   - deploy
 
 unit_test_objects:
@@ -75,7 +77,7 @@ unit_test_runtime:
 #     - client/dist
 
 deploy_QA_clean:
-  stage: deploy
+  stage: deploy_QA_clean
   environment:
     name: staging
     url: '$QA_URL'
