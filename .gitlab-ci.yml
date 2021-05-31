@@ -90,8 +90,7 @@ deploy_QA_clean:
 
 deploy_QA_client:
   stage: deploy
-  needs:
-    - job: deploy_QA_clean
+  needs: ["deploy_QA_clean"]
   environment:
     name: staging
     url: '$QA_URL'
@@ -119,8 +118,7 @@ deploy_QA_client:
 
 deploy_QA_server:
   stage: deploy
-  needs:
-    - job: deploy_QA_clean
+  needs: ["deploy_QA_clean"]
   environment:
     name: staging
     url: '$QA_URL'
