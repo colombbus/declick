@@ -9,3 +9,4 @@ server/storage/app/projects
 client/ui/dist/*
 client/ui/config/index.js
 builder/*
+**.DS_Store
