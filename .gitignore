@@ -9,3 +9,5 @@ client/dist/*
 client/src/assets/config/declick.js
 client/public/regis/
 client/src/assets/js/config.js
+client/src/assets/styles/bootstrap-scss/
+moodle.sh
