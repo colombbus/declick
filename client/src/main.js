@@ -3,6 +3,15 @@ import './registerServiceWorker'
 import Vue from 'vue'
 import { mapActions } from 'vuex'
 import VueSEO from 'vue-analytics'
+import { BootstrapVue, IconsPlugin } from 'bootstrap-vue'
+import ToggleButton from 'vue-js-toggle-button'
+
+import './assets/styles/bootstrap-scss/dist/bootstrap.css'
+import 'bootstrap-vue/dist/bootstrap-vue.css'
+
+Vue.use(ToggleButton)
+Vue.use(BootstrapVue)
+Vue.use(IconsPlugin)
 
 import Application from '@/Application'
 import config from '@/config'
