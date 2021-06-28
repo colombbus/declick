@@ -1,87 +1,27 @@
+@import "~@fortawesome/fontawesome-free/scss/fontawesome.scss";
+@import "~@fortawesome/fontawesome-free/css/all.css";
+
+$fa-font-path: "~font-awesome/webfonts";
+
+////////////////// CONSTANT TO REMOVE : css variables should be used everywhere
 $crimson: #e32c20;
 $cab-sav: #480a2a;
 $red-violet: #de1580;
 $white: #fff;
 $wine-berry: #531937;
+$wine-berry-light: #6e3a51;
 $valid-color: #2e962e;
 $robot-face: #f4b39b;
 $delete-color: #d9534f;
 $border-color: #ddd;
-$declick-yellow:#d1d718;
+$declick-yellow: #d1d718;
 
 $size-1: 4px;
 $size-2: 8px;
 $size-3: 16px;
 $size-4: 32px;
 
-@import "~@fortawesome/fontawesome-free/scss/fontawesome.scss";
-@import "~@fortawesome/fontawesome-free/css/all.css";
-
-a {
-    text-decoration: none;
-
-    &:hover {
-        text-decoration: underline;
-    }
-}
-
-.container {
-    width: 800px;
-    margin-left: auto;
-    margin-right: auto;
-}
-
-.btn {
-    display: inline-block;
-    max-height: max-content;
-    align-items: center;
-    border: 0;
-    border-radius: $size-1;
-    padding: $size-2;
-    margin-right: $size-2;
-    text-decoration: none;
-    font-size: 14px;
-    border: 1px solid $cab-sav;
-    color: $cab-sav;
-    background: transparent;
-    font-family: 'Arial';
-
-    &.btn-default {
-        // background-color: $cab-sav;
-        // color: $white;
-
-        &:hover {
-            // background-color: $wine-berry;
-            // color: $white;
-            text-decoration: none;
-        }
-    }
-
-    &.btn-danger {
-        background-color: $delete-color;
-        color: $white;
-    }
-
-    &.btn-primary {
-        background-color: $valid-color;
-        color: $white;
-    }
-}
-
-.tag {
-    display: inline-block;
-    color: $cab-sav;
-    padding: $size-1;
-    border: 1px solid $cab-sav;
-    border-radius: $size-1;
-    text-decoration: none;
-
-    &:hover {
-        text-decoration: none;
-    }
-}
-
-$fa-font-path: "~font-awesome/webfonts";
+////////////////// END CONSTANT TO REMOVE
 
 @font-face {
     font-family: "Rubik";
@@ -93,10 +33,162 @@ $fa-font-path: "~font-awesome/webfonts";
     font-style: normal;
 }
 
+@font-face {
+    font-family: "Raleway Regular";
+    src: url(~@/assets/fonts/Raleway-Regular.ttf) format("truetype");
+    font-weight: normal;
+    font-style: normal;
+}
+
+//////////////////////
+// DECLICK CONSTANTS
+//////////////////////
+
+// theme color architecture based on :
+// https://css-tricks.com/a-complete-guide-to-dark-mode-on-the-web/#toggling-themes
+:root {
+    color-scheme: light dark;
+    --indigo-hover: #480a2a44;
+}
+
+// GENERAL UNTHEMED CONSTANTS : DARK & LIGHT
+body {
+    --body-bg: #fafafa;
+    --body-color: var(--indigo);
+    --link-color: #e32c20cc;
+    --link-color-hover:#e32c20;
+}
+
+// DARK MODE USER SELECTED
+body.dark-theme {
+    --body-bg: #212529;
+    --body-color: #b5bbc0;
+}
+
+// LIGHT MODE
+// @media (prefers-color-scheme: light) {
+//     /* defaults to dark theme
+//     body {
+//         --body-color: #eee;
+//         --body-bg: #121212;
+//     }
+
+//     body.light-theme {
+//         --body-color: #222;
+//         --body-bg: #fff;
+//     }
+// }
+
+// DARK MODE FROM SYSTEM PREFS
+@media (prefers-color-scheme: dark) {
+    /* defaults to dark theme */
+    body {
+        --body-color: #eee;
+        --body-bg: #121212;
+    }
+
+    body.light-theme {
+        --body-color: var(--indigo);
+        --body-bg: #fff;
+    }
+}
+
+//////////////////////
+// DECLICK STYLES
+//////////////////////
+* {
+    font-family: "Raleway Regular", Arial, Helvetica, sans-serif;
+}
+
+body {
+    background: var(--body-bg);
+    color: var(--body-color);
+    // overflow-x: hidden;
+}
+
+a:hover {
+    color: var(--link-color-hover);
+}
+
+a {
+    font-family: "Raleway Regular";
+    color: var(--link-color);
+}
+
 html, body {
     height: 100%;
     margin: 0;
     padding: 0;
-    font-family: Arial;
-    overflow-x: hidden;
 }
+
+// code {
+//     background-color: black;
+//     border-radius: 4px;
+//     padding: 4px;
+// }
+
+// .card-body {
+//     // can be displayed in dark/light
+//     background-color: #480a2aBB;
+// }
+
+// @media (prefers-color-scheme: light) {
+//     body {
+//         background-color: var(--white);
+//         color: var(--indigo);
+//     }
+
+//     .card-body {
+//         color: var(--light);
+//     }
+// }
+
+// @media (prefers-color-scheme: dark) {
+//     body {
+//         background-color: var(--dark);
+//         color: var(--light);
+//     }
+
+//     pre {
+//         background-color: black;
+//         color: var(--light);
+//     }
+
+//     img {
+//         // img slightly desaturate for UX
+//         filter: grayscale(20%);
+//         opacity: .75;
+//         transition: opacity .5s ease-in-out;
+
+//         &:hover {
+//             opacity: 1;
+//         }
+//     }
+
+    .card {
+        background-color: unset;
+    }
+
+//     .jumbotron {
+//         background-color: var(--indigo);
+//     }
+
+//     .list-group-item.disabled,
+//     .list-group-item {
+//         background-color: transparent;
+//     }
+
+//     .list-group-item:hover {
+//         background-color: #8888881F;
+//     }
+// }
+
+// body.dark-theme {
+//     background-color: var(--dark);
+//     color: var(--light);
+// }
+
+// body {
+//     background-color: var(--white);
+//     color: var(--indigo);
+// }
