@@ -51,6 +51,9 @@ export default {
       // editor session
       this.editSession = this.editor.getSession()
       this.editSession.setMode('ace/mode/javascript')
+      this.editSession.setValue(
+        'bob = new Robot();\nbob.avancer(1);\nbob.descendre(1);\n',
+      )
       this.editSession.on(
         'change',
         debounce(() => {
