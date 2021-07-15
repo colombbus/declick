@@ -9,3 +9,5 @@ server/storage/app/projects
 client/ui/dist/*
 client/ui/config/index.js
 builder/*
+client/ui/src/assets/config/declick.local.js
+client/ui/src/assets/config/declick.prod.js
