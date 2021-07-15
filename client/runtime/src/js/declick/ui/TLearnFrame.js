@@ -234,6 +234,9 @@ define(['ui/TComponent', 'jquery', 'ui/TLearnCanvas', 'ui/TLearnEditor', 'TRunti
 
                 var step_id = getparams.match(/&project-id=(\d*)/)[1]
                 url = TEnvironment.getConfig('backend-path')+"token/"+token+"/step-id/"+step_id+"/get-results"
+                if (token === null) {
+                    return
+                }
                 $.ajax({
                     type: "GET",
                     url: url,
