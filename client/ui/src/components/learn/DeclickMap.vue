@@ -63,11 +63,11 @@ export default {
   ]),
   mounted() {
     // TODO: Find a better solution.
+    // let robotPath = require('../../assets/images/map-robot.svg');
     let robotPath =
       __webpack_public_path__ + // eslint-disable-line camelcase
       // config.basePath +
-      "/ui/map-robot.svg";
-    // let robotPath = require('../../assets/images/map-robot.svg');
+      "/map-robot.svg";
     map.init(
       "map",
       robotPath,
