@@ -63,12 +63,11 @@ export default {
   ]),
   mounted() {
     // TODO: Find a better solution.
-    // let robotPath =
-    //   __webpack_public_path__ + // eslint-disable-line camelcase
-    //   // config.basePath +
-    //   "/ui/map-robot.svg";
-    let robotPath = require('../../assets/images/map-robot.svg');
-    // console.log(robotPath)
+    let robotPath =
+      __webpack_public_path__ + // eslint-disable-line camelcase
+      // config.basePath +
+      "/ui/map-robot.svg";
+    // let robotPath = require('../../assets/images/map-robot.svg');
     map.init(
       "map",
       robotPath,
@@ -171,9 +170,13 @@ export default {
   background-color: red;
   color: white;
 }
+
+/*
 #popinResetCircuits #annulation {
-  /* background-color: blue; */
+  color: blue;
 }
+*/
+
 #popinResetCircuits {
   position: absolute;
   top: 0;
