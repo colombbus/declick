@@ -12,8 +12,8 @@
       <div>
         <p class="mapHelp alignCenter">
           Attention ! Cette action supprimera l'ensemble des réponses du parcours<br>
-          <input type="button" id="validation" value="Confirmer" @click="resetCircuitResult">
-          <input type="button" id="annullation" value="Annuler" @click="showRest = false">
+          <input type="button" id="validation" value="Tous effacer" @click="resetCircuitResult">
+          <input type="button" id="annulation" value="Annuler" @click="showRest = false">
         </p>
 
       </div>
@@ -167,11 +167,12 @@ export default {
 .alignCenter {
   text-align: center;
 }
-#popinResetCircuits #validation:hover {
-  color: green;
+#popinResetCircuits #validation {
+  background-color: red;
+  color: white;
 }
-#popinResetCircuits #annullation:hover {
-  color: red;
+#popinResetCircuits #annulation {
+  /* background-color: blue; */
 }
 #popinResetCircuits {
   position: absolute;
