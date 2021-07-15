@@ -207,7 +207,7 @@ export default {
 
 .main-menu--sticky
   position: absolute
-  top: 0
+  top: -7px
   width: 100%
 
 // small devices
