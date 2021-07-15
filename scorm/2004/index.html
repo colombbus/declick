@@ -1,0 +1,85 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Declick</title>
+  <script src="scorm.js" type="text/javascript"></script>
+  <style>
+    html, body {
+      height:100%;
+    }
+
+    #frame {
+      height:100%;
+      width:100%;
+    }
+  </style>
+  <script type="text/javascript">
+    var frame = null;
+    var exerciseId;
+
+    function init() {
+      frame = document.getElementById("frame");
+      //initialize communication with the LMS
+      ScormProcessInitialize();
+      exerciseId = ScormProcessGetValue("cmi.launch_data");
+      console.log('received exercise id: '+exerciseId);
+      if (exerciseId !== undefined) {
+        frame.src = "https://www.declick.net/client/learn_scorm.html#id="+exerciseId;
+      }
+    }
+
+    function handleMessage(event) {
+      var message = event.data;
+      if (message.action !== undefined) {
+        switch(message.action) {
+          case "init":
+            var previousInput = ScormProcessGetLearnerResponse(exerciseId);
+            if (previousInput !== undefined) {
+              frame.contentWindow.postMessage({action:"load", data:previousInput}, "*");
+            }
+            break;
+          case "save":
+            var input = message.data;
+            if (input !== undefined) {
+              ScormProcessSetLearnerResponse(exerciseId, input);
+            }
+            break;
+          case "approve":
+            ScormProcessSetValue("cmi.success_status", "passed");
+            ScormProcessSetValue("cmi.completion_status", "completed");
+            if (message.save !== undefined && message.save && message.data !== undefined) {
+              ScormProcessSetLearnerResponse(exerciseId, message.data);
+            }
+            if (message.close !== undefined && message.close) {
+              ScormProcessSetValue("adl.nav.request", "continue");
+              ScormProcessTerminate();
+            }
+            break;
+          case "close":
+            ScormProcessSetValue("adl.nav.request", "continue");
+            ScormProcessTerminate();
+            break;
+        }
+      }
+    }
+
+    function unload() {
+      ScormProcessSetValue("cmi.exit", "suspend");
+      ScormProcessTerminate();
+    }
+
+    window.addEventListener("DOMContentLoaded", init);
+    window.addEventListener("message", handleMessage);
+    window.addEventListener("onbeforeunload", unload);
+
+</script>
+</head>
+<body>
+<iframe src="" frameborder="0" id="frame">
+
+</iframe>
+</body>
+</html>

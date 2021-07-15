@@ -1,4 +1,4 @@
-define(['ui/TComponent', 'TParser', 'ui/TLog', 'TEnvironment', 'TUtils', 'TRuntime', 'jquery', 'ace/ace', 'ace/autocomplete', 'ace/range', 'platform-pr', 'objects'], function (TComponent, TParser, TLog, TEnvironment, TUtils, TRuntime, $, ace, ace_autocomplete, ace_range) {
+define(['ui/TComponent', 'TParser', 'ui/TLog', 'TEnvironment', 'TUtils', 'TRuntime', 'jquery', 'ace/ace', 'ace/autocomplete', 'ace/range', 'objects'], function (TComponent, TParser, TLog, TEnvironment, TUtils, TRuntime, $, ace, ace_autocomplete, ace_range) {
     /**
      * TLearnEditor is like TEditor, but adapted to "Learn" part of Declick.
      * @exports TLearnEditor
@@ -58,7 +58,7 @@ define(['ui/TComponent', 'TParser', 'ui/TLog', 'TEnvironment', 'TUtils', 'TRunti
                 name: "save",
                 bindKey: { win: "Ctrl-S", mac: "Command-S" },
                 exec: function (arg) {
-                    // platform.validate("stay");
+                  //TODO: save current value?
                 }
             });
 

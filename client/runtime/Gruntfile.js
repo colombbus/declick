@@ -28,6 +28,10 @@ module.exports = function (grunt) {
                             exclude: ['jquery', 'platform-pr', 'json', 'jschannel', 'jquery-ui/core', 'jquery-ui/widget', 'jquery-ui/draggable', 'jquery-ui/mouse', 'split-pane', 'ace/ace', 'ace/autocomplete', 'ace/range', 'iframe-transport', 'fileupload', 'wColorPicker', 'wPaint', 'wPaint/plugins/main', 'wPaint/plugins/text', 'wPaint/plugins/shapes', 'wPaint/plugins/flip', 'wPaint/plugins/file', 'prism', 'babylon', 'objects', 'introjs']
                         },
                         {
+                            name:'learn_scorm',
+                            exclude: ['jquery', 'json', 'jquery-ui/core', 'jquery-ui/widget', 'jquery-ui/draggable', 'jquery-ui/mouse', 'split-pane', 'ace/ace', 'ace/autocomplete', 'ace/range', 'iframe-transport', 'fileupload', 'wColorPicker', 'wPaint', 'wPaint/plugins/main', 'wPaint/plugins/text', 'wPaint/plugins/shapes', 'wPaint/plugins/flip', 'wPaint/plugins/file', 'prism', 'babylon', 'objects', 'introjs']
+                        },
+                        {
                             name:'execute',
                             exclude: ['jquery', 'platform-pr', 'json', 'jquery-ui/core', 'jquery-ui/widget', 'jquery-ui/draggable', 'jquery-ui/mouse', 'split-pane', 'ace/ace', 'ace/autocomplete', 'ace/range', 'iframe-transport', 'fileupload', 'wColorPicker', 'wPaint', 'wPaint/plugins/main', 'wPaint/plugins/text', 'wPaint/plugins/shapes', 'wPaint/plugins/flip', 'wPaint/plugins/file', 'babylon', 'objects', 'introjs'],
                             include: ['TUI']
@@ -90,7 +94,7 @@ module.exports = function (grunt) {
     grunt.loadNpmTasks('grunt-contrib-requirejs');
     grunt.loadNpmTasks('grunt-front-end-modules');
     grunt.loadNpmTasks('grunt-cleanempty');
-    grunt.loadNpmTasks('grunt-html-build');    
+    grunt.loadNpmTasks('grunt-html-build');
     //grunt.loadNpmTasks('grunt-contrib-uglify');
     //grunt.loadNpmTasks('grunt-jsdoc');
 

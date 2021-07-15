@@ -1,0 +1,38 @@
+<?xml version="1.0" ?>
+<!--
+Manifest template to demonstrate the proper XML namespace declarations for
+SCORM 1.2 manifests.
+
+Provided by Rustici Software - www.scorm.com.
+-->
+<manifest identifier="colombbus.declick.learn" version="1"
+       xmlns="http://www.imsproject.org/xsd/imscp_rootv1p1p2"
+       xmlns:adlcp="http://www.adlnet.org/xsd/adlcp_rootv1p2"
+       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+       xsi:schemaLocation="http://www.imsproject.org/xsd/imscp_rootv1p1p2 imscp_rootv1p1p2.xsd
+                           http://www.imsglobal.org/xsd/imsmd_rootv1p2p1 imsmd_rootv1p2p1.xsd
+                           http://www.adlnet.org/xsd/adlcp_rootv1p2 adlcp_rootv1p2.xsd">
+	<metadata>
+		<schema>ADL SCORM</schema>
+		<schemaversion>1.2</schemaversion>
+	</metadata>
+	<organizations default="declick1.2">
+		<organization identifier="declick1.2">
+			<title>Declick SCORM 1.2</title>
+			<item identifier="item1" identifierref="resource1" isvisible="true">
+				<title>Minuscules</title>
+        <adlcp:datafromlms>9</adlcp:datafromlms>
+			</item>
+			<item identifier="item2" identifierref="resource1" isvisible="true">
+				<title>Création</title>
+        <adlcp:datafromlms>10</adlcp:datafromlms>
+			</item>
+		</organization>
+	</organizations>
+	<resources>
+		<resource identifier="resource1" type="webcontent" adlcp:scormtype="sco" href="index.html">
+			<file href="index.html" />
+			<file href="scorm.js" />
+		</resource>
+	</resources>
+</manifest>
