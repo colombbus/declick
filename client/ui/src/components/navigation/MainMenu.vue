@@ -3,7 +3,7 @@ div.main-menu(:class='stateClass' ref='menu')
   button.main-menu__open(type='button' @click='open')
   button.main-menu__close(type='button' @click='close')
   ul.main-menu__list
-    li.main-menu__item: router-link.main-menu__link.main-menu__home(to='/') ACCUEIL
+    //- li.main-menu__item: router-link.main-menu__link.main-menu__home(to='/') ACCUEIL
     li.main-menu__item: router-link.main-menu__link(to='/progress') APPRENDRE
     li.main-menu__item: router-link.main-menu__link(to='/create') CRÉER
     li.main-menu__item: router-link.main-menu__link(to='/explore') JOUER
