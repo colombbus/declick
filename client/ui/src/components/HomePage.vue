@@ -1,13 +1,13 @@
 <template lang="pug">
 .home
-  .covid-wrapper(v-show="isPopupShown" @click="isPopupShown = false")
-    .covid-container
+  .pop-up-wrapper(v-show="isPopupShown" @click="isPopupShown = false")
+    .pop-up-container
       div
         p N'oubliez pas de créer votre compte. C'est gratuit !
         p clique sur OK pour continuer
         input(type='button', value='ok !')
   .home__presentation
-    h1 La plateforme Declick, développée par l'association Colombbus, est un outil pédagogique clé en main !
+    h1 La plateforme Declick : un outil pédagogique clé en main, développé par l'association Colombbus!
     p.
       En classe, en atelier ou à la maison, Declick permet d'aborder les bases de l'algorithmique et du code informatique et de les appliquer appliquer à travers des projets, individuels ou collectifs, d'applications ou de jeux vidéo.
     a(href="https://www.instagram.com/associationcolombbus/" target="_blank")
@@ -242,30 +242,7 @@ $vertical-gap: 40px
   margin-right: auto
   &, h4, h1
     font-size: 14pt
-.home__covid
-  font-size: 10pt
-  text-align: left
-  &-wrapper
-    display: flex
-    justify-content: center
-    img
-      width: 120px
-      margin-right: 30px
-  a
-    color: $robot-skin
-  .covid-action
-    display: block
-    background-color: $cab-sav
-    color: white
-    padding: 7px
-    font-size: 14pt
-    border-radius: 4px
-    margin: 0 auto
-    width: 220px
-    text-decoration: none
-    &:hover
-    &:focus
-      color: white
+
 hr.home__separation
   width: 100px
   background-color: $robot-skin
@@ -342,7 +319,7 @@ hr.home__separation
   height: 75px
   width: 90px
 
-.covid-wrapper
+.pop-up-wrapper
   position: fixed
   top: 0
   right: 0
@@ -352,7 +329,7 @@ hr.home__separation
   margin-bottom: 0
   z-index: 500
 
-.covid-container
+.pop-up-container
   width: 560px
   height: 250px
   position: relative
