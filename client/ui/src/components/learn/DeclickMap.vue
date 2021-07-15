@@ -12,7 +12,7 @@
       <div>
         <p class="mapHelp alignCenter">
           Attention ! Cette action supprimera l'ensemble des réponses du parcours<br>
-          <input type="button" id="validation" value="Tous effacer" @click="resetCircuitResult">
+          <input type="button" id="validation" value="Tout effacer" @click="resetCircuitResult">
           <input type="button" id="annulation" value="Annuler" @click="showRest = false">
         </p>
 
