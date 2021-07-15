@@ -154,7 +154,6 @@ export default {
 
 .main-menu__item
   display: inline-block
-  padding: 7px
   cursor: pointer
 
 
@@ -165,7 +164,11 @@ export default {
 .main-menu__home
   display: none
 
+.main-menu .main-menu__link:hover
+  background-color: #ffffff13
 .main-menu .main-menu__link
+  display: inline-block
+  padding: 7px
   font-size: 11pt
   font-weight: bold
   color: #fff
@@ -207,7 +210,7 @@ export default {
 
 .main-menu--sticky
   position: absolute
-  top: 0
+  top: -7px
   width: 100%
 
 // small devices

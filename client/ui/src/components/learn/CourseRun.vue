@@ -137,7 +137,7 @@ export default {
       // }
     },
     ...mapActions([
-      'currentAssessment',
+      // 'currentAssessment',
       'selectCourse',
       'selectAssessment',
       'selectNextAssessment',

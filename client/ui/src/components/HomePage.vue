@@ -3,11 +3,11 @@
   .covid-wrapper(v-show="isPopupShown" @click="isPopupShown = false")
     .covid-container
       div
-        p Nous travaillons sur des améliorations de la plateforme qui seront disponibles à partir du mois de Novembre 2020
+        p N'oubliez pas de créer votre compte. C'est gratuit !
         p clique sur OK pour continuer
         input(type='button', value='ok !')
   .home__presentation
-    h1 La plateforme Declick, développée chez l'association Colombbus, est un outil pédagogique clé en main !
+    h1 La plateforme Declick, développée par l'association Colombbus, est un outil pédagogique clé en main !
     p.
       En classe, en atelier ou à la maison, Declick permet d'aborder les bases de l'algorithmique et du code informatique et de les appliquer appliquer à travers des projets, individuels ou collectifs, d'applications ou de jeux vidéo.
     a(href="https://www.instagram.com/associationcolombbus/" target="_blank")

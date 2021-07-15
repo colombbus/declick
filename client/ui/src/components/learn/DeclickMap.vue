@@ -18,149 +18,162 @@
 
       </div>
     </div>
-
   </div>
 </template>
 
 <script>
 /* global __webpack_public_path__ */
 
-import Map from '../../assets/js/map.js'
-import {mapState, mapActions} from 'vuex'
+import Map from "../../assets/js/map.js";
+// import config from "../../assets/config/declick";
+import { mapState, mapActions } from "vuex";
 
-import Api from '../../api'
+import Api from "../../api";
 
-import mapConfig from './mapConfig'
+import mapConfig from "./mapConfig";
 
-var map = new Map()
+var map = new Map();
 
 export default {
-    //   metaInfo: {
-    //   // Children can override the title.
-    //   title: 'carte declick',
-    //   // Result: My Page Title ← My Site
-    //   // If a child changes the title to "My Other Page Title",
-    //   // it will become: My Other Page Title ← My Site
-    //   titleTemplate: '%s - Colombbus',
-    //   // Define meta tags here.
-    //   meta: [
-    //     {'http-equiv': 'Content-Type', content: 'text/html; charset=utf-8'},
-    //     {name: 'viewport', content: 'width=device-width, initial-scale=1'},
-    //     {vmid: 'description', name: 'description', content: 'termine le parcours'},
-    //   ]
-    // },
-  data () {
+  //   metaInfo: {
+  //   // Children can override the title.
+  //   title: 'carte declick',
+  //   // Result: My Page Title ← My Site
+  //   // If a child changes the title to "My Other Page Title",
+  //   // it will become: My Other Page Title ← My Site
+  //   titleTemplate: '%s - Colombbus',
+  //   // Define meta tags here.
+  //   meta: [
+  //     {'http-equiv': 'Content-Type', content: 'text/html; charset=utf-8'},
+  //     {name: 'viewport', content: 'width=device-width, initial-scale=1'},
+  //     {vmid: 'description', name: 'description', content: 'termine le parcours'},
+  //   ]
+  // },
+  data() {
     return {
-      showRest: false
-    }
+      showRest: false,
+    };
   },
   computed: mapState([
-    'currentAssessment',
-    'currentCourse',
-    'currentCourseResults',
-    'user',
-    'token'
+    "currentAssessment",
+    "currentCourse",
+    "currentCourseResults",
+    "user",
+    "token",
   ]),
-  mounted () {
+  mounted() {
     // TODO: Find a better solution.
-    let robotPath = __webpack_public_path__ + // eslint-disable-line camelcase
-      'static/map-robot.svg'
-      map.init('map', robotPath, (step) => {
-        this.selectAssessment({id: step.id})
+    // let robotPath =
+    //   __webpack_public_path__ + // eslint-disable-line camelcase
+    //   // config.basePath +
+    //   "/ui/map-robot.svg";
+    let robotPath = require('../../assets/images/map-robot.svg');
+    // console.log(robotPath)
+    map.init(
+      "map",
+      robotPath,
+      (step) => {
+        this.selectAssessment({ id: step.id });
         this.$router.push({
-          name: 'step',
+          name: "step",
           params: {
             id: this.$route.params.id,
-            assessmentId: step.id
-          }
-        })
-      }, () => {
+            assessmentId: step.id,
+          },
+        });
+      },
+      () => {
         // Load path
         map.loadPathFromUI(mapConfig, () => {
           // Load steps
-          this.loadSteps()
-        })
-      })
+          this.loadSteps();
+        });
+      }
+    );
   },
-  activated () {
+  activated() {
     if (this.currentAssessment) {
-      map.setCurrentStep(this.currentAssessment.id, false)
+      map.setCurrentStep(this.currentAssessment.id, false);
     }
   },
   watch: {
-    '$route' () {
-      this.initMap()
+    $route() {
+      this.initMap();
     },
-    'currentAssessment.id' () {
+    "currentAssessment.id"() {
       this.$router.push({
-        name: 'step',
+        name: "step",
         params: {
           id: this.$route.params.id,
-          assessmentId: this.currentAssessment.id
-        }
-      })
+          assessmentId: this.currentAssessment.id,
+        },
+      });
       this.$store.dispatch("loadCurrentCourseResults").then(() => {
         setTimeout(() => {
-          this.initMap()
-        }, 100)
-      })
+          this.initMap();
+        }, 100);
+      });
     },
     currentCourseResults: {
       handler: function (value) {
         if (value) {
-          map.setResults(value)
+          map.setResults(value);
         }
       },
       deep: true,
-      immediate: true
+      immediate: true,
     },
-    user () {
-      this.loadSteps()
+    user() {
+      this.loadSteps();
     },
   },
   methods: {
-    initMap () {
+    initMap() {
       // Load path
       map.loadPathFromUI(mapConfig, () => {
         // Load steps
-        this.loadSteps()
-      })
+        this.loadSteps();
+      });
     },
-    async resetCircuitResult () {
-      await Api.resetCircuitNodes(this.token, this.$route.params.id, this.user.id).then((r) => {
-        this.showRest = false
-        this.$store.dispatch("loadCurrentCourseResults")
+    async resetCircuitResult() {
+      await Api.resetCircuitNodes(
+        this.token,
+        this.$route.params.id,
+        this.user.id
+      ).then((r) => {
+        this.showRest = false;
+        this.$store.dispatch("loadCurrentCourseResults");
         setTimeout(() => {
-          this.initMap()
-        }, 250)
-      })
+          this.initMap();
+        }, 250);
+      });
     },
-    centeringMap () {
-      this.initMap()
+    centeringMap() {
+      this.initMap();
     },
-    async loadSteps () {
-      await this.selectCourse({id: this.$route.params.id})
-      map.loadStepsFromUI(this.currentCourse)
+    async loadSteps() {
+      await this.selectCourse({ id: this.$route.params.id });
+      map.loadStepsFromUI(this.currentCourse);
       if (this.currentCourseResults) {
-        map.setResults(this.currentCourseResults)
+        map.setResults(this.currentCourseResults);
       }
     },
-    ...mapActions(['selectCourse', 'selectAssessment'])
-  }
-}
+    ...mapActions(["selectCourse", "selectAssessment"]),
+  },
+};
 </script>
 
 <style lang="css">
-.alignCenter{
-  text-align: center 
+.alignCenter {
+  text-align: center;
 }
-#popinResetCircuits #validation:hover{
-  color: green
+#popinResetCircuits #validation:hover {
+  color: green;
 }
-#popinResetCircuits #annullation:hover{
-  color: red
+#popinResetCircuits #annullation:hover {
+  color: red;
 }
-#popinResetCircuits{
+#popinResetCircuits {
   position: absolute;
   top: 0;
   left: 0;
@@ -169,36 +182,37 @@ export default {
   display: flex;
   justify-content: center;
   align-items: center;
-  background: rgba(155,155,155,0.5);
+  background: rgba(155, 155, 155, 0.5);
   z-index: 999;
 }
 #declickMap {
-    background-color:#000000;
-    height: calc(100vh - 210px)
+  background-color: #000000;
+  height: calc(100vh - 210px);
 }
 #map {
-    width:100%;
-    height:100%;
-    background-color:#46102A;
-    margin-right:auto;
-    margin-left:auto;
+  width: 100%;
+  height: 100%;
+  background-color: #46102a;
+  margin-right: auto;
+  margin-left: auto;
 }
-#text,.mapHelp {
-    color:#FFFFFF;
+#text,
+.mapHelp {
+  color: #ffffff;
 }
-.mapHelp input{
-  background: #31383A;
+.mapHelp input {
+  background: #31383a;
   border-radius: 5px;
-  border:none;
+  border: none;
   padding: 5px 10px;
-  color: white
+  color: white;
 }
-.mapHelp input:hover{
-  background: #2B2F31;
+.mapHelp input:hover {
+  background: #2b2f31;
 }
-.mapHelp{
-  background-color: #46102A;
+.mapHelp {
+  background-color: #46102a;
   padding: 5px 5px;
-  margin: 0
+  margin: 0;
 }
 </style>
