@@ -254,7 +254,6 @@ export default {
     data,
     token
   ) {
-    
     let endpoint = `${config.apiUrl}v1/users/${userId}/results`
     let body = {
       step_id: assessmentId,
@@ -292,7 +291,7 @@ export default {
 
   async resetCircuitNodes (token, circuitId, userId) {
     let endpoint = `${config.apiUrl}v1/reset/${circuitId}/user-id/${userId}`
-    await Vue.http.delete(endpoint,{},{headers: {Authorization: 'Token ' + token}})
+    await Vue.http.delete(endpoint, {}, {headers: {Authorization: 'Token ' + token}})
   }
 }
 
