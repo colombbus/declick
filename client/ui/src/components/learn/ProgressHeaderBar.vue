@@ -146,6 +146,7 @@ export default {
   float: right;
   width: 42px;
   height: 42px;
+  margin-top: 3px;
   cursor: pointer;
   background-image: url('../../assets/img/carte.png');
 }
