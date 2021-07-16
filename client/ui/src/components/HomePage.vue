@@ -1,48 +1,57 @@
 <template lang="pug">
 .home
-  .pop-up-wrapper(v-show="isPopupShown" @click="isPopupShown = false")
+  .pop-up-wrapper(v-show="isPopupShown", @click="isPopupShown = false")
     .pop-up-container
       div
         p N'oubliez pas de créer votre compte. C'est gratuit !
         p clique sur OK pour continuer
-        input(type='button', value='ok !')
+        input(type="button", value="ok !")
   .home__presentation
     h1 La plateforme Declick : un outil pédagogique clé en main, développé par l'association Colombbus!
     p.
       En classe, en atelier ou à la maison, Declick permet d'aborder les bases de l'algorithmique et du code informatique et de les appliquer appliquer à travers des projets, individuels ou collectifs, d'applications ou de jeux vidéo.
-    a(href="https://www.instagram.com/associationcolombbus/" target="_blank")
+    a(href="https://www.instagram.com/associationcolombbus/", target="_blank")
       img.instaBannier(src="../assets/instaBannier.png")
   .home__box
-    img.home__robot-train(src='../assets/images/figures/robot-train.svg' alt="robot logo declick")
+    img.home__robot-train(
+      src="../assets/images/figures/robot-train.svg",
+      alt="robot logo declick"
+    )
     h3 les parcours
     p.
       La section « APPRENDRE » regroupe des parcours qui vous permettent
       d'assimiler progressivement des notions de programmation.
   .home__box
-    img.home__robot-idea(src='../assets/images/figures/robot-idea.svg' alt="robot logo declick")
+    img.home__robot-idea(
+      src="../assets/images/figures/robot-idea.svg",
+      alt="robot logo declick"
+    )
     h3 l'espace créatif
     p.
       La section « CRÉER » vous propose un environnement de travail où vous
       pouvez composer avec les notions acquises pour créer vos propres jeux et
       applications.
   .home__box
-    img.home__robot-observe(src='../assets/images/figures/robot-observe.svg' alt="robot logo declick")
+    img.home__robot-observe(
+      src="../assets/images/figures/robot-observe.svg",
+      alt="robot logo declick"
+    )
     h3 l'espace découverte
     p.
       Dans la section « JOUER » retrouvez et testez les jeux ou les
       applications créés par la communauté Declick.
   h2 declick en vidéo
   .home__video: iframe(
-    src='https://player.vimeo.com/video/211507001?title=0&byline=0&portrait=0'
-    frameborder='0'
-    webkitallowfullscreen
-    mozallowfullscreen
-    allowfullscreen
+    src="https://player.vimeo.com/video/211507001?title=0&byline=0&portrait=0",
+    frameborder="0",
+    webkitallowfullscreen,
+    mozallowfullscreen,
+    allowfullscreen,
     alt="video presentation declick"
   )
   h2 notre approche
   .home__box
-    img(src='../assets/images/figures/target.svg')
+    img(src="../assets/images/figures/target.svg")
     h3 notre mission
     p.
       Declick a été conçu pour initier les 8-15 ans au code et à la création
@@ -50,7 +59,7 @@
       ainsi une étape intermédiaire entre les éditeurs visuels (type Scratch)
       et les vrais environnements de programmation.
   .home__box
-    img(src='../assets/images/figures/chart.svg')
+    img(src="../assets/images/figures/chart.svg")
     h3 notre pédagogie
     p.
       Declick est le fruit de plus de 10 ans d'expérience de l'enseignement de
@@ -59,13 +68,13 @@
       d'ateliers dans les collèges les écoles élémentaires et les centres
       d'animation.
   .home__box
-    img(src='../assets/images/logos/Octocat.svg')
+    img(src="../assets/images/logos/Octocat.svg")
     h3 un logiciel libre
     p.
       Declick est gratuit et libre : le code source de la plateforme est
       hébergé sur GitHub et diffusé sous license GPL 3.0. Si vous voulez
       contribuer au développement, n'hésitez pas à nous contacter !
-    img.home__tag(src='../assets/images/figures/made-in-France.svg')
+    img.home__tag(src="../assets/images/figures/made-in-France.svg")
   .home__about-us
     h3 l'association Colombbus
     p.
@@ -74,74 +83,82 @@
       travers nos activités nous facilitons l'usage et l'appropriation des
       outils numériques qui deviennent alors vecteurs d'inclusion, de
       développement personnel et de lien social.
-    a(href='https://www.colombbus.org/' target='_blank') en savoir plus
+    a(href="https://www.colombbus.org/", target="_blank") en savoir plus
   .home__partners
     h3 nos partenaires éducatifs
     .home__logo-group
       a(
-        href='https://pixees.fr/classcode-v2/'
-        title="Class'Code"
-        target='_blank'
-      ): img(src='../assets/images/logos/ClassCode.svg')
+        href="https://pixees.fr/classcode-v2/",
+        title="Class'Code",
+        target="_blank"
+      ): img(
+        src="../assets/images/logos/ClassCode.svg"
+      )
       a(
-        href='https://d-clicsnumeriques.org/'
-        title='D-Clics Numériques'
-        target='_blank'
-      ): img(src='../assets/images/logos/D-Clics-Numeriques.svg')
+        href="https://d-clicsnumeriques.org/",
+        title="D-Clics Numériques",
+        target="_blank"
+      ): img(
+        src="../assets/images/logos/D-Clics-Numeriques.svg"
+      )
       a(
-        href='https://www.reseau-canope.fr/'
-        title='Réseau Canopé'
-        target='_blank'
-      ): img(src='../assets/images/logos/Canope.svg')
-      a(
-        href='http://www.ensiie.fr/'
-        title='ENSIIE'
-        target='_blank'
-      ): img(src='../assets/images/logos/ENSIIE.svg')
-      a(
-        href='http://www.france-ioi.org/'
-        title='France-IOI'
-        target='_blank'
-      ): img(src='../assets/images/logos/France-IOI.svg')
+        href="https://www.reseau-canope.fr/",
+        title="Réseau Canopé",
+        target="_blank"
+      ): img(
+        src="../assets/images/logos/Canope.svg"
+      )
+      a(href="http://www.ensiie.fr/", title="ENSIIE", target="_blank"): img(
+        src="../assets/images/logos/ENSIIE.svg"
+      )
+      a(href="http://www.france-ioi.org/", title="France-IOI", target="_blank"): img(
+        src="../assets/images/logos/France-IOI.svg"
+      )
     h3 nos partenaires publics
     .home__logo-group
       a(
-        href='http://www.education.gouv.fr/'
-        title="Ministère de l'Éducation nationale"
-        target='_blank'
-      ): img(src='../assets/images/logos/Ministere-Education-nationale.svg')
+        href="http://www.education.gouv.fr/",
+        title="Ministère de l'Éducation nationale",
+        target="_blank"
+      ): img(
+        src="../assets/images/logos/Ministere-Education-nationale.svg"
+      )
       a(
-        href='http://www.europe-en-france.gouv.fr/'
-        title="L'Europe s'engage"
-        target='_blank'
-      ): img(src='../assets/images/logos/lEurope-sengage.svg')
-      a(
-        href='https://www.paris.fr/'
-        title='Mairie de Paris'
-        target='_blank'
-      ): img(src='../assets/images/logos/Mairie-de-Paris.svg')
+        href="http://www.europe-en-france.gouv.fr/",
+        title="L'Europe s'engage",
+        target="_blank"
+      ): img(
+        src="../assets/images/logos/lEurope-sengage.svg"
+      )
+      a(href="https://www.paris.fr/", title="Mairie de Paris", target="_blank"): img(
+        src="../assets/images/logos/Mairie-de-Paris.svg"
+      )
     h3 nos mécènes
     .home__logo-group
       a(
-        href='https://www.vivendi.com/create-joy-fr/'
-        title='Vivendi Create Joy'
-        target='_blank'
-      ): img(src='../assets/images/logos/Vivendi-Create-Joy.svg')
+        href="https://www.vivendi.com/create-joy-fr/",
+        title="Vivendi Create Joy",
+        target="_blank"
+      ): img(
+        src="../assets/images/logos/Vivendi-Create-Joy.svg"
+      )
+      a(href="https://www.thalesgroup.com/fr", title="Thales", target="_blank"): img(
+        src="../assets/images/logos/Thales.svg"
+      )
       a(
-        href='https://www.thalesgroup.com/fr'
-        title='Thales'
-        target='_blank'
-      ): img(src='../assets/images/logos/Thales.svg')
+        href="https://www.fondation-sncf.org/fr/",
+        title="Fondation SNCF",
+        target="_blank"
+      ): img(
+        src="../assets/images/logos/Fondation-SNCF.svg"
+      )
       a(
-        href='https://www.fondation-sncf.org/fr/'
-        title='Fondation SNCF'
-        target='_blank'
-      ): img(src='../assets/images/logos/Fondation-SNCF.svg')
-      a(
-        href='https://www.sap.com/france/index.html'
-        title='SAP'
-        target='_blank'
-      ): img(src='../assets/images/logos/SAP_grad_R_pref.svg')
+        href="https://www.sap.com/france/index.html",
+        title="SAP",
+        target="_blank"
+      ): img(
+        src="../assets/images/logos/SAP_grad_R_pref.svg"
+      )
 </template>
 
 <script>
@@ -164,9 +181,27 @@
 export default {
   data() {
     return {
-      isPopupShown: true
+      isPopupShown: false,
     };
-  }
+  },
+  methods: {
+    hidePopup() {},
+  },
+  mounted() {
+    const storedDate = localStorage.getItem("declick-popup");
+    if (storedDate === null) {
+      this.isPopupShown = true;
+      localStorage.setItem("declick-popup", new Date());
+    }
+    // check if date is current day
+    const date = new Date(localStorage.getItem("declick-popup")).getDate();
+    const currentDate = new Date().getDate();
+
+    if (currentDate > date) {
+      this.isPopupShown = true;
+      localStorage.setItem("declick-popup", new Date());
+    }
+  },
 };
 </script>
 
@@ -352,10 +387,9 @@ hr.home__separation
     right: 20px
     // width: 95px
     // height: 50px
-    padding: 5px 10px 
+    padding: 5px 10px
     font-size: 25px
     text-transform: uppercase
-
 
 // small devices
 

@@ -1,5 +1,5 @@
 <template lang="pug">
-.self
+.course-list
   .course(v-for='course in courses')
     .image-area
       img(v-if='course.imageUrl', :src='getImg(course)')
@@ -68,7 +68,7 @@
 *
   font-size: 14pt
 
-.self
+.course-list
   max-width: 750px
   // @todo Find a workaround to override a property in Vue scoped CSS mode.
   margin: 0 auto !important
