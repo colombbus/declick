@@ -59,7 +59,7 @@
         course.showDetails = false
       })
       this.courses = courses
-      console.log(this.courses[0])
+      // console.log(this.courses[0])
     },
   }
 </script>
